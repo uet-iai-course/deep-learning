@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" role="img" aria-labelledby="title desc">
+  <title id="title">Các dạng đầu ra của bài toán học máy</title><desc id="desc">Một đầu vào đi tới năm nhánh: phân loại, hồi quy, dự đoán có cấu trúc, dự đoán dày đặc và dự đoán tuần tự.</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6Z" fill="#2f3e7a"/></marker></defs>
+  <rect x="35" y="135" width="170" height="90" rx="12" fill="#f7efe6" stroke="#b15a2b" stroke-width="3"/><text x="120" y="188" text-anchor="middle" font-size="28">Đầu vào x</text>
+  <g fill="#edf4ff" stroke="#2f3e7a" stroke-width="2" font-size="22" text-anchor="middle"><rect x="610" y="12" width="250" height="54" rx="10"/><text x="735" y="46">Phân loại</text><rect x="610" y="82" width="250" height="54" rx="10"/><text x="735" y="116">Hồi quy</text><rect x="610" y="152" width="250" height="54" rx="10"/><text x="735" y="186">Có cấu trúc</text><rect x="610" y="222" width="250" height="54" rx="10"/><text x="735" y="256">Dày đặc</text><rect x="610" y="292" width="250" height="54" rx="10"/><text x="735" y="326">Tuần tự</text></g>
+  <g stroke="#2f3e7a" stroke-width="3" fill="none" marker-end="url(#a)"><path d="M205 180C390 180 430 39 600 39"/><path d="M205 180C390 180 430 109 600 109"/><path d="M205 180H600"/><path d="M205 180C390 180 430 249 600 249"/><path d="M205 180C390 180 430 319 600 319"/></g>
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 410" role="img" aria-labelledby="title desc">
+  <title id="title">XOR trước biến đổi</title>
+  <desc id="desc">Bốn điểm XOR trong không gian đầu vào x, chưa có phép biến đổi hoặc biên phân loại.</desc>
+  <style>text{font-family:Arial,sans-serif}.ax{stroke:#333;stroke-width:3}.p0{fill:#fff;stroke:#2f3e7a;stroke-width:6}.p1{fill:#2f3e7a;stroke:#2f3e7a;stroke-width:3}</style>
+  <text x="380" y="38" text-anchor="middle" font-size="28" font-weight="700">Không gian đầu vào X</text><line class="ax" x1="190" y1="350" x2="585" y2="350"/><line class="ax" x1="190" y1="350" x2="190" y2="65"/><text x="600" y="359" font-size="24">x₁</text><text x="165" y="58" font-size="24">x₂</text><circle class="p0" cx="225" cy="315" r="15"/><circle class="p1" cx="225" cy="105" r="15"/><circle class="p1" cx="545" cy="315" r="15"/><circle class="p0" cx="545" cy="105" r="15"/>
+</svg>

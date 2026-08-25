@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+  <title>Bài NN: Tên bài</title>
+  <link rel="stylesheet" href="revealjs/dist/reset.css"/>
+  <link rel="stylesheet" href="revealjs/dist/reveal.css"/>
+  <link rel="stylesheet" href="revealjs/dist/theme/white.css"/>
+  <link rel="stylesheet" href="plugin/highlight/monokai.css"/>
+  <link rel="stylesheet" href="lecture-style.css"/>
+  <style>
+    .reveal .slides section[data-slide-id]{font-size:.86em}
+    .reveal h1,.reveal h2{color:#2f3e7a}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:.75em}
+    .card{border:1px solid #d8d8d8;border-radius:8px;padding:.45em .6em}
+    .box{border-left:5px solid #b15a2b;background:#f7efe6;padding:.5em .7em;border-radius:8px}
+    .check{background:#edf4ff;border:2px solid #2f3e7a;border-radius:8px;padding:.4em .6em}
+    .math-large{font-size:1.1em;text-align:center}
+    .note-source{font-size:.88em;color:#444}
+  </style>
+</head>
+<body>
+<div class="reveal">
+  <div class="slides">
+    <section>
+      <section data-slide-id="T00">
+        <h1>Tên bài</h1>
+        <h3>Bài NN · Học sâu</h3>
+        <p>Học kỳ 1 · Năm học 2026–2027</p>
+        <aside class="notes">Thay toàn bộ nội dung mẫu bằng mạch nói của bài.<p class="note-source"><strong>Nguồn:</strong> ghi tệp và số trang hoặc mục.</p></aside>
+      </section>
+      <section data-slide-id="T01">
+        <h2>Mục tiêu học tập</h2>
+        <div class="grid2">
+          <div class="card"><h3>Giải thích</h3><p>Nêu kết quả học tập có thể quan sát.</p></div>
+          <div class="card"><h3>Tính và triển khai</h3><p>Nêu tensor, công thức hoặc thuật toán người học phải sử dụng.</p></div>
+        </div>
+        <aside class="notes">Nêu tiên quyết, phạm vi và sản phẩm học tập.<p class="note-source"><strong>Nguồn:</strong> ghi tệp và số trang hoặc mục.</p></aside>
+      </section>
+    </section>
+
+    <section>
+      <section data-slide-id="T02">
+        <h2>Một luận điểm trung tâm</h2>
+        <div class="grid2">
+          <div class="card"><h3>Trực giác</h3><p>Dùng dữ liệu, tensor hoặc luồng tính toán để chuẩn bị ký hiệu.</p></div>
+          <div class="card"><h3>Hình thức</h3><div class="math-large">$$y=f_\theta(x).$$</div><p>Ghi miền và shape trước khi sử dụng.</p></div>
+        </div>
+        <aside class="notes">Giải thích quan hệ giữa trực giác và công thức; không lặp nguyên văn mặt trang.<p class="note-source"><strong>Nguồn:</strong> ghi tệp và số trang hoặc mục.</p></aside>
+      </section>
+      <section data-slide-id="T03">
+        <h2>Kiểm tra</h2>
+        <div class="check"><strong>Câu hỏi:</strong> yêu cầu người học tính, giải thích, so sánh hoặc áp dụng trực tiếp kết quả vừa xây dựng.</div>
+        <aside class="notes">Ghi đáp án, lỗi dễ mắc và câu nối sang phần tiếp theo.<p class="note-source"><strong>Nguồn:</strong> ghi tệp và số trang hoặc mục.</p></aside>
+      </section>
+    </section>
+
+    <div class="footer">Học sâu · Học kỳ 1, 2026–2027 · Bài NN</div>
+  </div>
+</div>
+<script src="revealjs/dist/reveal.js"></script>
+<script src="plugin/notes/notes.js"></script>
+<script src="plugin/markdown/markdown.js"></script>
+<script src="plugin/highlight/highlight.js"></script>
+<script src="plugin/math/math.js"></script>
+<script>
+Reveal.initialize({
+  width: 1280,
+  height: 720,
+  margin: .04,
+  controlsLayout: "edges",
+  slideNumber: true,
+  hashOneBasedIndex: true,
+  hash: true,
+  katex: {local: "vendor/katex"},
+  plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath.KaTeX]
+});
+</script>
+</body>
+</html>
