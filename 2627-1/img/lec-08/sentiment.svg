@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="300" viewBox="0 0 1000 300" role="img" aria-labelledby="title desc">
+  <title id="title">Phân tích cảm xúc bằng hai trạng thái cuối hợp lệ</title><desc id="desc">Văn bản được nhúng và đọc theo hai hướng; trạng thái thuận tại độ dài thật và trạng thái nghịch tại bước đầu được ghép thành biểu diễn có hai lần chiều ẩn rồi đưa qua tầng phân lớp.</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#2f3e7a"/></marker></defs>
+  <g fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"><rect x="35" y="105" width="170" height="85" rx="10"/><rect x="285" y="105" width="180" height="85" rx="10"/><rect x="545" y="105" width="180" height="85" rx="10"/><rect x="805" y="105" width="160" height="85" rx="10"/></g>
+  <g font-family="Arial" text-anchor="middle" fill="#263238"><text x="120" y="140" font-size="23">văn bản</text><text x="120" y="170" font-size="22">độ dài Lₙ</text><text x="375" y="140" font-size="23">nhúng từ</text><text x="375" y="170" font-size="22">N×T×Dₓ</text><text x="635" y="135" font-size="23">mạng hai chiều</text><text x="635" y="165" font-size="22">[H⃗Lₙ ‖ H⃖₁]</text><text x="635" y="187" font-size="22">N×2Dₕ</text><text x="885" y="140" font-size="23">phân lớp</text><text x="885" y="170" font-size="22">2 nhãn</text></g>
+  <g stroke="#2f3e7a" stroke-width="4" fill="none" marker-end="url(#a)"><path d="M205 147 H280"/><path d="M465 147 H540"/><path d="M725 147 H800"/></g>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="390" viewBox="0 0 1040 390" role="img" aria-labelledby="title desc">
+  <title id="title">Luồng tính của ô GRU</title><desc id="desc">Cổng đặt lại lọc trạng thái ẩn trước khi tạo ứng viên; cổng cập nhật trộn trạng thái cũ với ứng viên theo quy ước z nhân ứng viên mới.</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#2f3e7a"/></marker></defs>
+  <g fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"><rect x="45" y="155" width="170" height="76" rx="10"/><rect x="330" y="45" width="145" height="65" rx="10"/><rect x="330" y="145" width="145" height="65" rx="10"/><rect x="555" y="145" width="175" height="65" rx="10"/><rect x="805" y="145" width="175" height="65" rx="10"/></g>
+  <g font-family="Arial" text-anchor="middle" fill="#263238"><text x="130" y="188" font-size="24">[Xₜ,Hₜ₋₁]</text><text x="130" y="215" font-size="22">đầu vào chung</text><text x="402" y="85" font-size="24">Rₜ: đặt lại</text><text x="402" y="185" font-size="24">Zₜ: cập nhật</text><text x="642" y="185" font-size="24">Ứng viên H̃ₜ</text><text x="892" y="185" font-size="24">Trạng thái Hₜ</text></g>
+  <g stroke="#2f3e7a" stroke-width="4" fill="none" marker-end="url(#a)"><path d="M215 176 C260 176 275 77 325 77"/><path d="M215 193 H325"/><path d="M475 77 C520 77 520 160 550 170"/><path d="M215 210 C330 300 500 280 600 215"/><path d="M475 178 H550"/><path d="M730 178 H800"/></g>
+  <text x="635" y="258" font-size="23" text-anchor="middle" font-family="Arial">H̃ₜ dùng Rₜ ⊙ Hₜ₋₁</text><text x="892" y="258" font-size="23" text-anchor="middle" font-family="Arial">Hₜ=(1−Zₜ)⊙Hₜ₋₁+Zₜ⊙H̃ₜ</text>
+</svg>

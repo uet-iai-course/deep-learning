@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="390" viewBox="0 0 1000 390" role="img" aria-labelledby="title desc">
+  <title id="title">RNN ba tầng xếp chồng</title><desc id="desc">Ở mỗi tầng, trạng thái đi ngang theo thời gian và đầu ra của tầng dưới đi lên tầng trên tại cùng bước.</desc>
+  <defs><marker id="a" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#2f3e7a"/></marker></defs>
+  <g fill="#edf4ff" stroke="#2f3e7a" stroke-width="3">
+    <rect x="180" y="270" width="120" height="60" rx="10"/><rect x="440" y="270" width="120" height="60" rx="10"/><rect x="700" y="270" width="120" height="60" rx="10"/>
+    <rect x="180" y="165" width="120" height="60" rx="10"/><rect x="440" y="165" width="120" height="60" rx="10"/><rect x="700" y="165" width="120" height="60" rx="10"/>
+    <rect x="180" y="60" width="120" height="60" rx="10"/><rect x="440" y="60" width="120" height="60" rx="10"/><rect x="700" y="60" width="120" height="60" rx="10"/>
+  </g>
+  <g font-size="23" font-family="Arial" text-anchor="middle"><text x="240" y="307">H₁⁽¹⁾</text><text x="500" y="307">H₂⁽¹⁾</text><text x="760" y="307">H₃⁽¹⁾</text><text x="240" y="202">H₁⁽²⁾</text><text x="500" y="202">H₂⁽²⁾</text><text x="760" y="202">H₃⁽²⁾</text><text x="240" y="97">H₁⁽³⁾</text><text x="500" y="97">H₂⁽³⁾</text><text x="760" y="97">H₃⁽³⁾</text><text x="95" y="307">tầng 1</text><text x="95" y="202">tầng 2</text><text x="95" y="97">tầng 3</text></g>
+  <g stroke="#2f3e7a" stroke-width="3" fill="none" marker-end="url(#a)"><path d="M300 300 H435"/><path d="M560 300 H695"/><path d="M300 195 H435"/><path d="M560 195 H695"/><path d="M300 90 H435"/><path d="M560 90 H695"/><path d="M240 270 V230"/><path d="M500 270 V230"/><path d="M760 270 V230"/><path d="M240 165 V125"/><path d="M500 165 V125"/><path d="M760 165 V125"/></g>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="360" viewBox="0 0 1040 360" role="img" aria-labelledby="title desc">
+  <title id="title">Đạo hàm trực tiếp và đạo hàm toàn phần qua ô LSTM</title><desc id="desc">Nhánh trực tiếp từ trạng thái ô trước tới trạng thái ô hiện tại có hệ số cổng quên, còn đạo hàm toàn phần cộng thêm các nhánh qua trạng thái ẩn và các cổng.</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#2f3e7a"/></marker></defs>
+  <g fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"><rect x="55" y="55" width="145" height="68" rx="10"/><rect x="445" y="55" width="145" height="68" rx="10"/><rect x="835" y="55" width="145" height="68" rx="10"/><rect x="250" y="245" width="145" height="68" rx="10"/><rect x="640" y="245" width="145" height="68" rx="10"/></g>
+  <g font-family="Arial" font-size="25" text-anchor="middle"><text x="127" y="97">Cₜ₋₁</text><text x="517" y="97">Cₜ</text><text x="907" y="97">Cₜ₊₁</text><text x="322" y="287">Hₜ₋₁</text><text x="712" y="287">Hₜ</text></g>
+  <g stroke="#2e7d32" stroke-width="7" fill="none" marker-end="url(#a)"><path d="M200 89 H440"/><path d="M590 89 H830"/></g>
+  <g font-family="Arial" font-size="22" text-anchor="middle" fill="#2e7d32"><text x="320" y="75">nhánh trực tiếp Fₜ</text><text x="710" y="75">nhánh trực tiếp Fₜ₊₁</text></g>
+  <g stroke="#b15a2b" stroke-width="4" stroke-dasharray="10 7" fill="none" marker-end="url(#a)"><path d="M127 123 C127 220 240 220 290 242"/><path d="M395 279 C505 279 545 155 520 128"/><path d="M517 123 C517 220 630 220 680 242"/><path d="M785 279 C880 279 910 180 907 128"/></g>
+  <text x="520" y="345" font-size="23" text-anchor="middle" font-family="Arial" fill="#b15a2b">Các nhánh nét đứt đi qua H và phép tính cổng; đạo hàm toàn phần cộng mọi đường.</text>
+</svg>

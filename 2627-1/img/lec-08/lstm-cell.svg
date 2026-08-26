@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1050" height="410" viewBox="0 0 1050 410" role="img" aria-labelledby="title desc">
+  <title id="title">Luồng tính đầy đủ của ô LSTM</title><desc id="desc">Cổng quên nhân trạng thái ô trước, cổng vào nhân ứng viên, hai nhánh được cộng để tạo trạng thái ô mới; cổng ra lọc tanh của trạng thái ô để tạo trạng thái ẩn.</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#2f3e7a"/></marker></defs>
+  <g font-family="Arial" text-anchor="middle"><text x="65" y="75" font-size="25">Cₜ₋₁</text><text x="65" y="340" font-size="25">[Xₜ,Hₜ₋₁]</text><text x="995" y="75" font-size="25">Cₜ</text><text x="995" y="340" font-size="25">Hₜ</text></g>
+  <g fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"><rect x="205" y="275" width="120" height="62" rx="10"/><rect x="370" y="275" width="120" height="62" rx="10"/><rect x="535" y="275" width="120" height="62" rx="10"/><rect x="700" y="275" width="120" height="62" rx="10"/></g>
+  <g font-family="Arial" font-size="24" text-anchor="middle"><text x="265" y="314">Fₜ</text><text x="430" y="314">Iₜ</text><text x="595" y="314">Gₜ</text><text x="760" y="314">Oₜ</text></g>
+  <g fill="#f7efe6" stroke="#b15a2b" stroke-width="3"><circle cx="265" cy="80" r="30"/><circle cx="510" cy="80" r="30"/><circle cx="430" cy="185" r="30"/><circle cx="595" cy="185" r="30"/><circle cx="835" cy="185" r="30"/></g>
+  <g font-family="Arial" font-size="28" text-anchor="middle"><text x="265" y="90">×</text><text x="510" y="90">+</text><text x="430" y="195">×</text><text x="595" y="195">tanh</text><text x="835" y="195">×</text></g>
+  <g stroke="#2f3e7a" stroke-width="4" fill="none" marker-end="url(#a)"><path d="M90 66 H230"/><path d="M295 80 H475"/><path d="M540 80 H970"/><path d="M265 275 V115"/><path d="M430 275 V220"/><path d="M595 275 V220"/><path d="M455 185 H480 C490 185 500 125 505 115"/><path d="M540 80 C690 80 735 150 800 175"/><path d="M625 185 H800"/><path d="M760 275 V215 C760 195 790 185 800 185"/><path d="M865 185 C930 185 925 325 970 325"/></g>
+</svg>
