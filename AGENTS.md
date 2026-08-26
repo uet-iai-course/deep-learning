@@ -60,6 +60,8 @@ Bốn tệp quy trình gồm:
 ## Ngôn ngữ và biên tập
 
 - Viết thuần Việt. Chỉ giữ tiếng Anh cho tên riêng, tên phần mềm, API, ký hiệu chuẩn, tên kiến trúc hoặc thuật ngữ chưa có cách dịch ổn định.
+- Tiêu đề trang chiếu không được pha tiếng Anh khi đã có cách diễn đạt tiếng Việt rõ và ổn định. Chỉ giữ tiếng Anh trong tiêu đề khi đó là tên riêng, tên mô hình hoặc kiến trúc, API, ký hiệu chuẩn hay viết tắt thông dụng như MLP, CNN, ReLU, LSTM và Transformer.
+- Không viết kiểu “Forward pass phải giữ đúng shape”. Viết “Lan truyền xuôi phải giữ đúng kích thước tensor” hoặc một cách diễn đạt thuần Việt tương đương. Thuật ngữ tiếng Anh cần thiết có thể được giới thiệu trong thân bài hoặc ghi chú ở lần xuất hiện đầu, không dùng để tạo tiêu đề pha ngôn ngữ.
 - Khi dùng viết tắt lần đầu, viết đầy đủ bằng tiếng Việt rồi đặt dạng viết tắt trong ngoặc.
 - Viết ngắn, trực tiếp và học thuật. Dùng câu ngắn, động từ rõ và thuật ngữ nhất quán.
 - Không dùng câu hỏi tu từ, câu cảm thán, khẩu hiệu, lời ca tụng hoặc cách diễn đạt quảng bá.
@@ -211,7 +213,7 @@ Storyboard phải chỉ ra cho từng cụm:
 ## Tiêu chuẩn trang chiếu và ghi chú
 
 - Mỗi trang chiếu có một luận điểm trung tâm. Tách phép suy diễn, computational graph, giả mã hoặc bảng quá dài thay vì thu nhỏ chữ.
-- Tiêu đề ngắn và gọi đúng khái niệm. Không đặt tiêu đề dưới dạng “Tại sao...?”, “Vì sao...?” hoặc câu kể tiến trình.
+- Tiêu đề ngắn, gọi đúng khái niệm và tuân thủ quy tắc thuần Việt. Không đặt tiêu đề dưới dạng “Tại sao...?”, “Vì sao...?” hoặc câu kể tiến trình. Trước khi bàn giao, rà riêng toàn bộ nội dung trong `h1`, `h2` và `h3` để loại các cụm tiếng Anh không thuộc nhóm ngoại lệ đã cho phép.
 - Văn bản thân bài nên từ `0.75em` trở lên. Chỉ dùng dưới `0.65em` cho chú thích ngắn đã được tác tử góc nhìn sinh viên xác nhận đọc được.
 - Mỗi gạch đầu dòng không quá hai dòng ở khung 16:9. Chuyển diễn giải dài sang ghi chú diễn giả.
 - Công thức, tensor shape và code trung tâm phải đủ lớn, có khoảng trắng và không bị cắt.
@@ -311,6 +313,7 @@ Các tác tử sửa tệp không được chạy song song.
 - chạy `python3 -m reloadserver 8765` tại thư mục gốc; cổng là đối số vị trí, không dùng `--port`;
 - mở `http://localhost:8765/2627-1/lecture-NN-<ten-bai>.html` và duyệt mọi trang ngang, dọc;
 - kiểm tra tràn chữ, chữ nhỏ, chồng lấn, công thức, code, hình, tương phản và bàn phím ở khung 16:9 và một màn hình hẹp;
+- xuất danh sách toàn bộ tiêu đề `h1`, `h2`, `h3` và kiểm tra thủ công từng tiêu đề không pha tiếng Anh, trừ tên gọi, ký hiệu chuẩn hoặc viết tắt thông dụng đã được phép;
 - dùng Codex Slides để rà trực quan sau cùng và xác minh Design Files khớp bản trong kho;
 - chạy lại kiểm định sau mỗi sửa lỗi chặn bàn giao hoặc nghiêm trọng.
 

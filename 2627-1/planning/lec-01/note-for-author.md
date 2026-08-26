@@ -7,21 +7,21 @@ Tuyến lõi đi thẳng từ một khó khăn kỹ thuật đến một cơ ch�
 1. Không biết viết quy tắc cho một số ánh xạ đầu vào–đầu ra.
 2. Bốn mốc lịch sử nối với bốn thay đổi kỹ thuật, rồi học máy dùng dữ liệu để ước lượng tham số của một họ mô hình.
 3. Dữ liệu, tham số và dự đoán được phân biệt trước khi khóa bài toán phân loại nhị phân có giám sát.
-4. Một mô hình affine chỉ tạo biên phẳng; XOR là phản ví dụ tối thiểu.
-5. Xếp chồng affine vẫn là affine.
-6. Hàm không affine tạo biểu diễn mới; MLP hiện đại đặt activation ở đơn vị ẩn và tạo logit ở tầng ra.
-7. Một forward pass 2–2–1 giải XOR và cho phép kiểm tra shape, giá trị, tham số.
+4. Một mô hình dùng biến đổi afin chỉ tạo biên phẳng; XOR là phản ví dụ tối thiểu.
+5. Hợp thành nhiều biến đổi afin vẫn là một biến đổi afin.
+6. Hàm kích hoạt phi tuyến tạo biểu diễn mới; MLP hiện đại đặt hàm kích hoạt ở đơn vị ẩn và tạo logit ở tầng ra.
+7. Một lượt lan truyền xuôi 2–2–1 giải XOR và cho phép kiểm tra kích thước tensor, giá trị, tham số.
 
-Không dùng phần mở rộng để vá khái niệm lõi. Dành đúng 16 phút cho L01-00–09. Nghỉ ngắn sau L01-18, sau khi đã khóa cấu trúc MLP và shape, rồi mới chọn activation. Nếu chỉ có 100 phút, kết thúc ở L01-33. Nếu có thêm 20 phút, đi liền mạch qua L01-X01–X06: kiểm shape ba tầng → sâu/rộng → biên nhiều mảnh → xấp xỉ phổ dụng → biểu diễn phân tán → kiểm tra. Không nhảy riêng vào một trang giữa tuyến mở rộng.
+Không dùng phần mở rộng để vá khái niệm lõi. Dành đúng 16 phút cho L01-00–09. Nghỉ ngắn sau L01-18, sau khi đã khóa cấu trúc MLP và kích thước tensor, rồi mới chọn hàm kích hoạt. Nếu chỉ có 100 phút, kết thúc ở L01-33. Nếu có thêm 20 phút, đi liền mạch qua L01-X01–X06: kiểm tra kích thước tensor qua ba tầng → sâu/rộng → biên nhiều mảnh → xấp xỉ phổ dụng → biểu diễn phân tán → kiểm tra. Không nhảy riêng vào một trang giữa tuyến mở rộng.
 
 ## Điểm cần nhấn và lỗi dễ mắc
 
-- Gọi $Wx+b$ là phép affine. Chỉ $Wx$ là tuyến tính theo nghĩa toán học.
+- Gọi $Wx+b$ là biến đổi afin. Chỉ $Wx$ là tuyến tính theo nghĩa toán học.
 - Không gọi logit là xác suất trước khi áp dụng sigmoid hoặc softmax.
 - Tách tham số khỏi siêu tham số; batch size không làm tăng số tham số.
 - Khóa quy ước batch-first: mỗi hàng của $X$ là $x_i^\top$, ma trận trọng số nhân bên phải.
 - Tách huấn luyện khỏi suy luận; chỉ pha huấn luyện cập nhật $\theta$.
-- ReLU áp dụng theo phần tử và không đổi shape.
+- ReLU áp dụng theo phần tử và không đổi kích thước tensor.
 - ReLU không khả vi tại 0; phát biểu đúng là khả vi gần như mọi nơi.
 - Perceptron ngưỡng cứng dùng để giải thích lịch sử và hình học. MLP hiện đại trong bài dùng ReLU ở đơn vị ẩn, tạo logit rồi mới đổi thành dự đoán.
 - Hàm tầng ra phụ thuộc bài toán. Softmax chuẩn hóa theo trục lớp trong từng hàng $Z\in\mathbb R^{B\times k}$; loss ổn định số thường nhận logits.
@@ -40,11 +40,11 @@ $\operatorname{ReLU}([-2,0,3])=[0,0,3]$.
 - Nhãn $y$ tham gia tính mất mát và $\theta$ được cập nhật trong huấn luyện.
 - Trong $\hat y=f_\theta(x)$, $x$ được quan sát, $\theta$ được học và $\hat y$ được tạo ra.
 
-### Shape trung gian
+### Kích thước tensor trung gian
 
 Với $B=16,d=8,h=12,k=4$: $W_1:8\times12$, $H:16\times12$, $W_2:12\times4$, $Z:16\times4$.
 
-### Chọn activation
+### Chọn hàm kích hoạt
 
 - Đơn vị ẩn: ReLU là lựa chọn điển hình trong bài.
 - Một logit nhị phân: sigmoid.
@@ -54,11 +54,11 @@ Với $B=16,d=8,h=12,k=4$: $W_1:8\times12$, $H:16\times12$, $W_2:12\times4$, $Z:
 
 Với $(x_1,x_2)=(0,1)$: $H=(1,0)$, logit $0.5$, $p\approx0.622$, $\hat y=1$.
 
-### Chuỗi affine rồi ReLU của XOR
+### Chuỗi biến đổi afin rồi ReLU của XOR
 
 Với $W_1=\begin{bmatrix}1&1\\1&1\end{bmatrix}$ và $b_1=[0,-1]$, bốn hàng của $A=XW_1+b_1$ là $(0,-1),(1,0),(1,0),(2,1)$. ReLU chỉ thay $(0,-1)$ bằng $(0,0)$; ba vị trí còn lại không đổi.
 
-### Shape và số tham số cuối bài
+### Kích thước tensor và số tham số cuối bài
 
 Với $X\in\mathbb R^{32\times10}$, $h=20$, $k=3$:
 
@@ -68,7 +68,7 @@ Với $X\in\mathbb R^{32\times10}$, $h=20$, $k=3$:
 - $Z\in\mathbb R^{32\times3}$;
 - tổng tham số: $10\cdot20+20+20\cdot3+3=283$.
 
-XOR cần phép không affine vì mọi chuỗi chỉ gồm affine rút thành một phép affine. Bao lồi của hai lớp XOR giao nhau, nên một biên affine không thể tách nghiêm ngặt hai lớp.
+XOR cần hàm phi tuyến vì mọi chuỗi chỉ gồm biến đổi afin rút thành một biến đổi afin. Bao lồi của hai lớp XOR giao nhau, nên biên của một biến đổi afin không thể tách nghiêm ngặt hai lớp.
 
 ## Bài tập 50 phút
 
@@ -80,9 +80,9 @@ Cách tổ chức: 4 phút làm cá nhân, 3 phút so sánh theo cặp, 3 phút 
 
 Đáp án: hai điểm dương $(0,1),(1,0)$ nằm ở hai góc đối diện; hai điểm âm $(0,0),(1,1)$ nằm ở hai góc còn lại. Bao lồi của hai lớp giao nhau tại $(0.5,0.5)$, nên không có siêu phẳng phân tách nghiêm ngặt.
 
-### Hoạt động 2: vẽ MLP và ghi shape, 20 phút
+### Hoạt động 2: vẽ MLP và ghi kích thước tensor, 20 phút
 
-Đề: Batch có $B=16$, mỗi mẫu có $d=8$ đặc trưng. MLP có hai tầng ẩn lần lượt 12 và 5 đơn vị ReLU, sau đó tạo 4 logit. Vẽ mạng ở mức tầng, ghi shape của tensor và tham số, rồi tính số tham số. Mỗi hàng của $X$ là $x_i^\top$.
+Đề: Lô dữ liệu có $B=16$, mỗi mẫu có $d=8$ đặc trưng. MLP có hai tầng ẩn lần lượt 12 và 5 đơn vị ReLU, sau đó tạo 4 logit. Vẽ mạng ở mức tầng, ghi kích thước của tensor và tham số, rồi tính số tham số. Mỗi hàng của $X$ là $x_i^\top$.
 
 Đáp án:
 
@@ -92,11 +92,11 @@ Cách tổ chức: 4 phút làm cá nhân, 3 phút so sánh theo cặp, 3 phút 
 - $W_3:5\times4$, $b_3:4$, $Z:16\times4$;
 - số tham số: $8\cdot12+12+12\cdot5+5+5\cdot4+4=197$.
 
-Lỗi cần bắt: cộng batch size vào số tham số; đảo shape của $W$; áp dụng softmax theo chiều batch.
+Lỗi cần bắt: cộng kích thước lô vào số tham số; đảo kích thước của $W$; áp dụng softmax theo chiều lô.
 
-### Hoạt động 3: affine và ReLU, 15 phút
+### Hoạt động 3: biến đổi afin và ReLU, 15 phút
 
-Đề: Với $H=XW_1+b_1$ và $Y=HW_2+b_2$, rút gọn $Y$ về một phép affine của $X$. Sau đó giải thích vì sao thay $H$ bằng $\operatorname{ReLU}(XW_1+b_1)$ làm phép rút gọn thất bại.
+Đề: Với $H=XW_1+b_1$ và $Y=HW_2+b_2$, rút gọn $Y$ về một biến đổi afin của $X$. Sau đó giải thích vì sao thay $H$ bằng $\operatorname{ReLU}(XW_1+b_1)$ làm phép rút gọn thất bại.
 
 Đáp án:
 
@@ -109,7 +109,7 @@ Khi có ReLU, không tồn tại một ma trận cố định có thể thay $\o
 ### Hoạt động 4: quiz, 5 phút
 
 1. Đại lượng nào được cập nhật trong huấn luyện? Đáp án: tham số $\theta$.
-2. ReLU có đổi shape không? Đáp án: không, vì áp dụng theo phần tử.
+2. ReLU có đổi kích thước tensor không? Đáp án: không, vì áp dụng theo phần tử.
 3. Một logit nhị phân trở thành xác suất bằng hàm nào? Đáp án: sigmoid.
 4. MLP $d$–$h$–$k$ có bao nhiêu tham số? Đáp án: $dh+h+hk+k$.
 
