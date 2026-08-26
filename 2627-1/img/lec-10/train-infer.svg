@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="330" viewBox="0 0 1080 330" role="img" aria-labelledby="title desc">
+  <title id="title">Đầu vào giải mã khi huấn luyện và suy luận</title>
+  <desc id="desc">Huấn luyện dùng ký hiệu đích đúng lệch một bước, còn suy luận dùng ký hiệu vừa dự đoán và dừng riêng từng mẫu tại EOS hoặc độ dài tối đa.</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#2f3e7a"/></marker></defs>
+  <text x="80" y="75" font-family="Arial" font-size="25" fill="#263238">Huấn luyện</text><text x="80" y="235" font-family="Arial" font-size="25" fill="#263238">Suy luận</text>
+  <g fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"><rect x="250" y="35" width="150" height="65" rx="10"/><rect x="475" y="35" width="150" height="65" rx="10"/><rect x="700" y="35" width="150" height="65" rx="10"/><rect x="250" y="195" width="150" height="65" rx="10"/><rect x="475" y="195" width="150" height="65" rx="10"/><rect x="700" y="195" width="150" height="65" rx="10"/></g>
+  <g font-family="Arial" font-size="23" text-anchor="middle" fill="#263238"><text x="325" y="76">&lt;bos&gt;</text><text x="550" y="76">y(1) đúng</text><text x="775" y="76">y(2) đúng</text><text x="325" y="236">&lt;bos&gt;</text><text x="550" y="236">ŷ(1)</text><text x="775" y="236">ŷ(2) / &lt;eos&gt;</text></g>
+  <g stroke="#2f3e7a" stroke-width="4" fill="none" marker-end="url(#a)"><path d="M400 68 H470"/><path d="M625 68 H695"/><path d="M400 228 H470"/><path d="M625 228 H695"/></g>
+  <text x="930" y="227" font-family="Arial" font-size="22" fill="#b15a2b">dừng theo mẫu</text>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="340" viewBox="0 0 1080 340" role="img" aria-labelledby="title desc">
+  <title id="title">Nút thắt ngữ cảnh cố định của bộ mã hóa–giải mã</title>
+  <desc id="desc">Bốn trạng thái nguồn bị nén vào một vectơ ngữ cảnh duy nhất rồi được dùng ở mọi bước giải mã.</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#2f3e7a"/></marker></defs>
+  <g fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"><rect x="40" y="210" width="130" height="62" rx="10"/><rect x="195" y="210" width="130" height="62" rx="10"/><rect x="350" y="210" width="130" height="62" rx="10"/><rect x="505" y="210" width="130" height="62" rx="10"/></g>
+  <g fill="#e8f5e9" stroke="#2e7d32" stroke-width="3"><rect x="40" y="105" width="130" height="62" rx="10"/><rect x="195" y="105" width="130" height="62" rx="10"/><rect x="350" y="105" width="130" height="62" rx="10"/><rect x="505" y="105" width="130" height="62" rx="10"/></g>
+  <rect x="685" y="105" width="120" height="62" rx="31" fill="#f7efe6" stroke="#b15a2b" stroke-width="4"/>
+  <g fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"><rect x="850" y="55" width="150" height="58" rx="10"/><rect x="850" y="142" width="150" height="58" rx="10"/><rect x="850" y="229" width="150" height="58" rx="10"/></g>
+  <g font-family="Arial" font-size="23" text-anchor="middle" fill="#263238"><text x="105" y="250">x(1)</text><text x="260" y="250">x(2)</text><text x="415" y="250">x(3)</text><text x="570" y="250">x(4)</text><text x="105" y="145">h(1)</text><text x="260" y="145">h(2)</text><text x="415" y="145">h(3)</text><text x="570" y="145">h(4)</text><text x="745" y="145">c cố định</text><text x="925" y="91">y(1)</text><text x="925" y="178">y(2)</text><text x="925" y="265">y(3)</text></g>
+  <g stroke="#2f3e7a" stroke-width="4" fill="none" marker-end="url(#a)"><path d="M105 210 V172"/><path d="M260 210 V172"/><path d="M415 210 V172"/><path d="M570 210 V172"/><path d="M170 136 H190"/><path d="M325 136 H345"/><path d="M480 136 H500"/><path d="M635 136 H680"/><path d="M805 136 C825 136 825 84 845 84"/><path d="M805 136 H845"/><path d="M805 136 C825 136 825 258 845 258"/></g>
+  <text x="745" y="205" font-family="Arial" font-size="22" text-anchor="middle" fill="#b15a2b">một vectơ cho mọi bước</text>
+</svg>

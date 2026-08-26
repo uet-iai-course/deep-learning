@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="330" viewBox="0 0 1080 330" role="img" aria-labelledby="title desc">
+  <title id="title">Hàm điểm cộng Bahdanau</title>
+  <desc id="desc">Truy vấn và từng khóa đi qua hai phép chiếu, được cộng với độ lệch, qua tanh rồi chiếu thành một điểm vô hướng.</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#2f3e7a"/></marker></defs>
+  <g fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"><rect x="45" y="65" width="170" height="65" rx="10"/><rect x="45" y="205" width="170" height="65" rx="10"/><rect x="300" y="65" width="170" height="65" rx="10"/><rect x="300" y="205" width="170" height="65" rx="10"/></g>
+  <circle cx="565" cy="167" r="48" fill="#f7efe6" stroke="#b15a2b" stroke-width="3"/><rect x="660" y="135" width="150" height="65" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="3"/><rect x="875" y="135" width="150" height="65" rx="10" fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"/>
+  <g font-family="Arial" font-size="23" text-anchor="middle" fill="#263238"><text x="130" y="105">s(t′−1): D_s</text><text x="130" y="245">h(i): D_h</text><text x="385" y="105">s(t′−1) W_s</text><text x="385" y="245">h(i) W_h</text><text x="565" y="175">+ b_a</text><text x="735" y="175">tanh</text><text x="950" y="163">nhân v_a</text><text x="950" y="188">→ e(t′,i) ∈ ℝ</text></g>
+  <g stroke="#2f3e7a" stroke-width="4" fill="none" marker-end="url(#a)"><path d="M215 97 H295"/><path d="M215 237 H295"/><path d="M470 97 C510 97 520 125 530 140"/><path d="M470 237 C510 237 520 205 530 190"/><path d="M613 167 H655"/><path d="M810 167 H870"/></g>
+</svg>

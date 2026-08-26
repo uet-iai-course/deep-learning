@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="360" viewBox="0 0 1080 360" role="img" aria-labelledby="title desc">
+  <title id="title">Vết tính chú ý từ điểm số đến ngữ cảnh</title>
+  <desc id="desc">Ba trạng thái nguồn nhận điểm số một, hai và không; softmax tạo trọng số xấp xỉ 0.2447, 0.6652 và 0.0900 rồi tổng hợp ngữ cảnh hai chiều.</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#2f3e7a"/></marker></defs>
+  <g fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"><rect x="45" y="90" width="190" height="90" rx="10"/><rect x="45" y="220" width="190" height="90" rx="10"/></g>
+  <rect x="315" y="125" width="190" height="120" rx="10" fill="#f7efe6" stroke="#b15a2b" stroke-width="3"/>
+  <rect x="585" y="125" width="205" height="120" rx="10" fill="#e8f5e9" stroke="#2e7d32" stroke-width="3"/>
+  <rect x="870" y="125" width="170" height="120" rx="10" fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"/>
+  <g font-family="Arial" text-anchor="middle" fill="#263238"><text x="140" y="122" font-size="23">giá trị H</text><text x="140" y="151" font-size="22">(1,0), (0,2),</text><text x="140" y="175" font-size="22">(−1,1)</text><text x="140" y="254" font-size="23">điểm e</text><text x="140" y="287" font-size="22">(1, 2, 0)</text><text x="410" y="167" font-size="23">softmax nguồn</text><text x="410" y="204" font-size="22">trừ max = 2</text><text x="687" y="163" font-size="23">trọng số α</text><text x="687" y="195" font-size="22">(.2447, .6652,</text><text x="687" y="222" font-size="22">.0900)</text><text x="955" y="165" font-size="23">ngữ cảnh c</text><text x="955" y="205" font-size="22">(.1547,</text><text x="955" y="232" font-size="22">1.4205)</text></g>
+  <g stroke="#2f3e7a" stroke-width="4" fill="none" marker-end="url(#a)"><path d="M235 265 H310"/><path d="M505 185 H580"/><path d="M790 185 H865"/><path d="M235 135 C520 30 760 55 900 120"/></g>
+</svg>

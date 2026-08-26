@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="350" viewBox="0 0 1080 350" role="img" aria-labelledby="title desc">
+  <title id="title">Cùng phép truy xuất trên chuỗi, lưới ảnh và cặp văn bản</title>
+  <desc id="desc">Ba ứng dụng dùng truy vấn để chấm điểm một tập khóa, chuẩn hóa trọng số và tổng hợp các giá trị tương ứng.</desc>
+  <g fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"><rect x="45" y="80" width="285" height="190" rx="12"/><rect x="397" y="80" width="285" height="190" rx="12"/><rect x="749" y="80" width="285" height="190" rx="12"/></g>
+  <g font-family="Arial" text-anchor="middle" fill="#263238"><text x="188" y="125" font-size="25">Dịch máy</text><text x="188" y="170" font-size="22">truy vấn: trạng thái đích</text><text x="188" y="205" font-size="22">khóa/giá trị: trạng thái</text><text x="188" y="235" font-size="22">nguồn</text><text x="540" y="125" font-size="25">Mô tả ảnh</text><text x="540" y="170" font-size="22">truy vấn: trạng thái từ</text><text x="540" y="205" font-size="22">khóa/giá trị: đặc trưng</text><text x="540" y="235" font-size="22">theo vùng ảnh</text><text x="892" y="125" font-size="25">Cặp văn bản</text><text x="892" y="170" font-size="22">truy vấn: ký hiệu câu A</text><text x="892" y="205" font-size="22">khóa/giá trị: ký hiệu</text><text x="892" y="235" font-size="22">câu B</text></g>
+  <text x="540" y="320" font-family="Arial" font-size="24" text-anchor="middle" fill="#b15a2b">điểm → softmax → tổng có trọng số</text>
+</svg>
