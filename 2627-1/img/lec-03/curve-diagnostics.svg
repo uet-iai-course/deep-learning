@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" role="img" aria-labelledby="title desc">
+<title id="title">Bốn dạng đường cong mất mát dễ chẩn đoán</title><desc id="desc">Bốn ô lần lượt biểu diễn mất mát không giảm, tăng dần, thành NaN và dao động theo chu kỳ.</desc>
+<rect width="1000" height="360" fill="#fff"/><g font-family="Arial,sans-serif" font-size="18" fill="#26345f" stroke-linecap="round">
+<g transform="translate(25 30)"><text x="100" y="0" text-anchor="middle">Không giảm</text><path d="M20 265V25M20 265H210" stroke="#777"/><path d="M25 100 C80 101 140 98 205 100" fill="none" stroke="#b15a2b" stroke-width="6"/></g>
+<g transform="translate(270 30)"><text x="100" y="0" text-anchor="middle">Tăng dần</text><path d="M20 265V25M20 265H210" stroke="#777"/><path d="M25 220 C85 190 140 120 205 55" fill="none" stroke="#b15a2b" stroke-width="6"/></g>
+<g transform="translate(515 30)"><text x="100" y="0" text-anchor="middle">Mất ổn định</text><path d="M20 265V25M20 265H210" stroke="#777"/><path d="M25 210 C75 175 105 140 130 100 L150 245 L165 50" fill="none" stroke="#b15a2b" stroke-width="6"/><text x="182" y="50" fill="#b15a2b">NaN</text></g>
+<g transform="translate(760 30)"><text x="100" y="0" text-anchor="middle">Có chu kỳ</text><path d="M20 265V25M20 265H210" stroke="#777"/><path d="M25 170 C45 75 70 250 95 150 S145 75 170 150 S195 225 205 130" fill="none" stroke="#b15a2b" stroke-width="6"/></g>
+<text x="500" y="345" text-anchor="middle" font-size="16" fill="#555">Bước cập nhật</text></g></svg>

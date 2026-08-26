@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" role="img" aria-labelledby="title desc">
+  <title id="title">Trục rút gọn của BN và LN</title>
+  <desc id="desc">Với tensor B nhân D, chuẩn hóa theo lô BN rút gọn trục B cho từng đặc trưng D; chuẩn hóa theo tầng LN rút gọn trục D cho từng mẫu B.</desc>
+  <rect width="1000" height="360" fill="#fff"/>
+  <g font-family="Arial,sans-serif" text-anchor="middle">
+    <g fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"><rect x="80" y="35" width="380" height="285" rx="14"/><rect x="540" y="35" width="380" height="285" rx="14"/></g>
+    <g fill="#26345f">
+      <text x="270" y="82" font-size="27">BN: chuẩn hóa theo lô</text><text x="730" y="82" font-size="27">LN: chuẩn hóa theo tầng</text>
+      <text x="270" y="145" font-size="42">X: B × D</text><text x="730" y="145" font-size="42">X: B × D</text>
+      <text x="270" y="210" font-size="25">rút gọn B</text><text x="270" y="248" font-size="23">giữ từng đặc trưng D</text>
+      <text x="730" y="210" font-size="25">rút gọn D</text><text x="730" y="248" font-size="23">giữ từng mẫu B</text>
+      <text x="270" y="292" font-size="21">phụ thuộc thành phần lô</text><text x="730" y="292" font-size="21">không trộn các mẫu</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 350" role="img" aria-labelledby="title desc">
+  <title id="title">Ba chế độ tốc độ học</title><desc id="desc">Ba đồ thị mất mát theo bước cập nhật: quá nhỏ giảm chậm bằng nét đứt, phù hợp giảm đều bằng nét liền, quá lớn dao động bằng nét chấm gạch.</desc>
+  <rect width="1000" height="350" fill="#fff"/>
+  <g font-family="Arial,sans-serif" fill="#26345f" text-anchor="middle">
+    <g transform="translate(15 20)"><text x="155" y="20" font-size="23">Quá nhỏ</text><path d="M45 285V45M45 285H305" stroke="#555" stroke-width="2"/><path d="M55 75 C140 90 220 120 295 175" fill="none" stroke="#b15a2b" stroke-width="6" stroke-dasharray="14 10"/><text x="175" y="325" font-size="18">bước cập nhật</text><text x="-165" y="18" transform="rotate(-90)" font-size="18">mất mát</text></g>
+    <g transform="translate(335 20)"><text x="155" y="20" font-size="23">Phù hợp</text><path d="M45 285V45M45 285H305" stroke="#555" stroke-width="2"/><path d="M55 75 C105 150 165 225 295 255" fill="none" stroke="#2f3e7a" stroke-width="6"/><text x="175" y="325" font-size="18">bước cập nhật</text><text x="-165" y="18" transform="rotate(-90)" font-size="18">mất mát</text></g>
+    <g transform="translate(655 20)"><text x="155" y="20" font-size="23">Quá lớn</text><path d="M45 285V45M45 285H305" stroke="#555" stroke-width="2"/><path d="M55 170 L90 85 L125 235 L165 65 L205 255 L245 40 L295 285" fill="none" stroke="#b15a2b" stroke-width="6" stroke-dasharray="18 7 4 7"/><text x="175" y="325" font-size="18">bước cập nhật</text><text x="-165" y="18" transform="rotate(-90)" font-size="18">mất mát</text></g>
+  </g>
+</svg>
