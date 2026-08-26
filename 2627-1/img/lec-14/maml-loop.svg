@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="340" viewBox="0 0 1100 340" role="img" aria-labelledby="title desc">
+  <title id="title">Hai vòng của MAML</title>
+  <desc id="desc">Một lô tác vụ dùng chung khởi tạo theta. Tập hỗ trợ của mỗi tác vụ tạo tham số thích nghi phi riêng; tập truy vấn tạo mất mát. Các mất mát được trung bình để cập nhật theta.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8z" fill="#2f3e7a"/></marker>
+    <style>.blue{fill:#edf4ff;stroke:#2f3e7a;stroke-width:3}.green{fill:#e8f5e9;stroke:#2e7d32;stroke-width:3}.orange{fill:#f7efe6;stroke:#b15a2b;stroke-width:3}.line{fill:none;stroke:#2f3e7a;stroke-width:4;marker-end:url(#arrow)}.txt{font:34px Arial,sans-serif;fill:#172554;text-anchor:middle}</style>
+  </defs>
+  <rect width="1100" height="340" fill="#fff"/>
+  <rect class="blue" x="25" y="120" width="170" height="100" rx="12"/><text class="txt" x="110" y="160">theta chung</text><text class="txt" x="110" y="198">khởi tạo</text>
+  <rect class="green" x="255" y="35" width="205" height="105" rx="12"/><text class="txt" x="357" y="78">Hỗ trợ 1</text><text class="txt" x="357" y="116">tạo phi(1)</text>
+  <rect class="green" x="255" y="205" width="205" height="105" rx="12"/><text class="txt" x="357" y="248">Hỗ trợ 2</text><text class="txt" x="357" y="286">tạo phi(2)</text>
+  <rect class="orange" x="520" y="35" width="205" height="105" rx="12"/><text class="txt" x="622" y="78">Truy vấn 1</text><text class="txt" x="622" y="116">mất mát 1</text>
+  <rect class="orange" x="520" y="205" width="205" height="105" rx="12"/><text class="txt" x="622" y="248">Truy vấn 2</text><text class="txt" x="622" y="286">mất mát 2</text>
+  <rect class="blue" x="760" y="120" width="165" height="100" rx="12"/><text class="txt" x="842" y="160">trung bình</text><text class="txt" x="842" y="198">tác vụ</text>
+  <rect class="blue" x="955" y="120" width="140" height="100" rx="12"/><text class="txt" x="1025" y="160">cập nhật</text><text class="txt" x="1025" y="198">theta</text>
+  <path class="line" d="M200 145L245 95M200 195L245 255M465 87H510M465 257H510M730 87L750 145M730 257L750 195M930 170H945"/>
+</svg>
