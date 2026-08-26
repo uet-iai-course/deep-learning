@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+  <title>Bài 06: Học biểu diễn và Autoencoder</title>
+  <link rel="stylesheet" href="revealjs/dist/reset.css"/>
+  <link rel="stylesheet" href="revealjs/dist/reveal.css"/>
+  <link rel="stylesheet" href="revealjs/dist/theme/white.css"/>
+  <link rel="stylesheet" href="plugin/highlight/monokai.css"/>
+  <link rel="stylesheet" href="lecture-style.css"/>
+  <style>
+    .reveal .slides section[data-slide-id]{font-size:.88em}
+    .reveal h1,.reveal h2,.reveal h3{color:#2f3e7a}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:.7em;align-items:center}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:.55em}
+    .card{border:1px solid #cfd5df;border-radius:10px;padding:.42em .58em;background:#fff}
+    .box{border-left:6px solid #b15a2b;background:#f7efe6;padding:.46em .65em;border-radius:8px}
+    .check{background:#edf4ff;border:2px solid #2f3e7a;border-radius:9px;padding:.48em .65em}
+    .math-mid{font-size:1em;text-align:center}
+    .small{font-size:.88em}.tiny{font-size:.86em}.muted{color:#555}
+    .reveal table{font-size:.86em;margin:.25em auto}.reveal th{background:#edf4ff}.reveal td,.reveal th{padding:.25em .42em}
+    .figure{max-height:360px;max-width:100%;margin:.15em auto}
+    .figure.short{max-height:295px}.tag{display:inline-block;border:1px solid #2f3e7a;border-radius:1em;padding:.08em .48em;margin:.1em}
+    .note-source{font-size:.88em;color:#444}
+  </style>
+</head>
+<body><div class="reveal"><div class="slides">
+
+<section>
+  <section data-slide-id="L06-00">
+    <h1>Học biểu diễn và Autoencoder</h1><h3>Bài 06 · Học sâu</h3><p>Học kỳ 1 · Năm học 2026–2027</p>
+    <p class="box">Từ dữ liệu chưa gán nhãn đến một mã có ích cho tác vụ đích.</p>
+    <aside class="notes">Mở bài bằng câu hỏi thực dụng: nếu nhãn ít nhưng ảnh chưa gán nhãn nhiều, ta có thể học được gì trước? Autoencoder là trường hợp nghiên cứu giúp tách cơ chế học biểu diễn khỏi tác vụ đích.<p class="note-source"><strong>Nguồn:</strong> DOCX, Buổi 06; Stanford, tr. 63–67.</p></aside>
+  </section>
+  <section data-slide-id="L06-01">
+    <h2>Hai kết quả học tập</h2><div class="grid2">
+      <div class="card"><h3>LLO11</h3><p>Giải thích vai trò của bộ mã hóa, mã tiềm ẩn và bộ giải mã; tính kích thước và mất mát tái tạo.</p></div>
+      <div class="card"><h3>LLO12</h3><p>Chọn cách tái sử dụng biểu diễn bằng đóng băng hoặc tinh chỉnh cho tác vụ đích.</p></div>
+    </div><p class="small">Tiên quyết: MLP, CNN, lan truyền ngược, chia tập dữ liệu và chế độ huấn luyện–đánh giá của từng mô-đun.</p>
+    <aside class="notes">Bài tập trung vào luồng tensor, mất mát tái tạo và giao thức tái sử dụng biểu diễn. Khả năng tạo ảnh mới cần một mục tiêu khác sẽ được phân biệt ở cuối bài.<p class="note-source"><strong>Nguồn:</strong> DOCX, Buổi 06; Stanford, tr. 63–70.</p></aside>
+  </section>
+</section>
+
+<section>
+  <section data-slide-id="L06-02">
+    <h2>Biểu diễn quyết định độ khó của tác vụ</h2><img class="figure" src="img/lec-06/numeral-representation.svg" alt="So sánh phép chia 210 cho 6 trong hệ thập phân và CCX cho VI trong hệ La Mã"/>
+    <p class="box">Cùng một đối tượng, cách mã hóa khác nhau có thể làm quy tắc dự đoán đơn giản hoặc phức tạp.</p>
+    <aside class="notes">Phép chia giữ nguyên giá trị nhưng cách viết số thay đổi độ khó của thao tác. Với ảnh, điểm ảnh là đầu vào nhưng chưa chắc là biểu diễn thuận lợi cho phân loại.<p class="note-source"><strong>Nguồn:</strong> CMU Representation Learning, tr. 1–6.</p></aside>
+  </section>
+  <section data-slide-id="L06-03">
+    <h2>Từ điểm ảnh đến mã có ích</h2><img class="figure" src="img/lec-06/representation-route.svg" alt="Luồng từ ảnh điểm ảnh qua biểu diễn z đến tác vụ đích"/>
+    <div class="grid2 small"><div class="card"><strong>Đầu vào:</strong> ảnh chưa gán nhãn.</div><div class="card"><strong>Mục tiêu:</strong> mã $z$ hỗ trợ tác vụ đích chưa dùng trong tiền huấn luyện.</div></div>
+    <aside class="notes">Không gọi mã là “đặc trưng tốt” chỉ vì tái tạo được. Tính hữu ích phụ thuộc tác vụ và phải được đánh giá bằng giao thức riêng.<p class="note-source"><strong>Nguồn:</strong> Stanford, tr. 63–64, 67; CMU Representation Learning, tr. 14–17.</p></aside>
+  </section>
+  <section data-slide-id="L06-04">
+    <h2>Tín hiệu học đến từ chính dữ liệu</h2><div class="grid3">
+      <div class="card"><h3>Dữ liệu</h3><p>$X_{\mathrm{img}}$ chưa có nhãn lớp.</p></div><div class="card"><h3>Mục tiêu thay thế</h3><p>Tái tạo $X$ hoặc bản sạch của $X$.</p></div><div class="card"><h3>Sản phẩm</h3><p>Tham số của bộ mã hóa.</p></div>
+    </div><p class="box">Học tự giám sát (self-supervised learning) tạo mục tiêu huấn luyện từ cấu trúc của dữ liệu.</p>
+    <aside class="notes">Ở đây mục tiêu thay thế là tái tạo. Không suy rộng rằng mọi phương pháp tự giám sát đều là autoencoder.<p class="note-source"><strong>Nguồn:</strong> Stanford, tr. 63–66; GT, tr. 168–171.</p></aside>
+  </section>
+  <section data-slide-id="L06-05">
+    <h2>Kiểm tra về biểu diễn</h2><div class="check"><strong>Câu hỏi:</strong> Một mã tái tạo ảnh gần như hoàn hảo có chắc giúp phân loại chữ số tốt không?</div>
+    <div class="fragment box"><strong>Không chắc.</strong> Tái tạo đo khả năng giữ thông tin cho mục tiêu thay thế; tác vụ đích cần được kiểm định riêng.</div>
+    <aside class="notes">Tái tạo và phân loại đo hai thuộc tính khác nhau. Một mã giữ nhiều chi tiết điểm ảnh vẫn có thể đặt các lớp gần nhau trong không gian mã.<p class="note-source"><strong>Nguồn:</strong> CMU Autoencoders, tr. 3; CMU Representation Learning, tr. 14–17.</p></aside>
+  </section>
+</section>
+
+<section>
+  <section data-slide-id="L06-06">
+    <h2>Autoencoder có ba phần</h2><img class="figure" src="img/lec-06/ae-overview.svg" alt="Bộ mã hóa biến x thành z và bộ giải mã biến z thành x mũ"/>
+    <p class="math-mid">$$z^{(n)}=f_\theta(x^{(n)}),\qquad \hat{x}^{(n)}=g_\phi(z^{(n)}).$$</p>
+    <aside class="notes">Bộ mã hóa nén hoặc biến đổi đầu vào thành mã; bộ giải mã dùng mã để tái tạo. Hai khối được huấn luyện đồng thời bằng lỗi tái tạo.<p class="note-source"><strong>Nguồn:</strong> Stanford, tr. 64–66; Illinois, tr. 4.</p></aside>
+  </section>
+  <section data-slide-id="L06-07">
+    <h2>Hợp đồng kích thước của MNIST</h2><img class="figure" src="img/lec-06/mnist-shapes.svg" alt="Kích thước tensor MNIST qua autoencoder"/>
+    <p class="small">$X_{\mathrm{img}}\in[0,1]^{N\times1\times28\times28}\rightarrow X\in[0,1]^{N\times784}$; làm phẳng riêng từng mẫu.</p>
+    <aside class="notes">N là kích thước lô, thứ tự trục là NCHW: lô, kênh, cao, rộng. Phép làm phẳng chỉ gộp ba trục sau thành 784.<p class="note-source"><strong>Nguồn:</strong> GT, tr. 38–40; quy ước kích thước được làm rõ từ ví dụ MNIST.</p></aside>
+  </section>
+  <section data-slide-id="L06-08">
+    <h2>Một kiến trúc MLP có thể kiểm tra</h2><img class="figure short" src="img/lec-06/ae-mlp.svg" alt="Kiến trúc MLP 784 256 d 256 784"/>
+    <p class="small">Ví dụ: $784\rightarrow256\rightarrow d\rightarrow256\rightarrow784$, với $d\lt784$.</p>
+    <aside class="notes">Bộ mã hóa có thể thuộc nhiều họ kiến trúc. MLP đối xứng ở đây giữ phép tính kích thước và số tham số minh bạch.<p class="note-source"><strong>Nguồn:</strong> Stanford, tr. 64; Illinois, tr. 4, 13.</p></aside>
+  </section>
+  <section data-slide-id="L06-09">
+    <h2>Miền và hàm kích hoạt phải khớp</h2><div class="grid2 small">
+      <div class="card"><h3>Bộ mã hóa</h3><p>$H_e=\rho(XW_{e1}+b_{e1})$</p><p>$Z=\rho(H_eW_{e2}+b_{e2})$</p></div>
+      <div class="card"><h3>Bộ giải mã</h3><p>$H_d=\rho(ZW_{d1}+b_{d1})$</p><p>$\hat X=\sigma(H_dW_{d2}+b_{d2})$</p></div>
+    </div><p class="small">$H_e,H_d\in\mathbb R^{N\times256}$, $Z\in\mathbb R^{N\times d}$, $\hat X\in(0,1)^{N\times784}$; độ lệch phát theo trục lô.</p>
+    <aside class="notes">Mỗi mẫu là một hàng nên ma trận trọng số nằm bên phải. ReLU tạo tầng ẩn không âm; sigmoid khớp miền điểm ảnh $[0,1]$.<p class="note-source"><strong>Nguồn:</strong> Illinois, tr. 4; GT, tr. 105–107.</p></aside>
+  </section>
+  <section data-slide-id="L06-10">
+    <h2>Kiểm tra kích thước</h2><div class="check"><strong>Câu hỏi:</strong> Với $N=32$, $d=64$, kích thước của $Z$, $W_{e2}$, $W_{d1}$ và $b_{d2}$ là gì?</div>
+    <div class="fragment box">$Z:32\times64$; $W_{e2}:256\times64$; $W_{d1}:64\times256$; $b_{d2}:784$, phát thành $32\times784$.</div>
+    <aside class="notes">Quy tắc phát độ lệch giữ nguyên trục lô. Bốn phép biến đổi tuyến tính cùng khớp kiến trúc $784\to256\to d\to256\to784$.<p class="note-source"><strong>Nguồn:</strong> Illinois, tr. 4; ví dụ kích thước được suy ra.</p></aside>
+  </section>
+</section>
+
+<section>
+  <section data-slide-id="L06-11">
+    <h2>Sai số cần một quy ước</h2><div class="grid2">
+      <div class="card"><h3>Cùng dự đoán</h3><p>Bình phương sai số ở từng tọa độ rồi cộng.</p></div><div class="card"><h3>Hai cách báo cáo</h3><p>Tổng hoặc trung bình cho giá trị và thang gradient khác nhau.</p></div>
+    </div><p class="box">Tên “lỗi bình phương” chưa đủ; phải nêu trục và số phần tử được lấy trung bình.</p>
+    <aside class="notes">Mất mát tái tạo so từng phần tử của đầu vào và đầu ra. Ví dụ tiếp theo dùng bốn chiều để nhìn rõ mẫu số trước khi trở lại ảnh có $D=784$.<p class="note-source"><strong>Nguồn:</strong> Stanford, tr. 66; Illinois, tr. 4; CMU Autoencoders, tr. 2.</p></aside>
+  </section>
+  <section data-slide-id="L06-12">
+    <h2>Một phép tính có thể tái lập</h2><p>Với một mẫu thu nhỏ $D=4$, cho $x^{(1)}=(0.2,0.4,0.8,0.3)$ và $\hat{x}^{(1)}=(0.1,0.6,0.5,0.5)$.</p>
+    <div class="math-mid">$$\operatorname{SSE}=0.01+0.04+0.09+0.04=0.18,$$ $$\operatorname{MSE}=0.18/4=0.045.$$</div>
+    <aside class="notes">Bốn hiệu lần lượt là $0.1,-0.2,0.3,-0.2$. Hai con số khác nhau vì mẫu số; với MNIST, phép tính tương tự dùng $D=784$.<p class="note-source"><strong>Nguồn:</strong> Ví dụ số được xây dựng để minh họa công thức từ Stanford, tr. 66.</p></aside>
+  </section>
+  <section data-slide-id="L06-13">
+    <h2>Từ một mẫu đến cả lô</h2><div class="math-mid">$$\operatorname{SSE}^{(n)}=\sum_{j=1}^{D}(x_j^{(n)}-\hat x_j^{(n)})^2,$$ $$\mathcal{L}_{\mathrm{rec}}=\frac{1}{ND}\lVert X-g_\phi(f_\theta(X))\rVert_F^2.$$</div>
+    <p>$X,\hat X\in[0,1]^{N\times D}$, $D=784$; MSE lấy trung bình trên cả trục mẫu và đặc trưng.</p>
+    <p class="small muted">Nếu thư viện chỉ lấy trung bình theo lô hoặc chỉ lấy tổng, thang gradient sẽ khác.</p>
+    <aside class="notes">Chuẩn Frobenius bình phương là tổng mọi phần tử. Hệ số 1/(ND) khóa quy ước MSE để phép so sánh không mơ hồ.<p class="note-source"><strong>Nguồn:</strong> Stanford, tr. 66; công thức ma trận được diễn giải từ mất mát L2.</p></aside>
+  </section>
+  <section data-slide-id="L06-14">
+    <h2>Một bước huấn luyện khép kín</h2><ol>
+      <li>Đặt mô hình ở chế độ huấn luyện; xóa gradient cũ.</li><li>Tính $Z=f_\theta(X)$, $\hat X=g_\phi(Z)$ và $\mathcal L_{\mathrm{rec}}$.</li><li>Lan truyền ngược; bộ tối ưu cập nhật $\theta,\phi$ cùng trạng thái của nó.</li><li>Đặt chế độ đánh giá khi đo trên tập kiểm định; không cập nhật.</li>
+    </ol>
+    <aside class="notes">Không có nhãn lớp trong bước tiền huấn luyện này. Khi kiểm định phải tắt cập nhật gradient và dùng đúng chế độ đánh giá của các mô-đun có trạng thái.<p class="note-source"><strong>Nguồn:</strong> Stanford, tr. 65–66; GT, tr. 168–171.</p></aside>
+  </section>
+  <section data-slide-id="L06-15">
+    <h2>Kiểm tra quy ước mất mát</h2><div class="check"><strong>Câu hỏi:</strong> Với cùng bốn sai số bình phương, nếu báo 0.18 là “MSE” thì thiếu thông tin gì?</div>
+    <div class="fragment box">Thiếu mẫu số và trục lấy trung bình; 0.18 là SSE, còn MSE trên bốn phần tử là 0.045.</div>
+    <aside class="notes">Trong triển khai, cần kiểm tra phép rút gọn của hàm mất mát. Giảm lỗi tái tạo vẫn có thể dẫn đến một đường tắt sao chép.<p class="note-source"><strong>Nguồn:</strong> Stanford, tr. 66; phép tính ở L06-12.</p></aside>
+  </section>
+</section>
+
+<section>
+  <section data-slide-id="L06-16">
+    <h2>Sao chép là nghiệm dễ nhưng vô ích</h2><img class="figure" src="img/lec-06/identity-copy.svg" alt="Autoencoder đủ năng lực sao chép đầu vào qua ánh xạ đồng nhất"/>
+    <p class="box">Nếu mô hình có thể học $g_\phi(f_\theta(x))=x$, lỗi bằng 0 nhưng mã chưa chắc bộc lộ cấu trúc có ích.</p>
+    <aside class="notes">Đây là lý do mất mát tái tạo một mình không đủ. Mô hình có thể học đường tắt đồng nhất nếu nút thắt và các ràng buộc không hạn chế thích hợp.<p class="note-source"><strong>Nguồn:</strong> Illinois, tr. 5; CMU Autoencoders, tr. 3.</p></aside>
+  </section>
+  <section data-slide-id="L06-17">
+    <h2>Nút thắt hạn chế số chiều của mã</h2><img class="figure" src="img/lec-06/bottleneck.svg" alt="Nút thắt có d nhỏ hơn 784 giữa đầu vào và tái tạo"/>
+    <p>$d\lt784$ tạo <strong>autoencoder có mã thấp chiều (undercomplete)</strong>: mã không thể giữ từng tọa độ bằng một phép chép trực tiếp.</p>
+    <aside class="notes">Nút thắt là hạn chế kiến trúc, không phải bằng chứng tự động về tính hữu ích. Nó buộc mô hình chọn cách biểu diễn gọn hơn trong ví dụ MLP này.<p class="note-source"><strong>Nguồn:</strong> Illinois, tr. 6; CMU Autoencoders, tr. 5.</p></aside>
+  </section>
+  <section data-slide-id="L06-18">
+    <h2>Nút thắt không loại hết khả năng ghi nhớ</h2><div class="grid2">
+      <div class="card"><h3>Khuyến khích</h3><p>Giữ các biến thiên giúp tái tạo dữ liệu.</p></div><div class="card"><h3>Không bảo đảm</h3><p>Mạng phi tuyến đủ mạnh vẫn có thể ghi nhớ một tập huấn luyện hữu hạn.</p></div>
+    </div><p class="box">Phải đo cả lỗi kiểm định và chất lượng trên tác vụ đích.</p>
+    <aside class="notes">Tránh phát biểu “d nhỏ thì chắc chắn không thể học đồng nhất” trên tập hữu hạn. Năng lực, dữ liệu, chính quy hóa và giao thức đánh giá cùng quyết định kết quả.<p class="note-source"><strong>Nguồn:</strong> CMU Autoencoders, tr. 3–5; Illinois, tr. 5–6.</p></aside>
+  </section>
+  <section data-slide-id="L06-19">
+    <h2>Chọn $d$ là một đánh đổi</h2><table><thead><tr><th>$d$</th><th>Tái tạo</th><th>Nguy cơ</th></tr></thead><tbody>
+      <tr><td>Quá nhỏ</td><td>Mất chi tiết</td><td>Thiếu năng lực</td></tr><tr><td>Vừa đủ</td><td>Giữ cấu trúc chính</td><td>Cần kiểm định</td></tr><tr><td>Quá lớn</td><td>Dễ giảm lỗi</td><td>Sao chép hoặc ghi nhớ</td></tr>
+    </tbody></table><p class="small">Chọn $d$ trên tập kiểm định; chỉ báo cáo cuối trên tập kiểm tra.</p>
+    <aside class="notes">Không có một d tối ưu chung. d là siêu tham số và phải được chọn cùng kiến trúc, dữ liệu và chỉ số tác vụ đích.<p class="note-source"><strong>Nguồn:</strong> Illinois, tr. 5–8; CMU Autoencoders, tr. 4–5.</p></aside>
+  </section>
+  <section data-slide-id="L06-20">
+    <h2>Kiểm tra về nghiệm đồng nhất</h2><div class="check"><strong>Câu hỏi:</strong> $d=64\lt784$ có đủ để kết luận mã tốt cho phân loại MNIST không?</div>
+    <div class="fragment box">Không. Cần đánh giá trên dữ liệu chưa thấy và tác vụ phân loại; $d$ chỉ là một hạn chế kiến trúc.</div>
+    <aside class="notes">Hai phép kiểm cần tách riêng là lỗi tái tạo trên tập kiểm định và chỉ số của tác vụ đích trên dữ liệu chưa thấy.<p class="note-source"><strong>Nguồn:</strong> CMU Autoencoders, tr. 3–5; CMU Representation Learning, tr. 14–17.</p></aside>
+  </section>
+</section>
+
+<section>
+  <section data-slide-id="L06-21">
+    <h2>Ba cách buộc mô hình học cấu trúc</h2><div class="grid3">
+      <div class="card"><h3>Mã thấp chiều</h3><p>$d\lt D$</p><p>Hạn chế số chiều.</p></div><div class="card"><h3>Mã thưa</h3><p>Phạt mềm hoặc chọn cứng.</p><p>Có thể $d\ge D$.</p></div><div class="card"><h3>Khử nhiễu</h3><p>Đầu vào bị nhiễu, mục tiêu sạch.</p></div>
+    </div>
+    <aside class="notes">Ba biến thể thay đổi ba nơi khác nhau: kiến trúc, hàm mục tiêu hoặc dữ liệu đầu vào. Đây là khung so sánh cho các trang sau.<p class="note-source"><strong>Nguồn:</strong> Illinois, tr. 9–13; CMU Autoencoders, tr. 4–7.</p></aside>
+  </section>
+  <section data-slide-id="L06-22">
+    <h2>Mã thưa có hai cơ chế</h2><div class="grid2 small">
+      <div class="card"><h3>Phạt mềm</h3><p>Giảm dần các hoạt hóa không cần thiết.</p><p>$\lambda$ là hệ số phạt, điều khiển mức thưa.</p></div>
+      <div class="card"><h3>Chọn cứng top-$k$</h3><p>Giữ đúng $k$ hoạt hóa ReLU lớn nhất của từng mẫu.</p><p>Không thêm hình phạt.</p></div>
+    </div>
+    <aside class="notes">Hai cơ chế đều tạo mã thưa nhưng cho đường gradient khác nhau. Vì tái tạo và $\Omega$ đều lấy trung bình, thang phù hợp của $\lambda$ gắn với quy ước này.<p class="note-source"><strong>Nguồn:</strong> CMU Autoencoders, tr. 6; Illinois, tr. 10–11.</p></aside>
+  </section>
+  <section data-slide-id="L06-23">
+    <h2>Top-$k$ chỉ giữ $k$ hoạt hóa</h2><img class="figure short" src="img/lec-06/sparse-code.svg" alt="Mã ReLU tám chiều được giữ hai phần tử lớn nhất theo từng mẫu và đặt phần còn lại bằng không"/>
+    <p class="small">Ví dụ $d=8$, $k=2$: chỉ $1{,}8$ và $2{,}4$ được truyền; gradient chỉ đi qua hai vị trí được giữ.</p>
+    <aside class="notes">Top-$k$ được tính riêng cho từng hàng của $Z$, không trộn các mẫu trong lô. Khi có giá trị bằng nhau ở ngưỡng, triển khai phải dùng một quy tắc chọn nhất quán.<p class="note-source"><strong>Nguồn:</strong> Illinois, tr. 11.</p></aside>
+  </section>
+  <section data-slide-id="L06-24">
+    <h2>Khử nhiễu đổi đầu vào, không đổi đích</h2><img class="figure" src="img/lec-06/denoising-flow.svg" alt="Ảnh sạch được làm nhiễu rồi mã hóa, giải mã và so tái tạo với ảnh sạch"/>
+    <aside class="notes">Cơ chế $q$ tạo $\widetilde X$ từ $X$. Mô hình nhận đầu vào nhiễu nhưng bị phạt khi khác mục tiêu sạch; dùng đầu vào nhiễu làm đích sẽ đổi bài toán.<p class="note-source"><strong>Nguồn:</strong> CMU Autoencoders, tr. 7.</p></aside>
+  </section>
+  <section data-slide-id="L06-25">
+    <h2>Mục tiêu khử nhiễu dùng đích sạch</h2><div class="math-mid">$$\mathbb E_{x\sim p_{\mathrm{train}}}\,\mathbb E_{\widetilde x\sim q(\cdot\mid x)}\!\left[\frac{1}{D}\lVert x-g_\phi(f_\theta(\widetilde x))\rVert_2^2\right].$$</div>
+    <p class="small">$X\in[0,1]^{N\times784}$, $\widetilde X\in\mathbb R^{N\times784}$; $q$ là cơ chế nhiễu. Trung bình lô là ước lượng Monte Carlo.</p>
+    <aside class="notes">Nguồn không khóa loại nhiễu hay mức nhiễu cụ thể. $q$ là cơ chế được chọn; cường độ nhiễu là siêu tham số được chọn trên tập kiểm định.<p class="note-source"><strong>Nguồn:</strong> CMU Autoencoders, tr. 7; công thức được viết rõ từ mô tả nguồn.</p></aside>
+  </section>
+  <section data-slide-id="L06-26">
+    <h2>Ba ràng buộc, ba điểm can thiệp</h2><table><thead><tr><th>Biến thể</th><th>Thay đổi</th><th>Kiểm tra chính</th></tr></thead><tbody>
+      <tr><td>Mã thấp chiều</td><td>Kích thước $d$</td><td>Đủ thông tin chưa?</td></tr><tr><td>Thưa</td><td>$\Omega$ hoặc top-$k$</td><td>Bao nhiêu phần tử khác 0?</td></tr><tr><td>Khử nhiễu</td><td>Đầu vào $\widetilde X$</td><td>Đích có còn là $X$ sạch?</td></tr>
+    </tbody></table><p class="small">Phạt mềm: $\mathcal L=\mathcal L_{\mathrm{rec}}+\lambda\lVert Z\rVert_1/(Nd)$; top-$k$ là phép chọn cứng riêng từng mẫu.</p>
+    <aside class="notes">Hai mất mát đều lấy trung bình, nên thang của $\lambda$ gắn với quy ước này. Mã thưa không nhất thiết ít chiều; khử nhiễu không nhất thiết giảm chiều.<p class="note-source"><strong>Nguồn:</strong> Illinois, tr. 9–13; CMU Autoencoders, tr. 4–7.</p></aside>
+  </section>
+  <section data-slide-id="L06-27">
+    <h2>Kiểm tra chọn biến thể</h2><div class="grid2 small"><div class="check"><strong>Câu hỏi:</strong> Với $d=1024$ nhưng chỉ 32 phần tử hoạt động, chọn gì?</div><div class="check"><strong>Câu hỏi:</strong> Với đầu vào $\widetilde X$, đích đúng của khử nhiễu là gì?</div></div>
+    <div class="fragment box">Top-$k$ với $k=32$ tạo mã thưa; đích khử nhiễu vẫn là $X$ sạch, không phải $\widetilde X$.</div>
+    <aside class="notes">Số chiều $d$ khác số hoạt hóa $k$. Phép kiểm thứ hai khóa cặp đầu vào–mục tiêu của autoencoder khử nhiễu.<p class="note-source"><strong>Nguồn:</strong> Illinois, tr. 10–11; CMU Autoencoders, tr. 6–7.</p></aside>
+  </section>
+</section>
+
+<section>
+  <section data-slide-id="L06-28">
+    <h2>Bỏ bộ giải mã, giữ bộ mã hóa</h2><img class="figure" src="img/lec-06/downstream-reuse.svg" alt="Sau tiền huấn luyện bỏ bộ giải mã và nối bộ phân loại vào mã z"/>
+    <p class="box">Học chuyển giao tái sử dụng tham số đã học cho tác vụ có nhãn.</p>
+    <aside class="notes">Trong tiền huấn luyện, bộ giải mã tạo tín hiệu học. Khi chuyển sang phân loại, ta thay nó bằng bộ phân loại và đánh giá mã trên nhãn thật.<p class="note-source"><strong>Nguồn:</strong> Stanford, tr. 67; lec09 CNN architectures, tr. 44–46.</p></aside>
+  </section>
+  <section data-slide-id="L06-29">
+    <h2>Đóng băng: chỉ học bộ phân loại</h2><div class="math-mid">$$Z=\operatorname{stopgrad}(f_{\theta^\star}(X)),\quad S=c_\psi(Z)\in\mathbb R^{N\times C},\quad \Delta\theta=0.$$</div>
+    <p class="small">Dùng chéo entropy hợp nhất trực tiếp từ logit $S$ theo trục lớp và lấy trung bình theo $N$; không tính softmax rồi lấy log thủ công. Chỉ $\psi$ thuộc bộ tối ưu.</p>
+    <aside class="notes">Hàm chéo entropy hợp nhất dùng log-softmax ổn định số nội bộ. Đóng băng tham số và chuyển chế độ mô hình là hai thao tác độc lập; với bộ trích đặc trưng cố định, chế độ đánh giá giữ hành vi của các lớp có trạng thái.<p class="note-source"><strong>Nguồn:</strong> Stanford, tr. 67; lec09 CNN architectures, tr. 44–46.</p></aside>
+  </section>
+  <section data-slide-id="L06-30">
+    <h2>Tinh chỉnh: cập nhật có kiểm soát</h2><img class="figure short" src="img/lec-06/freeze-finetune.svg" alt="So sánh đóng băng bộ mã hóa với tinh chỉnh cả bộ mã hóa và bộ phân loại"/>
+    <p class="small">Khởi tạo từ $\theta^\star$, rồi cập nhật một phần hoặc toàn bộ $\theta$ cùng $\psi$ bằng dữ liệu có nhãn.</p>
+    <aside class="notes">Tinh chỉnh lan truyền ngược qua các khối bộ mã hóa được mở, nên phải lưu hoạt hóa và trạng thái bộ tối ưu cho các tham số đó. Chi phí bộ nhớ và tính toán vì thế cao hơn trích đặc trưng cố định; nguy cơ quá khớp cũng tăng khi nhãn ít.<p class="note-source"><strong>Nguồn:</strong> lec09 CNN architectures, tr. 44–46; Stanford, tr. 67.</p></aside>
+  </section>
+  <section data-slide-id="L06-31">
+    <h2>Tham số và chế độ là hai quyết định</h2><table><thead><tr><th>Giai đoạn</th><th>Tham số được cập nhật</th><th>Chế độ mô-đun</th></tr></thead><tbody>
+      <tr><td>Tiền huấn luyện</td><td>Mã hóa + giải mã</td><td>Cả hai: huấn luyện</td></tr><tr><td>Trích đặc trưng</td><td>Phân loại</td><td>Mã hóa: đánh giá; phân loại: huấn luyện</td></tr><tr><td>Tinh chỉnh một phần</td><td>Khối được chọn + phân loại</td><td>Chọn riêng cho từng mô-đun</td></tr><tr><td>Suy luận</td><td>Không</td><td>Tất cả: đánh giá</td></tr>
+    </tbody></table>
+    <aside class="notes">Không suy ra chế độ mô-đun từ `requires_grad`. BatchNorm và dropout thay hành vi theo chế độ huấn luyện hoặc đánh giá ngay cả khi tham số không được cập nhật.<p class="note-source"><strong>Nguồn:</strong> lec09 CNN architectures, tr. 44–46; diễn giải triển khai nhất quán với các bài trước.</p></aside>
+  </section>
+  <section data-slide-id="L06-32">
+    <h2>Giao thức đánh giá không dùng tập kiểm tra để chọn</h2><ol>
+      <li>Tiền huấn luyện chỉ trên ảnh thuộc phần huấn luyện, không dùng ảnh kiểm định hoặc kiểm tra.</li><li>Chọn $d$, $\lambda$, nhiễu và cách tái sử dụng bằng tập kiểm định.</li><li>Khóa cấu hình; đánh giá một lần trên tập kiểm tra.</li>
+    </ol><p class="box">So sánh đóng băng và tinh chỉnh dưới cùng phép chia dữ liệu và cùng ngân sách.</p>
+    <aside class="notes">Nếu dùng nhãn kiểm tra để chọn d hay số epoch thì đã rò rỉ thông tin. Cũng phải fit phép chuẩn hóa trên tập huấn luyện rồi áp dụng nguyên trạng.<p class="note-source"><strong>Nguồn:</strong> CMU Representation Learning, tr. 14–17; giao thức đánh giá theo chuẩn học máy của học phần.</p></aside>
+  </section>
+  <section data-slide-id="L06-33">
+    <h2>Kiểm tra tái sử dụng</h2><div class="check"><strong>Câu hỏi:</strong> Bộ mã hóa đã “đóng băng” nhưng vẫn ở chế độ huấn luyện. Điều gì còn có thể thay đổi?</div>
+    <div class="fragment box">Hành vi của dropout và thống kê của BatchNorm; đóng băng gradient không tự chuyển mô hình sang chế độ đánh giá.</div>
+    <aside class="notes">Đóng băng cập nhật và chế độ mô-đun là hai trục độc lập. Dropout đổi hành vi, còn BatchNorm có thể cập nhật thống kê chạy khi ở chế độ huấn luyện.<p class="note-source"><strong>Nguồn:</strong> lec09 CNN architectures, tr. 44–46; quy ước chế độ mô hình từ Bài 03/05.</p></aside>
+  </section>
+</section>
+
+<section>
+  <section data-slide-id="L06-34">
+    <h2>Mã từ dữ liệu và mã tùy ý không tương đương</h2><img class="figure" src="img/lec-06/sampling-latent.svg" alt="Mã do bộ mã hóa tạo nằm trong các vùng dữ liệu còn mã lấy tùy ý có thể rơi vào khoảng trống"/>
+    <p class="box">Mất mát chỉ được tính tại các mã $z^{(n)}=f_\theta(x^{(n)})$ do dữ liệu huấn luyện tạo ra.</p>
+    <aside class="notes">Một mã tùy ý có thể nằm ngoài vùng được dữ liệu huấn luyện hỗ trợ. Tái tạo tốt tại các mã do bộ mã hóa tạo không ràng buộc đầu ra ở mọi điểm của không gian mã.<p class="note-source"><strong>Nguồn:</strong> Stanford, tr. 68–70.</p></aside>
+  </section>
+  <section data-slide-id="L06-35">
+    <h2>Khoảng trống trong không gian mã</h2><img class="figure" src="img/lec-06/decoder-support.svg" alt="Mất mát tái tạo ràng buộc đầu ra tại mã do dữ liệu tạo nhưng không ràng buộc trực tiếp mã tùy ý ngoài vùng hỗ trợ"/>
+    <p class="small">Ngoài vùng được dữ liệu hỗ trợ là ngoại suy. Đường nối giữa hai mã quan sát vẫn có thể đi qua vùng mật độ thấp.</p>
+    <aside class="notes">Nội suy theo tọa độ không đồng nghĩa với nội suy trong vùng mật độ cao. Mục tiêu tái tạo thông thường không buộc mã phủ kín không gian hay khớp một phân phối thuận tiện.<p class="note-source"><strong>Nguồn:</strong> Stanford, tr. 68–70.</p></aside>
+  </section>
+  <section data-slide-id="L06-36">
+    <h2>Autoencoder thường không định nghĩa phân phối sinh</h2><div class="grid2">
+      <div class="card"><h3>Có</h3><p>Ánh xạ xác định $x\mapsto z\mapsto\hat x$ và mất mát tái tạo.</p></div><div class="card"><h3>Chưa có</h3><p>Một quy tắc lấy mẫu $z$ đã được huấn luyện để tạo dữ liệu mới hợp lệ.</p></div>
+    </div><p class="box">Không được tự giả sử $z\sim\mathcal N(0,I)$.</p>
+    <aside class="notes">Đây là giới hạn của autoencoder xác định thông thường: mục tiêu tái tạo không ép phân bố mã khớp một phân bố chuẩn tắc đã biết.<p class="note-source"><strong>Nguồn:</strong> Stanford, tr. 68–70.</p></aside>
+  </section>
+  <section data-slide-id="L06-37">
+    <h2>Bốn câu hỏi trước khi dùng mã</h2><ol>
+      <li>Mã được học từ mục tiêu nào?</li><li>Ràng buộc nào ngăn sao chép tầm thường?</li><li>Chất lượng được đo trên tác vụ và tập dữ liệu nào?</li><li>Ta giải mã mã do dữ liệu tạo hay một mã tùy ý?</li>
+    </ol>
+    <aside class="notes">Dùng bốn câu này như bảng kiểm đọc một hệ thống học biểu diễn. Chúng lần lượt nối mục tiêu, năng lực, giao thức và giới hạn lấy mẫu.<p class="note-source"><strong>Nguồn:</strong> Tổng hợp Stanford, tr. 63–70; CMU Representation Learning, tr. 14–17; CMU Autoencoders, tr. 2–7.</p></aside>
+  </section>
+  <section data-slide-id="L06-38">
+    <h2>Kiểm tra tổng hợp</h2><div class="check"><strong>Câu hỏi:</strong> Một autoencoder đạt MSE thấp. Hãy nêu ba điều chưa thể kết luận.</div>
+    <div class="fragment box">Chưa chắc mã hữu ích cho tác vụ đích; chưa chắc mô hình không ghi nhớ; chưa chắc lấy mẫu $z$ tùy ý cho dữ liệu hợp lệ.</div>
+    <aside class="notes">Ba giới hạn tương ứng với đánh giá biểu diễn, năng lực mô hình và phân phối mã. Một MSE thấp không giải quyết riêng bất kỳ giới hạn nào.<p class="note-source"><strong>Nguồn:</strong> Stanford, tr. 67–70; CMU Autoencoders, tr. 3–5.</p></aside>
+  </section>
+</section>
+
+<section>
+  <section data-slide-id="L06-X01">
+    <h2>Biểu diễn đổi chi phí thao tác</h2><img class="figure" src="img/lec-06/numeral-representation.svg" alt="So sánh phép chia 210 cho 6 và CCX cho VI"/>
+    <div class="check"><strong>Câu hỏi:</strong> Tính $210\div6=35$, rồi viết cùng kết quả bằng số La Mã.</div>
+    <div class="fragment box">$35=\mathrm{XXXV}$. Hai biểu diễn cho cùng kết quả nhưng quy trình tính bằng chữ số La Mã khó cơ giới hóa hơn.</div>
+    <aside class="notes">Ví dụ tạo một so sánh định lượng mà không gán tính tuyến tính cho phép chia. Độ thuận lợi của biểu diễn luôn gắn với phép toán cần thực hiện.<p class="note-source"><strong>Nguồn:</strong> CMU Representation Learning, tr. 1–6.</p></aside>
+  </section>
+  <section data-slide-id="L06-X02">
+    <h2>Autoencoder tuyến tính và PCA</h2><img class="figure" src="img/lec-06/pca-subspace.svg" alt="Autoencoder tuyến tính và PCA cùng khôi phục không gian con chính"/>
+    <p class="small">Với dữ liệu đã định tâm, bộ mã hóa–giải mã tuyến tính có độ lệch phù hợp, nút thắt $K$ và mất mát bình phương, nghiệm tối ưu toàn cục khôi phục không gian con chính $K$ chiều.</p>
+    <aside class="notes">Đây là kết quả về không gian con tái tạo. Trọng số và tọa độ mã không duy nhất, nên chúng không nhất thiết bằng các vectơ riêng hoặc tọa độ PCA.<p class="note-source"><strong>Nguồn:</strong> Illinois, tr. 7.</p></aside>
+  </section>
+  <section data-slide-id="L06-X03">
+    <h2>Cùng số chiều, vùng hoạt động có thể khác</h2><div class="grid2 small"><div class="card"><h3>Mẫu A</h3><p>$d=8,\ k=2$</p><p>vị trí 2 và 4 hoạt động</p></div><div class="card"><h3>Mẫu B</h3><p>$d=8,\ k=2$</p><p>vị trí 1 và 7 hoạt động</p></div></div>
+    <p class="box">$d$ đo số tọa độ có thể dùng; $k$ đo số tọa độ dùng cho từng mẫu. $\Omega$ điều khiển mức thưa mềm, còn top-$k$ khóa cứng $k$.</p>
+    <aside class="notes">Hai mẫu có cùng $d$ và $k$ nhưng dùng các vùng hỗ trợ khác nhau. Mã thưa mô tả lựa chọn theo từng mẫu, không chỉ giảm số chiều chung.<p class="note-source"><strong>Nguồn:</strong> Illinois, tr. 10–11; CMU Autoencoders, tr. 6.</p></aside>
+  </section>
+  <section data-slide-id="L06-X04">
+    <h2>Đa tạp phi tuyến</h2><img class="figure" src="img/lec-06/nonlinear-manifold.svg" alt="Bộ mã hóa phi tuyến làm phẳng một đa tạp cong thành tọa độ mã"/>
+    <p class="small">Lớp phi tuyến cho phép mô tả cấu trúc cong mà một không gian con tuyến tính không biểu diễn tốt.</p>
+    <aside class="notes">Không suy ra rằng mạng sâu tự động tìm đúng đa tạp dữ liệu. Hình chỉ giải thích động cơ dùng bộ mã hóa phi tuyến.<p class="note-source"><strong>Nguồn:</strong> Illinois, tr. 12–13.</p></aside>
+  </section>
+  <section data-slide-id="L06-X05">
+    <h2>Biểu diễn cần được kiểm định</h2><div class="grid3">
+      <div class="card"><h3>Hữu ích</h3><p>Chỉ số tác vụ đích.</p></div><div class="card"><h3>Khái quát</h3><p>Ba phần dữ liệu tách biệt.</p></div><div class="card"><h3>Phù hợp</h3><p>Chỉ số gắn với câu hỏi.</p></div>
+    </div><p class="box">Khả năng diễn giải là mong muốn, không phải hệ quả tự động của mã tiềm ẩn.</p>
+    <aside class="notes">Mã có thể hỗ trợ một tác vụ nhưng không hỗ trợ tác vụ khác. Vì vậy giao thức phải tách dữ liệu và chọn chỉ số đúng với câu hỏi đánh giá.<p class="note-source"><strong>Nguồn:</strong> CMU Representation Learning, tr. 12–17.</p></aside>
+  </section>
+</section>
+
+<div class="footer">Học sâu · Học kỳ 1, 2026–2027 · Bài 06</div>
+</div></div>
+<script src="revealjs/dist/reveal.js"></script><script src="plugin/notes/notes.js"></script><script src="plugin/markdown/markdown.js"></script><script src="plugin/highlight/highlight.js"></script><script src="plugin/math/math.js"></script>
+<script>Reveal.initialize({width:1280,height:720,margin:.04,controlsLayout:"edges",slideNumber:true,hashOneBasedIndex:true,hash:true,katex:{local:"vendor/katex",throwOnError:true,strict:"error"},plugins:[RevealMarkdown,RevealHighlight,RevealNotes,RevealMath.KaTeX]});</script>
+</body></html>

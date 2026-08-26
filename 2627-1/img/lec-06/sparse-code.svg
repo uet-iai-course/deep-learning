@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 310" role="img" aria-labelledby="title desc">
+  <title id="title">Top-k giữ hai hoạt hóa lớn nhất của một mẫu</title>
+  <desc id="desc">Một mã ReLU tám chiều không âm được lọc riêng theo mẫu với k bằng hai. Giá trị 1,8 và 2,4 được giữ; sáu vị trí còn lại trở thành không.</desc>
+  <rect width="1100" height="310" fill="#fff"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="550" y="45" font-size="25" fill="#263238">z mẫu n = [0,1; 1,8; 0,2; 2,4; 0,7; 0,3; 1,1; 0,4]</text>
+    <g transform="translate(75 95)" stroke="#2f3e7a" stroke-width="2">
+      <rect x="0" y="0" width="100" height="75" fill="#edf4ff"/><rect x="115" y="0" width="100" height="75" fill="#f7efe6"/>
+      <rect x="230" y="0" width="100" height="75" fill="#edf4ff"/><rect x="345" y="0" width="100" height="75" fill="#f7efe6"/>
+      <rect x="460" y="0" width="100" height="75" fill="#edf4ff"/><rect x="575" y="0" width="100" height="75" fill="#edf4ff"/>
+      <rect x="690" y="0" width="100" height="75" fill="#edf4ff"/><rect x="805" y="0" width="100" height="75" fill="#edf4ff"/>
+    </g>
+    <g font-size="24" fill="#263238"><text x="125" y="142">0</text><text x="240" y="142">1,8</text><text x="355" y="142">0</text><text x="470" y="142">2,4</text><text x="585" y="142">0</text><text x="700" y="142">0</text><text x="815" y="142">0</text><text x="930" y="142">0</text></g>
+    <text x="550" y="235" font-size="23" fill="#555">Top-2 theo từng mẫu; màu chỉ hỗ trợ, các giá trị 0 vẫn được ghi.</text>
+  </g>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1050 350" role="img" aria-labelledby="title desc">
+  <title id="title">Autoencoder tuyến tính khôi phục không gian con chính</title>
+  <desc id="desc">Các điểm dữ liệu đã định tâm nằm quanh một mặt phẳng. Autoencoder tuyến tính có nút thắt K và mất mát bình phương khôi phục cùng không gian con chính K chiều tại nghiệm tối ưu toàn cục.</desc>
+  <rect width="1050" height="350" fill="#fff"/>
+  <g font-family="Arial, sans-serif">
+    <path d="M110 245L520 70L910 185L500 280Z" fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"/>
+    <g fill="#b15a2b" stroke="#fff" stroke-width="2"><circle cx="280" cy="185" r="9"/><circle cx="360" cy="150" r="9"/><circle cx="455" cy="200" r="9"/><circle cx="565" cy="145" r="9"/><circle cx="650" cy="200" r="9"/><circle cx="730" cy="170" r="9"/></g>
+    <path d="M370 240L675 110" stroke="#2e7d32" stroke-width="5"/><path d="M400 120L685 230" stroke="#7b5ea7" stroke-width="5"/>
+    <g font-size="23" fill="#263238"><text x="135" y="55">dữ liệu đã định tâm</text><text x="720" y="55">không gian con chính K chiều</text><text x="525" y="320" text-anchor="middle">Cùng không gian con tái tạo; trọng số và tọa độ không duy nhất</text></g>
+  </g>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 320" role="img" aria-labelledby="title desc">
+  <title id="title">Kiến trúc autoencoder cho một mẫu</title>
+  <desc id="desc">Một mẫu x mũ n đi qua bộ mã hóa thành mã tiềm ẩn z mũ n, rồi bộ giải mã tạo bản tái tạo x mũ n.</desc>
+  <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0l9 4.5L0 9z" fill="#2f3e7a"/></marker></defs>
+  <rect width="1240" height="320" fill="#fff"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <rect x="35" y="105" width="150" height="100" rx="12" fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"/><rect x="290" y="80" width="220" height="150" rx="12" fill="#f7efe6" stroke="#b15a2b" stroke-width="3"/><rect x="605" y="105" width="150" height="100" rx="12" fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"/><rect x="850" y="80" width="220" height="150" rx="12" fill="#f7efe6" stroke="#b15a2b" stroke-width="3"/>
+    <g font-size="25" fill="#263238"><text x="110" y="148">x mẫu n</text><text x="110" y="180">một mẫu</text><text x="400" y="140">Bộ mã hóa</text><text x="400" y="176">fθ</text><text x="680" y="148">z mẫu n</text><text x="680" y="180">mã tiềm ẩn</text><text x="960" y="140">Bộ giải mã</text><text x="960" y="176">gφ</text></g>
+    <g stroke="#2f3e7a" stroke-width="4" marker-end="url(#arrow)"><path d="M185 155h95"/><path d="M510 155h85"/><path d="M755 155h85"/></g>
+    <rect x="1110" y="105" width="110" height="100" rx="12" fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"/><path d="M1070 155h30" stroke="#2f3e7a" stroke-width="4" marker-end="url(#arrow)"/>
+    <text x="1165" y="145" font-size="25" fill="#263238">x</text><text x="1165" y="178" font-size="22" fill="#263238">tái tạo</text><text x="620" y="285" font-size="24" fill="#555">một mẫu: x → z → x tái tạo</text>
+  </g>
+</svg>

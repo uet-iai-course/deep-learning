@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 320" role="img" aria-labelledby="title desc">
+  <title id="title">Mất mát chỉ ràng buộc bộ giải mã tại mã do dữ liệu tạo</title>
+  <desc id="desc">Các mã do bộ mã hóa tạo đi vào bộ giải mã và chịu mất mát tái tạo. Một mã tùy ý ngoài vùng dữ liệu hỗ trợ cũng có đầu ra nhưng đầu ra này không được mục tiêu huấn luyện ràng buộc trực tiếp.</desc>
+  <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0l9 4.5L0 9z" fill="#2f3e7a"/></marker></defs>
+  <rect width="1060" height="320" fill="#fff"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <rect x="55" y="60" width="220" height="85" rx="10" fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"/><rect x="55" y="185" width="220" height="85" rx="10" fill="#f7efe6" stroke="#b15a2b" stroke-width="3"/><rect x="420" y="95" width="220" height="140" rx="12" fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"/><rect x="790" y="95" width="220" height="140" rx="12" fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"/>
+    <g font-size="23" fill="#263238"><text x="165" y="98">z từ mẫu n</text><text x="165" y="128">có mất mát</text><text x="165" y="223">z* tùy ý</text><text x="165" y="253">ngoài hỗ trợ</text><text x="530" y="158">Bộ giải mã</text><text x="530" y="190">gφ</text><text x="900" y="145">Ảnh đầu ra</text><text x="900" y="180">bị ràng buộc tại</text><text x="900" y="210">các mã huấn luyện</text></g>
+    <path d="M275 103h135" stroke="#2f3e7a" stroke-width="4" marker-end="url(#arrow)"/><path d="M275 228C350 228 350 205 410 190" fill="none" stroke="#b15a2b" stroke-width="4" stroke-dasharray="9 7" marker-end="url(#arrow)"/><path d="M640 165h140" stroke="#2f3e7a" stroke-width="4" marker-end="url(#arrow)"/>
+  </g>
+</svg>

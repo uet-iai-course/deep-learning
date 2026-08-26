@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 310" role="img" aria-labelledby="title desc">
+  <title id="title">Chuỗi kích thước MNIST qua autoencoder</title>
+  <desc id="desc">Lô ảnh X img kích thước N nhân 1 nhân 28 nhân 28 được làm phẳng thành X kích thước N nhân 784, mã hóa thành Z kích thước N nhân d, giải mã thành X mũ rồi đổi lại hình ảnh.</desc>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0l8 4-8 4z" fill="#2f3e7a"/></marker></defs>
+  <rect width="1160" height="310" fill="#fff"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <g fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"><rect x="15" y="100" width="190" height="90" rx="10"/><rect x="250" y="100" width="170" height="90" rx="10"/><rect x="475" y="100" width="150" height="90" rx="10"/><rect x="680" y="100" width="170" height="90" rx="10"/><rect x="895" y="100" width="245" height="90" rx="10"/></g>
+    <g font-size="23" fill="#263238"><text x="110" y="140">N×1×28×28</text><text x="110" y="170">X_img</text><text x="335" y="140">N×784</text><text x="335" y="170">X</text><text x="550" y="140">N×d</text><text x="550" y="170">mã Z</text><text x="765" y="140">N×784</text><text x="765" y="170">X tái tạo</text><text x="1017" y="140">N×1×28×28</text><text x="1017" y="170">ảnh tái tạo</text></g>
+    <g stroke="#2f3e7a" stroke-width="3" marker-end="url(#arrow)"><path d="M205 145h35"/><path d="M420 145h45"/><path d="M625 145h45"/><path d="M850 145h35"/></g>
+    <g font-size="22" fill="#555"><text x="225" y="85">làm phẳng</text><text x="447" y="85">mã hóa</text><text x="647" y="85">giải mã</text><text x="870" y="85">đổi hình dạng</text></g>
+  </g>
+</svg>

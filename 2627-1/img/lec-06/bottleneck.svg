@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 320" role="img" aria-labelledby="title desc">
+  <title id="title">Nút thắt có mã thấp chiều</title>
+  <desc id="desc">Đầu vào 784 chiều đi qua bộ mã hóa, thu hẹp thành mã d chiều với d nhỏ hơn 784, rồi bộ giải mã mở rộng trở lại 784 chiều.</desc>
+  <rect width="1040" height="320" fill="#fff"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <path d="M90 70L440 135L90 250Z" fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"/><path d="M950 70L600 135L950 250Z" fill="#f7efe6" stroke="#b15a2b" stroke-width="3"/><rect x="440" y="110" width="160" height="90" rx="12" fill="#fff" stroke="#2f3e7a" stroke-width="4"/>
+    <g fill="#263238" font-size="25"><text x="125" y="45">x mẫu n: 784</text><text x="520" y="150">z mẫu n: d</text><text x="520" y="180">d &lt; 784</text><text x="915" y="45">x tái tạo: 784</text></g>
+    <g fill="#555" font-size="22"><text x="270" y="275">nén thông tin</text><text x="770" y="275">tái tạo</text></g>
+  </g>
+</svg>

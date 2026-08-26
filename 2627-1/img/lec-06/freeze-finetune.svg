@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 340" role="img" aria-labelledby="title desc">
+  <title id="title">Đóng băng và tinh chỉnh bộ mã hóa</title>
+  <desc id="desc">Hai tuyến dùng cùng bộ mã hóa. Tuyến đặc trưng cố định chỉ cập nhật bộ phân loại. Tuyến tinh chỉnh cập nhật bộ phân loại và các tham số bộ mã hóa được chọn; chế độ mô-đun phải được chọn riêng.</desc>
+  <rect width="1080" height="340" fill="#fff"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="280" y="42" font-size="25" fill="#2f3e7a">Đặc trưng cố định</text><text x="800" y="42" font-size="25" fill="#2f3e7a">Tinh chỉnh</text>
+    <g stroke-width="3"><rect x="90" y="85" width="380" height="90" rx="12" fill="#edf4ff" stroke="#2f3e7a"/><rect x="90" y="210" width="380" height="80" rx="12" fill="#f7efe6" stroke="#b15a2b"/><rect x="610" y="85" width="380" height="90" rx="12" fill="#edf4ff" stroke="#2f3e7a"/><rect x="610" y="210" width="380" height="80" rx="12" fill="#f7efe6" stroke="#b15a2b"/></g>
+    <g font-size="23" fill="#263238"><text x="280" y="125">Bộ mã hóa: không cập nhật</text><text x="280" y="155">chế độ đánh giá</text><text x="280" y="258">Bộ phân loại: cập nhật</text><text x="800" y="125">Bộ mã hóa: chọn khối cập nhật</text><text x="800" y="155">chọn chế độ theo mô-đun</text><text x="800" y="258">Bộ phân loại: cập nhật</text></g>
+  </g>
+</svg>
