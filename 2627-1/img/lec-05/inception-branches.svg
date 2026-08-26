@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 390" role="img" aria-labelledby="title desc">
+  <title id="title">Bốn nhánh Inception</title>
+  <desc id="desc">Đầu vào 192 kênh chia thành bốn nhánh có số kênh ra 64, 128, 32 và 32 rồi ghép theo trục kênh.</desc>
+  <rect width="1080" height="390" fill="#fff"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle" fill="#263238">
+    <rect x="15" y="145" width="145" height="95" rx="9" fill="#f7efe6" stroke="#b15a2b" stroke-width="3"/><text x="87" y="185" font-size="25">Đầu vào</text><text x="87" y="218" font-size="25">192 kênh</text>
+    <g fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"><rect x="235" y="20" width="180" height="65" rx="8"/><rect x="235" y="110" width="180" height="65" rx="8"/><rect x="475" y="110" width="180" height="65" rx="8"/><rect x="235" y="200" width="180" height="65" rx="8"/><rect x="475" y="200" width="180" height="65" rx="8"/><rect x="235" y="290" width="180" height="65" rx="8"/><rect x="475" y="290" width="180" height="65" rx="8"/></g>
+    <g font-size="25"><text x="325" y="61">1×1 → 64</text><text x="325" y="151">1×1 → 96</text><text x="565" y="151">3×3 → 128</text><text x="325" y="241">1×1 → 16</text><text x="565" y="241">5×5 → 32</text><text x="325" y="331">gộp 3×3</text><text x="565" y="331">1×1 → 32</text></g>
+    <rect x="820" y="140" width="235" height="105" rx="9" fill="#f7efe6" stroke="#b15a2b" stroke-width="3"/><text x="938" y="183" font-size="26">Ghép theo C</text><text x="938" y="220" font-size="26">256 kênh</text>
+    <g fill="none" stroke="#2f3e7a" stroke-width="3"><path d="M160 192L235 52"/><path d="M160 192L235 142"/><path d="M160 192L235 232"/><path d="M160 192L235 322"/><path d="M415 142H475"/><path d="M415 232H475"/><path d="M415 322H475"/><path d="M415 52L820 160"/><path d="M655 142L820 180"/><path d="M655 232L820 205"/><path d="M655 322L820 225"/></g>
+  </g>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 360" role="img" aria-labelledby="title desc">
+  <title id="title">Dấu vết toàn mạng ResNet-18</title>
+  <desc id="desc">Ảnh qua phần gốc rồi bốn giai đoạn, mỗi giai đoạn có hai khối cơ bản; số kênh tăng từ 64 đến 512, độ phân giải giảm từ 56 xuống 7, sau đó gộp toàn cục và phân loại.</desc>
+  <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#2f3e7a"/></marker></defs>
+  <rect width="1180" height="360" fill="#fff"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle" fill="#263238">
+    <g stroke="#2f3e7a" stroke-width="3" marker-end="url(#arrow)" fill="none">
+      <path d="M130 165H165"/><path d="M305 165H340"/><path d="M490 165H525"/><path d="M675 165H710"/><path d="M860 165H895"/><path d="M1045 165H1075"/>
+    </g>
+    <g stroke="#2f3e7a" stroke-width="3">
+      <rect x="10" y="105" width="120" height="120" rx="10" fill="#edf4ff"/>
+      <rect x="165" y="85" width="140" height="160" rx="10" fill="#edf4ff"/>
+      <rect x="340" y="85" width="150" height="160" rx="10" fill="#f7efe6" stroke="#b15a2b"/>
+      <rect x="525" y="85" width="150" height="160" rx="10" fill="#f7efe6" stroke="#b15a2b"/>
+      <rect x="710" y="85" width="150" height="160" rx="10" fill="#f7efe6" stroke="#b15a2b"/>
+      <rect x="895" y="85" width="150" height="160" rx="10" fill="#f7efe6" stroke="#b15a2b"/>
+      <rect x="1075" y="105" width="95" height="120" rx="10" fill="#edf4ff"/>
+    </g>
+    <g font-size="24" font-weight="700" fill="#2f3e7a">
+      <text x="70" y="140">Ảnh</text><text x="235" y="120">Phần gốc</text><text x="415" y="120">GĐ 1</text><text x="600" y="120">GĐ 2</text><text x="785" y="120">GĐ 3</text><text x="970" y="120">GĐ 4</text><text x="1122" y="140">Đầu</text>
+    </g>
+    <g font-size="22">
+      <text x="70" y="180">3×224²</text>
+      <text x="235" y="158">7×7, s=2</text><text x="235" y="190">gộp, s=2</text><text x="235" y="220">64×56²</text>
+      <text x="415" y="160">2 khối</text><text x="415" y="195">64×56²</text>
+      <text x="600" y="160">2 khối</text><text x="600" y="195">128×28²</text><text x="600" y="225">chiếu ở khối đầu</text>
+      <text x="785" y="160">2 khối</text><text x="785" y="195">256×14²</text><text x="785" y="225">chiếu ở khối đầu</text>
+      <text x="970" y="160">2 khối</text><text x="970" y="195">512×7²</text><text x="970" y="225">chiếu ở khối đầu</text>
+      <text x="1122" y="175">gộp</text><text x="1122" y="205">512→lớp</text>
+    </g>
+    <text x="590" y="310" font-size="24" fill="#2f3e7a">Số khối cơ bản theo giai đoạn: 2, 2, 2, 2</text>
+  </g>
+</svg>

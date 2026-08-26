@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 340" role="img" aria-labelledby="title desc">
+  <title id="title">Chuẩn hóa theo lô khi huấn luyện và suy luận</title>
+  <desc id="desc">Huấn luyện dùng thống kê của lô hiện tại và đồng thời ước lượng thống kê cố định; suy luận dùng thống kê cố định đó.</desc>
+  <defs><marker id="a" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#2f3e7a"/></marker></defs>
+  <rect width="1100" height="340" fill="#fff"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle" fill="#263238">
+    <text x="300" y="42" font-size="28" font-weight="700" fill="#2f3e7a">Huấn luyện</text>
+    <text x="845" y="42" font-size="28" font-weight="700" fill="#2f3e7a">Suy luận</text>
+    <g stroke="#2f3e7a" stroke-width="3">
+      <rect x="25" y="95" width="170" height="90" rx="9" fill="#edf4ff"/><rect x="245" y="95" width="170" height="90" rx="9" fill="#edf4ff"/><rect x="465" y="95" width="170" height="90" rx="9" fill="#edf4ff"/>
+      <rect x="690" y="95" width="200" height="90" rx="9" fill="#f7efe6" stroke="#b15a2b"/><rect x="930" y="95" width="150" height="90" rx="9" fill="#edf4ff"/>
+    </g>
+    <g stroke="#2f3e7a" stroke-width="3" marker-end="url(#a)" fill="none"><path d="M195 140H245"/><path d="M415 140H465"/><path d="M890 140H930"/><path d="M330 185V255H690"/></g>
+    <g font-size="24"><text x="110" y="132">lô hiện tại</text><text x="110" y="162">X_B</text><text x="330" y="132">thống kê lô</text><text x="330" y="162">μ_B, σ²_B</text><text x="550" y="145">chuẩn hóa</text><text x="790" y="130">thống kê cố định</text><text x="790" y="162">ước lượng khi học</text><text x="1005" y="145">chuẩn hóa</text></g>
+    <text x="510" y="290" font-size="23" fill="#2f3e7a">cập nhật cách nào phụ thuộc khung phần mềm</text>
+  </g>
+</svg>

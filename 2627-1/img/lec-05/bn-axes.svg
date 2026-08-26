@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" role="img" aria-labelledby="title desc">
+  <title id="title">Trục chuẩn hóa theo lô</title>
+  <desc id="desc">Chuẩn hóa giảm trên các trục lô, cao và rộng cho từng kênh; gamma và beta có một giá trị trên mỗi kênh rồi phát rộng.</desc>
+  <rect width="1000" height="300" fill="#fff"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle" fill="#263238">
+    <rect x="35" y="50" width="310" height="190" rx="10" fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"/>
+    <text x="190" y="105" font-size="29" fill="#2f3e7a">X: N×C×H×W</text><text x="190" y="155" font-size="25">giảm theo N, H, W</text><text x="190" y="200" font-size="25">giữ riêng từng C</text>
+    <path d="M345 145H465" stroke="#2f3e7a" stroke-width="4"/>
+    <rect x="465" y="65" width="220" height="160" rx="10" fill="#f7efe6" stroke="#b15a2b" stroke-width="3"/>
+    <text x="575" y="125" font-size="28">μ, σ², γ, β</text><text x="575" y="175" font-size="25">mỗi đại lượng: C</text>
+    <path d="M685 145H790" stroke="#2f3e7a" stroke-width="4"/>
+    <rect x="790" y="80" width="180" height="130" rx="10" fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"/>
+    <text x="880" y="135" font-size="25">phát rộng</text><text x="880" y="175" font-size="25">1×C×1×1</text>
+  </g>
+</svg>
