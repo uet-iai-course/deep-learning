@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 330" role="img" aria-labelledby="title desc">
+  <title id="title">Ba đầu vào cập nhật lần lượt ba trạng thái</title>
+  <desc id="desc">Đầu vào x1 tạo trạng thái h1. h1 cùng x2 tạo h2. h2 cùng x3 tạo h3. Trạng thái h3 được dùng để dự đoán.</desc>
+  <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0l9 4.5L0 9z" fill="#2f3e7a"/></marker></defs>
+  <rect width="1120" height="330" fill="#fff"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <g fill="#edf4ff" stroke="#2f3e7a" stroke-width="3"><rect x="45" y="210" width="140" height="68" rx="10"/><rect x="315" y="210" width="140" height="68" rx="10"/><rect x="585" y="210" width="140" height="68" rx="10"/><rect x="45" y="70" width="140" height="75" rx="10"/><rect x="315" y="70" width="140" height="75" rx="10"/><rect x="585" y="70" width="140" height="75" rx="10"/><rect x="820" y="70" width="250" height="75" rx="10"/></g>
+    <g font-size="25" fill="#263238"><text x="115" y="252">x₁</text><text x="385" y="252">x₂</text><text x="655" y="252">x₃</text><text x="115" y="115">h₁</text><text x="385" y="115">h₂</text><text x="655" y="115">h₃</text><text x="945" y="115">dự đoán từ h₃</text></g>
+    <g stroke="#2f3e7a" stroke-width="4" marker-end="url(#arrow)" fill="none"><path d="M115 210v-55"/><path d="M185 108h120"/><path d="M385 210v-55"/><path d="M455 108h120"/><path d="M655 210v-55"/><path d="M725 108h85"/></g>
+    <text x="560" y="312" font-size="23" fill="#555">x₁ ảnh hưởng h₃ qua h₁ và h₂</text>
+  </g>
+</svg>
