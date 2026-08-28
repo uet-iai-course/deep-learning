@@ -2,83 +2,137 @@
 <html lang="vi">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Học sâu · 2026–2027</title>
   <link rel="stylesheet" href="../index-pages.css"/>
-  <style>
-    body{font-family:Arial,sans-serif;max-width:900px;margin:3rem auto;padding:0 1.5rem;color:#263238}
-    a{color:#b15a2b}
-    .lecture-card{border:1px solid #ddd;border-left:5px solid #b15a2b;border-radius:8px;padding:1rem 1.25rem;margin-top:1.5rem;background:#fff}
-    .lecture-card h2{margin:.1rem 0 .5rem}
-  </style>
 </head>
 <body>
-  <h1>Học sâu</h1>
-  <p>Học kỳ 1 · Năm học 2026–2027</p>
-  <div class="lecture-card">
-    <h2>Bài 01: Giới thiệu Học sâu và mạng perceptron đa lớp</h2>
-    <p>Từ giới hạn của mô hình tuyến tính đến tầng ẩn, hàm kích hoạt và một MLP giải XOR.</p>
-    <p><a href="lecture-01-gioi-thieu-hoc-sau-va-mlp.html">Mở bài giảng</a></p>
-  </div>
-  <div class="lecture-card">
-    <h2>Bài 02: Lan truyền và đồ thị tính toán</h2>
-    <p>Từ quy tắc chuỗi trên đồ thị vô hướng đến lan truyền ngược và một bước cập nhật MLP theo lô.</p>
-    <p><a href="lecture-02-lan-truyen-va-do-thi-tinh-toan.html">Mở bài giảng</a></p>
-  </div>
-  <div class="lecture-card">
-    <h2>Bài 03: Tối ưu hóa mạng nơ-ron đa lớp</h2>
-    <p>Từ chẩn đoán quá trình huấn luyện đến bộ tối ưu, điều chuẩn, chuẩn hóa theo lô và chọn siêu tham số.</p>
-    <p><a href="lecture-03-toi-uu-hoa-mang-no-ron-da-lop.html">Mở bài giảng</a></p>
-  </div>
-  <div class="lecture-card">
-    <h2>Bài 04: Mạng nơ-ron tích chập</h2>
-    <p>Từ kết nối cục bộ và chia sẻ tham số đến phép tính nhiều kênh, phép gộp và trường tiếp nhận.</p>
-    <p><a href="lecture-04-mang-no-ron-tich-chap.html">Mở bài giảng</a></p>
-  </div>
-  <div class="lecture-card">
-    <h2>Bài 05: Các kiến trúc CNN hiện đại</h2>
-    <p>So sánh AlexNet, VGG, GoogLeNet và ResNet qua kích thước tensor, tham số, chi phí tính toán và đường truyền đạo hàm.</p>
-    <p><a href="lecture-05-cac-kien-truc-cnn-hien-dai.html">Mở bài giảng</a></p>
-  </div>
-  <div class="lecture-card">
-    <h2>Bài 06: Học biểu diễn và Autoencoder</h2>
-    <p>Từ mục tiêu tái tạo và mã tiềm ẩn đến các ràng buộc học biểu diễn, học chuyển giao và giới hạn lấy mẫu.</p>
-    <p><a href="lecture-06-hoc-bieu-dien-va-autoencoders.html">Mở bài giảng</a></p>
-  </div>
-  <div class="lecture-card">
-    <h2>Bài 07: Mạng nơ-ron hồi quy</h2>
-    <p>Từ trạng thái truy hồi và các dạng ánh xạ chuỗi đến lan truyền ngược theo thời gian và giới hạn gradient.</p>
-    <p><a href="lecture-07-mang-no-ron-hoi-quy.html">Mở bài giảng</a></p>
-  </div>
-  <div class="lecture-card">
-    <h2>Bài 08: LSTM và GRU</h2>
-    <p>Từ cơ chế cổng và đường truyền trạng thái đến mô hình hóa chuỗi, mặt nạ và bộ mã hóa–giải mã.</p>
-    <p><a href="lecture-08-cac-kien-truc-rnn-hien-dai-lstm-gru.html">Mở bài giảng</a></p>
-  </div>
-  <div class="lecture-card">
-    <h2>Bài 10: Cơ chế chú ý</h2>
-    <p>Từ nút thắt ngữ cảnh cố định đến hàm điểm, mặt nạ, trọng số chú ý và ngữ cảnh động trong dịch máy.</p>
-    <p><a href="lecture-10-co-che-chu-y.html">Mở bài giảng</a></p>
-  </div>
-  <div class="lecture-card">
-    <h2>Bài 11: Kiến trúc Transformer</h2>
-    <p>Từ tự chú ý có tỷ lệ, mặt nạ và nhiều đầu đến mã hóa vị trí, khối Transformer và huấn luyện mã hóa–giải mã.</p>
-    <p><a href="lecture-11-kien-truc-transformer.html">Mở bài giảng</a></p>
-  </div>
-  <div class="lecture-card">
-    <h2>Bài 12: Transformer nâng cao</h2>
-    <p>So sánh các họ Transformer, mô hình ngôn ngữ lớn, CLIP và Vision Transformer qua luồng thông tin, mục tiêu và kích thước tensor.</p>
-    <p><a href="lecture-12-transformer-nang-cao.html">Mở bài giảng</a></p>
-  </div>
-  <div class="lecture-card">
-    <h2>Bài 13: Học tăng cường và học bắt chước</h2>
-    <p>Từ dữ liệu trình diễn và lệch phân phối đến quá trình quyết định Markov, Q-learning và DQN.</p>
-    <p><a href="lecture-13-hoc-tang-cuong-va-hoc-bat-chuoc.html">Mở bài giảng</a></p>
-  </div>
-  <div class="lecture-card">
-    <h2>Bài 14: Siêu học tập</h2>
-    <p>Từ phân phối tác vụ và học ít mẫu đến Siamese, ProtoNet, MAML và giao thức đánh giá không rò rỉ.</p>
-    <p><a href="lecture-14-sieu-hoc-tap.html">Mở bài giảng</a></p>
-  </div>
+  <main class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">Học kỳ 1 · 2026–2027</p>
+      <h1>Học sâu</h1>
+      <div class="hero-text">
+        <p>Danh mục bài giảng RevealJS của học phần. Các bài được công bố sau khi nguồn, nội dung và cách trình bày đã được kiểm định.</p>
+      </div>
+      <div class="hero-actions">
+        <a class="secondary-link" href="../index.html">
+          <span aria-hidden="true">←</span>
+          <span>Trang học phần</span>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Bài giảng</h2>
+      <div class="term-grid">
+        <article class="term-card">
+          <div>
+            <span class="term-label">Bài 1</span>
+            <h2>Giới thiệu Học sâu và mạng perceptron đa lớp</h2>
+            <p>Từ giới hạn của mô hình tuyến tính đến tầng ẩn, hàm kích hoạt và một MLP giải XOR.</p>
+          </div>
+          <a class="term-link" href="lecture-01-gioi-thieu-hoc-sau-va-mlp.html"><span>Mở bài giảng</span><span aria-hidden="true">→</span></a>
+        </article>
+        <article class="term-card">
+          <div>
+            <span class="term-label">Bài 2</span>
+            <h2>Lan truyền và đồ thị tính toán</h2>
+            <p>Từ quy tắc chuỗi trên đồ thị vô hướng đến lan truyền ngược và một bước cập nhật MLP theo lô.</p>
+          </div>
+          <a class="term-link" href="lecture-02-lan-truyen-va-do-thi-tinh-toan.html"><span>Mở bài giảng</span><span aria-hidden="true">→</span></a>
+        </article>
+        <article class="term-card">
+          <div>
+            <span class="term-label">Bài 3</span>
+            <h2>Tối ưu hóa mạng nơ-ron đa lớp</h2>
+            <p>Từ chẩn đoán quá trình huấn luyện đến bộ tối ưu, điều chuẩn, chuẩn hóa theo lô và chọn siêu tham số.</p>
+          </div>
+          <a class="term-link" href="lecture-03-toi-uu-hoa-mang-no-ron-da-lop.html"><span>Mở bài giảng</span><span aria-hidden="true">→</span></a>
+        </article>
+        <article class="term-card">
+          <div>
+            <span class="term-label">Bài 4</span>
+            <h2>Mạng nơ-ron tích chập</h2>
+            <p>Từ kết nối cục bộ và chia sẻ tham số đến phép tính nhiều kênh, phép gộp và trường tiếp nhận.</p>
+          </div>
+          <a class="term-link" href="lecture-04-mang-no-ron-tich-chap.html"><span>Mở bài giảng</span><span aria-hidden="true">→</span></a>
+        </article>
+        <article class="term-card">
+          <div>
+            <span class="term-label">Bài 5</span>
+            <h2>Các kiến trúc CNN hiện đại</h2>
+            <p>So sánh AlexNet, VGG, GoogLeNet và ResNet qua kích thước tensor, tham số, chi phí tính toán và đường truyền đạo hàm.</p>
+          </div>
+          <a class="term-link" href="lecture-05-cac-kien-truc-cnn-hien-dai.html"><span>Mở bài giảng</span><span aria-hidden="true">→</span></a>
+        </article>
+        <article class="term-card">
+          <div>
+            <span class="term-label">Bài 6</span>
+            <h2>Học biểu diễn và Autoencoder</h2>
+            <p>Từ mục tiêu tái tạo và mã tiềm ẩn đến các ràng buộc học biểu diễn, học chuyển giao và giới hạn lấy mẫu.</p>
+          </div>
+          <a class="term-link" href="lecture-06-hoc-bieu-dien-va-autoencoders.html"><span>Mở bài giảng</span><span aria-hidden="true">→</span></a>
+        </article>
+        <article class="term-card">
+          <div>
+            <span class="term-label">Bài 7</span>
+            <h2>Mạng nơ-ron hồi quy</h2>
+            <p>Từ trạng thái truy hồi và các dạng ánh xạ chuỗi đến lan truyền ngược theo thời gian và giới hạn gradient.</p>
+          </div>
+          <a class="term-link" href="lecture-07-mang-no-ron-hoi-quy.html"><span>Mở bài giảng</span><span aria-hidden="true">→</span></a>
+        </article>
+        <article class="term-card">
+          <div>
+            <span class="term-label">Bài 8</span>
+            <h2>LSTM và GRU</h2>
+            <p>Từ cơ chế cổng và đường truyền trạng thái đến mô hình hóa chuỗi, mặt nạ và bộ mã hóa–giải mã.</p>
+          </div>
+          <a class="term-link" href="lecture-08-cac-kien-truc-rnn-hien-dai-lstm-gru.html"><span>Mở bài giảng</span><span aria-hidden="true">→</span></a>
+        </article>
+        <article class="term-card">
+          <div>
+            <span class="term-label">Bài 10</span>
+            <h2>Cơ chế chú ý</h2>
+            <p>Từ nút thắt ngữ cảnh cố định đến hàm điểm, mặt nạ, trọng số chú ý và ngữ cảnh động trong dịch máy.</p>
+          </div>
+          <a class="term-link" href="lecture-10-co-che-chu-y.html"><span>Mở bài giảng</span><span aria-hidden="true">→</span></a>
+        </article>
+        <article class="term-card">
+          <div>
+            <span class="term-label">Bài 11</span>
+            <h2>Kiến trúc Transformer</h2>
+            <p>Từ tự chú ý có tỷ lệ, mặt nạ và nhiều đầu đến mã hóa vị trí, khối Transformer và huấn luyện mã hóa–giải mã.</p>
+          </div>
+          <a class="term-link" href="lecture-11-kien-truc-transformer.html"><span>Mở bài giảng</span><span aria-hidden="true">→</span></a>
+        </article>
+        <article class="term-card">
+          <div>
+            <span class="term-label">Bài 12</span>
+            <h2>Transformer nâng cao</h2>
+            <p>So sánh các họ Transformer, mô hình ngôn ngữ lớn, CLIP và Vision Transformer qua luồng thông tin, mục tiêu và kích thước tensor.</p>
+          </div>
+          <a class="term-link" href="lecture-12-transformer-nang-cao.html"><span>Mở bài giảng</span><span aria-hidden="true">→</span></a>
+        </article>
+        <article class="term-card">
+          <div>
+            <span class="term-label">Bài 13</span>
+            <h2>Học tăng cường và học bắt chước</h2>
+            <p>Từ dữ liệu trình diễn và lệch phân phối đến quá trình quyết định Markov, Q-learning và DQN.</p>
+          </div>
+          <a class="term-link" href="lecture-13-hoc-tang-cuong-va-hoc-bat-chuoc.html"><span>Mở bài giảng</span><span aria-hidden="true">→</span></a>
+        </article>
+        <article class="term-card">
+          <div>
+            <span class="term-label">Bài 14</span>
+            <h2>Siêu học tập</h2>
+            <p>Từ phân phối tác vụ và học ít mẫu đến Siamese, ProtoNet, MAML và giao thức đánh giá không rò rỉ.</p>
+          </div>
+          <a class="term-link" href="lecture-14-sieu-hoc-tap.html"><span>Mở bài giảng</span><span aria-hidden="true">→</span></a>
+        </article>
+      </div>
+    </section>
+
+    <p class="footer">Học sâu · Học kỳ 1, 2026–2027</p>
+  </main>
 </body>
 </html>
