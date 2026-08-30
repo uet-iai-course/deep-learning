@@ -132,3 +132,84 @@ Mọi lỗi chặn, nghiêm trọng và trung bình có căn cứ đã được 
 - Chưa cập nhật `index.html`; chưa commit/push.
 - Kiểm định RevealJS cục bộ: 48 mã trang duy nhất, 48 ghi chú, 13 SVG được HTML tham chiếu và đều phân tích XML/a11y hợp lệ; mọi tài nguyên tương đối đều tồn tại; không có raster hoặc phụ thuộc mạng cốt lõi. KaTeX dựng 131 biểu thức với `throwOnError: true`, `strict: "error"`, không lỗi.
 - Phiên này không có trình duyệt đồ họa hoặc headless để duyệt tràn chữ ở khung 16:9 và màn hình hẹp; kết quả trên là kiểm định tĩnh của RevealJS, KaTeX và tài nguyên cục bộ.
+
+## Kết quả nguồn và storyboard hiện hành (bản cuối)
+
+Các mục dưới đây là trạng thái hiện hành sau vòng chỉnh cuối; các báo cáo phía trên giữ nguyên như lịch sử của các vòng rà trước.
+
+- Nguồn: `qquad` đã sửa (không còn ký hiệu lỗi trong HTML).
+- Cấu trúc: 9 mạch cũ hợp nhất thành 7 mạch; HTML giữ đúng 7 section ngoài [00–05], [06–14], [15–23], [24–34], [35–42], [X01–X04], [X05]; đủ 48 ID và 48 notes.
+- L03-08: lược về dạng lịch, giữ $K,T\in\mathbb N_{>0}$, $0\le t\le T$.
+- L03-13: chỉ giữ hai công thức Xavier/Kaiming.
+- Thuật ngữ: "Momentum" Việt hóa thành "Mômen" thống nhất toàn deck và planning.
+- L03-10: ghi chú nguồn log-sum-exp đúng dải lec04:19.
+- L03-42: đổi "lịch học" thành "lịch tốc độ học"; L03-03 đổi tương tự.
+- L03-X05: viết lại thành kết luận toàn bài ba bước (chẩn đoán → chọn cơ chế → so sánh bằng xác thực và khóa tập kiểm tra); timing X05 là 2 phút, X01–X04 mỗi trang 5 phút, lõi đúng 100 phút, mở rộng đúng 20 phút, bài tập 50 phút tách riêng.
+- Routes: lõi bấm End tại L03-42 để tới X05; đầy đủ L03-42 → phải tới X01 → xuống qua X02–X04 → phải tới X05.
+- `index.html` đã có mục Bài 3.
+- Năm vai độc lập mới (sinh viên, chuyên gia Học sâu, toán học–thuật toán–triển khai, phản biện học thuật–giảng dạy, kết nối–mạch viết) đã chạy trên bản trước lượt chỉnh sửa hợp nhất này. Kiểm định kỹ thuật, KaTeX, trực quan và HTTP sau chỉnh sửa vẫn CHƯA CHẠY.
+
+## Báo cáo năm vai độc lập trên bản hiện hành
+
+Bảng dưới là báo cáo của năm vai rà soát độc lập chạy trên bản hiện hành (sau bản vá L1, hợp nhất 7 mạch và chỉnh timing). Các báo cáo phía trên giữ nguyên như lịch sử của các vòng rà trước.
+
+### Vai 1 — Sinh viên
+
+| Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Đề xuất | Quyết định |
+|---|---|---|---|---|---|
+| chặn bàn giao | L03-42 → X05 | Chỉ dẫn cũ không thể bỏ qua bốn trang mở rộng | Cấu trúc RevealJS và planning | Dùng phím tắt tới trang cuối; ghi đúng thao tác tuyến đầy đủ | Đã xử lý: lõi bấm End tại L03-42; đầy đủ đi phải tới X01, xuống qua X02–X04 rồi phải tới X05 |
+| trung bình | L03-37 | Kết quả $\hat X$ và $Y$ hiện cùng lúc làm lộ đáp án tính toán | HTML L03-37 | Thêm fragment | Đã xử lý: hai khối công thức thành fragment |
+| trung bình | L03-14, 27, 30 | Câu hỏi lộ đáp án | HTML các trang này | Fragment cho đáp án | Đã có fragment sẵn trên HTML hiện hành |
+| trung bình | Toàn deck | Chữ phụ nhỏ | CSS `.tiny`/bảng .93em, hiệu dụng .753em | Nâng lên ≥ .75em ngưỡng | Bác ở mức chặn: .753em đạt ngưỡng .75; chờ kết quả visual trước khi đổi thêm |
+
+### Vai 2 — Chuyên gia Học sâu
+
+| Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Đề xuất | Quyết định |
+|---|---|---|---|---|---|
+| nghiêm trọng | L03-12 | Điều kiện "cùng tầng, cùng đầu vào x" chỉ nằm trong notes | HTML L03-12 | Đưa điều kiện lên mặt trang | Đã xử lý: box trên mặt L03-12 ghi điều kiện áp dụng |
+| nghiêm trọng | Mạch↔section | Bảy mạch planning phải ánh xạ 1:1 với section HTML | outline.md vs HTML | Định nghĩa lại vai trò theo đúng wrapper hiện hành | Đã xử lý: 00–05; 06–14; 15–23; 24–34; 35–42; X01–X04; X05 |
+| trung bình | L03-28 | AdamW cần giải thích rõ | HTML L03-28 notes | Giải thích suy giảm tách rời | Đã có: notes giải thích AdamW là biến thể Adam với hệ số co tác động trực tiếp lên tham số |
+| trung bình | L03-29 | Tiêu đề/định nghĩa L1 | HTML L03-29 | Định nghĩa đạo hàm dưới trên mặt | Đã có: box trên mặt định nghĩa $\partial|w_i|$ |
+
+### Vai 3 — Độ chính xác toán học, thuật toán và triển khai
+
+| Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Đề xuất | Quyết định |
+|---|---|---|---|---|---|
+| nghiêm trọng | L03-10 | Notes còn câu sai "log không nhận đối số âm quá lớn" | HTML L03-10 notes | Bỏ hẳn câu sai, thay bằng phát biểu đúng | Đã xử lý: thay bằng "tổng mũ hữu hạn và log chỉ nhận đối số dương" |
+| nghiêm trọng | Timing | Lõi 102 phút sau bản vá L1 | storyboard.md | Giảm L03-07 3→2 và L03-15 3→2 | Đã xử lý: lõi L03-00–42 = 98 phút + X05 2 phút = 100 |
+| trung bình | L03-13 | "Lần đầu Glorot/Xavier" chưa ghi rõ | HTML L03-13 | Ghi Xavier (Glorot) lần đầu xuất hiện | Đã có: thẻ "Xavier (Glorot)" trên mặt L03-13 |
+| trung bình | L03-24 | Dừng sớm cần nêu đúng vai trò | HTML L03-24 notes | Ghi dừng sớm là quyết định siêu tham số | Đã có trong notes hiện hành |
+| trung bình | L03-25 | Chuẩn Frobenius cần định nghĩa | HTML L03-25 notes | Định nghĩa $\lVert W\rVert_F^2$ | Đã có: notes định nghĩa tổng bình phương mọi phần tử |
+| trung bình | L03-36 | Phương sai chia B | HTML L03-36 notes | Ghi ước lượng chệch | Đã có trong notes hiện hành |
+| trung bình | L03-16 | Thiếu phát biểu "không có trạng thái phụ" | HTML L03-16 | Ghi rõ trên notes | Đã có: "SGD không giữ trạng thái phụ" |
+
+### Vai 4 — Phản biện học thuật và giảng dạy
+
+| Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Đề xuất | Quyết định |
+|---|---|---|---|---|---|
+| nghiêm trọng | Câu nối | Thiếu câu chuyển 14→15, 32→33, 38→39 | HTML notes | Thêm ba câu nối | Đã xử lý: 14→15 (mạch kế bộ tối ưu), 32→33 (mạch kế thống kê lô), 38→39 (hai chế độ thống kê) |
+| trung bình | L03-42/X05 | Vai trò X05 trong timing chưa rõ | outline.md, storyboard.md | Tách X05 khỏi mạch 7 lõi | Đã xử lý: mạch 7 ghi 5+2 phút; tổng 98+2=100 |
+| trung bình | Bài tập | Bài tập 50 phút phải tách khỏi timing deck | note-for-author.md | Ghi rõ tách riêng | Đã có: 50 phút riêng, không tính vào 120 phút |
+
+### Vai 5 — Kết nối và mạch viết
+
+| Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Đề xuất | Quyết định |
+|---|---|---|---|---|---|
+| nghiêm trọng | KaTeX | Báo cáo cũ nêu thiếu KaTeX | vendor/katex | Kiểm tra thư mục vendor | Bác: `vendor/katex` tồn tại trong dự án; cấu hình `katex:{local:"vendor/katex"}` hợp lệ |
+| trung bình | Điều hướng | Chỉ dẫn cũ không khớp cấu trúc ngang–dọc | storyboard.md, note-for-author.md | Ghi thao tác theo đúng cấu trúc RevealJS | Đã xử lý bằng End cho tuyến lõi; tuyến đầy đủ đi phải, xuống, rồi phải |
+| trung bình | Planning | Timing tổng phải 100+20, bài tập 50 | outline.md, storyboard.md | Đồng bộ ba tệp | Đã xử lý: lõi 98+X05 2=100; X01–X04=20; toàn tuyến 120; bài tập 50 |
+
+## Trạng thái xác minh cuối
+
+- Hậu kiểm toán học–thuật toán–triển khai sau chỉnh sửa: không còn lỗi chặn hoặc nghiêm trọng; các công thức và timing 98+2 đã được tính lại. Ba góp ý diễn đạt nhẹ ở L03-10, L03-12 và L03-37 đã xử lý cục bộ.
+- Hậu kiểm kết nối–mạch viết sau chỉnh sửa: bảy section ánh xạ một-một, timing 100+20 và điều hướng End/phải–xuống–phải đạt; ba góp ý nhẹ ở L03-16, L03-32 và L03-33 đã xử lý cục bộ.
+- Cấu trúc: đạt 7 section ngoài theo đúng dải `[00–05]`, `[06–14]`, `[15–23]`, `[24–34]`, `[35–42]`, `[X01–X04]`, `[X05]`; 48 `data-slide-id` duy nhất và 48 khối notes.
+- Tài nguyên: mọi `src`/`href` cục bộ tồn tại; không có tham chiếu mạng cốt lõi hoặc raster; 13 SVG phân tích XML thành công và đều có `role="img"`, `title`, `desc`.
+- KaTeX: Chromium dựng deck với `throwOnError: true`, `strict: "error"`; DOM có phần tử KaTeX và không có `katex-error`.
+- HTTP: `python3 -m reloadserver 8765` không chạy vì môi trường thiếu mô-đun `reloadserver`; dùng máy chủ dự phòng `python3 -m http.server 8765` chỉ tại `2627-1/`, deck trả HTTP 200.
+- Trực quan: đã chụp và duyệt đủ 48 trang ở 1280×720 và 960×720; không thấy tràn chữ, chồng lấn, công thức hoặc SVG bị cắt. Cỡ chữ `.compact`/`.tiny` hiệu dụng khoảng `.753em` vẫn đọc được ở hai khung, nên giữ nguyên CSS cục bộ.
+- Tiêu đề: đã xuất toàn bộ `h1`, `h2`, `h3` và rà thủ công; chỉ giữ tiếng Anh ở tên/viết tắt kỹ thuật như SGD, MLP, ReLU, Glorot/Xavier, Kaiming, RMSprop, Adam, dropout, BN và LN.
+- Timing và điều hướng: lõi 98+2=100 phút, mở rộng 20 phút, toàn tuyến 120 phút, bài tập 50 phút riêng; phím End và tuyến phải–xuống–phải đã được kiểm tra theo cấu trúc RevealJS.
+- Storyboard giữ mã ổn định L03-X05 nhưng đặt trang này trong mục kết luận lõi riêng; bảng mở rộng chỉ còn X01–X04, tránh cộng nhầm thành 22 phút.
+- Kết quả kiểm định cuối: **ĐẠT**.
+- Các báo cáo "Bốn báo cáo rà soát độc lập" và "Hậu kiểm vòng hai" phía trên là báo cáo lịch sử của các vòng rà trước, không phải kết quả trên bản hiện hành.

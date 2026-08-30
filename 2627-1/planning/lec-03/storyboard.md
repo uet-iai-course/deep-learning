@@ -17,7 +17,7 @@ Ví dụ xuyên suốt truyền các đại lượng sau: $w_t,g_t,\eta_t$ từ 
 | L03-04 | 3 | Ví dụ | Chậm hội tụ và quá khớp → tách tối ưu với tổng quát hóa | lec10:7 |
 | L03-05 | 3 | Kiểm tra | Đường cong → thứ tự chẩn đoán có thể kiểm chứng | lec10:6–7 |
 | L03-06 | 3 | Vấn đề + trực giác + hình thức | Hướng nhất quán/đổi dấu → gradient lô nhỏ và cập nhật SGD | lec10:3 |
-| L03-07 | 3 | Trực giác | $\eta$ quá lớn/quá nhỏ → ba chế độ đường cong | lec10:4–5 |
+| L03-07 | 2 | Trực giác | $\eta$ quá lớn/quá nhỏ → ba chế độ đường cong | lec10:4–5 |
 | L03-08 | 2 | Triển khai + kiểm tra | $K,T\in\mathbb N_{>0}$, $t\in\{0,\ldots,T\}$ → lịch là một phần cấu hình | lec10:8 |
 | L03-09 | 3 | Vấn đề | Mũ, tích Jacobian, thang kích hoạt → ba nguồn bất ổn | GT:96–100; lec10:23–24 |
 | L03-10 | 3 | Trực giác + tính toán + kiểm tra | $z=(1000,999)$ → trừ cực đại, log-sum-exp ổn định trên trục lớp | lec04:19 |
@@ -25,9 +25,9 @@ Ví dụ xuyên suốt truyền các đại lượng sau: $w_t,g_t,\eta_t$ từ 
 | L03-12 | 3 | Ví dụ | Đường vào và đường ra cùng đối xứng → kích hoạt và tín hiệu ngược bằng nhau | lec10:23; GT:100 |
 | L03-13 | 3 | Triển khai | $n_{in},n_{out}$ và kích hoạt → Xavier/Kaiming | lec10:24; GT:98–100 |
 | L03-14 | 1 | Kiểm tra | Tầng $256\to128$ → tính phương sai khởi tạo | lec10:24 |
-| L03-15 | 3 | Vấn đề | Độ cong khác nhau → SGD dao động ở hướng dốc | lec10:11–12 |
+| L03-15 | 2 | Vấn đề | Độ cong khác nhau → SGD dao động ở hướng dốc | lec10:11–12 |
 | L03-16 | 2 | Ví dụ | Gradient tức thời → đường đi răng cưa | lec10:12 |
-| L03-17 | 3 | Hình thức | $g_t,u_{t-1}$ → vận tốc Momentum | lec10:13 |
+| L03-17 | 3 | Hình thức | $g_t,u_{t-1}$ → vận tốc Mômen | lec10:13 |
 | L03-18 | 3 | Tính toán | Hai gradient → $u_1,w_1,u_2,w_2$ | lec10:13; tính lại |
 | L03-19 | 3 | Hình thức | Lịch sử bình phương gradient → RMSprop | lec10:14 |
 | L03-20 | 2 | Tính toán | $s_0=0,w_0,g_1$ → $s_1$ và bước RMSprop đầy đủ | lec10:14; tính lại |
@@ -54,19 +54,26 @@ Ví dụ xuyên suốt truyền các đại lượng sau: $w_t,g_t,\eta_t$ từ 
 | L03-41 | 3 | Trực giác + hình thức + triển khai | Thẻ hai vòng → $\theta^*(c)$ và $c^*=\arg\min_{c\in\mathcal C}L_{val}$ | lec05:42–46; GT:62 |
 | L03-42 | 2 | Kiểm tra | Khóa ngân sách, tiêu chí, cấu hình trước khi mở tập kiểm tra | lec05:42–46; GT:62 |
 
-Tổng tuyến lõi: **100 phút**.
+Tổng tuyến lõi L03-00–42 trước kết luận: **98 phút**.
+
+### Kết luận lõi — 2 phút
+
+| Mã | Phút | Bước | Luận điểm | Nguồn |
+|---|---:|---|---|---|
+| L03-X05 | 2 | Kiểm tra | Kết luận toàn bài: chẩn đoán → chọn cơ chế → so sánh bằng xác thực và khóa tập kiểm tra | lec10:16–17; lec05:42–46; GT:62 |
+
+Tổng tuyến lõi gồm L03-00–42 và L03-X05: **100 phút**. Mã X05 được giữ ổn định dù trang đã chuyển vào tuyến lõi.
 
 ## Tuyến mở rộng/có thể cắt — 20 phút
 
 | Mã | Phút | Bước | Luận điểm | Nguồn |
 |---|---:|---|---|---|
-| L03-X01 | 4 | Triển khai | Tăng cường dữ liệu chỉ dùng biến đổi giữ nhãn | lec10:19–21 |
-| L03-X02 | 4 | Triển khai | Tiền xử lý dùng thống kê huấn luyện cho xác thực/kiểm tra | lec10:22 |
-| L03-X03 | 4 | Triển khai | Kiểm kê nhóm siêu tham số và ghi lại mỗi cấu hình $c\in\mathcal C$ | lec05:42–46; lec10:23–24,39–41 |
-| L03-X04 | 4 | Hình thức | So sánh trục của BN và LN trên tensor $B\times D$ | lec10:33; GT:155–157 |
-| L03-X05 | 4 | Kiểm tra | Giới hạn kết luận khi so sánh bộ tối ưu | lec10:16–17 |
+| L03-X01 | 5 | Triển khai | Tăng cường dữ liệu chỉ dùng biến đổi giữ nhãn | lec10:19–21 |
+| L03-X02 | 5 | Triển khai | Tiền xử lý dùng thống kê huấn luyện cho xác thực/kiểm tra | lec10:22 |
+| L03-X03 | 5 | Triển khai | Kiểm kê nhóm siêu tham số và ghi lại mỗi cấu hình $c\in\mathcal C$ | lec05:42–46; lec10:23–24,39–41 |
+| L03-X04 | 5 | Hình thức | So sánh trục của BN và LN trên tensor $B\times D$ | lec10:33; GT:155–157 |
 
-Tổng tuyến mở rộng: **20 phút**. Điều hướng từ L03-42 sang phần mở rộng bằng phím phải; bỏ toàn bộ phần mở rộng để giữ tuyến 100 phút.
+Tổng tuyến mở rộng: **20 phút** (X01–X04 mỗi trang 5 phút). Điều hướng tuyến lõi: tại L03-42 bấm **End** để tới trang cuối L03-X05, bỏ qua X01–X04. Điều hướng tuyến đầy đủ: từ L03-42 nhấn phải tới L03-X01, nhấn xuống qua L03-X02, L03-X03 và L03-X04, rồi nhấn phải tới L03-X05. Bỏ toàn bộ phần mở rộng để giữ tuyến 100 phút.
 
 ## Chu trình học tập theo cụm
 
@@ -79,6 +86,7 @@ Tổng tuyến mở rộng: **20 phút**. Điều hướng từ L03-42 sang ph�
 | Điều chuẩn | 24 | 25,27,29–31; L03-29–30 đặt ví dụ trước công thức ngay trên mặt trang | 25–30,32–33 | 28,34 | 27,29–30,34 |
 | Chuẩn hóa theo lô | 35 | 35,37 | 36–39 | 37–39 | 40 dùng lại tensor L03-37; 34→35 nối nhiễu dropout với thống kê kích hoạt |
 | Siêu tham số | 41 | 41 | 41 | 41–42, X03 | 42; L03-41 gộp vấn đề + trực giác + hình thức + triển khai, 40→41 nối vòng huấn luyện đúng với vòng ngoài chọn cấu hình |
+| Kết luận (X05) | — | — | — | — | X05 chốt ba bước chẩn đoán → chọn cơ chế → so sánh bằng xác thực và khóa tập kiểm tra; nối từ 42 hoặc từ X04 |
 
 Các bước được gộp đều có lý do: L03-06 đặt tình huống trước rồi gộp trực giác với công thức vì cùng dùng $g_t$; L03-25 gộp trực giác “trọng số lớn trả thêm chi phí” với hạng phạt L2; L03-29 đặt vectơ và lực theo dấu trước định nghĩa tổng quát; L03-30 đặt hai tọa độ cùng ngưỡng trước độ cong, giả thiết Hessian chéo và nghiệm ngưỡng mềm; L03-35 nêu vấn đề thang kích hoạt, L03-37 gộp ví dụ và tính toán, L03-40 dùng lại tensor để kiểm tra trục; L03-41 đặt thẻ hai vòng trước công thức rồi gộp hình thức với triển khai vì ký hiệu đặc tả trực tiếp quy trình. Dấu vết: $w_0,g_1,\eta$ dùng lại ở L03-18,20,22; $\lambda$ nối L2 ở L03-25–28 với L1 ở L03-29–30; $X:B\times D$ đi từ L03-36 qua ví dụ L03-37 đến kiểm tra L03-40.
 

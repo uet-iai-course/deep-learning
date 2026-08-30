@@ -4,7 +4,7 @@
 
 - Đối tượng: sinh viên đại học đã học đại số tuyến tính, giải tích, xác suất, Python, học máy nhập môn và hai bài đầu của học phần.
 - Phạm vi đề cương: LLO5–LLO6; mất ổn định số, gradient triệt tiêu hoặc bùng nổ, quá khớp, bộ tối ưu, khởi tạo, điều chuẩn, dropout, chuẩn hóa theo lô và tinh chỉnh siêu tham số.
-- Tuyến trình chiếu: 100 phút lõi và 20 phút mở rộng/có thể cắt.
+- Tuyến trình chiếu: lõi L03-00–42 là 98 phút, cộng L03-X05 kết luận 2 phút = 100 phút; mở rộng X01–X04 là 20 phút có thể cắt.
 - Bài tập: 50 phút riêng, không tính vào thời lượng trình chiếu.
 - Sản phẩm học tập: chẩn đoán đường cong học; tính đầy đủ trạng thái và một bước Mômen, RMSprop, Adam và L2; tính đạo hàm dưới và ngưỡng mềm L1 trong giả thiết đã nêu; chọn khởi tạo có điều kiện; phân biệt huấn luyện/suy luận của dropout và chuẩn hóa theo lô; thiết kế hai vòng chọn siêu tham số bằng tập xác thực.
 
@@ -17,16 +17,17 @@
 5. Nguồn bổ sung đã duyệt cho L1: Goodfellow, Bengio và Courville, *Deep Learning*, §7.1.2, trang in 230–232, (7.18)–(7.23), `https://www.deeplearningbook.org/contents/regularization.html`.
 6. Không dùng `lec10_training.pdf`, PDF 43–47 vì vượt phạm vi; không dùng PDF 29 và 47 làm bằng chứng định lượng.
 
-## Hành trình khái niệm
+## Bảy mạch của bài (vai trò và kết nối vào–ra)
 
-1. Đọc dấu hiệu từ đường cong huấn luyện và xác thực.
-2. Tách lỗi triển khai, vấn đề tối ưu và vấn đề tổng quát hóa.
-3. Kiểm soát bước cập nhật bằng tốc độ học và lịch tốc độ học.
-4. Theo dõi thang kích hoạt và gradient; chọn khởi tạo phù hợp.
-5. So sánh SGD, Momentum, RMSprop và Adam bằng cùng giao thức.
-6. Kiểm soát khoảng cách huấn luyện–xác thực bằng L2, L1 và dropout.
-7. Chuẩn hóa theo lô đúng trục, đúng shape và đúng chế độ mô hình.
-8. Chọn siêu tham số chỉ bằng tập xác thực; khóa cấu hình trước khi đánh giá trên tập kiểm tra.
+1. **Chẩn đoán đường cong học (L03-00–05, 14 phút).** Vai trò: mở bài, dạy đọc tín hiệu thay vì nhìn một số cuối. Vào: tiên quyết Bài 02. Ra: giả thuyết kiểm chứng được cho bước cập nhật.
+2. **Bước cập nhật, ổn định số và khởi tạo (L03-06–14, 23 phút).** Vai trò: nối SGD và lịch tốc độ học với ba nguồn bất ổn, log-sum-exp, chuỗi Jacobian và Glorot/Xavier–Kaiming. Vào: giả thuyết từ mạch 1. Ra: tín hiệu và thang khởi tạo đã kiểm soát làm bối cảnh đọc đường đi tối ưu.
+3. **Bộ tối ưu (L03-15–23, 21 phút).** Vai trò: so sánh SGD, Mômen, RMSprop và Adam bằng trạng thái cùng ví dụ số. Vào: đường đi răng cưa từ mạch 2. Ra: giới hạn tối ưu cục bộ dẫn sang tổng quát hóa.
+4. **Điều chuẩn (L03-24–34, 20 phút).** Vai trò: dùng L2, L1 và dropout để kiểm soát quá khớp. Vào: khoảng cách huấn luyện–xác thực từ mạch 3. Ra: nhiễu kích hoạt dẫn sang thống kê và chế độ mô hình.
+5. **Chuẩn hóa theo lô và chọn siêu tham số (L03-35–42, 20 phút).** Vai trò: chuẩn hóa đúng trục, kích thước và chế độ rồi tổ chức hai vòng chọn cấu hình bằng xác thực. Vào: kích hoạt sau dropout từ mạch 4. Ra: quy trình đã khóa trước tập kiểm tra làm đầu vào cho kết luận.
+6. **Mở rộng có thể cắt (L03-X01–X04, 20 phút).** Vai trò: mở rộng sang tăng cường dữ liệu, tiền xử lý, kiểm kê cấu hình và so sánh BN/LN. Vào: quy trình chọn cấu hình từ mạch 5. Ra: các điều kiện triển khai bổ sung; có thể bỏ nguyên mạch mà vẫn đến kết luận.
+7. **Kết luận có phạm vi (L03-X05, 2 phút).** Vai trò: thu hồi toàn bài bằng ba bước chẩn đoán → chọn cơ chế → so sánh bằng xác thực và khóa tập kiểm tra. Vào: L03-42 ở tuyến lõi hoặc L03-X04 ở tuyến đầy đủ. Ra: chỉ kết luận trong phạm vi mô hình, dữ liệu, ngân sách và miền cấu hình đã thử.
+
+Tuyến lõi gồm mạch 1–5 (98 phút) và mạch 7 (2 phút). Tuyến đầy đủ thêm mạch 6 (20 phút), đạt 120 phút.
 
 ## Ánh xạ nguồn sang cụm đích
 
@@ -52,7 +53,7 @@
 | $g_t=\nabla_w L_{\mathcal B_t}(w_{t-1})$ | Gradient trung bình trên lô nhỏ ở bước $t$ |
 | $\eta_t$ | Tốc độ học; có thể thay đổi theo bước hoặc vòng huấn luyện |
 | $K,T,t$ | Chu kỳ giảm, tổng số bước của lịch và chỉ số bước; $K,T>0$, $0\le t\le T$ |
-| $u_t$ | Vận tốc của Mômen, cùng kích thước với $w_t$ |
+| $u_t$ | Vận tốc của Mômen (momentum), cùng kích thước với $w_t$; thuật ngữ Việt hóa thống nhất là "Mômen" |
 | $s_t$ | Trung bình trượt của $g_t\odot g_t$ trong RMSprop |
 | $m_t,v_t$ | Mômen bậc một và bậc hai trong Adam |
 | $\hat m_t,\hat v_t$ | Mômen đã hiệu chỉnh độ chệch |

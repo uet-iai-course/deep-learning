@@ -2,8 +2,10 @@
 
 ## Tuyến giảng
 
-- Tuyến lõi L03-00 đến L03-42: 100 phút.
-- Tuyến mở rộng L03-X01 đến L03-X05: 20 phút. Có thể bỏ nguyên phần mà không làm đứt mạch; từ L03-42 kết thúc buổi lõi.
+- Tuyến lõi L03-00 đến L03-42: 98 phút; L03-X05 kết luận 2 phút, tổng 100 phút.
+- Tuyến mở rộng L03-X01 đến L03-X04: mỗi trang 5 phút (20 phút); L03-X05 là lõi kết luận 2 phút. Có thể bỏ X01–X04 nguyên phần mà không làm đứt mạch; từ L03-42 phải chuyển tới L03-X05 để kết thúc buổi lõi.
+- Điều hướng: tuyến lõi — tại L03-42 bấm **End** để tới trang cuối L03-X05. Tuyến đầy đủ — từ L03-42 nhấn phải tới L03-X01, nhấn xuống qua X02–X04, rồi nhấn phải tới L03-X05.
+- L03-X05 chốt toàn bài bằng ba bước: chẩn đoán từ đường cong học → chọn cơ chế (tốc độ học/khởi tạo/bộ tối ưu/điều chuẩn/chế độ mô hình, mỗi lần một nhóm) → so sánh bằng tập xác thực và khóa cấu hình trước khi mở tập kiểm tra. Kết luận về bộ tối ưu chỉ trong phạm vi mô hình, dữ liệu, ngân sách và miền cấu hình đã thử; không xếp hạng phổ quát. Nguồn: lec10 PDF 16–17; chẩn đoán PDF 4–7; tinh chỉnh lec05 PDF 42–46; GT PDF 62.
 - Khi thiếu thời gian trong tuyến lõi, rút phần tính tay L03-18 xuống việc kiểm tra dấu và hướng, nhưng không bỏ trạng thái RMSprop/Adam hoặc phân biệt huấn luyện/suy luận.
 - Cụm điều chuẩn dùng 1 phút ở L03-25, 2 phút ở L03-26 và 3 phút cho mỗi trang L03-29–30; không kéo dài phần mở đầu L2 làm mất thời gian định nghĩa L1.
 
@@ -49,8 +51,13 @@ Tình huống: mất mát huấn luyện thấp, mất mát xác thực cao, t�
 - Nguồn dùng $\alpha$; deck dùng $\lambda$ để thống nhất với cụm L2. Không đổi ý nghĩa hệ số khi chuyển ký hiệu.
 - Nguồn phân tích hồi quy tuyến tính không bias; deck thay tên mục tiêu dữ liệu bằng $L_{data}$ để minh họa cục bộ. Không trình bày công thức ngưỡng mềm như nghiệm tổng quát của mạng sâu. Không mở API, code, Bayes/Laplace hoặc thuật toán proximal.
 
+## Đáp án và chỉ dẫn nội bộ cho L03-X05
+
+- Đáp án câu hỏi "điều gì được phép kết luận về bộ tối ưu": chỉ kết luận cấu hình nào đạt xác thực tốt hơn trong phạm vi mô hình, dữ liệu, ngân sách và miền cấu hình đã thử; không kết luận một bộ tối ưu luôn nhanh hơn hoặc tổng quát hóa tốt hơn. Báo cáo cần cấu hình, lịch tốc độ học, ngân sách, số lần chạy và tiêu chí chọn điểm lưu.
+- Chỉ dẫn nội bộ: nhấn mạnh "mỗi lần chỉ đổi một nhóm cơ chế" để giữ khả năng quy kết; nhắc học viên rằng tập kiểm tra chỉ mở một lần sau khi khóa cấu hình. Không đưa các dòng này lên mặt slide hay notes diễn giả.
+
 ## Điểm cần kiểm chứng sau chỉnh sửa
 
-- Mọi thay đổi công thức Momentum, RMSprop, Adam, L2, L1, dropout hoặc BN phải được tác tử độ chính xác rà lại.
+- Mọi thay đổi công thức Mômen, RMSprop, Adam, L2, L1, dropout hoặc BN phải được tác tử độ chính xác rà lại.
 - Nếu thay số slide hoặc thứ tự, rà lại trang bị ảnh hưởng và hai trang lân cận mỗi phía.
 - Không đưa nội dung của tệp này lên mặt slide hoặc ghi chú diễn giả.
