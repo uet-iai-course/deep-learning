@@ -42,6 +42,19 @@ Tình huống 5-way 1-shot → phân phối tác vụ → hợp đồng support/
 | Cùng tệp | 8–9 | Giữ ở phụ lục, bỏ benchmark | L14-X02: thay đổi K cần đánh giá riêng; không trình bày số liệu kết quả. |
 | Giáo trình `hocsau_draft.pdf` | 288–293 | Chỉ dùng phân biệt | L14-X01: phân biệt siêu học tập ít mẫu và gợi ý ít mẫu; không đưa prompting vào lõi. |
 
+## Ranh giới mạch (stack outer)
+
+Sáu stack outer với counts [11,5,10,6,7,7]:
+
+1. L14-00–10 (11): mở bài, LLO, hợp đồng episode.
+2. L14-11–15 (5): Siamese trên G.
+3. L14-16–25 (10): ProtoNet trên G.
+4. L14-26–31 (6): cầu nối hai họ và MAML trên G.
+5. L14-32–38 (7): mục tiêu vòng ngoài, thuật toán, meta-gradient, meta-test, rò rỉ.
+6. L14-39–41 + X01–X04 (7): so sánh ba họ và phụ lục.
+
+Lý do đổi từ 4 sang 6 stack: hai stack cũ (L14-16–26 và L14-27–41) quá dài và cắt ngang ranh giới cụm; tách theo biên cụm thực tế (ProtoNet kết thúc ở L14-25, cầu nối MAML kết thúc ở L14-31, thuật toán kết thúc ở L14-38) giúp mỗi stack tương ứng một mạch khái niệm và giảm chiều sâu điều hướng trong từng stack.
+
 ## Chu trình học tập
 
 | Cụm | Vấn đề | Trực giác | Ví dụ | Hình thức/tính | Triển khai/ứng dụng | Kiểm tra |
