@@ -14,7 +14,7 @@
 | Khử nhiễu so với mục tiêu sạch | CMU Autoencoders 7; công thức thêm ký hiệu $q(\widetilde X\mid X)$ chỉ để xác định cơ chế nhiễu, không khẳng định mô hình sinh. |
 | Tách “tham số được cập nhật” khỏi “chế độ huấn luyện/đánh giá” | Cần cho triển khai đóng băng/tinh chỉnh và tránh lỗi với dropout/BatchNorm; nguồn chuyển giao là `lec09_cnn_architectures.pdf` 44–46. |
 | Giữ giới hạn lấy mẫu, không mở sang mô hình sinh khác | Stanford 68–70 chỉ ra mã tùy ý có thể không hợp lệ. Đúng cảnh báo phạm vi của `source.md`. |
-| Không có code demo | DOCX có hoạt động thực hành, nhưng chỉ dẫn cụ thể của người dùng khóa “không code demo”; bài tập giấy vẫn đủ 50 phút. |
+| Không có code demo | Nhiệm vụ hiện tại là rà/chỉnh deck; quy tắc AGENTS chỉ chuyển code khi nguồn có nội dung code tương ứng hoặc người dùng yêu cầu. Các dải trích được duyệt không chứa code hoặc chỉ dẫn API triển khai, nên không tạo code demo. Bài tập giấy vẫn đủ 50 phút. |
 | Không dùng Illinois 14 | LSTM autoencoder không cần cho LLO và làm lệch mạch. |
 
 ## Kiểm tra toán học và triển khai
@@ -31,7 +31,7 @@
 - Nội dung hiển thị và ghi chú đã rà theo tiêu chí no-ai-slop: bỏ câu hỏi tu từ, khẩu hiệu, cụm kết luận mơ hồ và nhịp ba vế trang trí.
 - Quill được dùng để rà thứ tự khái niệm, dữ kiện xuyên suốt, thuật ngữ và câu nối; không tạo `quill.json`.
 - Tất cả hình là SVG có `role="img"`, `title`, `desc`; không dùng màu làm tín hiệu duy nhất.
-- Mọi chỉ dẫn tuyến giảng, thời lượng, đáp án và phạm vi nằm trong `note-for-author.md`, không đưa vào ghi chú diễn giả.
+- Mọi phương án cắt, thời lượng, đáp án chi tiết và quyết định nội bộ nằm trong `note-for-author.md`, không đưa vào ghi chú diễn giả.
 
 ## Sai khác có chủ ý và đề xuất không áp dụng
 
@@ -58,9 +58,53 @@
 | trung bình | L06-11–15, L06-21–27 | Hình thức xuất hiện trước ví dụ và dữ kiện mẫu/lô chưa nối rõ | $D=4$ chưa được gọi là ví dụ thu nhỏ | Đã chuyển L06-11 thành vấn đề, L06-12 thành ví dụ, L06-13 tổng quát; storyboard khóa $D=4\to784$ và $X/x^{(n)}$. |
 | trung bình | L06-34–35 | “Huấn luyện gần mã” và “mọi nội suy là ngoại suy” quá mạnh | Mất mát chỉ được đánh giá tại các mã phát ra; đoạn nối có thể qua vùng mật độ thấp | Đã diễn đạt theo điểm huấn luyện, vùng hỗ trợ và phân biệt nội suy tọa độ với ngoại suy ngoài hỗ trợ. |
 | trung bình | L06-X01–X03 | X01 không khớp phép chia; X02 thiếu giả thiết; X03 lặp lõi | SVG dùng $210/6$; định lý PCA cần dữ liệu định tâm và nghiệm tối ưu | Đã thêm phép tính $35=\mathrm{XXXV}$, khóa giả thiết PCA và tính không duy nhất, đổi X03 sang so sánh $d,k,\Omega$ và vùng hoạt động. |
+| trung bình | L06-X02 | Giả thiết "dữ liệu đã định tâm" và phát biểu "tại nghiệm tối ưu" không có nguyên văn trong Illinois 7 | Illinois 65–83 chỉ nêu điều kiện của nghiệm, không dùng cụm "toàn cục" | Giữ giả thiết định tâm như bổ sung toán học chuẩn để phát biểu chính xác; phát biểu ở mức "tại nghiệm tối ưu, khôi phục không gian con chính $K$ chiều", tránh cụm "nghiệm tối ưu toàn cục". |
+| trung bình | L06-X03, note-for-author | note-for-author tuyên bố `sparse-code.svg` dùng ở X03 nhưng HTML X03 không có hình | HTML X03 chỉ có hai card văn bản | Sửa note-for-author: `sparse-code.svg` chỉ dùng ở L06-23; không thêm hình chỉ để khớp ghi chú. |
+| nhẹ | L06-04 | Thiếu truy nguyên `lec01_intro.pdf` 26–37 dù outline gán dải này | Ghi chú nguồn trên slide chỉ nêu Stanford và GT | Đã thêm "lec01_intro, tr. 26–37" vào ghi chú nguồn của L06-04. |
+| nhẹ | L06-37 | LLO12 yêu cầu nối "trong các mô hình lớn" nhưng deck dừng ở đóng băng/tinh chỉnh | DOCX Buổi 06 | Thêm một câu nối ngắn ở L06-37: cơ chế tiền huấn luyện–tái sử dụng cũng là nền tảng của các mô hình lớn; chi tiết để bài sau, không mở rộng thành phần LLM. |
+| nhẹ | L06-17 | DOCX dùng "nút cổ chai", deck dùng "nút thắt" | docx-text.txt 262 | Thêm chú giải một lần: "nút thắt (nút cổ chai)". |
 | nhẹ | L06-X05 | Hạt giống và đánh giá sai lệch chưa được nguồn khóa đủ chi tiết | Dải nguồn chỉ hỗ trợ giao thức và tính hữu ích phụ thuộc tác vụ | Không giữ các tuyên bố đó; thay bằng ba phần dữ liệu tách biệt và chỉ số gắn với tác vụ. |
 
 Rà lại sau đổi cấu trúc đã bao phủ các cụm bị ảnh hưởng và hai trang lân cận: L06-07–15, L06-20–29, L06-27–35, L06-X01–X05. Không đổi số lượng hoặc thứ tự 44 trang; tuyến lõi vẫn 100 phút và tuyến mở rộng 20 phút.
+
+## Hợp nhất năm báo cáo hiện tại sau bản nháp
+
+| Nguồn rà | Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Đề xuất sửa và quyết định |
+|---|---|---|---|---|---|
+| Chuyên gia; kết nối và mạch viết | chặn bàn giao | Toàn deck; các ranh giới L06-05/06, 10/11, 15/16, 20/21, 27/28, 33/34 | HTML thực chỉ có một `<section>` ngoài, trái hồ sơ bảy mạch và làm mất điều hướng ngang | Trước lượt chỉnh sửa, HTML có một thẻ ngoài bao cả 44 trang | Đã đóng/mở ngăn xếp tại sáu ranh giới, tạo đúng bảy section ngoài với kích thước [6, 5, 5, 5, 7, 6, 10]. Giữ L06-38 ở cuối. |
+| Sinh viên; học thuật và giảng dạy | trung bình | Toàn deck | Hai báo cáo đếm nhầm HTML trước sửa thành bảy section ngoài | Kiểm tra DOM của điều phối viên và hai báo cáo Chuyên gia/Kết nối cùng xác nhận chỉ có một section ngoài | Không áp dụng nhận định “đã có bảy section”. Sửa theo bằng chứng DOM; yêu cầu điều phối viên rà lại mạch và các ranh giới sau lượt này. |
+| Kết nối và mạch viết | trung bình | L06-05, 10, 15, 20, 27, 33; L06-01, 37 | Chỉ dẫn mũi tên phải liệt kê cả các trang không phải cuối mạch | Mạch 1 chứa L06-00–05; mạch 7 chứa L06-34–37, X01–X05, L06-38 | Đã khóa mũi tên phải ở cuối sáu mạch đầu. L06-37 dùng End cho tuyến lõi hoặc Xuống cho tuyến đầy đủ; L06-01 đi Xuống. |
+| Kết nối và mạch viết | trung bình | L06-X05 → L06-38 | Câu nối chỉ có trong planning, chưa nằm trong ghi chú diễn giả của X05 | Ghi chú X05 trước sửa kết thúc ở giao thức đánh giá | Đã thêm câu chuyển về kiểm tra tổng hợp và ba giới hạn vào ghi chú X05. |
+| Sinh viên; học thuật; toán học và triển khai | trung bình | L06-29; outline | $\theta^\star$ và $C$ xuất hiện trước khi được định nghĩa; cụm tái sử dụng thiếu ví dụ tensor | Công thức dùng $f_{\theta^\star}$ và $N\times C$; bảng ký hiệu cũ chỉ có $\theta,\phi,\psi$ | Đã định nghĩa $\theta^\star$, $C$; thêm MNIST $N=32$, $Z:32\times d$, $S:32\times10$ và chỉ $\psi$ thuộc bộ tối ưu. Không thêm phép đếm tham số vì không cần cho luận điểm. |
+| Học thuật và giảng dạy | trung bình | L06-14 | Vòng huấn luyện thiếu số epoch và cách chọn tốc độ học | Ghi chú cũ chỉ mô tả một bước cập nhật; L06-32 mới nhắc chọn siêu tham số | Đã ghi lặp trên các lô qua số epoch định trước; chọn tốc độ học và số epoch trên tập kiểm định, nối L06-32. Không thêm code. |
+| Sinh viên | nhẹ | L06-09, L06-13; outline | Miền của $X$ và $\hat X$ bị gộp, trong khi đầu ra sigmoid thuộc miền mở | L06-09 ghi $\hat X\in(0,1)$ nhưng L06-13 cũ ghi cả hai thuộc $[0,1]$ | Đã tách $X\in[0,1]$ và $\hat X\in(0,1)$ ở L06-13 và bảng ký hiệu. |
+| Sinh viên | nhẹ | L06-12, L06-25, L06-31 | $D$, $p_{\mathrm{train}}$ và “trích đặc trưng” chưa được giải thích tại chỗ | Các ký hiệu/thuật ngữ chỉ có trong planning hoặc phải suy từ trang khác | Đã viết “$D=4$ phần tử”, định nghĩa phân phối dữ liệu huấn luyện và chú giải trích đặc trưng là đóng băng bộ mã hóa, chỉ huấn luyện bộ phân loại. |
+| Chuyên gia; học thuật và giảng dạy | nhẹ | L06-22, L06-26 | “Giảm dần hoạt hóa” mô tả sai cơ chế phạt mềm; $\Omega$ chưa được định nghĩa | Phạt $L_1$ tác động qua hạng thêm vào mất mát; bảng cũ chỉ ghi $\Omega$ | Đã mô tả hạng phạt tạo áp lực đưa hoạt hóa về 0 và định nghĩa $\Omega$ là hàm phạt thưa. |
+| Toán học và triển khai | nhẹ | L06-23 | Hai số 1,8 và 2,4 có thể bị đọc nhầm là vị trí | Câu cũ không phân biệt giá trị và chỉ số; X03 dùng vị trí 2 và 4 | Đã ghi rõ đây là hai giá trị lớn nhất tại vị trí 2 và 4; các vị trí khác bằng 0. |
+| Học thuật; kết nối và mạch viết | nhẹ | L06-18–21 | L06-20 lặp kết luận về $d$ thay vì tạo bước tiến | L06-18 đã nêu nút thắt không bảo đảm; câu hỏi cũ chỉ hỏi lại $d<784$ | Đã đổi thành tình huống lỗi tái tạo kiểm định thấp nhưng phân loại từ $z$ kém; ghi chú nối sang ba điểm can thiệp ở L06-21. |
+| Chuyên gia | trung bình | L06-37 | Liên hệ LLO12 với mô hình lớn chỉ có trong ghi chú | Mặt trang cũ chỉ có bốn câu hỏi sử dụng mã | Đã thêm một câu ngắn về cơ chế tiền huấn luyện–tái sử dụng biểu diễn, không mở sang kiến trúc cụ thể. |
+| Sinh viên; học thuật; kết nối và mạch viết | nhẹ | L06-38 | Kết luận cần thu hồi rõ ba luồng thay vì chỉ lặp ý hữu ích tác vụ | Ba luồng đã được thiết lập ở L06-05, L06-18–20 và L06-34–36 | Giữ câu hỏi; đáp án nay gắn nhãn hữu ích tác vụ, ghi nhớ và lấy mẫu. Ghi chú nêu rõ ba điểm được thu hồi. |
+| Chuyên gia | nhẹ | note-for-author | Tuyến 100 phút dày và chỉ có một mức dự phòng | Các điểm chờ ở L06-23, 27, 33 có thể làm tràn giờ | Giữ timing chính 100/20/50; thêm mức dự phòng: không chờ ở L06-23 và gộp phần nói L06-34–35, nhưng vẫn giữ L06-36–38. |
+| Sinh viên; toán học; học thuật | trung bình | Toàn deck | Chưa có bằng chứng dựng KaTeX và rà trực quan cho bản sau sửa | Các kết quả ở mục Kiểm định cuối thuộc phiên trước | Không tuyên bố đã chạy lại trong lượt biên tập. Chuyển việc dựng KaTeX, HTTP và duyệt hai kích thước cho điều phối viên kiểm định cuối. |
+
+Các đề xuất không áp dụng: không thêm phép đếm tham số bộ phân loại ở L06-29 vì ví dụ tensor đã đủ; không thêm hình vào L06-X03 vì nội dung hiện không cần hình lặp; không cài phím End tùy chỉnh vì L06-38 là slide cuối và tuyến đã khóa dùng hành vi mặc định của RevealJS; không thêm code, raster hoặc nội dung ngoài dải nguồn. Các câu mới đã rà theo `no-ai-slop`; thứ tự khái niệm, ký hiệu và câu nối đã rà theo Quill, không tạo `quill.json`.
+
+## Tái kiểm độ chính xác và mạch viết
+
+Hai báo cáo tái kiểm xác nhận không còn lỗi `chặn bàn giao` hoặc `nghiêm trọng`; cấu trúc, timing, số liệu, kích thước tensor, mất mát, top-$k$, đóng băng–tinh chỉnh, PCA và giới hạn lấy mẫu đều đạt. Các quyết định cho vấn đề nhẹ:
+
+| Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Đề xuất sửa và quyết định |
+|---|---|---|---|---|
+| nhẹ | L06-09 | Ghi chú chưa phân biệt miền mở của đầu ra sigmoid với miền điểm ảnh | Mặt trang khóa $\hat X\in(0,1)$, còn ghi chú cũ nói khớp $[0,1]$ | Đã sửa: sigmoid cho giá trị trong $(0,1)$ và gần khớp miền điểm ảnh $[0,1]$. |
+| nhẹ | L06-26 | Báo cáo đề xuất đổi mẫu số phạt thưa từ $Nd$ thành $ND$ | $Z\in\mathbb R^{N\times d}$ nên $\lVert Z\rVert_1$ có $Nd$ phần tử; $D$ là số phần tử đầu vào | Không áp dụng đề xuất. Giữ $\lambda\lVert Z\rVert_1/(Nd)$; đổi sang $ND$ sẽ lấy trung bình theo sai số phần tử. |
+| nhẹ | L06-X02 | “Độ lệch” có thể bị hiểu là sai lệch thống kê | Ngữ cảnh nói tham số cộng của lớp tuyến tính | Đã viết rõ “vector độ lệch (bias) phù hợp”. |
+| nhẹ | L06-25 | Công thức theo mẫu và ký hiệu lô chưa có câu nối | Kỳ vọng dùng $x,\widetilde x$ với mẫu số $D$; dòng dưới dùng $X,\widetilde X$ | Đã ghi trong notes: trung bình theo $N$ mẫu của lô và theo $D$ phần tử cho quy ước $1/(ND)$. |
+| nhẹ | L06-27 → L06-28 | Ranh giới từ ba biến thể sang tái sử dụng thiếu tín hiệu chuyển | Câu nối mới chỉ có trong storyboard | Đã thêm vào notes L06-27: kiểm tra giá trị của mã bằng tác vụ có nhãn. |
+| nhẹ | L06-33 → L06-34 | Ranh giới từ giao thức đánh giá sang giới hạn lấy mẫu còn đột ngột | Câu nối mới chỉ có trong storyboard | Đã mở notes L06-34 bằng câu hỏi về việc dùng mã ngoài các điểm dữ liệu đã huấn luyện. |
+| nhẹ | L06-37 | Điểm rẽ tuyến chưa báo phần mở rộng nằm bên dưới | Mặt trang không nên chứa chỉ dẫn nội bộ; note-for-author đã khóa hai tuyến | Đã ghi trong notes rằng phần mở rộng nằm bên dưới và có thể bỏ; không đưa chỉ dẫn lên mặt trang. |
+| nhẹ | L06-38 | Có thể thêm tín hiệu kết luận rõ hơn | Đáp án đã gắn nhãn ba luồng và notes đã thu hồi ba phần | Không sửa thêm; nội dung hiện đã thực hiện đúng vai trò kết luận. |
+
+Tái kiểm cuối phát hiện lỗi V1: mã slide nội bộ xuất hiện trong ghi chú diễn giả. Đã thay các tham chiếu ở ghi chú của phần huấn luyện, nút thắt, khử nhiễu và kết luận bằng mô tả tự nhiên; đồng thời rà toàn HTML và loại tham chiếu tương tự trong ghi chú nguồn của trang kiểm tra mất mát. Mã `L06-*` nay chỉ còn trong thuộc tính `data-slide-id`, đúng yêu cầu không hiển thị mã nội bộ trên mặt trang hoặc trong ghi chú diễn giả.
 
 ## Hậu kiểm cục bộ cuối
 
@@ -72,11 +116,12 @@ Rà lại sau đổi cấu trúc đã bao phủ các cụm bị ảnh hưởng v
 
 ## Kiểm định cuối
 
-- 44 trang, 44 `data-slide-id` duy nhất, 44 khối ghi chú, 8 đáp án dùng fragment; cấu trúc 9 nhóm ngoài và 44 trang trong cân bằng thẻ.
-- KaTeX strict: 117 biểu thức, 0 lỗi (`throwOnError: true`, `strict: "error"`).
-- Tài nguyên: 0 đường dẫn thiếu; 15/15 SVG được HTML tham chiếu, 0 tài sản thừa.
-- SVG XML: 15/15 phân tích được; mỗi tệp có `role="img"`, `title` và `desc`; nhãn nhỏ nhất 22 px.
-- Rà trực quan SVG: đã dựng montage cục bộ cho tám hình bị tác động; sửa glyph mũ/ngã không ổn định, nhãn đầu ra bị cắt và nhãn trục bị chồng. Không phát hiện lỗi còn lại trong các hình đã dựng.
-- Storyboard: 44 dòng; tuyến lõi 100 phút, tuyến mở rộng 20 phút; bài tập riêng 50 phút.
-- Máy chủ: `reloadserver` không có trong môi trường. Cổng 8765 đã có máy chủ; HTML và 15/15 SVG trả HTTP 200, SHA-256 HTML được phục vụ khớp tệp trong kho (`a3611572402557f6b429b0a9b11dbe9155c1243bcc447218affa2c570ab7f3a2`).
-- Không có Browser/Chromium/Playwright hoặc công cụ Codex Slides khả dụng trong phiên này; chưa thể tuyên bố đã rà trực quan từng trang ở hai kích thước màn hình.
+- Cấu trúc: đúng 7 section ngoài với kích thước [6, 5, 5, 5, 7, 6, 10]; 44 trang, 44 `data-slide-id` duy nhất, 44 khối ghi chú, 8 đáp án dùng fragment. Mạch 7 chứa L06-34–37, L06-X01–X05 rồi L06-38; L06-38 là slide cuối toàn deck, kết luận không đặt trước phần mở rộng.
+- Ánh xạ `lec11_dense.pdf` 3–10 đã sửa trong outline: dải này là nguồn nối về tiền huấn luyện/học chuyển giao, không phải nguồn cho kích thước MLP hoặc phép làm phẳng (kích thước/làm phẳng khóa từ GT 38–40 và quy ước của học phần).
+- LLO11 ở L06-01 đã trả về nguyên văn DOCX: "Trình bày được kiến trúc của một Autoencoder cơ bản, bao gồm bộ mã hóa, không gian ẩn và bộ giải mã." Phần tính kích thước/mất mát được ghi rõ là sản phẩm luyện tập của bài, không giả làm LLO gốc.
+- Điều hướng: tại L06-37 nhấn End tới L06-38 (hành vi End mặc định của RevealJS vì L06-38 là slide cuối); tuyến đầy đủ đi Xuống qua X01–X05 rồi tới L06-38. Câu nối X05→38 đã ghi trong storyboard và note-for-author.
+- Storyboard: 44 dòng slide, timing từng trang không đổi; tuyến lõi 100 phút gồm cả L06-38 (3 phút), tuyến mở rộng 20 phút, bài tập riêng 50 phút.
+- KaTeX strict: bản hiện tại dựng 130 cụm `.katex`, gồm 7 công thức khối, không có `.katex-error`; RevealJS sẵn sàng và nhận đủ 44 trang. Cấu hình giữ `throwOnError: true`, `strict: "error"`.
+- Máy chủ: `python3 -m reloadserver 8765` không khả dụng trong môi trường. Đã phục vụ cục bộ từ thư mục `2627-1/` bằng cổng 8766; HTML và mọi tài nguyên cốt lõi trả HTTP 200. Một yêu cầu tự động tới `favicon.ico` trả 404, không phải tài nguyên của deck. SHA-256 của HTML phục vụ khớp tệp trong kho: `a8864b3bec76fc07fcd3efa6c72de682c93d222b6583829848cf4a5ccb37b1bb`.
+- Rà trực quan: đã dựng 88 ảnh chụp, gồm 44 trang ở 1280×720 và 44 trang ở 960×720. Bộ đo biên viewport ghi nhận 0 tràn, 0 phần tử văn bản dưới 18 px, 0 lỗi trang và 0 yêu cầu tài nguyên cốt lõi thất bại. Đã rà hai contact sheet toàn deck; không thấy chữ bị cắt, chồng lấn, công thức hoặc hình vỡ.
+- Điều hướng bàn phím đã kiểm trực tiếp: End tại L06-37 tới L06-38; tuyến Xuống đi qua L06-X01, fragment của X01, X02, X03, X04, X05 rồi L06-38.

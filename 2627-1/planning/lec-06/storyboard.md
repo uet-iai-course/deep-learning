@@ -9,9 +9,9 @@
 | Mất mát | L06-11 | L06-11 | L06-12 | L06-13 | L06-14 | L06-15 | Một mẫu $D=4$ → SSE/MSE → lô MNIST $D=784$ | 0.18, 0.045, $N,D$ | “Giảm lỗi tái tạo chưa ngăn được đường tắt sao chép.” |
 | Nút thắt | L06-16 | L06-17 | L06-16–17 (gộp: hai sơ đồ đối chứng) | L06-18–19 | L06-19 | L06-20 | Nghiệm đồng nhất → vai trò và giới hạn của $d$ | $d<784$, lỗi kiểm định, tác vụ đích | “Ta có thể ràng buộc kiến trúc, mã hoặc dữ liệu.” |
 | Ba biến thể | L06-21–22 | L06-22 | L06-23–24 | L06-25–26 | L06-25–26 | L06-27 | Nút thắt → mã thấp chiều, phạt mềm/top-$k$, khử nhiễu | $d,k,\lambda,X,\widetilde X$; top-$k$ theo mẫu; đầu vào nhiễu–đích sạch | “Giá trị của mã được kiểm tra bằng tác vụ có nhãn.” |
-| Tái sử dụng | L06-28 | L06-28 | L06-29–30 | L06-31 | L06-32 | L06-33 | Bộ mã hóa đã tiền huấn luyện → chính sách đóng băng/tinh chỉnh | $\theta^\star,\psi$, cập nhật tham số, chế độ mô-đun | “Mã hữu ích vẫn chưa biến bộ giải mã thành mô hình sinh.” |
-| Lấy mẫu | L06-34 | L06-35 | L06-34–35 (gộp: vùng mã là ví dụ hình học) | L06-36 | L06-37 | L06-38 | Mã do bộ mã hóa tạo → giới hạn của mã tùy ý | $z^{(n)}=f_\theta(x^{(n)})$ so với $z$ tùy ý | Kết thúc tuyến lõi; phần mở rộng đào sâu hình học và đánh giá. |
-| Mở rộng | L06-X01 | L06-X01 | L06-X01, X03–X04 | L06-X02 | L06-X05 | L06-X01 | Chuỗi lõi → chi phí thao tác, PCA, vùng hoạt động và phi tuyến | $210/6=35=\mathrm{XXXV}$; $d,k,\Omega$; $K$ | X01 kiểm tra mở rộng; X05 ứng dụng và tổng kết giao thức đánh giá. |
+| Tái sử dụng | L06-28 | L06-28 | L06-29–30 | L06-31 | L06-32 | L06-33 | Bộ mã hóa đã tiền huấn luyện → chính sách đóng băng/tinh chỉnh | $\theta^\star$; MNIST $N=32$, $C=10$; $Z:32\times d$, $S:32\times10$; chỉ $\psi$ thuộc bộ tối ưu khi đóng băng | “Mã hữu ích vẫn chưa biến bộ giải mã thành mô hình sinh.” |
+| Lấy mẫu | L06-34 | L06-35 | L06-34–35 (gộp: vùng mã là ví dụ hình học) | L06-36 | L06-37 | L06-38 | Mã do bộ mã hóa tạo → giới hạn của mã tùy ý | $z^{(n)}=f_\theta(x^{(n)})$ so với $z$ tùy ý | L06-37 chuyển vào mở rộng hoặc kết thúc bằng L06-38; kết luận đặt sau phần mở rộng. |
+| Mở rộng | L06-X01 | L06-X01 | L06-X01, X03–X04 | L06-X02 | L06-X05 | L06-X01 | Chuỗi lõi → chi phí thao tác, PCA, vùng hoạt động và phi tuyến | $210/6=35=\mathrm{XXXV}$; $d,k,\Omega$; $K$ | X01 kiểm tra mở rộng; X05 ứng dụng, tổng kết giao thức và nối xuống L06-38. |
 
 Không có bước “không áp dụng”: mỗi cụm lõi thực hiện đủ sáu bước. Một số bước được gộp vì cùng một sơ đồ vừa cung cấp dữ kiện vừa tạo trực giác; việc tách riêng sẽ lặp nội dung.
 
@@ -20,7 +20,7 @@ Không có bước “không áp dụng”: mỗi cụm lõi thực hiện đủ
 | Trang | Phút | Tuyến | Vai trò trung tâm | Điều hướng |
 |---|---:|---|---|---|
 | L06-00 | 2 | Lõi | Mở vấn đề dữ liệu ít nhãn | Xuống |
-| L06-01 | 2 | Lõi | LLO, tiên quyết, sản phẩm học tập | Phải |
+| L06-01 | 2 | Lõi | LLO, tiên quyết, sản phẩm học tập | Xuống |
 | L06-02 | 2 | Lõi | Biểu diễn đổi độ khó phép toán | Xuống |
 | L06-03 | 3 | Lõi | Điểm ảnh → mã → tác vụ | Xuống |
 | L06-04 | 2 | Lõi | Mục tiêu tự giám sát | Xuống |
@@ -56,15 +56,15 @@ Không có bước “không áp dụng”: mỗi cụm lõi thực hiện đủ
 | L06-34 | 3 | Lõi | Mã thật và mã tùy ý | Xuống |
 | L06-35 | 3 | Lõi | Khoảng trống không gian mã | Xuống |
 | L06-36 | 3 | Lõi | Không có phân phối sinh mặc định | Xuống |
-| L06-37 | 3 | Lõi | Bảng kiểm sử dụng mã | Xuống |
-| L06-38 | 3 | Lõi | Kiểm tra tổng hợp | Phải để vào mở rộng; chờ 60 giây |
+| L06-37 | 3 | Lõi | Bảng kiểm sử dụng mã | End tới L06-38 (tuyến lõi) hoặc Xuống vào L06-X01 (tuyến đầy đủ) |
+| L06-38 | 3 | Lõi | Kiểm tra tổng hợp, slide cuối toàn deck | Kết thúc; chờ 60 giây |
 | L06-X01 | 4 | Mở rộng | Tính $210/6$ trong hai biểu diễn | Xuống; chờ 45 giây |
 | L06-X02 | 4 | Mở rộng | Quan hệ tuyến tính với PCA | Xuống |
 | L06-X03 | 4 | Mở rộng | Phân biệt $d$, $k$, $\Omega$ và vùng hoạt động | Xuống |
 | L06-X04 | 4 | Mở rộng | Đa tạp phi tuyến | Xuống |
-| L06-X05 | 4 | Mở rộng | Ứng dụng và tổng kết giao thức đánh giá | Kết thúc |
+| L06-X05 | 4 | Mở rộng | Ứng dụng và tổng kết giao thức đánh giá | Xuống tới L06-38 |
 
-Tổng tuyến lõi: **100 phút**. Tổng tuyến mở rộng: **20 phút**. Bài tập: **50 phút**, tách khỏi 120 phút trình chiếu.
+Tổng tuyến lõi: **100 phút**, gồm cả L06-38 (3 phút) dù L06-38 đứng sau phần mở rộng trong DOM. Tổng tuyến mở rộng: **20 phút**. Bài tập: **50 phút**, tách khỏi 120 phút trình chiếu.
 
 ## Chu trình bài tập 50 phút
 
@@ -78,6 +78,9 @@ Tổng tuyến lõi: **100 phút**. Tổng tuyến mở rộng: **20 phút**. B�
 
 ## Navigation
 
+- Cấu trúc DOM: 7 section ngoài với kích thước [6, 5, 5, 5, 7, 6, 10]; mạch 7 chứa L06-34–37, L06-X01–X05 rồi L06-38 (slide cuối toàn deck).
 - Các trang trong một cụm là ngăn xếp dọc; dùng mũi tên xuống.
-- Chỉ dùng mũi tên phải ở trang cuối cụm: L06-01, 05, 10, 15, 20, 27, 33, 38.
-- L06-38 là điểm dừng tuyến lõi. Nhấn phải để vào L06-X01, rồi nhấn xuống đến L06-X05.
+- Chỉ dùng mũi tên phải ở cuối sáu mạch đầu: L06-05, L06-10, L06-15, L06-20, L06-27 và L06-33.
+- Tuyến lõi: tại L06-37 nhấn **End** để nhảy tới L06-38 (slide cuối toàn deck, dùng hành vi End mặc định của RevealJS).
+- Tuyến đầy đủ: từ L06-37 nhấn Xuống qua L06-X01…X05, rồi Xuống tiếp tới L06-38.
+- Câu nối X05→38: "Sau khi đào sâu các khía cạnh mở rộng, quay lại kiểm tra tổng hợp ở trang cuối."

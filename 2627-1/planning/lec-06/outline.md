@@ -3,7 +3,7 @@
 ## Phạm vi và kết quả học tập
 
 - Đối tượng: sinh viên đã học MLP, CNN, lan truyền ngược và quy trình chia dữ liệu.
-- LLO11: giải thích kiến trúc bộ mã hóa–mã tiềm ẩn–bộ giải mã; xác định kích thước tensor và tính mất mát tái tạo.
+- LLO11 (nguyên văn DOCX): trình bày được kiến trúc của một Autoencoder cơ bản, bao gồm bộ mã hóa, không gian ẩn và bộ giải mã. Việc tính kích thước tensor và mất mát tái tạo là sản phẩm luyện tập của bài, không phải một phần của LLO gốc.
 - LLO12: nối học biểu diễn với tiền huấn luyện và học chuyển giao; phân biệt đóng băng với tinh chỉnh.
 - Tuyến lõi 100 phút, tuyến mở rộng có thể cắt 20 phút, bài tập tách riêng 50 phút.
 - Không có trình diễn code. Không đưa mô hình tự mã hóa biến phân, autoencoder che mặt, ViT hoặc khuếch tán vào bài.
@@ -29,10 +29,12 @@
 | $H_e,H_d$ | $\mathbb R^{N\times256}$ | Hoạt hóa ẩn của bộ mã hóa và bộ giải mã |
 | $Z$ | $\mathbb R^{N\times d}$ | Lô mã tiềm ẩn, $Z=f_\theta(X)$ |
 | $z^{(n)}$ | $\mathbb R^d$ | Mã tiềm ẩn của mẫu thứ $n$ |
-| $\hat X$ | $[0,1]^{N\times784}$ | Lô tái tạo, $\hat X=g_\phi(Z)$ |
+| $\hat X$ | $(0,1)^{N\times784}$ | Lô tái tạo qua đầu ra sigmoid, $\hat X=g_\phi(Z)$ |
 | $\widetilde X$ | $\mathbb R^{N\times784}$ | Đầu vào bị nhiễu; nguồn không khóa phép cắt miền, mục tiêu vẫn là $X$ sạch trong $[0,1]^{N\times784}$ |
 | $D$ | $784$ | Số phần tử trên một ảnh đã làm phẳng |
 | $\theta,\phi,\psi$ | tham số | Bộ mã hóa, bộ giải mã, bộ phân loại |
+| $\theta^\star$ | tham số | Tham số bộ mã hóa sau tiền huấn luyện |
+| $C$ | số nguyên dương | Số lớp của tác vụ đích; MNIST có $C=10$ |
 
 Kiến trúc xuyên suốt là $784\to256\to d\to256\to784$. Quy ước MSE là $\|X-\hat X\|_F^2/(ND)$. Ví dụ thu nhỏ $D=4$ có SSE $0.18$ và MSE $0.045$; MNIST dùng $D=784$.
 
@@ -52,12 +54,25 @@ Kiến trúc xuyên suốt là $784\to256\to d\to256\to784$. Quy ước MSE là 
 | cùng tệp | 14–17 | Tính hữu ích phụ thuộc tác vụ, sai lệch và đánh giá: L06-05, L06-18–20, L06-32, L06-X05 |
 | `cmu-11785-s2021-autoencoders.pdf` | 2–3 | Kiến trúc, tái tạo và cảnh báo mất mát đơn thuần: L06-06, L06-11, L06-16 |
 | cùng tệp | 4–7 | Thiếu đầy đủ, thưa, khử nhiễu: L06-17, L06-21–27 |
-| `lec01_intro.pdf` | 26–37 | Đối chiếu học tự giám sát và tiền huấn luyện; chỉ dùng phần phù hợp L06-04 |
-| `lec11_dense.pdf` | 3–10 | Đối chiếu kích thước MLP và phép làm phẳng: L06-07–10 |
+| `lec01_intro.pdf` | 26–37 | Đối chiếu học tự giám sát và tiền huấn luyện; dùng phần phù hợp cho ghi chú L06-04 |
+| `lec11_dense.pdf` | 3–10 | Nguồn nối về tiền huấn luyện và học chuyển giao; không phải nguồn cho kích thước MLP hoặc phép làm phẳng (kích thước/làm phẳng khóa từ GT 38–40 và quy ước của học phần) |
 | `lec09_cnn_architectures.pdf` | 44–46 | Học chuyển giao, đóng băng và tinh chỉnh: L06-28–33 |
 | `hocsau_draft.pdf` | 38–40 | MNIST và đầu vào 784 chiều: L06-07–08 |
 | cùng tệp | 105–107 | Đối chiếu MLP/hàm kích hoạt: L06-09 |
 | cùng tệp | 168–171 | Học tự giám sát và tiền huấn luyện: L06-04, L06-14 |
+
+## Cấu trúc mạch và tuyến
+
+- Bảy mạch trình bày, mỗi mạch một `<section>` ngoài:
+  1. Mở đầu: L06-00–05 (6 trang).
+  2. Kiến trúc: L06-06–10 (5 trang).
+  3. Mất mát: L06-11–15 (5 trang).
+  4. Nút thắt: L06-16–20 (5 trang).
+  5. Ba biến thể: L06-21–27 (7 trang).
+  6. Tái sử dụng: L06-28–33 (6 trang).
+  7. Giới hạn lấy mẫu, kiểm tra tổng hợp và tuyến mở rộng: L06-34–37, L06-X01–X05, L06-38 (10 trang).
+- L06-38 là slide cuối toàn deck, sau X01–X05; kết luận không đặt trước phần mở rộng.
+- Tuyến lõi 100 phút gồm L06-00–37 và L06-38 (3 phút). Tuyến mở rộng 20 phút gồm X01–X05. Bài tập 50 phút tách riêng.
 
 ## Tài sản trực quan
 

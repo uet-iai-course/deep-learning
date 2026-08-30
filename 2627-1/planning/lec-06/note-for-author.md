@@ -2,10 +2,12 @@
 
 ## Tuyến giảng và điều hướng
 
-- Tuyến lõi: L06-00 đến L06-38, 100 phút. Đi xuống trong từng cụm; nhấn phải ở cuối cụm để sang cụm kế.
-- Tuyến mở rộng: từ L06-38 nhấn phải đến L06-X01 rồi đi xuống đến L06-X05, 20 phút; có thể cắt toàn bộ.
+- Tuyến lõi: L06-00 đến L06-37 rồi L06-38, 100 phút (L06-38 tính vào lõi dù đứng sau phần mở rộng trong DOM). Đi xuống trong từng cụm; chỉ nhấn phải ở L06-05, 10, 15, 20, 27 và 33 để sang mạch kế.
+- Tại L06-37: nhấn **End** để nhảy tới L06-38 (slide cuối toàn deck, hành vi End mặc định của RevealJS) — tuyến lõi. Hoặc nhấn Xuống để vào L06-X01 rồi đi xuống qua X02–X05, sau đó Xuống tiếp tới L06-38 — tuyến đầy đủ.
+- Câu nối X05→38: "Sau khi đào sâu các khía cạnh mở rộng, quay lại kiểm tra tổng hợp ở trang cuối."
+- Tuyến mở rộng X01–X05: 20 phút; có thể cắt toàn bộ.
 - Bài tập 50 phút không nằm trong thời lượng deck.
-- Nếu chậm 5 phút, rút L06-19 và L06-26 thành lời nhắc 30 giây. Nếu chậm 10 phút, bỏ phần mở rộng.
+- Nếu chậm 5 phút trong tuyến lõi, rút L06-19 và L06-26 thành lời nhắc 30 giây. Nếu vẫn chậm, trình bày L06-23 trực tiếp từ hình, không chờ lớp, rồi gộp phần nói của L06-34–35; không bỏ L06-36–38. Tuyến mở rộng X01–X05 vẫn là khối cắt 20 phút độc lập.
 
 ## Điểm chờ và đáp án
 
@@ -14,7 +16,7 @@
 | L06-05 | 45 giây | Không chắc; tái tạo và phân loại là hai mục tiêu khác nhau. |
 | L06-10 | 60 giây | $Z:32\times64$, $W_{e2}:256\times64$, $W_{d1}:64\times256$, $b_{d2}:784$, phát trên lô. |
 | L06-15 | 45 giây | Thiếu mẫu số/trục lấy trung bình; 0.18 là SSE, 0.045 là MSE trên 4 phần tử. |
-| L06-20 | 45 giây | $d<784$ không đủ; phải dùng tập chưa thấy và tác vụ đích. |
+| L06-20 | 45 giây | Không thể kết luận mã tốt: lỗi tái tạo kiểm định thấp nhưng kết quả phân loại từ $z$ kém. Nút thắt chưa bảo đảm giữ thông tin cho tác vụ đích. |
 | L06-27 | 60 giây | Top-$k$, $k=32$; mục tiêu khử nhiễu là $X$ sạch. |
 | L06-X01 | 45 giây | $210/6=35=\mathrm{XXXV}$; không suy ra phép chia trở thành tuyến tính. |
 | L06-33 | 60 giây | Dropout và thống kê BatchNorm có thể đổi hành vi dù không có gradient. |
@@ -32,7 +34,7 @@
 
 - Không mở sang mô hình tự mã hóa biến phân, autoencoder che mặt, ViT, khuếch tán hoặc autoencoder chuỗi.
 - Không thêm code demo hoặc notebook. Nếu cần hoạt động trên lớp, dùng bài tập giấy ở trên.
-- Khi nói PCA ở L06-X02, luôn khóa: tuyến tính, nút thắt $K$, mất mát bình phương; chỉ không gian con trùng, không nhất thiết trọng số trùng vectơ riêng.
+- Khi nói PCA ở L06-X02, luôn khóa: tuyến tính, dữ liệu đã định tâm, nút thắt $K$, mất mát bình phương; tại nghiệm tối ưu, khôi phục không gian con chính $K$ chiều; chỉ không gian con trùng, không nhất thiết trọng số trùng vectơ riêng. Giả thiết định tâm là bổ sung toán học để phát biểu chính xác.
 - Khi nói nút thắt, dùng “khuyến khích nén”; không nói “bảo đảm không ghi nhớ”.
 - Khi nói mã thưa, phân biệt phạt mềm $\Omega$ với top-$k$ cứng; top-$k$ áp dụng theo từng mẫu trên hoạt hóa ReLU không âm.
 - Khi nói khử nhiễu, lặp lại một lần: đầu vào nhiễu, mục tiêu sạch.
@@ -43,4 +45,4 @@
 
 ## Kiểm kê hình
 
-Mọi SVG trong `img/lec-06/` phải được HTML tham chiếu ít nhất một lần. Không thêm raster. Các SVG dùng lại hợp lý: `numeral-representation.svg` ở L06-02 và X01; `sparse-code.svg` ở L06-23 và X03.
+Mọi SVG trong `img/lec-06/` phải được HTML tham chiếu ít nhất một lần. Không thêm raster. Các SVG dùng lại hợp lý: `numeral-representation.svg` ở L06-02 và X01. `sparse-code.svg` chỉ dùng ở L06-23; L06-X03 không dùng hình.
