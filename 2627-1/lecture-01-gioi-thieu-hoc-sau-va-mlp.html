@@ -48,7 +48,7 @@
         <div class="card"><h3>Giải thích</h3><p>Phân biệt học từ dữ liệu với viết quy tắc; chỉ ra giới hạn của mô hình tuyến tính.</p></div>
         <div class="card"><h3>Biểu diễn và tính toán</h3><p>Mô tả MLP, chọn hàm kích hoạt, kiểm tra kích thước tensor và số tham số.</p></div>
       </div>
-      <div class="check" style="margin-top:.7em"><strong>Câu hỏi:</strong> Sau bài học, bạn phải giải thích được vì sao XOR cần tầng ẩn có phi tuyến.</div>
+      <div class="check" style="margin-top:.7em"><strong>Câu hỏi:</strong> Vì sao XOR cần một tầng ẩn có phi tuyến, trong khi chuỗi các biến đổi afin không đủ?</div>
       <aside class="notes">Nêu tiên quyết: vector, ma trận, hàm số và bài toán phân loại nhị phân. Chưa bàn cách tính gradient; nội dung đó thuộc bài sau.<p class="note-source"><strong>Nguồn:</strong> Đề cương, III.2 → Buổi 1, LLO1–LLO2.</p></aside>
     </section>
   </section>
@@ -68,7 +68,7 @@
       <h2>Bốn mốc thay đổi cách xây mô hình</h2>
       <img class="figure-short" src="img/lec-01/history-timeline.svg" alt="Bốn mốc kỹ thuật từ đơn vị tính toán đến học sâu"/>
       <div class="box">Tiến bộ đến từ đơn vị tính toán, quy tắc học, nhận diện giới hạn và khả năng huấn luyện mạng lớn.</div>
-      <aside class="notes">Nối từng mốc với thay đổi kỹ thuật: McCulloch–Pitts hình thức hóa đơn vị tính toán; Hebb đưa ra quy tắc thay đổi liên kết; phân tích perceptron năm 1969 làm rõ giới hạn tách tuyến tính; AlexNet năm 2012 cho thấy mạng sâu có thể tận dụng dữ liệu và GPU ở quy mô lớn. Không kể lịch sử như một chuỗi thắng lợi tất yếu.<p class="note-source"><strong>Nguồn:</strong> lec02_linear_part1.pdf, tr. 19; giáo trình, PDF tr. 41–42.</p></aside>
+      <aside class="notes">Nối từng mốc với thay đổi kỹ thuật: McCulloch–Pitts hình thức hóa đơn vị tính toán; Hebb đưa ra quy tắc thay đổi liên kết; phân tích perceptron năm 1969 làm rõ giới hạn tách tuyến tính; AlexNet năm 2012 cho thấy mạng sâu có thể tận dụng dữ liệu và GPU ở quy mô lớn. Không kể lịch sử như một chuỗi thắng lợi tất yếu.<p class="note-source"><strong>Nguồn:</strong> lec02_linear_part1.pdf, tr. 19; giáo trình, PDF tr. 41–44.</p></aside>
     </section>
     <section data-slide-id="L01-05">
       <h2>Học sâu học một chuỗi biểu diễn</h2>
@@ -98,7 +98,7 @@
       <h2>Thu hẹp về phân loại nhị phân có giám sát</h2>
       <div class="math-large">$$x_i\in\mathbb R^d,\qquad y_i\in\{0,1\},\qquad \hat y_i\in\{0,1\}.$$</div>
       <div class="grid2"><div class="card"><h3>Huấn luyện</h3><p>Dùng các cặp $(x_i,y_i)$ để tìm $\theta$.</p></div><div class="card"><h3>Suy luận</h3><p>Dùng $f_\theta(x)$ để tạo $\hat y$.</p></div></div>
-      <aside class="notes">Phần tiếp theo chỉ dùng phân loại nhị phân. Quy ước nhãn 0/1 giúp nối perceptron, sigmoid và ví dụ XOR mà không đổi ký hiệu giữa chừng.<p class="note-source"><strong>Nguồn:</strong> lec01_intro.pdf, tr. 13–15; lec02_linear_part1.pdf, tr. 15–21.</p></aside>
+      <aside class="notes">Phần tiếp theo chỉ dùng phân loại nhị phân. Slide nguồn dùng nhãn $\{-1,1\}$ với hàm sgn; deck này dùng nhãn $\{0,1\}$ với hàm chỉ thị, và dự đoán cứng được lấy bằng ngưỡng trên xác suất. Quy ước 0/1 giúp nối perceptron, sigmoid và ví dụ XOR mà không đổi ký hiệu giữa chừng.<p class="note-source"><strong>Nguồn:</strong> lec01_intro.pdf, tr. 13–15; lec02_linear_part1.pdf, tr. 15–21.</p></aside>
     </section>
   </section>
 
@@ -112,7 +112,7 @@
       <h2>Perceptron cộng rồi đặt ngưỡng</h2>
       <img class="figure-short" src="img/lec-01/perceptron.svg" alt="Sơ đồ một perceptron"/>
       <div class="math-mid">$$\hat y=\mathbb{I}[\mathbf w^\top\mathbf x+b\ge 0].$$</div>
-      <aside class="notes">Đầu vào x là đặc trưng, w và b là tham số, z là điểm số, ŷ là dự đoán. Không đồng nhất điểm số z với xác suất.<p class="note-source"><strong>Nguồn:</strong> lec02_linear_part1.pdf, tr. 17, 20; lec05_multilayer.pdf, tr. 4.</p></aside>
+      <aside class="notes">Đầu vào x là đặc trưng, w và b là tham số, z là điểm số, ŷ là dự đoán. Không đồng nhất điểm số z với xác suất. Quy ước: khi $z=0$, gán nhãn 1, đúng như điều kiện $\ge 0$ trong công thức.<p class="note-source"><strong>Nguồn:</strong> lec02_linear_part1.pdf, tr. 17, 20; lec05_multilayer.pdf, tr. 4.</p></aside>
     </section>
     <section data-slide-id="L01-12">
       <h2>AND và OR tách được bằng một đường</h2>
@@ -122,12 +122,12 @@
     </section>
     <section data-slide-id="L01-13">
       <h2>XOR không tách được bằng một đường</h2>
-      <div class="grid2"><img class="figure-short" src="img/lec-01/xor-points.svg" alt="Bốn điểm XOR nằm xen kẽ trên hình vuông"/><div><table class="compact"><thead><tr><th>$x_1$</th><th>$x_2$</th><th>$y$</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>0</td></tr></tbody></table><div class="check" style="margin-top:.45em"><strong>Câu hỏi:</strong> Hãy thử vẽ một đường tách hai lớp.</div></div></div>
+      <div class="grid2"><img class="figure-short" src="img/lec-01/xor-points.svg" alt="Bốn điểm XOR nằm xen kẽ trên hình vuông"/><div><table class="compact"><thead><tr><th>$x_1$</th><th>$x_2$</th><th>$y$</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>0</td></tr></tbody></table><div class="check" style="margin-top:.45em"><strong>Câu hỏi:</strong> Có thể vẽ một đường thẳng tách hai lớp không?</div></div></div>
       <aside class="notes">Không có đường như vậy: đoạn nối hai điểm lớp 1 và đoạn nối hai điểm lớp 0 đều đi qua $(0.5,0.5)$, nên bao lồi của hai lớp giao nhau. Giữ bốn điểm và quy ước nhãn này đến forward pass.<p class="note-source"><strong>Nguồn:</strong> lec02_linear_part1.pdf, tr. 19.</p></aside>
     </section>
     <section data-slide-id="L01-14">
       <h2>Nhiều đơn vị tạo thành một tầng</h2>
-      <div class="grid2"><img class="figure-short" src="img/lec-01/linear-layer.svg" alt="Một tầng kết nối đầy đủ"/><div><div class="math-mid">$$Y=XW+b$$</div><ul><li>$X\in\mathbb R^{B\times d}$</li><li>$W\in\mathbb R^{d\times m}$</li><li>$b\in\mathbb R^{m}$</li><li>$Y\in\mathbb R^{B\times m}$</li></ul></div></div>
+      <div class="grid2"><img class="figure-short" src="img/lec-01/linear-layer.svg" alt="Một tầng kết nối đầy đủ"/><div><div class="math-mid">$$Y=XW+b$$</div><ul><li>$X\in\mathbb R^{B\times d}$</li><li>$W\in\mathbb R^{d\times h}$</li><li>$b\in\mathbb R^{h}$</li><li>$Y\in\mathbb R^{B\times h}$</li></ul></div></div>
       <aside class="notes">Dùng quy ước batch-first: hàng thứ i của $X$ là $x_i^\top$. Độ lệch b được broadcasting theo B hàng. Mỗi cột của W chứa trọng số của một đơn vị đầu ra. Slide nguồn dùng vector cột; bản này chuyển nhất quán sang dữ liệu theo hàng.<p class="note-source"><strong>Nguồn:</strong> lec05_multilayer.pdf, tr. 5–6; chuyển ký hiệu sang batch-first.</p></aside>
     </section>
     <section data-slide-id="L01-15">
@@ -139,6 +139,7 @@
     <section data-slide-id="L01-16">
       <h2>Hàm phi tuyến tạo khả năng vượt khỏi họ biến đổi afin</h2>
       <div class="math-large">$$H=g(XW_1+b_1),\qquad Z=HW_2+b_2.$$</div>
+      <p>$g$ là hàm phi tuyến áp dụng theo phần tử; các hàm cụ thể sẽ được trình bày ở phần sau.</p>
       <div class="grid2"><div class="card"><h3>Không dùng hàm kích hoạt</h3><p>Hai tầng rút thành một biến đổi afin.</p></div><div class="card"><h3>Dùng hàm kích hoạt phi tuyến</h3><p>Nói chung không thể rút chuỗi thành một biến đổi afin.</p></div></div>
       <aside class="notes">Điều kiện quyết định là hàm kích hoạt phi tuyến được đặt giữa hai biến đổi afin. Phát biểu “nói chung” tránh khẳng định tuyệt đối cho các tham số suy biến hoặc miền đầu vào đặc biệt. Đây cũng là cầu nối từ perceptron ngưỡng cứng sang MLP hiện đại: tầng ẩn dùng hàm liên tục theo từng đoạn như ReLU, tầng ra tạo logit rồi mới đổi thành dự đoán.<p class="note-source"><strong>Nguồn:</strong> lec05_multilayer.pdf, tr. 9–12; giáo trình, PDF tr. 85–86.</p></aside>
     </section>
@@ -154,13 +155,13 @@
       <h2>Lan truyền xuôi phải giữ đúng kích thước tensor</h2>
       <table class="compact"><thead><tr><th>Đại lượng</th><th>Phép tính</th><th>Kích thước</th></tr></thead><tbody><tr><td>Đầu vào</td><td>$X$</td><td>$B\times d$</td></tr><tr><td>Tiền kích hoạt</td><td>$A=XW_1+b_1$</td><td>$B\times h$</td></tr><tr><td>Tầng ẩn</td><td>$H=g(A)$</td><td>$B\times h$</td></tr><tr><td>Điểm số</td><td>$Z=HW_2+b_2$</td><td>$B\times k$</td></tr></tbody></table>
       <div class="box" style="margin-top:.55em">$b_1$ và $b_2$ được broadcasting theo chiều batch.</div>
-      <div class="check" style="margin-top:.45em"><strong>Câu hỏi:</strong> Nếu $B=16,d=8,h=12,k=4$, shape của $W_1,H,W_2,Z$ là gì?</div>
-      <aside class="notes">Đáp án: $W_1:8\times12$, $H:16\times12$, $W_2:12\times4$, $Z:16\times4$. Hàng thứ i của X là $x_i^\top$; g theo phần tử không đổi shape.<p class="note-source"><strong>Nguồn:</strong> giáo trình, PDF tr. 85–86.</p></aside>
+      <div class="check" style="margin-top:.45em"><strong>Câu hỏi:</strong> Nếu $B=16,d=8,h=12,k=4$, kích thước của $W_1,H,W_2,Z$ là gì?</div>
+      <aside class="notes">Đáp án: $W_1:8\times12$, $H:16\times12$, $W_2:12\times4$, $Z:16\times4$. Hàng thứ i của X là $x_i^\top$; g theo phần tử không đổi kích thước. Đây là đọc lại công thức ở L01-16 theo kích thước tensor, không phải khái niệm mới.<p class="note-source"><strong>Nguồn:</strong> giáo trình, PDF tr. 85–86.</p></aside>
     </section>
     <section data-slide-id="L01-19">
       <h2>Hàm kích hoạt đặt phi tuyến giữa các tầng</h2>
       <img class="figure" src="img/lec-01/activation-curves.svg" alt="Đồ thị ReLU, sigmoid và tanh"/>
-      <aside class="notes">Chọn hàm theo vị trí và miền đầu ra, không theo hình dạng của đường cong. ReLU sẽ dùng cho đơn vị ẩn; sigmoid và softmax sẽ nối logit với xác suất ở tầng ra.<p class="note-source"><strong>Nguồn:</strong> lec05_multilayer.pdf, tr. 11–12; giáo trình, PDF tr. 86–89.</p></aside>
+      <aside class="notes">Sau nghỉ, chọn hàm kích hoạt theo vị trí và miền đầu ra, không theo hình dạng của đường cong. ReLU sẽ dùng cho đơn vị ẩn; sigmoid và softmax sẽ nối logit với xác suất ở tầng ra.<p class="note-source"><strong>Nguồn:</strong> lec05_multilayer.pdf, tr. 11–12; giáo trình, PDF tr. 86–89.</p></aside>
     </section>
     <section data-slide-id="L01-20">
       <h2>ReLU giữ phần dương</h2>
@@ -182,7 +183,7 @@
     </section>
     <section data-slide-id="L01-23">
       <h2>Kiểm tra cách chọn hàm kích hoạt</h2>
-      <div class="check"><strong>Câu hỏi:</strong> Chọn hàm cho (a) đơn vị ẩn của MLP, (b) một logit nhị phân cần đổi thành xác suất, (c) $k$ logit loại trừ nhau. Nêu trục chuẩn hóa ở (c).</div>
+      <div class="check"><strong>Câu hỏi:</strong> Hàm nào phù hợp cho (a) đơn vị ẩn của MLP, (b) một logit nhị phân cần đổi thành xác suất, (c) $k$ logit loại trừ nhau? Trục chuẩn hóa ở (c) là gì?</div>
       <div class="grid3" style="margin-top:.65em"><div class="card"><h3>Đơn vị ẩn</h3><p>Tạo biểu diễn phi tuyến.</p></div><div class="card"><h3>Nhị phân</h3><p>Một xác suất.</p></div><div class="card"><h3>Phân loại nhiều lớp</h3><p>Phân phối theo lớp.</p></div></div>
       <aside class="notes">Đáp án: (a) ReLU là lựa chọn điển hình; (b) sigmoid; (c) softmax theo trục lớp của từng hàng. Nhắc rằng huấn luyện phân loại thường truyền logits trực tiếp vào loss ổn định số.<p class="note-source"><strong>Nguồn:</strong> lec05_multilayer.pdf, tr. 11–12, 28; giáo trình, PDF tr. 66–73.</p></aside>
     </section>
@@ -192,11 +193,12 @@
     <section data-slide-id="L01-24">
       <h2>Biến đổi XOR sang không gian ẩn</h2>
       <img class="figure" src="img/lec-01/xor-input.svg" alt="Bốn điểm XOR trong không gian đầu vào trước biến đổi"/>
-      <div class="math-mid">$$A=XW_1+b_1,\qquad H=\operatorname{ReLU}(A).$$</div>
-      <aside class="notes">Bắt đầu chỉ với bốn điểm đầu vào, chưa cho sinh viên thấy kết quả. Bộ tham số tầng ẩn dùng trong chuỗi này được dựng tay để minh họa cơ chế, chưa qua huấn luyện. Hàng thứ i của X vẫn là $x_i^\top$.<p class="note-source"><strong>Nguồn:</strong> lec05_multilayer.pdf, tr. 13–14; ví dụ XOR tự tính.</p></aside>
+      <div class="math-mid">$$A=XW_1+b_1,\qquad H=\operatorname{ReLU}(A),$$</div>
+      <div class="math-mid">$$W_1=\begin{bmatrix}1&1\\1&1\end{bmatrix},\qquad b_1=[0,-1].$$</div>
+      <aside class="notes">Bắt đầu chỉ với bốn điểm đầu vào, chưa cho sinh viên thấy kết quả. Bộ tham số tầng ẩn dùng trong chuỗi này được dựng tay để minh họa cơ chế, chưa qua huấn luyện; chuỗi L01-25–28 dùng đúng $W_1,b_1$ này nên các tọa độ kiểm chứng được. Hàng thứ i của X vẫn là $x_i^\top$.<p class="note-source"><strong>Nguồn:</strong> lec05_multilayer.pdf, tr. 13–14; ví dụ XOR tự tính.</p></aside>
     </section>
     <section data-slide-id="L01-25">
-      <h2>Biến đổi afin không làm XOR tách tuyến tính</h2>
+      <h2>Biến đổi afin vẫn không tách được XOR</h2>
       <img class="figure-short" src="img/lec-01/xor-affine.svg" alt="Bốn điểm XOR sau một biến đổi afin vẫn không tách tuyến tính"/>
       <div class="check"><strong>Câu hỏi:</strong> Vì sao thêm một biến đổi afin nữa vẫn không giải XOR?</div>
       <aside class="notes">Với đúng $W_1,b_1$ sẽ dùng cho mạng XOR, biến đổi afin đưa bốn hàng thành $A=(0,-1),(1,0),(1,0),(2,1)$. Hai mẫu nhãn 1 trùng ở giữa đoạn nối hai mẫu nhãn 0, nên chưa thể tách tuyến tính. Hợp thành thêm một biến đổi afin vẫn là một biến đổi afin; lập luận không cần giả thiết khả nghịch.<p class="note-source"><strong>Nguồn:</strong> lec05_multilayer.pdf, tr. 14; ví dụ XOR tự tính.</p></aside>
@@ -213,7 +215,7 @@
       <aside class="notes">Tầng ẩn tạo biểu diễn, tầng ra phân loại biểu diễn đó. Nối vai trò của hai tầng, tránh nói mỗi đơn vị ẩn tự đưa ra nhãn cuối.<p class="note-source"><strong>Nguồn:</strong> lec05_multilayer.pdf, tr. 23–25.</p></aside>
     </section>
     <section data-slide-id="L01-28">
-      <h2>Biên trở thành phi tuyến ở không gian gốc</h2>
+      <h2>Biên trở thành tuyến tính từng đoạn ở không gian gốc</h2>
       <div class="math-large">$$Z=\operatorname{ReLU}(XW_1+b_1)W_2+b_2.$$</div>
       <p class="box">Biên thẳng trong $H$ được kéo ngược thành biên tuyến tính từng đoạn trong $X$.</p>
       <aside class="notes">Công thức giữ quy ước batch-first; mỗi hàng của Z ứng với một mẫu. Không gọi mọi biên của MLP là trơn; với ReLU, biên thường gồm các mảnh tuyến tính.<p class="note-source"><strong>Nguồn:</strong> lec05_multilayer.pdf, tr. 26–27.</p></aside>
@@ -222,39 +224,40 @@
       <h2>Một MLP ReLU 2–2–1 giải XOR</h2>
       <div class="grid2"><img class="figure-short" src="img/lec-01/xor-mlp.svg" alt="Mạng ReLU 2-2-1 giải XOR"/><div class="math-mid">$$W_1=\begin{bmatrix}1&1\\1&1\end{bmatrix},\quad b_1=[0,-1],$$ $$W_2=\begin{bmatrix}1\\-2\end{bmatrix},\quad b_2=-0.5.$$</div></div>
       <div class="math-mid">$$p=\sigma(Z),\qquad \hat y=\mathbb I[p\ge 0.5].$$</div>
-      <aside class="notes">Hai đơn vị ẩn cùng nhận tổng $s=x_1+x_2$ nhưng có độ lệch khác nhau. Đầu ra dùng sigmoid và quy tắc ngưỡng hiển thị trên trang. Các tham số này được dựng tay để minh họa biểu diễn, không phải kết quả huấn luyện.<p class="note-source"><strong>Nguồn:</strong> Đề cương, Buổi 1; lec02_linear_part1.pdf, tr. 19; lec05_multilayer.pdf, tr. 13–29; ví dụ số tự tính.</p></aside>
+      <aside class="notes">Hai đơn vị ẩn cùng nhận tổng $s=x_1+x_2$ nhưng có độ lệch khác nhau. Đầu ra dùng sigmoid và quy tắc ngưỡng hiển thị trên trang. Các tham số này được dựng tay để minh họa biểu diễn, không phải kết quả huấn luyện.<p class="note-source"><strong>Nguồn:</strong> lec05_multilayer.pdf, tr. 13–14, 23–29; ví dụ số tự tính.</p></aside>
     </section>
     <section data-slide-id="L01-30">
       <h2>Bốn đầu vào đi qua cùng một lượt lan truyền xuôi</h2>
       <div class="math-mid">$$X=\begin{bmatrix}0&0\\0&1\\1&0\\1&1\end{bmatrix},\quad H=\operatorname{ReLU}(XW_1+b_1),\quad p=\sigma(HW_2+b_2).$$</div>
-      <div class="check"><strong>Câu hỏi:</strong> Tính hàng $(x_1,x_2)=(0,1)$: $H$, logit, $p$ và $\hat y$.</div>
-      <table class="compact fragment"><thead><tr><th>$x_1,x_2$</th><th>$h_1$</th><th>$h_2$</th><th>logit</th><th>$p$</th><th>$\hat y$</th></tr></thead><tbody><tr><td>0,0</td><td>0</td><td>0</td><td>−0.5</td><td>0.378</td><td>0</td></tr><tr><td>0,1</td><td>1</td><td>0</td><td>0.5</td><td>0.622</td><td>1</td></tr><tr><td>1,0</td><td>1</td><td>0</td><td>0.5</td><td>0.622</td><td>1</td></tr><tr><td>1,1</td><td>2</td><td>1</td><td>−0.5</td><td>0.378</td><td>0</td></tr></tbody></table>
+      <div class="check"><strong>Câu hỏi:</strong> Với hàng $(x_1,x_2)=(0,1)$, $H$, logit, $p$ và $\hat y$ bằng bao nhiêu?</div>
+      <table class="compact fragment"><thead><tr><th>$x_1,x_2$</th><th>$h_1$</th><th>$h_2$</th><th>logit</th><th>$p$ (xấp xỉ)</th><th>$\hat y$</th></tr></thead><tbody><tr><td>0,0</td><td>0</td><td>0</td><td>−0.5</td><td>≈0.378</td><td>0</td></tr><tr><td>0,1</td><td>1</td><td>0</td><td>0.5</td><td>≈0.622</td><td>1</td></tr><tr><td>1,0</td><td>1</td><td>0</td><td>0.5</td><td>≈0.622</td><td>1</td></tr><tr><td>1,1</td><td>2</td><td>1</td><td>−0.5</td><td>≈0.378</td><td>0</td></tr></tbody></table>
       <aside class="notes">Chờ sinh viên tính hàng $(0,1)$ trước khi hiện bảng: $H=(1,0)$, logit $0.5$, $p\approx0.622$, $\hat y=1$. Hai hàng giữa có cùng biểu diễn vì XOR đối xứng khi hoán đổi đầu vào.<p class="note-source"><strong>Nguồn:</strong> Ví dụ XOR ở trang trước; các giá trị được tự tính lại.</p></aside>
     </section>
     <section data-slide-id="L01-31">
       <h2>Kích thước tensor và số tham số của mạng XOR</h2>
-      <div class="grid2"><div><ul><li>$X:4\times2$</li><li>$W_1:2\times2$, $b_1:2$</li><li>$H:4\times2$</li><li>$W_2:2\times1$, $b_2:1$</li><li>$p:4\times1$</li></ul></div><div class="card"><h3>Tổng tham số</h3><div class="math-large">$$2\cdot2+2+2\cdot1+1=9.$$</div></div></div>
+      <div class="grid2"><div><ul><li>$X:4\times2$</li><li>$W_1:2\times2$, $b_1:2$</li><li>$H:4\times2$</li><li>$W_2:2\times1$, $b_2:1$</li><li>$Z:4\times1$, $p:4\times1$</li></ul></div><div class="card"><h3>Tổng tham số</h3><div class="math-large">$$2\cdot2+2+2\cdot1+1=9.$$</div></div></div>
       <aside class="notes">Batch size 4 không tham gia số tham số. Mỗi độ lệch được tính một lần cho mỗi đơn vị, không phải một lần cho mỗi mẫu.<p class="note-source"><strong>Nguồn:</strong> giáo trình, PDF tr. 85–86; ví dụ XOR tự tính.</p></aside>
     </section>
     <section data-slide-id="L01-32">
       <h2>Mạng sâu hơn hợp thành nhiều biểu diễn</h2>
-      <div class="grid2"><img class="figure-short" src="img/lec-01/representation-stack.svg" alt="Nhiều tầng ẩn hợp thành chuỗi biểu diễn"/><div><div class="math-mid">$$H_{\ell}=g_{\ell}(H_{\ell-1}W_{\ell}+b_{\ell}).$$</div><p class="box">Mỗi tầng nhận biểu diễn trước và tạo đầu vào cho tầng kế tiếp.</p></div></div>
-      <aside class="notes">Trang nguồn 35 mở rộng từ mạng hai tầng sang mạng có nhiều hơn hai tầng. Không dùng trang này để suy ra tác động riêng của độ rộng. Giữ quy ước: số tầng đếm các tầng có tham số, không đếm tầng đầu vào.<p class="note-source"><strong>Nguồn:</strong> lec05_multilayer.pdf, tr. 35.</p></aside>
+      <div class="math-mid">$$H_{\ell}=g_{\ell}(H_{\ell-1}W_{\ell}+b_{\ell}).$$</div>
+      <p class="box">Mỗi tầng nhận biểu diễn trước và tạo đầu vào cho tầng kế tiếp.</p>
+      <aside class="notes">Trang nguồn 35 mở rộng từ mạng hai tầng sang mạng có nhiều hơn hai tầng. Công thức truy hồi là khái quát hóa công thức hai tầng đã có, không lặp trực giác chuỗi biểu diễn ở L01-05. Không dùng trang này để suy ra tác động riêng của độ rộng. Giữ quy ước: số tầng đếm các tầng có tham số, không đếm tầng đầu vào.<p class="note-source"><strong>Nguồn:</strong> lec05_multilayer.pdf, tr. 35.</p></aside>
     </section>
     <section data-slide-id="L01-33">
       <h2>Kiểm tra cuối bài</h2>
-      <div class="grid2"><div class="check"><strong>Câu hỏi:</strong> Vì sao XOR cần hàm phi tuyến giữa hai biến đổi afin?</div><div class="check"><strong>Câu hỏi:</strong> Với $X\in\mathbb R^{32\times10}$, $h=20$, $k=3$, hãy ghi kích thước của $W_1,H,W_2,Z$ và tổng số tham số.</div></div>
-      <p class="box">Kết thúc khi giải thích được giới hạn, cơ chế và phép tính.</p>
-      <aside class="notes">Đáp án 1: mọi chuỗi chỉ gồm biến đổi afin vẫn rút thành một biến đổi afin và không tách được XOR; hàm phi tuyến như ReLU thay đổi hình học biểu diễn. Đáp án 2: $W_1:10\times20$, $H:32\times20$, $W_2:20\times3$, $Z:32\times3$, tổng 283 tham số.<p class="note-source"><strong>Nguồn:</strong> Đề cương, III.2 → Buổi 1, LLO1–LLO2.</p></aside>
+      <div class="grid2"><div class="check"><strong>Câu hỏi:</strong> Vì sao XOR cần hàm phi tuyến giữa hai biến đổi afin?</div><div class="check"><strong>Câu hỏi:</strong> Với $X\in\mathbb R^{32\times10}$, $h=20$, $k=3$, kích thước của $W_1,H,W_2,Z$ và tổng số tham số là bao nhiêu?</div></div>
+      <p class="box">Kết thúc khi sinh viên giải thích được giới hạn bằng lập luận bao lồi, nêu được vai trò của hàm phi tuyến và tính đúng kích thước tensor cùng số tham số.</p>
+      <aside class="notes">Đáp án 1: mọi chuỗi chỉ gồm biến đổi afin vẫn rút thành một biến đổi afin và không tách được XOR; hàm phi tuyến như ReLU thay đổi hình học biểu diễn. Đáp án 2: $W_1:10\times20$, $H:32\times20$, $W_2:20\times3$, $Z:32\times3$, tổng 283 tham số. Nếu tiếp tục, phần sau kiểm tra sức biểu diễn của mạng sâu hơn.<p class="note-source"><strong>Nguồn:</strong> Đề cương, III.2 → Buổi 1, LLO1–LLO2.</p></aside>
     </section>
   </section>
 
   <section>
     <section data-slide-id="L01-X01">
       <h2>Kiểm tra kích thước tensor qua ba tầng tham số</h2>
-      <table class="compact"><thead><tr><th>Tầng</th><th>Phép tính</th><th>Shape đầu ra</th></tr></thead><tbody><tr><td>Ẩn 1</td><td>$H_1=g(XW_1+b_1)$</td><td>$B\times h_1$</td></tr><tr><td>Ẩn 2</td><td>$H_2=g(H_1W_2+b_2)$</td><td>$B\times h_2$</td></tr><tr><td>Ra</td><td>$Z=H_2W_3+b_3$</td><td>$B\times k$</td></tr></tbody></table>
-      <div class="check" style="margin-top:.55em"><strong>Câu hỏi:</strong> Mạng này có mấy tầng tham số? Shape của $W_1,W_2,W_3$ là gì?</div>
-      <aside class="notes">Đáp án: ba tầng tham số; tầng đầu vào không được đếm. $W_1:d\times h_1$, $W_2:h_1\times h_2$, $W_3:h_2\times k$. Batch size B chỉ xuất hiện trong shape kích hoạt, không xuất hiện trong shape tham số.<p class="note-source"><strong>Nguồn:</strong> lec05_multilayer.pdf, tr. 35.</p></aside>
+      <table class="compact"><thead><tr><th>Tầng</th><th>Phép tính</th><th>Kích thước đầu ra</th></tr></thead><tbody><tr><td>Ẩn 1</td><td>$H_1=g(XW_1+b_1)$</td><td>$B\times h_1$</td></tr><tr><td>Ẩn 2</td><td>$H_2=g(H_1W_2+b_2)$</td><td>$B\times h_2$</td></tr><tr><td>Ra</td><td>$Z=H_2W_3+b_3$</td><td>$B\times k$</td></tr></tbody></table>
+      <div class="check" style="margin-top:.55em"><strong>Câu hỏi:</strong> Mạng này có mấy tầng tham số? Kích thước của $W_1,W_2,W_3$ là gì?</div>
+      <aside class="notes">Đáp án: ba tầng tham số; tầng đầu vào không được đếm. $W_1:d\times h_1$, $W_2:h_1\times h_2$, $W_3:h_2\times k$. Kích thước lô B chỉ xuất hiện trong kích thước kích hoạt, không xuất hiện trong kích thước tham số.<p class="note-source"><strong>Nguồn:</strong> lec05_multilayer.pdf, tr. 35.</p></aside>
     </section>
     <section data-slide-id="L01-X02">
       <h2>Độ sâu và độ rộng là hai trục khác nhau</h2>
@@ -268,7 +271,7 @@
     </section>
     <section data-slide-id="L01-X04">
       <h2>Xấp xỉ phổ dụng chỉ là mệnh đề về sức biểu diễn</h2>
-      <div class="box">Nguồn nêu khái quát: một mạng hai tầng có thể là bộ xấp xỉ hàm phổ dụng, nhưng tầng ẩn có thể phải rất lớn.</div>
+      <div class="box">Nguồn nêu khái quát: một mạng hai tầng — theo quy ước, một tầng ẩn và một tầng ra — có thể là bộ xấp xỉ hàm phổ dụng, nhưng tầng ẩn có thể phải rất lớn.</div>
       <div class="grid2" style="margin-top:.7em"><div class="card"><h3>Điều có thể kết luận</h3><p>Họ mạng có sức biểu diễn rộng khi đủ đơn vị ẩn.</p></div><div class="card"><h3>Điều chưa được bảo đảm</h3><p>Tìm được tham số, học từ ít dữ liệu hay khái quát tốt.</p></div></div>
       <aside class="notes">Giữ đúng mức phát biểu ở slide nguồn, không tự bổ sung miền compact hoặc lớp hàm cụ thể. Mệnh đề khái quát nói về tồn tại biểu diễn, không bảo đảm huấn luyện hoặc khái quát hóa.<p class="note-source"><strong>Nguồn:</strong> lec05_multilayer.pdf, tr. 29.</p></aside>
     </section>
@@ -276,13 +279,14 @@
       <h2>Biểu diễn thường phân tán</h2>
       <div class="grid2"><div class="card"><h3>Mã hóa cục bộ</h3><p>Một đơn vị gắn với một mẫu dễ gọi tên.</p></div><div class="card"><h3>Mã hóa phân tán</h3><p>Một khái niệm nằm trong tổ hợp nhiều đơn vị.</p></div></div>
       <p class="box">Một khái niệm có thể nằm trong cả vector ẩn, không ở một đơn vị riêng lẻ.</p>
-      <aside class="notes">Nguồn minh họa tầng đầu như một bank of templates rồi chỉ ra không phải template nào cũng diễn giải được. Các kích hoạt vẫn có thể hữu ích khi ý nghĩa phân tán trên nhiều đơn vị.<p class="note-source"><strong>Nguồn:</strong> lec05_multilayer.pdf, tr. 30–34.</p></aside>
+      <aside class="notes">Nguồn minh họa tầng đầu như một tập mẫu dựng sẵn rồi chỉ ra không phải mẫu nào cũng diễn giải được. Các kích hoạt vẫn có thể hữu ích khi ý nghĩa phân tán trên nhiều đơn vị.<p class="note-source"><strong>Nguồn:</strong> lec05_multilayer.pdf, tr. 30–34.</p></aside>
     </section>
     <section data-slide-id="L01-X06">
       <h2>Kiểm tra sức biểu diễn và giới hạn</h2>
       <div class="grid2"><div class="check"><strong>Câu hỏi:</strong> Độ sâu và độ rộng thay đổi cấu trúc mạng theo hai cách nào?</div><div class="check"><strong>Câu hỏi:</strong> Mệnh đề xấp xỉ phổ dụng còn thiếu những bảo đảm nào cho một bài toán học?</div></div>
+      <div class="check" style="margin-top:.7em"><strong>Câu hỏi:</strong> Trong MLP, một khái niệm có nhất thiết nằm ở một đơn vị ẩn riêng lẻ không? Một biểu hiện của biểu diễn phân tán là gì?</div>
       <p class="box">MLP có thể biểu diễn biên phức tạp, nhưng biểu diễn không tự bảo đảm học được hoặc khái quát tốt.</p>
-      <aside class="notes">Đáp án: độ sâu thêm phép hợp thành tuần tự; độ rộng thêm đơn vị trong cùng tầng. Xấp xỉ phổ dụng không cho thuật toán tìm tham số, yêu cầu dữ liệu hay bảo đảm khái quát.<p class="note-source"><strong>Nguồn:</strong> lec05_multilayer.pdf, tr. 29–35.</p></aside>
+      <aside class="notes">Đáp án: độ sâu thêm phép hợp thành tuần tự; độ rộng thêm đơn vị trong cùng tầng. Xấp xỉ phổ dụng không cho thuật toán tìm tham số, yêu cầu dữ liệu hay bảo đảm khái quát. Biểu diễn phân tán: một khái niệm nằm trong tổ hợp nhiều đơn vị, không ở một đơn vị riêng. Câu hỏi mở đầu của bài — tác vụ khó viết quy tắc — được thu hồi ở đây: MLP là một cách xây hệ thống từ dữ liệu cho các tác vụ đó, và sức biểu diễn không tự bảo đảm học được.<p class="note-source"><strong>Nguồn:</strong> lec05_multilayer.pdf, tr. 29–35.</p></aside>
     </section>
   </section>
 

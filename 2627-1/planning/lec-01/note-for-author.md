@@ -12,11 +12,13 @@ Tuyến lõi đi thẳng từ một khó khăn kỹ thuật đến một cơ ch�
 6. Hàm kích hoạt phi tuyến tạo biểu diễn mới; MLP hiện đại đặt hàm kích hoạt ở đơn vị ẩn và tạo logit ở tầng ra.
 7. Một lượt lan truyền xuôi 2–2–1 giải XOR và cho phép kiểm tra kích thước tensor, giá trị, tham số.
 
-Không dùng phần mở rộng để vá khái niệm lõi. Dành đúng 16 phút cho L01-00–09. Nghỉ ngắn sau L01-18, sau khi đã khóa cấu trúc MLP và kích thước tensor, rồi mới chọn hàm kích hoạt. Nếu chỉ có 100 phút, kết thúc ở L01-33. Nếu có thêm 20 phút, đi liền mạch qua L01-X01–X06: kiểm tra kích thước tensor qua ba tầng → sâu/rộng → biên nhiều mảnh → xấp xỉ phổ dụng → biểu diễn phân tán → kiểm tra. Không nhảy riêng vào một trang giữa tuyến mở rộng.
+Không dùng phần mở rộng để vá khái niệm lõi. Dành đúng 16 phút cho L01-00–09. Sau L01-02, dùng 2 phút hiện có để thảo luận nhanh một ứng dụng trong ba ví dụ trên trang; không cộng thêm thời gian, rút bớt phần diễn giải ở L01-03 nếu cần. Nghỉ ngắn sau L01-18, sau khi đã khóa cấu trúc MLP và kích thước tensor, rồi mới chọn hàm kích hoạt. Nếu chỉ có 100 phút, kết thúc ở L01-33. Nếu có thêm 20 phút, đi liền mạch qua L01-X01–X06: kiểm tra kích thước tensor qua ba tầng → sâu/rộng → biên nhiều mảnh → xấp xỉ phổ dụng → biểu diễn phân tán → kiểm tra. Không nhảy riêng vào một trang giữa tuyến mở rộng. Cách chốt tuyến 120 phút ở L01-X06: thu hồi câu hỏi mở đầu về tác vụ khó viết quy tắc, chốt rằng MLP là một cách xây hệ thống từ dữ liệu, rồi chấm ba câu kiểm tra cuối trước khi kết thúc.
 
 ## Điểm cần nhấn và lỗi dễ mắc
 
 - Gọi $Wx+b$ là biến đổi afin. Chỉ $Wx$ là tuyến tính theo nghĩa toán học.
+- Quy ước nhãn và ngưỡng: deck dùng nhãn $\{0,1\}$ với hàm chỉ thị, khác slide nguồn dùng $\{-1,1\}$ với sgn; perceptron gán nhãn 1 khi $z=0$; dự đoán cứng lấy bằng ngưỡng $0.5$ trên xác suất.
+- Tham số XOR $W_1,b_1$ xuất hiện lần đầu ở L01-24, trước khi mạng đầy đủ hiện ở L01-29; nhấn rằng chuỗi L01-25–28 dùng đúng bộ này.
 - Không gọi logit là xác suất trước khi áp dụng sigmoid hoặc softmax.
 - Tách tham số khỏi siêu tham số; batch size không làm tăng số tham số.
 - Khóa quy ước batch-first: mỗi hàng của $X$ là $x_i^\top$, ma trận trọng số nhân bên phải.

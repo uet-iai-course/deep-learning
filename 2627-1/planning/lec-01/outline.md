@@ -53,8 +53,9 @@ Không dùng các dải nguồn bị loại trong `source.md`. Không dùng ngu�
 |---|---|
 | MLP | Mạng perceptron đa lớp, mạng truyền thẳng kết nối đầy đủ; số tầng đếm tầng có tham số, không đếm tầng đầu vào |
 | $B$ | Kích thước batch; trục đầu tiên của mọi tensor theo batch |
-| $d,h,k$ | Số đặc trưng đầu vào, số đơn vị ẩn, số đầu ra |
+| $d,h,k$ | Số đặc trưng đầu vào, số đơn vị ẩn, số đầu ra; dùng $h$ cho kích thước tầng ẩn trên toàn bài |
 | $X\in\mathbb R^{B\times d}$ | Ma trận đầu vào, batch-first; hàng thứ $i$ là $x_i^\top$ |
+| $\mathbf x\in\mathbb R^d$ | Vector đơn mẫu, chữ đậm; tensor lô $X$ xếp các vector đơn mẫu theo hàng |
 | $W_1\in\mathbb R^{d\times h}$, $b_1\in\mathbb R^h$ | Tham số tầng ẩn |
 | $H=g(XW_1+b_1)\in\mathbb R^{B\times h}$ | Biểu diễn ẩn; độ lệch broadcasting theo batch |
 | $W_2\in\mathbb R^{h\times k}$, $b_2\in\mathbb R^k$ | Tham số tầng ra |

@@ -24,6 +24,10 @@
 | Tách chuỗi hình ReLU theo bước | `lec05_multilayer.pdf`, tr. 13–27 tăng dần thông tin | Tạo SVG đầu vào, sau biến đổi afin, sau ReLU và kết quả có biên | Không lộ kết quả trước khi sinh viên quan sát từng phép biến đổi |
 | Rút phát biểu xấp xỉ phổ dụng | `lec05_multilayer.pdf`, tr. 29 chỉ nêu mệnh đề khái quát | Bỏ điều kiện compact và tham chiếu giáo trình; chỉ nêu giới hạn của kết luận | Không đưa chi tiết không có trong slide nguồn được ưu tiên |
 | Vẽ lại toàn bộ hình kỹ thuật | Hình nguồn cần chuyển và chuỗi hình cần tách bước | Dùng SVG có `role="img"`, `title`, `desc` và nhãn Việt | Tuân thủ quy định không trích raster |
+| Bỏ `lec02_linear_part1.pdf` tr. 20–21 | Hai trang này bàn huấn luyện perceptron | Không đưa vào deck | Huấn luyện thuộc buổi 02–03 theo ranh giới đề cương |
+| Không dùng bài tập GT 3.1.4 | Giáo trình PDF tr. 90 gợi ý bài tập | Dùng bộ bài tập bám hoạt động đề cương Buổi 1 | Bộ bài tập bám hoạt động đề cương; GT chỉ để kiểm chứng |
+| Đổi nhãn $\{-1,1\}$/sgn sang $\{0,1\}$/hàm chỉ thị | Slide nguồn dùng $\{-1,1\}$ với sgn | Deck dùng $y_i\in\{0,1\}$, dự đoán cứng lấy bằng ngưỡng xác suất; ghi chú ở L01-09 | Nhất quán với sigmoid, XOR và quy ước ngưỡng trong toàn học phần |
+| Sửa dải nguồn lịch sử | Bản nháp trích giáo trình PDF tr. 41–42 | Mở thành PDF tr. 41–44 | Khớp dải trang được ánh xạ cho bối cảnh lịch sử |
 
 ## Tự kiểm ví dụ XOR
 
@@ -48,7 +52,7 @@ Với $X$ gồm bốn hàng $(0,0),(0,1),(1,0),(1,1)$:
 
 | SVG | Nội dung | Quan hệ cần giữ |
 |---|---|---|
-| `task-family.svg` | Nhóm bài toán theo đầu ra | Một đầu vào, năm kiểu đầu ra |
+| `task-family.svg` | Nhóm bài toán theo đầu ra | Chủ ý thu hẹp 6 kiểu nguồn thành 5 nhóm để giảm tải; một đầu vào, năm kiểu đầu ra |
 | `rule-vs-learning.svg` | Quy tắc và học từ dữ liệu | Tách huấn luyện khỏi áp dụng mô hình |
 | `history-timeline.svg` | Bốn mốc lịch sử | Mỗi mốc gắn với một thay đổi kỹ thuật |
 | `train-vs-infer.svg` | Hai pha vận hành | Chỉ huấn luyện cập nhật $\theta$ |
@@ -107,7 +111,7 @@ Các tệp `boolean-separability.svg` và `relu-feature-map.svg` đã được b
 |---|---|---|---|---|---|
 | nghiêm trọng | L01-04 | “Lịch sử” chỉ là ba nhãn khái niệm, không có mốc thật | Hình cũ không có năm, công trình hay thay đổi kỹ thuật | Dùng 3–4 mốc có nguồn và nối từng mốc với cơ chế | Đã dùng 1943, 1949, 1969, 2012 và ghi nguồn |
 | nghiêm trọng | L01-12–13 | Trang AND/OR đã lộ XOR trước khi đặt vấn đề | Một SVG chứa cả ba hàm Boolean | Tách hình AND/OR và XOR | Đã tách SVG |
-| trung bình | L01-33, L01-X06 | Kết bài chỉ kiểm shape, chưa kiểm lập luận trung tâm hoặc giới hạn | Closure không phân biệt tuyến 100 và 120 phút | L01-33 kiểm XOR + shape; X06 kiểm sâu/rộng + giới hạn UAT | Đã sửa hai closure |
+| trung bình | L01-33, L01-X06 | Kết bài chỉ kiểm kích thước, chưa kiểm lập luận trung tâm hoặc giới hạn | Kết bài không phân biệt tuyến 100 và 120 phút | L01-33 kiểm XOR + kích thước; X06 kiểm sâu/rộng + giới hạn UAT | Đã sửa hai khối kết bài |
 | trung bình | storyboard | Chu trình sáu bước và thời lượng không khớp nội dung thực tế | Bản cũ gán hàm kích hoạt sai trang, tổng dẫn nhập 24 phút | Ánh xạ lại từng cụm và thời lượng chính xác | Đã sửa; tuyến lõi 100 phút, mở rộng 20 phút |
 
 Mọi lỗi `chặn bàn giao`, `nghiêm trọng` và `trung bình` trong bốn báo cáo trên đã được xử lý. Không có đề xuất nào ở ba mức này bị từ chối.
@@ -117,9 +121,39 @@ Mọi lỗi `chặn bàn giao`, `nghiêm trọng` và `trung bình` trong bốn 
 | Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Đề xuất sửa | Quyết định |
 |---|---|---|---|---|---|
 | chặn bàn giao | L01-25–29 | Hình biến đổi afin cũ không dùng cùng $W_1,b_1$ với mạng XOR | Tham số ở L01-29 cho $A=(0,-1),(1,0),(1,0),(2,1)$, khác tọa độ SVG cũ | Vẽ lại đúng các điểm, gồm miền $a_2<0$; nêu phép gập của ReLU | Đã vẽ lại và thêm ghi chú $(0,-1)\mapsto(0,0)$ |
-| nghiêm trọng | L01-32, L01-X01 | Hai trang lặp cùng hình và luận điểm mạng nhiều tầng | Cùng `representation-stack.svg` và cùng phát biểu | Giữ L01-32 làm cầu nối; dùng X01 để kiểm shape qua ba tầng tham số | Đã sửa X01 thành bảng shape và câu hỏi, không dùng hình |
+| nghiêm trọng | L01-32, L01-X01 | Hai trang lặp cùng hình và luận điểm mạng nhiều tầng | Cùng `representation-stack.svg` và cùng phát biểu | Giữ L01-32 làm cầu nối; dùng X01 để kiểm kích thước qua ba tầng tham số | Đã sửa X01 thành bảng kích thước và câu hỏi, không dùng hình |
 | trung bình | L01-22 | Ổn định số của softmax chưa nêu phép tính theo hàng | Mới chỉ nói loss thường nhận logits | Nêu $m_i=\max_r Z_{ir}$ và trừ trong từng hàng | Đã bổ sung trong ghi chú diễn giả và `note-for-author.md` |
 | trung bình | storyboard, note | Vị trí nghỉ và ánh xạ chu trình chưa đúng bằng chứng | Nghỉ ghi sau L01-15; X05 bị gán là triển khai | Chuyển nghỉ sau L01-18; ghi chu trình rút gọn và `không áp dụng` có lý do | Đã sửa, không đổi timing |
+
+## Vòng rà soát hiện tại
+
+Vòng rà này gồm đủ năm vai: sinh viên, chuyên gia Học sâu, độ chính xác toán/thuật toán/triển khai, phản biện học thuật/giảng dạy, kết nối/mạch viết. Mỗi phát hiện dùng các trường mức độ, trang chiếu, vấn đề, bằng chứng, đề xuất sửa, quyết định.
+
+| Mức độ | Trang chiếu | Vấn đề | Bằng chứng | Đề xuất sửa | Quyết định |
+|---|---|---|---|---|---|
+| trung bình | L01-01, L01-13, L01-30 | Lời mời sau nhãn Câu hỏi chưa phải câu hỏi thật | L01-01 phát biểu mệnh đề; L01-30 mời tính nhưng bảng kề | Viết thành câu hỏi thật | Đã sửa ba trang |
+| trung bình | L01-04 | Dải nguồn lịch sử hẹp hơn dải được ánh xạ | Ghi nguồn PDF tr. 41–42 | Mở thành 41–44 | Đã sửa |
+| trung bình | L01-09 | Thiếu ghi chú chuyển nhãn từ nguồn sang deck | Nguồn dùng $\{-1,1\}$/sgn | Ghi chú quy ước $\{0,1\}$/chỉ thị và ngưỡng xác suất | Đã sửa trong notes |
+| trung bình | L01-11 | Thiếu quy ước gán nhãn tại $z=0$ | Công thức dùng $\ge 0$ | Ghi rõ $z=0$ gán nhãn 1 | Đã sửa trong notes |
+| trung bình | L01-14 | Kích thước tầng ẩn dùng $m$ trong khi toàn bài dùng $h$ | Ba dòng liệt kê dùng $m$ | Thống nhất thành $h$ | Đã sửa |
+| trung bình | L01-16 | $g$ chưa được định nghĩa khi xuất hiện | Công thức dùng $g$ không giải thích | Định nghĩa $g$ là hàm phi tuyến theo phần tử, trình bày sau | Đã sửa |
+| trung bình | L01-18 | Chưa nói rõ quan hệ với L01-16 | Bảng kích thước trùng công thức cũ | Notes ghi đây là đọc lại công thức L01-16 theo kích thước | Đã sửa |
+| nghiêm trọng | L01-24 | Chuỗi L01-25–28 không kiểm chứng được vì thiếu $W_1,b_1$ | L01-29 mới hiện tham số | Hiển thị $W_1,b_1$ cùng công thức $A,H$ ở L01-24 | Đã sửa |
+| nghiêm trọng | L01-28 | Tiêu đề mâu thuẫn nội dung: biên là tuyến tính từng đoạn | Tiêu đề cũ nói "phi tuyến" | Đổi thành "tuyến tính từng đoạn ở không gian gốc" | Đã sửa |
+| trung bình | L01-29 | Trích nguồn lec05 quá rộng | Ghi tr. 13–29 | Thu hẹp thành tr. 13–14, 23–29 | Đã sửa |
+| trung bình | L01-30 | Giá trị $p$ làm tròn dễ đọc như giá trị đúng | Bảng ghi 0.378, 0.622 | Thêm dấu xấp xỉ và nhãn cột "xấp xỉ" | Đã sửa |
+| trung bình | L01-31 | Thiếu kích thước $Z$ trước $p$ | Danh sách chỉ có $p:4\times1$ | Thêm $Z:4\times1$ | Đã sửa |
+| nghiêm trọng | L01-32 | Lặp ảnh `representation-stack.svg` với L01-05 | Cùng hình, cùng luận điểm | Bỏ ảnh, lấy công thức truy hồi làm trung tâm, ghi rõ là khái quát hóa công thức | Đã sửa |
+| trung bình | L01-33 | Câu box mang tính khẩu hiệu | "Kết thúc khi giải thích được giới hạn, cơ chế và phép tính" | Thay bằng tiêu chí quan sát được | Đã sửa |
+| trung bình | L01-X04 | "Mạng hai tầng" dễ gây nhầm cách đếm tầng | Nguồn đếm tầng có tham số | Nêu rõ một tầng ẩn và một tầng ra theo quy ước | Đã sửa |
+| nhẹ | L01-X05 | Cụm "bank of templates" chưa Việt hóa | Notes dùng nguyên văn tiếng Anh | Việt hóa thành "tập mẫu dựng sẵn" | Đã sửa |
+| trung bình | L01-X06 | Thiếu câu kiểm tra thu hồi biểu diễn phân tán và câu hỏi mở đầu | Kết bài chỉ hỏi sâu/rộng và UAT | Thêm câu kiểm tra phân tán; notes thu hồi câu hỏi mở đầu cho tuyến 120 phút | Đã sửa |
+| trung bình | outline | Thiếu quy ước phân biệt vector đơn mẫu và tensor lô | Bảng ký hiệu chỉ có $X$ | Thêm dòng $\mathbf x$ chữ đậm; đồng bộ $h$ | Đã sửa |
+| trung bình | storyboard | Thiếu bảng mạch ngoài; một số mô tả lệch HTML | Bản cũ không có bảng 6 mạch | Thêm bảng mạch, sửa L01-16, L01-19, L01-24, L01-28, L01-32, L01-X06 | Đã sửa, không đổi timing |
+| nhẹ | review-log | Phát hiện "thiếu tài nguyên" từ một lượt rà | Reviewer chỉ được cấp bản sao văn bản | Bác phát hiện: Codex đã xác minh kho thật; reviewer chỉ được cấp bản sao văn bản nên không thấy tài nguyên | Ghi quyết định, không sửa deck |
+| nhẹ | vai kết nối | Phát hiện thiếu vai thứ năm trong vòng trước | Vòng trước chỉ có bốn báo cáo | Đã xử lý bằng báo cáo hiện tại có đủ năm vai | Đã xử lý |
+
+Các sửa cấu trúc và câu chuyển ở L01-16, L01-24, L01-28, L01-32, L01-X06 cần được vai kết nối và mạch viết rà lại cùng hai trang lân cận mỗi phía trước bàn giao.
 
 ## Tự kiểm biên tập
 
@@ -131,11 +165,43 @@ Mọi lỗi `chặn bàn giao`, `nghiêm trọng` và `trung bình` trong bốn 
 - Nội dung mặt trang không chứa mã nội bộ ngoài thuộc tính HTML, thời lượng, nhãn tuyến hoặc chỉ dẫn dành cho người soạn.
 - Mọi công thức Markdown dùng `$...$` hoặc `$$...$$`.
 - Đã kiểm 40 `data-slide-id` duy nhất, 40 khối ghi chú; tuyến lõi có 34 trang và đúng 100 phút, tuyến mở rộng có 6 trang và đúng 20 phút.
-- Đã dựng thử 128 biểu thức bằng KaTeX cục bộ với `throwOnError: true`, `strict: "error"`; không có lỗi.
+- Đã dựng thử 141 biểu thức bằng KaTeX cục bộ với `throwOnError: true`, `strict: "error"`; không có lỗi.
 - Đã phân tích cú pháp HTML; 19 SVG đều là XML hợp lệ, có `role="img"`, `title`, `desc`; mọi SVG đều được HTML tham chiếu.
 - Không có tham chiếu raster, tài nguyên cốt lõi qua mạng, liên kết cục bộ hỏng hoặc `quill.json`.
 - `python3 -m reloadserver 8765` chưa chạy được trong môi trường chỉnh sửa vì thiếu mô-đun `reloadserver`; điều phối viên cần chạy lại kiểm tra máy chủ và rà trực quan trong môi trường có mô-đun hoặc ghi giới hạn khi bàn giao.
 
+## Đối chiếu năm vai
+
+| Vai | Phát hiện chính | Quyết định tương ứng |
+|---|---|---|
+| Sinh viên | Dẫn nhập quá dài, thiếu điểm dừng tự tính, bảng chữ nhỏ trên màn hẹp | Nén L01-00–09 còn 16 phút; thêm khối Câu hỏi và fragment bảng L01-30; tăng bảng `.90em` và media query |
+| Chuyên gia Học sâu | Cầu nối perceptron → MLP chưa rõ; nguồn tr. 35 bị dùng sai cho độ rộng; tuyến mở rộng lặp lõi | Sửa L01-16–23; chuyển L01-32/X01 sang mạng sâu hơn; khóa vai trò nguồn từng trang |
+| Độ chính xác toán học, thuật toán và triển khai | Bảo toàn tách tuyến tính phụ thuộc khả nghịch; quy ước batch-first chưa khóa; thiếu trục softmax và quy tắc ngưỡng | Dùng lập luận bao lồi; khóa mỗi hàng $X$ là $x_i^\top$; nêu $Z:B\times k$, logits và $\hat y=\mathbb I[p\ge0.5]$ |
+| Phản biện học thuật và giảng dạy | Lịch sử không có mốc thật; AND/OR lộ XOR; kết bài chỉ kiểm kích thước | Dùng 1943, 1949, 1969, 2012; tách SVG AND/OR và XOR; sửa hai khối kết bài L01-33 và L01-X06 |
+| Kết nối và mạch viết | Thiếu bảng mạch ngoài; mô tả mạch lệch HTML; thiếu vai thứ năm trong vòng trước | Thêm bảng sáu mạch khớp 6 section ngoài; bổ sung báo cáo đủ năm vai |
+
+## Vòng nối tiếp
+
+Vòng nối tiếp đã sửa: bảng sáu mạch ngoài khớp đúng 6 section ngoài của HTML, bảng chu trình Markdown hợp lệ (đoạn vai trò kép chuyển xuống sau bảng), câu hỏi L01-30 thành câu hỏi thật, và Việt hóa mọi chữ còn hiển thị trên mặt trang thành "kích thước" (kèm tiêu đề cột "Kích thước đầu ra").
+
+## Lượt sửa tối thiểu sau xác minh của Codex
+
+Lượt sửa tối thiểu này đã: (1) viết lại bảng sáu mạch ngoài trong storyboard thành ánh xạ 1-1 chính xác sáu section ngoài của HTML — hàng 1 L01-00–01 Mở đầu; hàng 2 L01-02–09 Học từ dữ liệu; hàng 3 L01-10–16 Giới hạn afin; hàng 4 L01-17–23 MLP và hàm kích hoạt; hàng 5 L01-24–33 ReLU, XOR và kết luận lõi; hàng 6 L01-X01–X06 Mở rộng và kết luận 120 phút — mỗi hàng có chức năng, kết nối vào và đầu ra riêng; (2) đổi câu hỏi L01-13 thành "Có thể vẽ một đường thẳng tách hai lớp không?", thay hai chữ còn trong notes L01-18 và L01-X01 bằng "kích thước", và đổi các khối .check còn mệnh lệnh (L01-23, L01-33, L01-X05) thành câu hỏi thật mà không đổi nội dung, số slide hay timing.
+
 ## Trạng thái sau chỉnh sửa
 
-Bản hiện tại đã hợp nhất bốn báo cáo phản biện. Điều phối viên cần chạy kiểm định HTML, KaTeX, SVG, tham chiếu cục bộ và rà trực quan trước khi bàn giao.
+Bản hiện tại đã hợp nhất đầy đủ năm báo cáo phản biện. Điều phối viên đã hoàn tất kiểm định tĩnh, KaTeX, SVG, tham chiếu và ảnh chụp, ngoại trừ reloadserver đã ghi ở mục Kiểm định cuối.
+
+## Rà lại sau chỉnh sửa hiện tại
+
+Reviewer toán xác nhận toàn bộ sửa đúng, không có lỗi chặn, nghiêm trọng hay trung bình. Reviewer mạch xác nhận sáu mạch ánh xạ 1-1, các ranh giới và kết luận đạt; ba tín hiệu chuyển ý nhẹ (L01-19, L01-33 và câu tuyên bố L01-24 trong log) được xử lý trong lượt này.
+
+## Kiểm định cuối
+
+- 6 section ngoài của HTML khớp bảng sáu mạch.
+- 40 `data-slide-id` duy nhất; 40/40 slide có khối ghi chú.
+- 19 SVG phân tích XML thành công; tất cả đều có `role="img"`, `title`, `desc`.
+- Không thiếu tham chiếu cục bộ; không có raster hay tài nguyên mạng.
+- 141 biểu thức KaTeX dựng thành công với `throwOnError: true` và `strict: "error"`.
+- Đã chụp và rà 40 slide ở 1280x720 cùng 40 slide ở 960x720; phát hiện và sửa lỗi tràn tiêu đề L01-25. Đã chụp lại L01-25 ở 960x720; tiêu đề nằm trọn khung.
+- `python3 -m reloadserver 8765` không chạy được vì thiếu mô-đun `reloadserver`; máy chủ HTTP thay thế cũng không dùng được ở cổng 8765 vì cổng đang bị chiếm. Đây là ngoại lệ môi trường, không tuyên bố reloadserver đạt.
