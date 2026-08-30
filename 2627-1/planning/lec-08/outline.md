@@ -6,19 +6,34 @@
 - LLO15: trình bày cấu trúc và cơ chế hoạt động của bộ nhớ ngắn dài hạn (LSTM) và đơn vị truy hồi có cổng (GRU).
 - LLO16: phân tích ưu điểm và giới hạn của LSTM/GRU so với RNN cơ bản khi xử lý phụ thuộc dài hạn.
 - Tuyến lõi: 100 phút. Tuyến mở rộng/có thể cắt: 20 phút. Bài tập riêng: 50 phút.
-- Không có code demo hoặc thí nghiệm huấn luyện; nguồn chỉ cung cấp cơ chế, kiến trúc và ứng dụng.
+- Không tạo demo phân tích cảm xúc: phần nguồn đã ánh xạ chỉ mô tả kiến trúc và ví dụ, không có code để chuyển; người dùng cũng không yêu cầu demo.
+
+## Cấu trúc bảy mạch
+
+| Mạch | Trang | Chức năng |
+|---|---|---|
+| 1 | L08-00–06 | Mở bài, cầu nối gradient và hợp đồng tensor |
+| 2 | L08-07–17 | Xây ô LSTM, ví dụ số và phương trình ma trận |
+| 3 | L08-18–21 | Phân tích nhánh gradient của LSTM |
+| 4 | L08-22–29 | Cơ chế, ví dụ, quy ước và nhánh giữ trực tiếp của GRU |
+| 5 | L08-30–33 | RNN sâu và RNN hai chiều |
+| 6 | L08-34–38 | Bộ mã hóa–giải mã và mất mát có mặt nạ |
+| 7 | L08-X01–X04, L08-39 | Bốn trạm đối chiếu mở rộng rồi kết luận bắt buộc |
+
+L08-39 là trang cuối và thuộc tuyến lõi 3 phút. Tại L08-38, phím End đi thẳng đến L08-39; phím Phải đi vào L08-X01, rồi đi xuống qua L08-X04 đến L08-39. Liên kết phím Phải được khóa tại sáu ranh giới L08-06→07, 17→18, 21→22, 29→30, 33→34 và 38→X01; phím End luôn đến L08-39.
 
 ## Mạch khái niệm
 
 1. Từ tích Jacobian của RNN cơ bản đến nhu cầu có đường lưu giữ có điều kiện.
 2. Phân biệt trạng thái ô $C_t$ và trạng thái ẩn $H_t$; khóa quy ước tensor, độ dài thật, trạng thái đầu và mặt nạ trạng thái nguồn.
-3. Xây LSTM theo thứ tự của slide nguồn: ứng viên, cổng vào, cổng ra, cổng quên, ô hoàn chỉnh.
+3. Xây LSTM theo thứ tự tăng dần của slide nguồn: ứng viên, cổng vào, cổng ra, cổng quên, ô hoàn chỉnh. Giữ cổng ra trước cổng quên vì nguồn giới thiệu từng thành phần theo thứ tự đó; sơ đồ ô hoàn chỉnh sau cùng vẫn thể hiện đúng luồng cập nhật trạng thái ô.
 4. Tính một bước LSTM vô hướng, rồi khái quát sang phương trình ma trận và bảng kích thước.
 5. Tách nhánh gradient trực tiếp qua $C_t$ khỏi đạo hàm toàn phần; giới hạn mệnh đề về gradient triệt tiêu.
 6. Khóa dữ kiện một bước GRU trước khi khái quát phương trình; đổi quy ước cổng bằng cả biến cổng và tiền kích hoạt.
-7. Phân tích nhánh giữ trực tiếp của GRU, đếm tham số theo phương trình bài và giới hạn kết luận so sánh.
+7. Đếm tham số theo phương trình bài, rồi kiểm tra hệ số nhánh giữ trực tiếp của GRU và phân biệt nó với đạo hàm toàn phần.
 8. Mở rộng bằng trạng thái tổng quát $S$: $S=H$ cho RNN/GRU và $S=(H,C)$ cho LSTM; sau đó xét mạng hai chiều.
-9. Dùng một mô hình cơ sở GRU mã hóa–giải mã: trạng thái nguồn cuối hợp lệ khởi tạo bộ giải mã, logit đi vào chéo entropy ổn định và mặt nạ đích chỉ chọn token mất mát.
+9. Dùng một mô hình cơ sở GRU mã hóa–giải mã: token được ánh xạ thành vector nhúng, trạng thái nguồn cuối hợp lệ khởi tạo bộ giải mã, logit đi vào chéo entropy ổn định và mặt nạ đích chỉ chọn token mất mát.
+10. Tổ chức tuyến mở rộng thành bốn trạm đối chiếu: biểu diễn phân loại → chi phí tham số của ô → sinh tự hồi quy → chọn kiến trúc; sau đó quay về kết luận chung về cơ chế và giới hạn gradient.
 
 ## Ánh xạ nguồn
 
@@ -51,6 +66,7 @@
 | Ký hiệu/thuật ngữ | Nghĩa và quy ước |
 |---|---|
 | $N,T,L_n,D_x,D_h$ | Kích thước lô, số bước tối đa sau đệm, độ dài thật mẫu $n$, chiều đầu vào, chiều ẩn |
+| $D_e,V$ | Chiều vector nhúng token đích; kích thước từ vựng |
 | $X_t$ | Lát cắt tại thời điểm $t$, kích thước $N\times D_x$ |
 | $H_t$ | Trạng thái ẩn, kích thước $N\times D_h$ |
 | $C_t$ | Trạng thái ô của LSTM, kích thước $N\times D_h$ |
@@ -60,6 +76,7 @@
 | $S_t$ | Trạng thái tổng quát: $H_t$ cho RNN/GRU, $(H_t,C_t)$ cho LSTM |
 | $M^{src},M^{tgt}$ | Mặt nạ giữ trạng thái nguồn; mặt nạ chọn token đích trong mất mát |
 | $Q$ | Ngữ cảnh từ trạng thái GRU mã hóa cuối hợp lệ, $N\times D_h$ |
+| $u_n^{cls},U^{cls}$ | Biểu diễn phân loại của mẫu $n$, $1\times2D_h$; lô biểu diễn, $N\times2D_h$ |
 | $A_{t'},P_{t'}$ | Logit và xác suất theo từ vựng, $N\times V$ |
 | $\langle bos\rangle,\langle eos\rangle$ | Token bắt đầu và kết thúc chuỗi |
 
