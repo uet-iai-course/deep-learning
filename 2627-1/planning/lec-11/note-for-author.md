@@ -9,6 +9,10 @@
 - Tại L11-09–10, giữ $S,B_M,A$ ở dạng $B\times T_q\times T_k$. Trục đầu $h$ chỉ xuất hiện từ L11-25; khi đó mở mặt nạ thành $B\times1\times T_q\times T_k$.
 - L11-22 giữ cảnh báo hàng toàn chặn. L11-23 chỉ dạy hai hợp đồng có nguồn: chặn khóa đệm trước softmax và loại ký hiệu đệm khỏi sai số.
 - L11-36–37 dành đủ thời gian truy vết $H^{src}_{\ell-1}\to H^{src}_\ell$ và $G_{\ell-1}\to G_\ell$, từng nhánh Bỏ ngẫu nhiên và mỗi đường dư tới Cộng+LN. Chốt $H^{enc}=H^{src}_{L_{enc}}$ và $H^{dec}=G_{L_{dec}}$.
+- Giữ 4 phút cho mỗi trang L11-36 và L11-37 vì tổng lõi 100 phút đã khóa. Đi theo thứ tự mũi tên và công thức; kiểm trực quan cuối sẽ quyết định có cần rút chữ, không đổi timing ở lượt sửa này.
+- L11-25–28 quay lại ví dụ tự chú ý không mặt nạ: cả hai đầu dùng $B_M=0$; $O^{(1)}$ tại L11-28 là kết quả L11-13, không phải kết quả nhân quả L11-17.
+- Tại L11-40, cho sinh viên chọn một trong bốn câu. Mỗi câu nhận một câu trả lời ngắn; giảng viên chốt bằng cách chỉ lại đúng tensor, sơ đồ hoặc trục. Cách này giữ bốn câu khả thi trong 4 phút mà không biến trang thành bốn lượt giải chi tiết.
+- Sau L11-40, định khung X01–X04 là bốn phép kiểm sức chịu theo thứ tự đối xứng, chi phí, tham số và vị trí. Phụ lục làm rõ đánh đổi mở rộng, không thay bốn hợp đồng lõi.
 - Số tầng và số đầu là siêu tham số. Không chuyển cấu hình số trên slide nguồn thành cấu hình bắt buộc.
 
 ## Tuyến cắt
@@ -16,20 +20,21 @@
 - Cắt toàn bộ X01–X04 vẫn giữ đúng 100 phút lõi.
 - Nếu chỉ có 110 phút, ưu tiên X02 về chi phí và X04 về quan hệ vị trí tương đối.
 - Không cắt L11-10, L11-22–23, L11-31, L11-34–38 hoặc L11-40.
+- Nếu phát hành deck để tự học, hướng dẫn người học mở ghi chú diễn giả phải đặt trong tài liệu dành cho người soạn hoặc trang hướng dẫn đi kèm; không chèn chỉ dẫn này lên mặt trang chiếu hay vào mạch nói của từng trang.
 
 ## Đáp án kiểm tra trên lớp
 
 - L11-02: bộ mã hóa không nhân quả cho một truy vấn đọc mọi khóa nguồn hợp lệ; khóa đệm bị chặn.
 - L11-14: điểm $1\times3\times3$; softmax theo trục khóa cuối; $AV$ trả $1\times3\times2$.
 - L11-18: truy vấn 3 được đọc cả ba khóa nên hàng không đổi; truy vấn 1 chỉ có khóa 1 nên trọng số là $[1,0,0]$.
-- L11-24: $A$ có kích thước $B\times H_a\times3\times5$; mặt nạ nguồn có thể là $B\times1\times1\times5$ hoặc mở rộng thành $B\times1\times3\times5$, rồi phát qua đầu.
+- L11-24: tại thời điểm trước khi giới thiệu chú ý nhiều đầu, $A$ có kích thước $B\times3\times5$. Từ L11-25, khi thêm trục đầu, $A$ mới có kích thước $B\times H_a\times3\times5$; mặt nạ nguồn có thể là $B\times1\times1\times5$ hoặc mở rộng thành $B\times1\times3\times5$, rồi phát qua đầu.
 - L11-29: không tính độ lệch có $64$ tham số; độ lệch Q/K/V tổng $12$ và độ lệch ra $4$, nên tổng là $80$.
-- L11-31: $PE$ có kích thước $3\times4$ và được phát qua trục lô; $H_0[0,0,:]=X[0,0,:]+PE[0,:]$. Kết quả giữ shape $1\times3\times4$.
+- L11-31: $PE$ có kích thước $3\times4$ và được phát qua trục lô; $H_0[0,0,:]=X[0,0,:]+PE[0,:]$. Trong $PE_1$, $\cos(1/100)\approx0.99995$ được làm tròn thành 1 dưới dấu xấp xỉ. Kết quả giữ shape $1\times3\times4$.
 - L11-40:
   1. $QK^\top:B\times H_a\times T_q\times T_k$; $A$ cùng kích thước; $AV:B\times H_a\times T_q\times d_v$.
-  2. $PE$ cung cấp vị trí và được cộng theo phần tử, nên đầu vào vẫn là $B\times T\times D$.
-  3. Softmax chạy theo khóa $T_k$; LayerNorm chạy theo chiều đặc trưng $D$.
-  4. Mặt nạ khóa chặn vị trí không được đọc; mặt nạ sai số loại đệm khỏi tổng và mẫu số; dịch nhãn tạo cặp đầu vào–đích kế tiếp.
+  2. $H^{src}_0\to H^{src}_1\to\cdots\to H^{src}_{L_{enc}}=H^{enc}$; mọi tầng giữ kích thước $B\times T_s\times D$.
+  3. Tự chú ý nhân quả lấy Q/K/V từ $G_{\ell-1}$; chú ý chéo lấy Q từ $U_\ell$, K/V từ $H^{enc}$; FFN nhận $C_\ell$, không dùng Q/K/V, rồi tạo $G_\ell$.
+  4. Softmax chạy theo khóa $T_k$; LayerNorm theo $D$; mặt nạ khóa chặn vị trí không được đọc, còn mặt nạ sai số loại đệm khỏi phép lấy trung bình.
 - X01: đầu ra hoán vị theo cùng phép hoán vị; mã hóa vị trí hoặc mặt nạ phụ thuộc vị trí phá đối xứng.
 - X02: $(512/128)^2=16$ lần cho hạng bậc hai.
 - X03: $d_k,d_v$ giảm một nửa; tổng tham số chiếu vẫn $4D^2$ nếu giữ tổng chiều bằng $D$.
@@ -163,9 +168,9 @@ Ghi kích thước của Q/K/V theo đầu, ma trận điểm, trọng số, đ�
 - Giảng viên chạy thử lệnh `python3 -c "import torch; assert torch.__version__.startswith('2.13.'); print(torch.__version__, torch.rand(1).device)"` trước giờ học; đầu ra phải cho biết phiên bản 2.13 và thiết bị `cpu`.
 - Không tính thời gian cài PyTorch vào 10 phút lab. Nếu preflight không đạt, dùng bản ghi đầu ra dự phòng và yêu cầu sinh viên đối chiếu tĩnh.
 
-**Câu nối sản phẩm**
+**Tuyến tái áp dụng hợp đồng và kỹ năng**
 
-BT11-01 tạo phép tính Q/K/V, softmax và đầu ra chú ý. BT11-02 tạo mặt nạ nhân quả. BT11-03 khóa các kích thước có trục đầu. BT11-04 chuyển ba sản phẩm đó thành dự đoán trước khi chạy hai API.
+BT11-01 luyện phép tính Q/K/V, softmax và đầu ra chú ý. BT11-02 tái áp dụng quy tắc mặt nạ nhân quả trên dữ kiện khác. BT11-03 tái áp dụng hợp đồng kích thước khi thêm trục đầu. BT11-04 dùng một tensor mới để kiểm chứng các phép tính, mặt nạ và kích thước bằng hai API.
 
 **Nhịp thực hiện**
 
@@ -182,7 +187,7 @@ Tính chú ý bằng các phép tensor cơ bản, kiểm chứng kết quả b�
 
 1. Chỉ ra năm bước của phép tính thủ công: điểm, scale, chặn, softmax và nhân với V.
 2. Chạy mã; xác nhận `torch.testing.assert_close` không báo lỗi và ghi các kích thước cùng hai mặt nạ.
-3. Giải thích vì sao `block_mask = ~keep_mask`, vì sao không so sánh `y_sdpa` với `y_mha`, và các chỗ khóa chế độ đánh giá.
+3. Điền vào chỗ trống: “Trong SDPA, `True` nghĩa là ___; trong MHA, `True` nghĩa là ___; vì vậy `block_mask = ___`.” Hoàn thành thêm câu: “Không so sánh `y_sdpa` với `y_mha` vì ___.” Với dropout, chỉ cần chỉ đúng các dòng mã khóa chế độ đánh giá.
 
 **Nếu còn thời gian**
 
@@ -250,8 +255,8 @@ print("Mặt nạ chặn của MHA:\n", block_mask.int())
 **Sản phẩm nộp**
 
 - Một bản ghi gồm bốn kích thước, hai ma trận mặt nạ và xác nhận phép tính thủ công khớp SDPA.
-- Ba câu giải thích phép tính thủ công, `block_mask = ~keep_mask`, và lý do không so sánh đầu ra SDPA với đầu ra MHA.
-- Một câu chỉ ra `dropout_p=0.0`, `mha.eval()` và `torch.inference_mode()` trong lần chạy đánh giá.
+- Hai mẫu điền khuyết về quy ước mặt nạ và lý do không so sánh đầu ra SDPA với đầu ra MHA.
+- Vị trí các dòng `dropout_p=0.0`, `mha.eval()` và `torch.inference_mode()` trong lần chạy đánh giá; không yêu cầu diễn giải dài về dropout.
 - Nếu làm phần tùy chọn, thêm một câu về cách `batch_first` đổi nghĩa hai trục đầu.
 
 **Đầu ra dự kiến**

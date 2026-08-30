@@ -11,7 +11,7 @@
 
 - LLO21: trình bày luồng bộ mã hóa và bộ giải mã Transformer.
 - LLO22: giải thích tự chú ý, chú ý nhiều đầu và mã hóa vị trí bằng kích thước và phép tính cụ thể.
-- Sản phẩm kiểm chứng: truy vết $Q,K,V\to QK^\top/\sqrt{d_k}\to$ mặt nạ $\to$ softmax theo khóa $\to AV$; phân biệt ba loại chú ý; nối khối chuẩn hóa sau tới huấn luyện mã hóa–giải mã.
+- Sản phẩm kiểm chứng: truy vết $Q,K,V\to QK^\top/\sqrt{d_k}\to$ mặt nạ $\to$ softmax theo khóa $\to AV$; truy vết $H^{src}_0\to H^{enc}$; xác định đầu vào và nguồn Q/K/V của ba nhánh trong một tầng giải mã.
 
 ## Mạch nội dung
 
@@ -27,9 +27,9 @@
 | Nguồn | Dải | Quyết định | Trang đích |
 |---|---:|---|---|
 | DOCX, Buổi 11 | tên buổi, LLO21–22 | giữ | L11-00–01 khóa phạm vi. |
-| `lec15_attention.pdf` | PDF 28–30 | giữ, gộp | L11-02–03: vấn đề chuỗi và cầu nối sang Transformer. |
-| `lec15_attention.pdf` | PDF 31–35 | giữ, tách, sửa | L11-03–14: QKV, tích vô hướng, scale, softmax và $AV$; sửa trục softmax thành trục khóa. |
-| `lec15_attention.pdf` | PDF 36 | giữ, gộp | L11-05–13: công thức self-attention; chuyển sang quy ước vector hàng và tensor theo lô. |
+| `lec15_attention.pdf` | PDF 28–30 | giữ, gộp | L11-02: vấn đề chuỗi và động cơ thay đường xử lý tuần tự. |
+| `lec15_attention.pdf` | PDF 31–35 | giữ, tách, sửa | L11-03–14: cầu nối sang tự chú ý, QKV, tích vô hướng, scale, softmax và $AV$; sửa trục softmax thành trục khóa. |
+| `lec15_attention.pdf` | PDF 36 | giữ, gộp | L11-X01: dùng tính tương đương hoán vị để làm rõ động cơ thêm vị trí; liên hệ phát biểu mở ở L11-30. |
 | `lec15_attention.pdf` | PDF 37–39 | giữ, tách | L11-15–18: tự chú ý nhân quả và ví dụ số. |
 | `lec15_attention.pdf` | PDF 40 | giữ, gộp | L11-19–24: tổng kết ba loại chú ý. |
 | `lec15_attention.pdf` | PDF 41 | bỏ | Hình minh họa và liên kết ngoài không cần cho LLO. |
@@ -74,6 +74,6 @@ Không dùng `lec16_transformer.pdf` PDF 18–20, 23–25, 27, 29–32, 34–35,
 3. BT11-03: truy vết kích thước hai đầu với $B=2,T=5,D=8,H_a=2$ tới phép ghép và chiếu ra — 10 phút, có đề, sản phẩm và rubric.
 4. BT11-04: kiểm chứng phép chú ý thủ công bằng `scaled_dot_product_attention`, rồi khảo sát `MultiheadAttention` — 10 phút: dự đoán, đọc hợp đồng API, chạy mã, `assert_close`, rồi đối chiếu kích thước, mặt nạ Boolean và chế độ đánh giá. Không so đầu ra SDPA với đầu ra MHA vì dữ kiện và phép chiếu khác nhau. Thử thay đổi `batch_first` là phần tùy chọn có điểm thưởng. Đề, mã, đầu ra dự kiến, sản phẩm, đáp án và rubric nằm trong `note-for-author.md`.
 
-Sản phẩm được truyền theo tuyến BT11-01 → BT11-04: phép tính Q/K/V và softmax → mặt nạ nhân quả → hợp đồng kích thước nhiều đầu → bản ghi chạy hai API.
+BT11-01 → BT11-04 tạo một tuyến tái áp dụng hợp đồng và kỹ năng: tính Q/K/V và softmax → dựng mặt nạ nhân quả → truy vết kích thước nhiều đầu → kiểm chứng bằng hai API. Mỗi bài dùng dữ kiện riêng, không truyền cùng tensor sang bài sau.
 
 Bài tập về nhà theo DOCX: giải thích bộ mã hóa xử lý một câu từ nhúng và vị trí đến trạng thái đầu ra; đề và rubric nằm trong `note-for-author.md`.
