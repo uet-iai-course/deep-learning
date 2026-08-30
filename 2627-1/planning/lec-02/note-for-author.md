@@ -6,27 +6,28 @@ Tuyến lõi đi theo một đường duy nhất:
 
 1. MLP là chuỗi phép tính; huấn luyện cần gradient theo từng tham số.
 2. Đồ thị tính toán tách quan hệ phụ thuộc thành các nút và cạnh.
-3. Ví dụ vô hướng chạy xuôi trước khi quy tắc chuỗi được thực hiện cục bộ dưới dạng upstream × local.
+3. Ví dụ vô hướng chạy xuôi trước khi quy tắc chuỗi được thực hiện cục bộ dưới dạng đạo hàm thượng nguồn × đạo hàm cục bộ.
 4. Các cổng cộng, nhân, max và nhiều nhánh khóa dấu, hướng truyền và phép cộng gradient.
 5. Gradient tensor có cùng kích thước với tensor; Jacobian chỉ là cầu nối hình thức.
-6. Quy ước batch-first và phép suy theo chỉ số dẫn đến ba công thức của tầng afin.
-7. Ví dụ MLP 2–2–3 giữ nguyên mọi tensor qua forward, log-softmax, entropy chéo, suy $G_Z$, backward và cập nhật.
-8. Kết thúc bằng việc tách chế độ mô hình, ghi gradient, zero-grad và cập nhật.
+6. Quy ước lô theo hàng và phép suy theo chỉ số dẫn đến ba công thức của tầng afin.
+7. Ví dụ MLP 2–2–3 giữ nguyên mọi tensor qua lan truyền xuôi, log-softmax, entropy chéo, suy $G_Z$, lan truyền ngược và cập nhật.
+8. Kết thúc bằng việc tách chế độ mô hình, ghi gradient, đặt gradient về 0 và cập nhật.
+9. Trang kết L02-39 thu hồi chuỗi $X\to H\to Z\to J\to$ gradient $\to$ cập nhật cùng ba tiêu chí kiểm được, rồi nối sang Bài 03.
 
-Nếu chỉ có 100 phút, dừng ở L02-38. Nếu còn 20 phút, đi L02-X01, L02-X02, L02-X04, L02-X05. Không nhảy vào riêng L02-X02 vì phần bão hòa sigmoid cần công thức ở L02-X01; không dùng L02-X04 để mở sang kỹ thuật checkpointing ngoài nguồn.
+Nếu chỉ có 100 phút, đi L02-00–38 rồi bỏ qua mạch mở rộng để sang L02-39. Nếu còn 20 phút, đi L02-X01, L02-X02, L02-X04, L02-X05 rồi L02-39; cả hai tuyến đều kết thúc ở L02-39. Không nhảy vào riêng L02-X02 vì phần bão hòa sigmoid cần công thức ở L02-X01; không dùng L02-X04 để mở sang kỹ thuật lưu điểm kiểm tra ngoài nguồn.
 
 ## Điểm cần nhấn và lỗi dễ mắc
 
 - Gradient luôn ghi rõ theo biến nào. $G_U=\partial J/\partial U$ có cùng kích thước với $U$.
 - Trong đồ thị nhiều nhánh, dùng cộng-gán; không ghi đè gradient đã tích lũy.
 - Với max hòa và ReLU tại 0, đạo hàm không duy nhất. Bài chọn ReLU tại 0 bằng 0 và tránh max hòa trong ví dụ.
-- Khóa quy ước batch-first: $X:B\times d$, trọng số nhân bên phải.
-- Bias phát rộng ở forward nên gradient bias cộng theo trục batch.
-- Softmax chạy theo trục lớp. Tính entropy chéo bằng log-softmax/log-sum-exp trực tiếp từ logits, không lấy log của xác suất đã làm tròn.
-- Suy $G_Z=(P-Y)/B$ bằng quy tắc chuỗi; hệ số $1/B$ đến từ trung bình batch.
+- Khóa quy ước lô theo hàng: $X:B\times d$, trọng số nhân bên phải.
+- Độ lệch phát rộng ở lượt xuôi nên gradient độ lệch cộng theo trục lô.
+- Softmax chạy theo trục lớp. Tính entropy chéo bằng log-softmax/log-sum-exp trực tiếp từ điểm số, không lấy log của xác suất đã làm tròn.
+- Suy $G_Z=(P-Y)/B$ bằng quy tắc chuỗi; hệ số $1/B$ đến từ trung bình lô.
 - Logits không phải xác suất.
 - Tính đủ mọi gradient bằng tham số cũ rồi mới cập nhật. Không cập nhật $W_2$ trước khi tính $G_H$.
-- Đặt gradient tham số về 0 trước mỗi batch. Không đồng nhất chế độ mô hình với việc bật/tắt ghi gradient.
+- Đặt gradient tham số về 0 trước mỗi lô. Không đồng nhất chế độ mô hình với việc bật/tắt ghi gradient.
 - Không mở sang cực tiểu địa phương, momentum, Adam, điều chuẩn hay gradient triệt tiêu qua mạng sâu; để bài 03.
 
 ## Đáp án kiểm tra trên deck
@@ -50,9 +51,19 @@ Tổng mỗi hàng $G_Z$ bằng 0 vì tổng hàng $P$ và $Y$ đều bằng 1.
 ### L02-38
 
 1. Softmax chạy theo trục lớp trong từng hàng.
-2. $G_b$ rút gọn trục batch.
-3. Đặt gradient tham số về 0 trước batch mới.
+2. $G_b$ rút gọn trục lô.
+3. Đặt gradient tham số về 0 trước lô mới.
 4. Không cập nhật $W_2$ trước khi tính $G_H$; mọi gradient phải dùng cùng bộ tham số cũ.
+
+### L02-39
+
+Ba tiêu chí kiểm được của một bước huấn luyện:
+
+1. Tính đúng đại lượng và kích thước: mỗi gradient cùng kích thước với tensor của nó.
+2. Dùng đúng giá trị đã lưu và tham số cũ: mặt nạ ReLU từ $A$; $G_{W_1}$ từ $X$; $G_H$ từ $W_2$ cũ.
+3. Chỉ cập nhật sau khi đủ gradient; không cập nhật giữa chừng lượt ngược.
+
+Câu nối: Bài 03 dùng gradient này để bàn bộ tối ưu và tốc độ học; Bài 02 dừng ở một bước cập nhật.
 
 ## Bài tập 50 phút
 
@@ -85,7 +96,7 @@ Cách tổ chức: 4 phút cá nhân, 3 phút so cặp, 3 phút chữa.
 
 Cho bốn phát biểu:
 
-1. Softmax của $Z:B\times k$ chuẩn hóa theo trục batch.
+1. Softmax của $Z:B\times k$ chuẩn hóa theo trục lô.
 2. Với mất mát trung bình, $G_Z=P-Y$.
 3. $G_b=G_Z$ vì bias phát rộng.
 4. Có thể cập nhật $W_2$ rồi dùng $W_2$ mới để tính $G_H$.
@@ -103,5 +114,6 @@ Cho bốn phát biểu:
 - Nguồn phụ: `lec05_multilayer.pdf`, tr. 28–34; `lec04_multiclass.pdf`, tr. 12–19.
 - Nguồn kiểm chứng: `hocsau_draft.pdf`, PDF tr. 31–32, 68–73, 90–96.
 - Ví dụ vô hướng và MLP đã tính lại; chi tiết và sai khác nằm trong `review-log.md`.
-- Không có code demo, raster hoặc phụ thuộc mạng cốt lõi.
+- Không có mã trình diễn, ảnh raster hoặc phụ thuộc mạng cốt lõi.
 - Đã hoàn tất kiểm định storyboard, bốn phản biện độc lập và vòng chỉnh sửa. Cần điều phối viên chạy kiểm định hiển thị cuối trước khi cập nhật chỉ mục.
+- Sau vòng sửa mới: tuyến lõi 40 trang gồm L02-39; hai tuyến điều hướng đều kết thúc ở L02-39; L02-31 và L02-33 giảm còn 4 phút mỗi trang để giữ đúng 100+20 phút.
