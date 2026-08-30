@@ -2,11 +2,11 @@
 
 ## Tuyến giảng
 
-- Lõi L05-00–L05-38: đúng 100 phút.
+- Lõi L05-00–L05-37: đúng 98 phút; L05-38 là trang kết luận 2 phút, nằm sau tuyến mở rộng trong cấu trúc mạch nhưng thuộc tuyến lõi về thời lượng (tổng lõi gồm L05-38 vẫn 100 phút).
 - Mở rộng L05-X01–L05-X05: 20 phút; có thể bỏ nguyên cụm dọc.
 - Không đưa mã trang, thời lượng, tuyến cắt, trạng thái rà soát hoặc đáp án chi tiết lên mặt trang và ghi chú diễn giả.
 - Khi so sánh kiến trúc, luôn hỏi cùng bốn đại lượng: kích thước tensor, tham số, MAC và đường đạo hàm.
-- Trong mỗi cụm lõi, nhấn xuống; ở trang cuối cụm, nhấn phải sang trang đầu cụm kế tiếp. Để cắt tuyến mở rộng, dừng ở L05-38. Để tiếp tục, nhấn phải sang L05-X01 rồi nhấn xuống lần lượt L05-X02–L05-X05.
+- Trong mỗi cụm lõi, nhấn xuống; ở trang cuối cụm, nhấn phải sang trang đầu cụm kế tiếp. Tuyến lõi: tại L05-37 nhấn End tới L05-38, trang cuối toàn deck; dừng ở đó nếu cắt tuyến mở rộng. Tuyến mở rộng: tại L05-37 nhấn phải sang L05-X01, nhấn xuống qua L05-X02–L05-X05, rồi nhấn xuống tới L05-38.
 
 ## Đáp án và điểm dừng tương tác
 
@@ -42,6 +42,11 @@ Thiết kế $56×56×64→28×28×128$. Nhánh chính dùng tầng đầu bư�
 ### Đóng băng hoặc tinh chỉnh — 5 phút
 
 Tình huống: tập mới nhỏ và gần nguồn; tập mới lớn nhưng khác miền. Đáp án định hướng: trường hợp đầu đóng băng phần lớn thân, đặt thân ở chế độ suy luận và học đầu mới; trường hợp sau tinh chỉnh nhiều tầng hơn hoặc toàn bộ, đồng thời chọn rõ BN dùng thống kê cố định hay cập nhật. Khi suy luận, toàn bộ mô-đun ở chế độ suy luận.
+
+- L05-33: mặt trang chỉ giữ hai thẻ đồng nhất và phép chiếu cùng dòng nhắc quy ước gradient cột và tiên quyết Jacobian Bài 02–03; trường hợp hậu kích hoạt $J_z=D_{\mathrm{ReLU}}(s)J_s$ nằm trong ghi chú diễn giả.
+- L05-20: công thức MAC dùng $H_s,W_s$ là kích thước không gian đầu ra; $|W|$ là số trọng số. Công thức chỉ đúng khi các tích chập cùng kích thước đầu ra.
+- L05-26: không lặp lại con số 6272; tham chiếu ví dụ ở trang trước và tập trung trục giảm, phát rộng.
+- L05-36: ghi chú diễn giả có câu nối sang học chuyển giao (tái dùng thân đã học → hai quyết định gradient/chế độ).
 
 ## Điểm cần kiểm tra sau chỉnh sửa
 

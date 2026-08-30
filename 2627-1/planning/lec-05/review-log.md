@@ -83,9 +83,46 @@
 - Chuyển toàn bộ chỉ dẫn thời gian chờ và tuyến trình chiếu khỏi ghi chú diễn giả sang `note-for-author.md` và storyboard.
 - Xóa ba SVG không được dùng; kiểm kê cuối còn 18 SVG và cả 18 đều được HTML tham chiếu.
 
+## Vòng chỉnh sửa theo kiểm định storyboard và báo cáo nguồn
+
+- **Cấu trúc mạch:** gộp từ 8 xuống đúng 7 `<section>` ngoài: [L05-00..03], [04..10], [11..15], [16..23], [24..28], [29..37], [X01..X05 rồi L05-38]. L05-38 được chuyển xuống cuối chồng mở rộng, sau L05-X05, và là trang cuối toàn deck. Điều hướng: tuyến lõi tại L05-37 nhấn End tới L05-38; tuyến mở rộng tại L05-37 nhấn phải sang L05-X01, xuống qua L05-X05 rồi xuống tới L05-38. Thứ tự X01–X05 không đổi. Đã đồng bộ storyboard.md và note-for-author.md; không đưa chỉ dẫn tuyến lên mặt slide hoặc ghi chú diễn giả.
+- **Học chuyển giao (L05-37):** phần này có nguồn slide `lec09_cnn_architectures.pdf` PDF 44–46 nhưng không nằm trong danh mục "Bài giảng" Buổi 5 của DOCX (chỉ gián tiếp ở Buổi 6). Giữ ở tuyến lõi với vai trò cầu nối ngắn phục vụ LLO10; ghi rõ đây là mở rộng phạm vi so với văn bản đề cương.
+- **Suy giảm độ chính xác huấn luyện:** tách hiện tượng "lỗi huấn luyện tăng khi thêm tầng" (định nghĩa suy giảm) khỏi diễn giải "suy giảm gradient" của DOCX dòng 368 và GT `hocsau-p149-163.txt` 662–670. Lý do: hiện tượng quan sát được trên đồ thị lỗi huấn luyện là dữ kiện; khẳng định về đạo hàm triệt tiêu là một diễn giải cơ chế mà nguồn không chứng minh trong phạm vi bài. Bộ trang giữ dữ kiện, ghi trực giác ở ghi chú, không tuyên bố cơ chế.
+- **L05-36:** thêm câu nối trong ghi chú diễn giả từ ResNet-18 sang học chuyển giao (thân đã học có thể tái dùng → hai quyết định gradient/chế độ), khớp câu nối cụm trong storyboard.
+- **L05-33:** giảm tải mặt trang: chuyển thẻ hậu kích hoạt $J_z=D_{\mathrm{ReLU}}(s)J_s$ xuống ghi chú; thêm một dòng nhắc quy ước gradient cột và tiên quyết Jacobian Bài 02–03 ở cỡ chữ thường, không thu nhỏ chữ thêm.
+- **L05-20:** loại xung đột ký hiệu $W$: công thức MAC dùng $W_s$ cho bề rộng không gian và chú thích rõ $|W|$ là số trọng số; đồng bộ storyboard.
+- **L05-26:** bỏ lặp đầy đủ ví dụ 6272; tham chiếu ví dụ trang trước và tập trung trục giảm, phát rộng $\gamma,\beta$.
+- **Storyboard:** sửa bảng chu trình cụm GoogLeNet thành "ví dụ phần gốc L05-17 → trực giác/ví dụ khối L05-18" cho khớp thứ tự trang.
+- Timing giữ nguyên: mạch 1=8, 2=20, 3=11, 4=20, 5=14, 6=25 (L05-29..37), 7=20 mở rộng + 2 kết luận (L05-38); lõi 100, mở rộng 20; bài tập 50 phút tách riêng.
+
+## Hợp nhất năm phản biện
+
+Các sửa đã áp dụng:
+- Sửa notes L05-20 thành bốn nhánh đúng: $192·64=12.288$; $192·96+96·128·9=129.024$; $192·16+16·32·25=15.872$; $192·32=6.144$; tổng $163.328$; bỏ phép phân rã sai 73.728+108.544.
+- Storyboard L05-20 dùng $H_s·W_s·|W|$ với điều kiện các tích chập cùng kích thước đầu ra; chu trình GoogLeNet sửa thành "tính L05-20 → triển khai L05-21 → tính/so L05-22 → kiểm tra L05-23".
+- Thay mọi "Bài 03–04" còn lại thành "Bài 02–03" trong storyboard, review-log, note-for-author.
+- Outline: mạch 1 đổi tên "Mở đầu + LeNet"; ranh giới hậu/tiền kích hoạt ghi "chỉ xuất hiện trên mặt trang ở L05-X04; ghi chú L05-30/33 được phép nhắc ở mức điều kiện".
+- Note-for-author L05-20 đổi sang $H_s,W_s$ và ghi điều kiện cùng kích thước đầu ra.
+- L05-12: rút gọn câu điều kiện thành "ba tầng đang xét đều có bước trượt 1 và độ giãn 1; bước trượt hoặc độ giãn ở tầng trước làm đổi công thức tích lũy".
+
+Năm quyết định không áp dụng:
+- a) Giữ 163.328 vì gồm đủ hai tầng giảm kênh; 141.824 đã bỏ sót $192·96$ và $192·16$.
+- b) Giữ 716.767.232 vì conv5=99.680.256; 99.681.024 sai 768.
+- c) Giữ timing vì L16–23=20 (L17=2), L29–37=25 (22+3), L38=2 riêng.
+- d) Giữ thứ tự X01..X05 theo cấu trúc đã khóa.
+- e) Giữ học chuyển giao vì nguồn đã được ánh xạ/duyệt và là cầu nối, đồng thời vẫn ghi rõ ngoài danh mục DOCX.
+
+## Tái kiểm sau chỉnh sửa
+
+- Rà toán học xác nhận lại AlexNet, Inception, chuẩn hóa theo lô, Jacobian, ResNet và timing; không còn lỗi nghiêm trọng hoặc chặn bàn giao.
+- Rà mạch xác nhận đúng 7 mạch, kết luận ở cuối, hai tuyến điều hướng và các ranh giới phần. Sửa câu nối L05-X01 để phản ánh đúng GoogLeNet rồi ResNet; bổ sung câu nối L05-X03→L05-X04 và L05-X04→L05-X05. Không đổi thứ tự trang mở rộng.
+- Không thêm câu chỉ dẫn rẽ tuyến vào ghi chú L05-37: vai trò và thao tác điều hướng đã ghi trong storyboard và `note-for-author.md`; đưa nhãn tuyến vào ghi chú diễn giả sẽ vi phạm quy tắc không hiển thị chỉ dẫn nội bộ. Đây là đề xuất mức nhẹ và không chặn bàn giao.
+- Rà trình chiếu ở 1280×720 và 960×720 cho thấy công thức L05-32 sát mép phải; đổi riêng khối công thức sang lớp `small` (cỡ hiệu dụng vẫn trên ngưỡng đọc) để tạo lề an toàn, không đổi nội dung toán học.
+
 ## Giới hạn kiểm định trực quan
 
-- Môi trường không có mô-đun `reloadserver`.
-- Máy chủ HTTP tại cổng 8765 đã trả mã 200; tệp được phục vụ khớp hàm băm với tệp trong kho.
-- Không có Browser, Chromium hoặc Playwright để duyệt trực quan RevealJS.
-- Codex Slides mở được vỏ dự án, nhưng tải Design File thất bại với HTTP 500; vì vậy chưa thể đồng bộ hoặc rà trực quan trong Codex Slides.
+- `python3 -m reloadserver 8765` không chạy vì môi trường thiếu mô-đun `reloadserver`; cổng 8765 đồng thời đang phục vụ một kho khác nên không dừng tiến trình ngoài phạm vi. Máy chủ dự phòng chỉ phục vụ `2627-1/` tại cổng 8766; HTML, CSS, RevealJS, KaTeX và SVG kiểm tra đều trả HTTP 200, tệp HTML phục vụ khớp hàm băm với tệp trong kho.
+- Chromium headless dựng đủ 88 lượt: 44 trang ở 1280×720 và 44 trang ở 960×720. Sau khi tắt chuyển cảnh để chụp ổn định, không có tràn nội dung, lỗi console, yêu cầu tài nguyên thất bại hoặc phần tử `katex-error`.
+- Kiểm tra trực quan toàn bộ hai bảng ảnh liên hệ và các trang dày L05-07, L05-20, L05-25, L05-32, L05-33, L05-36, L05-37, L05-X04, L05-38: chữ, bảng, công thức, SVG, fragment và chân trang đều đọc được; L05-32 đã được tạo thêm lề an toàn như ghi ở mục tái kiểm.
+- Kiểm định tĩnh: đúng 7 `<section>` ngoài với số trang `[4,7,5,8,5,9,6]`; 44 ID duy nhất, 44 ghi chú, 44 nguồn; 18/18 tham chiếu ảnh là SVG cục bộ, không raster hoặc phụ thuộc mạng cốt lõi; 18 SVG phân tích XML và có `role="img"`, `title`, `desc`.
+- Rà thủ công toàn bộ `h1`, `h2`, `h3`: chỉ giữ tiếng Anh cho tên kiến trúc, API/ký hiệu và viết tắt được phép. `index.html` đã có liên kết đúng tới bài 05.

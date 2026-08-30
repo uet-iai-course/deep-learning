@@ -23,6 +23,20 @@ LeNet làm mốc khối và kích thước → AlexNet tăng quy mô nhưng dồ
 
 Mỗi cụm đi theo cùng một trục: giới hạn → thay đổi kiến trúc → kích thước tensor → tham số/MAC/đạo hàm → giới hạn mới.
 
+## Bảy mạch và ánh xạ mạch
+
+Tổng lõi 100 phút gồm 98 phút cho L05-00–L05-37 và 2 phút kết luận L05-38; mở rộng 20 phút.
+
+| Mạch | Trang | Phút |
+|---|---|---:|
+| 1. Mở đầu + LeNet | L05-00–03 | 8 |
+| 2. AlexNet | L05-04–10 | 20 |
+| 3. VGG | L05-11–15 | 11 |
+| 4. GoogLeNet/Inception | L05-16–23 | 20 |
+| 5. Chuẩn hóa theo lô | L05-24–28 | 14 |
+| 6. ResNet + học chuyển giao | L05-29–37 | 25 |
+| 7. Mở rộng + kết luận | L05-X01–X05, L05-38 | 20 + 2 |
+
 ## Ánh xạ nội dung
 
 | Cụm | Nguồn | Quyết định |
@@ -57,5 +71,5 @@ Không gọi MAC là FLOP. Không quy đổi nếu chưa nêu quy ước đếm.
 - Không dùng bảng lỗi hoặc xếp hạng để tuyên bố hơn kém khi giao thức không đầy đủ.
 - Không tạo mã nguồn, notebook hoặc trình diễn huấn luyện.
 - Không đưa chỉ dẫn người soạn, thời lượng, tuyến cắt hoặc đáp án chi tiết lên mặt trang hay ghi chú diễn giả.
-- Hậu kích hoạt và tiền kích hoạt chỉ xuất hiện ở L05-X04, sau khi hoàn tất cụm ResNet.
+- Hậu kích hoạt và tiền kích hoạt chỉ xuất hiện trên mặt trang ở L05-X04; ghi chú L05-30/33 được phép nhắc ở mức điều kiện.
 - Ví dụ mô tả ảnh ở L05-X05 chỉ là giao diện vectơ trừu tượng; cơ chế chuỗi thuộc Bài 07.
