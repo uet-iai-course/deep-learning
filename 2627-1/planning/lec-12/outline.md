@@ -59,6 +59,7 @@ Không dùng `lec17_vision_transformers.pdf` PDF 29–77, slide detection, diffu
 | $M^{valid},M^{causal},M^{tgt}$ | mặt nạ hợp lệ, nhân quả và vị trí đích chịu giám sát |
 | $X\in\mathbb R^{N\times C\times H\times W}$ | ảnh theo thứ tự NCHW |
 | $P,T_p$ | cạnh mảnh và số mảnh $(H/P)(W/P)$ |
+| $H_a$ | số đầu chú ý; tỷ số chi phí ở L12-33 chỉ xét phần tự chú ý theo chiều chuỗi |
 | $Z_0,Z_\ell$ | chuỗi ViT trước và sau khối thứ $\ell$; CLS cuối đi vào đầu lớp độc lập hoặc phép chiếu–chuẩn hóa tạo $E_I$ cho CLIP |
 
 ## Bài tập 50 phút

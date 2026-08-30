@@ -1,8 +1,62 @@
 # Nhật ký rà soát — Bài 12
 
+## Lượt phân tích nguồn mới và sửa cục bộ theo đặc tả
+
+| Mức độ | Vùng | Vấn đề | Quyết định |
+|---|---|---|---|
+| Trung bình | L12-37 | Ghi chú nguồn dùng cụm chung "tổng hợp từ các nguồn của Buổi 12", không truy nguyên được. | Thay bằng trích cụ thể: giáo trình PDF 280–293 và 327–333; Radford và cộng sự (2021), PDF 1–3; `lec17_vision_transformers.pdf`, PDF 18–24. Không đổi nội dung bảng. |
+| Nhẹ | `clip-zero-shot.svg` | `desc` chưa nhắc hệ số nhiệt độ $\tau$ dù $Z=E_I(E_T^{cls})^\top/\tau$ ở L12-23. | Bổ sung vào `desc` câu nhắc chia điểm cho hệ số nhiệt độ $\tau$ (dạng $1/\tau$) trước softmax theo trục lớp. |
+| Nhẹ | `mask-families.svg` | `desc` dùng "cặp hợp lệ" mơ hồ, chưa nói rõ hợp lệ nghĩa là khóa không phải đệm. | Viết lại `desc`: ô được phép nghĩa là khóa không phải vị trí đệm. |
+| Không áp dụng | L12-02 | Nguồn đã sắp đúng thứ tự nguồn chính trước (`lec16_transformer.pdf`, PDF 38–48) rồi giáo trình (PDF 280–288); không đổi nội dung. | Giữ nguyên. |
+
+## Bằng chứng tính lại độc lập
+
+- Shape ViT: ảnh $2\times3\times32\times32$, $P=8$ cho $T_p=(32/8)^2=16$ mảnh, $CP^2=3\cdot64=192$; sau chiếu $2\times16\times64$; thêm CLS và nhúng vị trí cho $2\times17\times64$; mỗi khối giữ nguyên kích thước. Khớp L12-28, L12-31, L12-34.
+- CLIP X03: $E_I=E_T=I_2$, $1/\tau=\ln3$ cho $S=\operatorname{diag}(\ln3,\ln3)$; mỗi hàng và cột cho xác suất $3/4$ cho cặp đúng, nên $\mathcal L_{I\to T}=\mathcal L_{T\to I}=\mathcal L_{CLIP}=\ln(4/3)\approx0{,}287682$.
+- Tỷ số chi phí chú ý: $65^2/17^2=4225/289\approx14{,}62$; 16 chỉ là tỷ số tiệm cận khi bỏ qua CLS. Khớp L12-33 và X04.
+
+## Lượt chỉnh sửa riêng sau giới hạn lượt trước
+
+Kiểm định storyboard phát hiện trùng nội dung giữa L12-13 và L12-17 (cùng chạm hợp đồng suy luận của bộ giải mã). Rà soát lại bằng 5 vai reviewer độc lập: sinh viên, chuyên gia Học sâu, toán/thuật toán/triển khai, phản biện học thuật/giảng dạy, và kết nối/mạch. Mỗi vai tóm tắt theo trường: mức độ / trang / vấn đề / bằng chứng / đề xuất, rồi tổng hợp quyết định sửa.
+
+| Mức độ | Trang | Vấn đề | Bằng chứng | Đề xuất | Quyết định |
+|---|---|---|---|---|---|
+| Nghiêm trọng | L12-13, L12-17 | Đáp án L12-13 nói EOS "trở thành khóa hợp lệ khi dự đoán các vị trí sau nó" dễ đọc thành EOS được dùng ngay; trùng mạch hợp đồng suy luận ở L12-17. | HTML L12-13 fragment; storyboard dòng L12-13/L12-17. | Viết chính xác: không, vì mặt nạ chặn mọi khóa $j>i$; EOS bên phải chưa nằm trong tiền tố được phép đọc tại vị trí 2. | Đã sửa HTML và note-for-author; đóng lỗi. |
+| Trung bình | L12-04 | Mặt nạ khóa hợp lệ cần tách bạch khỏi mặt nạ chú ý. | HTML L12-04. | Nêu rõ $M^{valid}$ chặn đệm trước softmax. | Đã sửa. |
+| Trung bình | L12-22 | Trục log-softmax và hệ số $1/N$ từng mơ hồ. | HTML L12-22. | Khóa hàng=ảnh, cột=văn bản, hai loss trên $S$ và $S^\top$. | Đã sửa; giữ font `.82`, không thêm tải văn bản. |
+| Trung bình | L12-24 | Ví dụ trước tổng quát hóa. | HTML L12-24–25. | Giữ ví dụ $32\times32,P=8$ trước công thức. | Đã sửa. |
+| Trung bình | L12-29 | Thiếu trục LN, epsilon, chế độ dropout. | HTML L12-29. | LN theo $D$, $\varepsilon>0$, dropout trước cộng đường dư, train/eval. | Đã sửa. |
+| Trung bình | L12-33 | Tỷ số 16 từng bị dùng như số đúng. | HTML L12-33, X04. | Ghi $14{,}62$ cho ví dụ, 16 chỉ tiệm cận. | Đã sửa; khôi phục bullet X04 trong note-for-author. |
+| Trung bình | L12-35–36 | Câu chuyển giữa tuyến kỹ thuật và thảo luận từng đứt. | HTML L12-35–36. | Thêm câu nối ở ghi chú L12-35. | Đã sửa; giữ bullet riêng L12-35→36 trong note-for-author. |
+| Nhẹ | SVG (4 tệp) | Thuật ngữ pha Anh–Việt, KaTeX thô. | `img/lec-12/*.svg`. | Việt hóa và thay nhãn. | Đã sửa. |
+| Nhẹ | L12-37 | Nguồn ghi chung chung. | HTML L12-37. | Trích nguồn cụ thể. | Đã sửa. |
+| Nhẹ | L12-16 | Công thức loss cần nhấn cross-entropy hợp nhất. | HTML L12-16. | Thêm câu chỉ dẫn ổn định số. | Đã sửa. |
+
+Quyết định không đổi:
+- Không đổi timing L12-36: thời lượng đã khớp storyboard và tổng 100 phút; đổi sẽ lệch tuyến lõi.
+- Không tách fragment X03: phép tính hai cặp gọn, tách làm mất tính liền mạch của ví dụ kiểm chứng đối xứng.
+- Không đảo L12-29–30: thứ tự công thức rồi sơ đồ khớp mạch "định nghĩa → trực giác hóa" đã dùng xuyên bài.
+
+Không tuyên bố QA trình duyệt mới; không đồng bộ Codex Slides. Kiểm tĩnh: 42 ID slide duy nhất, 42 ghi chú diễn giả, sáu stack ngang cho tuyến lõi và một stack dọc cho phụ lục.
+
+## Hậu kiểm sau chỉnh sửa riêng
+
+- Vai toán học, thuật toán và triển khai xác nhận mask, các hàm mất mát, trục log-softmax, $\tau$, ví dụ $\ln(4/3)$, chuỗi kích thước ViT, $H_a$, $W_o$ và tỷ số $14{,}62$ đều đạt. Điều phối viên phát hiện thêm một lỗi triển khai ở L12-17: đầu ra chú ý chéo không cố định vì truy vấn đích thay đổi. Bản cuối chỉ giữ $H^{enc}$ cố định và nêu khóa/giá trị nguồn đã chiếu là phần có thể lưu khi triển khai hỗ trợ.
+- Vai kết nối và mạch viết xác nhận lỗi nghiêm trọng L12-13/L12-17 đã đóng: L12-13 chỉ kiểm tra nhân quả; L12-17 kiểm tra phần nguồn được tái dùng và tiền tố đích tăng dần. Ranh giới L12-35→36→37, mạch CLIP→ViT, 7 mạch ngoài và thời lượng 100+20+50 đều đạt.
+- Sau hậu kiểm, làm rõ câu trục ở L12-22 và đồng bộ cách gọi sáu stack ngang cùng một stack dọc trong `note-for-author.md`; hai sửa này không đổi công thức, thứ tự, ID hoặc thời lượng.
+
+## Kiểm định cuối của checkpoint hiện hành
+
+- Lệnh bắt buộc `python3 -m reloadserver 8765` vẫn không chạy vì môi trường thiếu mô-đun `reloadserver`. Máy chủ dự phòng chỉ phục vụ thư mục `2627-1` trên `127.0.0.1:8765`; không phục vụ gốc kho hoặc `.env`.
+- Chromium chụp đủ 42 trang ở $1280\times720$ và 42 trang ở $900\times720$. Sau khi tắt hiệu ứng chuyển trang để tránh ảnh trung gian, không phát hiện phần tử vượt khung, tràn chữ, chồng lấn hoặc nội dung bị cắt.
+- KaTeX không có phần tử lỗi ở cả hai kích thước. Toàn bộ tài nguyên cốt lõi tải thành công; lỗi 404 duy nhất là favicon không cốt lõi.
+- Điều hướng bàn phím đã đổi được cả chỉ số ngang và dọc. Kiểm tĩnh xác nhận 42 ID duy nhất, 42 ghi chú, 42 hàng storyboard đúng thứ tự, 7 `<section>` ngoài, không có raster và 7/7 SVG có `role="img"`, `title`, `desc`.
+- Rà thủ công toàn bộ tiêu đề `h1`, `h2`, `h3`: không có tiêu đề pha tiếng Anh ngoài tên kiến trúc, mô hình và viết tắt được phép như Transformer, CLIP, ViT, CNN, LLM, CLS và LLO.
+- Codex Slides không có bề mặt gọi được trong phiên công cụ hiện tại; không tuyên bố đã rà bằng Codex Slides. Giới hạn này không thay đổi bằng chứng kiểm định Chromium cục bộ ở trên.
+
 ## Trạng thái bàn giao
 
-Bản hoàn chỉnh có 38 trang lõi/100 phút và 4 trang mở rộng/20 phút. LLO24 có định nghĩa mô hình đa phương thức và trường hợp CLIP dựa trên nguồn được duyệt. Bốn lượt review độc lập, kiểm định storyboard, hậu kiểm toán/học thuật và rà trực quan cuối đều đã hoàn tất.
+Bản hoàn chỉnh có 38 trang lõi/100 phút và 4 trang mở rộng/20 phút. LLO24 có định nghĩa mô hình đa phương thức và trường hợp CLIP dựa trên nguồn được duyệt. Năm lượt review độc lập, kiểm định storyboard và hai hậu kiểm toán/mạch đều đã hoàn tất.
 
 ## Phát hiện đã ghi nhận và quyết định sửa
 
@@ -67,6 +121,6 @@ Bản hoàn chỉnh có 38 trang lõi/100 phút và 4 trang mở rộng/20 phút
 
 ## Trạng thái review độc lập
 
-- Bốn lượt review độc lập và báo cáo storyboard sau bổ sung CLIP đã được hợp nhất; các quyết định sửa tương ứng được ghi trong bảng trên.
+- Năm lượt review độc lập và báo cáo storyboard sau bổ sung CLIP đã được hợp nhất; các quyết định sửa tương ứng được ghi trong bảng trên.
 - Hậu kiểm toán xác nhận PASS cho loss CLIP, trục, hệ số $1/N$, ổn định số, shape ViT, cầu nối ViT→$E_I$, hai vị trí bỏ ngẫu nhiên và kết quả X03.
 - Hậu kiểm học thuật xác nhận PASS cho hoạt động thảo luận L36, mạch L18–26, sơ đồ L29–30, so sánh L35 và bảng tổng hợp L37.

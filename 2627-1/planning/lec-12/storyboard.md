@@ -3,7 +3,7 @@
 ## Trạng thái và điều hướng
 
 - Lõi có 100 phút. Mở rộng có 20 phút. Bài tập riêng 50 phút.
-- Có bảy stack ngang. Trong mỗi stack dùng `↓`; ở trang cuối stack dùng `→` sang stack kế tiếp.
+- Có sáu stack ngang cho tuyến lõi và một stack dọc phụ lục. Trong mỗi stack dùng `↓`; ở trang cuối stack dùng `→` sang stack kế tiếp.
 - Stack 1: L12-00–03. Stack 2: L12-04–08. Stack 3: L12-09–17. Stack 4: L12-18–23. Stack 5: L12-24–35. Stack 6: L12-36–37. Stack 7 là phụ lục dọc duy nhất: L12-X01 → L12-X02 → L12-X03 → L12-X04.
 - Ký hiệu sáu vai trò: **VĐ** vấn đề, **TG** trực giác, **VD** ví dụ, **HT** hình thức/tính toán, **UD** triển khai/ứng dụng, **KT** kiểm tra. `KAD` nghĩa là không áp dụng và luôn kèm lý do.
 
@@ -24,11 +24,11 @@
 | L12-10 | 3 | VĐ: ngăn rò nhãn tương lai; TG: tam giác dưới; VD: SVG 5 vị trí; HT: $M^{causal}$; UD: Boolean/cộng, chặn khóa đệm, phát theo đầu; KT: KAD vì L13. | $M^{valid}$ + thứ tự $i,j$ → mặt nạ $N\times1\times T\times T$. | Từ mặt nạ sang sai số; `↓` L12-11. |
 | L12-11 | 3 | VĐ: tổng hợp sai số theo độ dài thật; TG: chỉ ký hiệu đích hợp lệ; VD: EOS hợp lệ; HT: CLM và mẫu số dương; UD: CE/log-softmax ổn định; KT: điều kiện miền. | $Z^{CLM},Y,M^{tgt}$ → sai số trung bình theo ký hiệu. | Khi dự đoán chưa biết thì dùng lại đầu ra; `↓` L12-12. |
 | L12-12 | 3 | VĐ: tiền tố suy luận không có nhãn thật; TG: đưa dự đoán trở lại; VD: hai bước đầu; HT: phân phối bước kế; UD: vòng lặp EOS/giới hạn; KT: KAD vì L13. | BOS → tiền tố tăng dần. | Kiểm tra song song và nhân quả; `↓` L12-13. |
-| L12-13 | 2 | VĐ: nhầm huấn luyện song song với nhìn tương lai; TG: mặt nạ giữ nhân quả; VD: vị trí đang dự đoán; HT: quan hệ tiền tố; UD: KAD vì là kiểm tra; KT: câu hỏi+đáp án mảnh. | L09–12 → giải thích đúng huấn luyện/suy luận. | Thêm chuỗi nguồn; `↓` L12-14. |
+| L12-13 | 2 | VĐ: khóa tương lai phải bị chặn; TG: mặt nạ giữ nhân quả; VD: vị trí 2 và EOS bên phải; HT: quan hệ $j\le i$; UD: KAD vì là kiểm tra; KT: câu hỏi+đáp án mảnh. | L09–12 → kiểm tra mặt nạ nhân quả. | Thêm chuỗi nguồn; `↓` L12-14. |
 | L12-14 | 3 | VĐ: căn chỉnh đầu vào/nhãn đích; TG: dịch một vị trí; VD: BOS và EOS; HT: $Y^{in},Y^{out}\in N\times T_t$; UD: học theo đáp án; KT: KAD vì L17. | Chuỗi đích → hai tensor lệch một vị trí. | Ba luồng cần ba mặt nạ; `↓` L12-15. |
 | L12-15 | 3 | VĐ: nguồn, đích và chú ý chéo có trục khác; TG: hàng truy vấn/cột khóa; VD: bảng ba luồng; HT: ba kích thước; UD: chặn khóa đệm, loại vị trí đích đệm khỏi loss; KT: KAD vì L17. | $T_s,T_t$ → ba mặt nạ phát theo đầu. | Ghép biểu diễn với nhãn; `↓` L12-16. |
 | L12-16 | 2 | VĐ: nối bộ mã hóa với dự đoán từ vựng; TG: $H^{enc}\to H^{dec}\to Z^{tgt}$; VD: kích thước ba tensor; HT: CE trục $V$ và trung bình hợp lệ; UD: hàm hợp nhất; KT: mẫu số dương. | $Y^{out},M^{tgt},H^{enc}$ → $Z^{tgt}$ và $\mathcal L$. | Đối chiếu huấn luyện với suy luận; `↓` L12-17. |
-| L12-17 | 2 | VĐ: cùng mô hình nhưng lịch tính khác; TG: nhãn có sẵn so với tự sinh; VD: BOS/EOS; HT: mặt nạ nhân quả; UD: cờ đang hoạt động theo mẫu; KT: câu hỏi+đáp án mảnh. | L14–16 → hợp đồng train/infer. | Từ mục tiêu sang huấn luyện trước; `→` L12-18. |
+| L12-17 | 2 | VĐ: cùng mô hình nhưng hợp đồng tính khác; TG: nguồn tính một lần, đích tăng dần; VD: BOS/EOS; HT: hợp đồng train/infer; UD: cờ đang hoạt động theo mẫu; KT: câu hỏi+đáp án mảnh. | L14–16 → hợp đồng train/infer. | Từ mục tiêu sang huấn luyện trước; `→` L12-18. |
 | L12-18 | 3 | VĐ: tham số dùng lại hình thành thế nào; TG: mục tiêu tạo tín hiệu từ dữ liệu; VD: MLM che “học” và CLM dịch chuỗi; HT: KAD vì công thức đã có ở L06/L11; UD: tiền huấn luyện→thích nghi; KT: KAD vì L20. | Hai mục tiêu đã học → quy trình dùng lại tham số. | Định nghĩa LLM ở đúng mức nguồn; `↓` L12-19. |
 | L12-19 | 3 | VĐ: chữ “lớn” không có ngưỡng phổ quát; TG: định nghĩa làm việc; VD: mô hình ngôn ngữ nơ-ron huấn luyện trước; HT: KAD vì nguồn không khóa ngưỡng; UD: có thể thích nghi cho nhiều nhiệm vụ; KT: KAD vì L20. | Huấn luyện trước L18 → định nghĩa làm việc nhất quán. | Kiểm tra một kết luận không được phép; `↓` L12-20. |
 | L12-20 | 2 | VĐ: tên gọi dễ bị dùng như bảo chứng; TG: tên gọi khác kết quả đánh giá; VD: đúng/an toàn/phù hợp miền; HT: KAD vì là kiểm tra khái niệm; UD: yêu cầu giao thức riêng; KT: câu hỏi một nghĩa+đáp án mảnh. | Định nghĩa L19 → giới hạn kết luận. | Đổi từ một phương thức sang cặp ảnh–văn bản; `↓` L12-21. |
@@ -46,7 +46,7 @@
 | L12-32 | 2 | VĐ: biến chuỗi thành dự đoán ảnh; TG: lấy vị trí 0; VD: $q$ và $Z^{cls}$; HT: $W_c,b_c$, trục $K$; UD: CE hợp nhất; KT: KAD vì L34. | $Z_L:2\times17\times64$ → $Z^{cls}:N\times K$. | Đánh đổi $P$ và chi phí; `↓` L12-33. |
 | L12-33 | 3 | VĐ: mảnh nhỏ làm chuỗi dài; TG: chú ý bậc hai; VD: 17→65; HT: $65^2/17^2\approx14{,}62$; UD: phân biệt tỷ số hữu hạn/tiệm cận; KT: KAD vì L34/X04. | $P=8$ và $P=4$ → tỷ số chi phí theo chuỗi. | Kiểm tra toàn tuyến ViT; `↓` L12-34. |
 | L12-34 | 2 | VĐ: quên CLS hoặc sai trục; TG: lần ngược chuỗi; VD: ảnh $2\times3\times32\times32$; HT: tính 17/65; UD: KAD vì là kiểm tra; KT: câu hỏi+đáp án mảnh. | Dữ kiện L25–33 → hai kết quả kích thước. | So sánh thiên kiến ViT/CNN; `↓` L12-35. |
-| L12-35 | 2 | VĐ: kiến trúc mã hóa có thiên kiến khác nhau; TG: cục bộ so với tương tác toàn cục; VD: CNN/ViT; HT: KAD vì không có công thức mới; UD: chọn theo dữ liệu/giao thức; KT: giới hạn không có ưu thế tuyệt đối. | Chuỗi ViT → so sánh phạm vi. | Chuyển sang tình huống triển khai; `→` L12-36. |
+| L12-35 | 2 | VĐ: kiến trúc mã hóa có thiên kiến khác nhau; TG: cục bộ so với tương tác toàn cục; VD: CNN/ViT; HT: KAD vì không có công thức mới; UD: chọn theo dữ liệu/giao thức; KT: giới hạn không có ưu thế tuyệt đối. | Chuỗi ViT → so sánh phạm vi. | Kết thúc tuyến kỹ thuật, quay lại giới hạn LLM ở L12-19–20; `→` L12-36. |
 | L12-36 | 3 | VĐ: trợ lý tuyển sinh có ba rủi ro cụ thể; TG: mỗi rủi ro cần bằng chứng; VD: thiên lệch, riêng tư, thông tin sai; HT: KAD vì là thảo luận có nguồn; UD: chọn phép kiểm và hành động; KT: câu hỏi thảo luận, đáp án chỉ ở note-for-author. | Hệ thống LLM cụ thể → rủi ro, bằng chứng và quyết định. | Tổng hợp các cấu hình kỹ thuật; `↓` L12-37. |
 | L12-37 | 2 | VĐ: dễ trộn tên kiến trúc với mục tiêu; TG: đối chiếu theo luồng; VD: encoder, decoder, encoder–decoder, CLIP, ViT; HT: bảng luồng/đầu ra; UD: bốn hợp đồng thiết kế; KT: câu hỏi+đáp án mảnh. | Toàn bài → bảng năm cấu hình và khung quyết định. | Kết thúc lõi; `→` L12-X01 nếu dạy phụ lục. |
 | L12-X01 | 5 | VĐ: biến biểu diễn hai chiều thành phân loại; TG: đọc vị trí 0; VD: $H$; HT: $N\times D\to N\times K$; UD: tinh chỉnh; KT: câu hỏi+đáp án mảnh. | L12-07 → phép chiếu phân loại. | Sang sinh tự hồi quy; `↓` L12-X02. |
@@ -57,8 +57,8 @@
 ## Chu trình khái niệm
 
 - Bộ mã hóa: VĐ L04 → TG/VD L05 → HT/UD L06–07 → KT L08.
-- Bộ giải mã: VĐ/TG/VD L09 → HT/UD L10–12 → KT L13.
-- Mã hóa–giải mã: VĐ/VD L14 → TG/HT L15–16 → UD/KT L17.
+- Bộ giải mã: VĐ/TG/VD L09 → HT/UD L10–12 → KT L13 (chỉ kiểm tra mặt nạ nhân quả/tương lai).
+- Mã hóa–giải mã: VĐ/VD L14 → TG/HT L15–16 → UD/KT L17 (hợp đồng train/infer).
 - LLM: VĐ/TG/VD L18 → định nghĩa/UD L19 → KT L20; không thêm thuật toán LLM ngoài nguồn.
 - CLIP đa phương thức: VĐ/TG/VD L21 → HT/UD L22–23 → KT lõi L23; X03 là phép tính kiểm tra mở rộng.
 - ViT: VĐ/TG/VD L24 → HT L25,27–32 → UD/cầu nối CLIP L26 và đánh đổi L33,35 → KT L34; X04 là kiểm tra mở rộng.

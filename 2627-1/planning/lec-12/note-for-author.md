@@ -18,19 +18,19 @@
 - Ở L12-24–25, luôn làm ví dụ $32\times32,P=8$ trước rồi mới tổng quát hóa $T_p$ và $X_{patch}$. Ở L12-26, nói rõ ViT chỉ là một lựa chọn nhánh ảnh của CLIP: CLS cuối → chiếu → chuẩn hóa L2 → một hàng $E_I$. Đầu phân loại độc lập tạo $Z^{cls}$ là đường khác.
 - Giữ bộ số ViT $N=2,C=3,H=W=32,P=8,D=64$ từ L12-24 đến L12-34.
 - Ở L12-29, LN theo chiều $D$ với epsilon dương. Nếu dùng dropout, đặt trên đầu ra nhánh trước phép cộng đường dư; bật khi huấn luyện và tắt khi đánh giá.
-- Ở L12-33/X04, 14,62 là tỷ số đúng cho 65 và 17; 16 chỉ là tỷ số tiệm cận khi bỏ qua CLS.
+- Ở L12-35, chốt rằng đây là trang kết thúc tuyến kỹ thuật; câu chuyển quay lại giới hạn hệ thống LLM đã chốt ở L12-19–20. L12-36 mở phần thảo luận và nối lại chủ đề LLM; câu hỏi cho phép nhóm nêu “hoặc rủi ro khác” tự chọn, không gán LLO cho phần mở rộng này.
 
 ## Điều hướng
 
-- Có bảy stack ngang. Dùng mũi tên xuống trong mỗi stack và mũi tên phải ở L12-03, 08, 17, 23, 35, 37.
+- Có sáu stack ngang cho tuyến lõi và một stack dọc cho phụ lục. Dùng mũi tên xuống trong mỗi stack và mũi tên phải ở L12-03, 08, 17, 23, 35, 37.
 - Stack phụ lục duy nhất gồm L12-X01 → L12-X02 → L12-X03 → L12-X04.
 - Kết thúc lõi ở L12-37 sau 100 phút. Nếu cần cắt, bỏ nguyên tuyến mở rộng; không cắt L12-21–23 vì đây là phần đa phương thức của LLO24.
 
 ## Đáp án kiểm tra
 
 - L12-08: vị trí che được đọc vị trí hợp lệ ở cả hai phía; chỉ vị trí thuộc $\Omega$ góp trực tiếp vào sai số MLM.
-- L12-13: huấn luyện tính đồng thời vì toàn bộ chuỗi nhãn đã có; mặt nạ nhân quả vẫn chặn khóa tương lai. Suy luận phải chờ dự đoán trước.
-- L12-17: huấn luyện nhận toàn bộ $Y^{in}$ và tính song song; suy luận bắt đầu từ BOS, sinh tuần tự, dừng theo mẫu tại EOS hoặc giới hạn dài.
+- L12-13: chỉ kiểm tra mặt nạ nhân quả/tương lai. Vị trí 2 không được dùng EOS bên phải vì mặt nạ chặn mọi khóa $j>i$; EOS bên phải chưa nằm trong tiền tố được phép đọc tại vị trí 2. Không đưa tính song song huấn luyện vào câu hỏi.
+- L12-17: hợp đồng riêng mã hóa–giải mã khi suy luận — biểu diễn nguồn $H^{enc}$ tính một lần rồi tái dùng ở mọi bước; tiền tố đích tăng thêm một ký hiệu mỗi bước. Chú ý chéo vẫn dùng truy vấn đích mới, nên không được gọi đầu ra chú ý chéo là cố định; chỉ khóa và giá trị nguồn đã chiếu có thể được lưu nếu triển khai hỗ trợ. Dùng cụm “cờ đang hoạt động theo mẫu” cho trạng thái lô.
 - L12-20: không thể kết luận đầu ra luôn đúng, an toàn hoặc phù hợp miền chỉ từ tên gọi LLM; các thuộc tính này cần giao thức đánh giá riêng.
 - L12-22: hàng chọn văn bản đúng cho mỗi ảnh; hàng của $S^\top$ chọn ảnh đúng cho mỗi văn bản; cả hai dùng nhãn đường chéo và trung bình trên $N$ cặp.
 - L12-23: với $K$ mô tả lớp, nhánh văn bản tạo $E_T^{cls}\in\mathbb R^{K\times D}$; $Z=E_I(E_T^{cls})^\top/\tau\in\mathbb R^{N\times K}$ và softmax chạy theo $K$.
@@ -43,7 +43,7 @@
   $$S=\begin{bmatrix}\ln3&0\\0&\ln3\end{bmatrix}.$$
 
   Mỗi hàng và mỗi cột gán xác suất $3/(3+1)=3/4$ cho cặp đúng, nên $\mathcal L_I=\mathcal L_T=\ln(4/3)$ và $\mathcal L_{CLIP}=\ln(4/3)$. Hai hướng bằng nhau vì $S$ đối xứng và hai cặp có cùng biên điểm.
-- X04: mảnh nhỏ giữ chi tiết không gian mịn hơn nhưng tăng độ dài, bộ nhớ và phép tính chú ý.
+- X04: mảnh nhỏ giữ chi tiết không gian mịn hơn nhưng tăng độ dài, bộ nhớ và phép tính chú ý. Tỷ số đúng của ví dụ là $65^2/17^2=4225/289\approx14{,}62$; 16 lần chỉ là tỷ số tiệm cận khi bỏ qua CLS, không phải số đúng của ví dụ hữu hạn.
 
 ## Đáp án điều phối thảo luận L12-36
 
