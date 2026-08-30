@@ -2,15 +2,18 @@
 
 ## Tuyến giảng
 
-- Tuyến lõi L10-00–32 kéo dài 100 phút. Tuyến mở rộng L10-X01–X04 kéo dài 20 phút và có thể bỏ nguyên cụm.
+- Tuyến lõi đi từ L10-00 đến L10-31 trong 99 phút, rồi kết thúc bằng L10-32 trong 1 phút. Tại L10-31, dùng End để đến thẳng L10-32.
+- Tuyến đầy đủ dùng phím Phải tại L10-31 để vào L10-X01, đi xuống qua X02, X03, X04 rồi đến L10-32. Bốn trang mở rộng kéo dài 20 phút và có thể bỏ nguyên cụm; L10-32 vẫn là kết luận cuối.
+- Phím Phải được định tuyến lại tại sáu ranh giới L10-03→04, 07→08, 13→14, 18→19, 26→27 và 31→X01 vì Reveal có thể giữ chỉ số dọc của mạch kế tiếp. End luôn đến L10-32; các phím khác dùng hành vi mặc định.
 - Giữ bộ số $H=[(1,0),(0,2),(-1,1)]$, $e=(1,2,0)$ trên L10-08–13, 18, 24–25 và 31. Không đổi số giữa chừng.
 - Khi viết công thức điểm, nhắc quy ước vectơ hàng của deck. Giáo trình trình bày dạng vectơ cột; hai dạng chỉ khác chuyển vị tham số.
 - Phân biệt ba phép chuẩn hóa: softmax chú ý theo nguồn $T_s$; softmax đầu ra theo từ vựng $V_{tgt}=|\mathcal V_{tgt}|$; trung bình mất mát theo số ký hiệu đích hợp lệ.
+- Ở L10-06, nêu định nghĩa tổng quát trước khi gắn $q=s_{t'-1}$ và $k_i=v_i=h_i$. L10-X02 chỉ áp dụng lại định nghĩa này sang ảnh, bản ghi và cặp văn bản.
 - Mặt nạ nguồn đi vào trước softmax chú ý. Mỗi hàng có ít nhất một ký hiệu hợp lệ do EOS; giá trị thay thế hữu hạn chỉ cho trọng số đệm xấp xỉ 0 và không được dùng để che một hàng rỗng. Mặt nạ đích chỉ cân entropy chéo và không thay mặt nạ nguồn.
 - Khởi tạo $s_{n,0}=\phi(h^{enc}_{n,L_n})$ từ trạng thái nguồn cuối hợp lệ, không lấy vị trí đệm. Với LSTM, truy vấn lấy trạng thái ẩn, không lấy trạng thái ô.
 - Trong suy luận theo lô, dùng mặt nạ hoạt động để giữ trạng thái mẫu đã EOS hoặc loại mẫu đó khỏi lô hoạt động.
-- Chỉ dùng L10-32 để nối sang tự chú ý. Không mở hệ số tỉ lệ, nhiều đầu, mặt nạ nhân quả hoặc khối Transformer trong bài này.
-- Điều hướng dọc liên tục từ L10-00 đến L10-32; chỉ đi phải tại L10-32 để vào tuyến mở rộng.
+- Dùng L10-32 để thu hồi nút thắt → truy xuất theo bước → Q/K/V rồi nối sang Bài 11. Không mở hệ số tỉ lệ, nhiều đầu, mặt nạ nhân quả hoặc khối Transformer trong bài này.
+- Bảy mạch có đầu ra liên tiếp: nút thắt → chu trình truy xuất → vết số → hàm điểm và mặt nạ → giải mã và căn chỉnh → thuật toán đầy đủ → chuyển miền và kết luận. Không đổi thứ tự này khi cắt tuyến mở rộng.
 
 ## Đáp án và lỗi dễ mắc
 
@@ -20,6 +23,8 @@
 - L10-16: phép co với $v_a$ rút gọn chiều $D_a$; kết quả $N\times T_s\times1$ được bỏ trục cuối để thành $E\in\mathbb R^{N\times T_s}$.
 - L10-23: huấn luyện dùng ký hiệu đúng ở đầu vào giải mã; suy luận dùng ký hiệu dự đoán. Suy luận dừng từng mẫu tại EOS hoặc độ dài tối đa.
 - L10-26: trọng số lớn mô tả đóng góp trong phép tổng hợp tại lần chạy đó. Nó không đủ để kết luận nhân quả về dự đoán. Đi xuống L10-27, không đi phải.
+- L10-29: ba hạng chi phí lần lượt ứng với chiếu trạng thái nguồn, chiếu truy vấn theo bước đích, rồi tính điểm và tổng giá trị cho mọi cặp. Tăng gấp đôi $T'$ làm hạng theo cặp tăng gấp đôi nếu các kích thước khác giữ nguyên.
+- L10-30: gọi đây là đối chiếu hai biến thể cơ sở và đánh đổi, không giảng như kết luận chung; L10-32 mới thu hồi toàn bài và nối Bài 11.
 - L10-31: $\alpha=(0.244728,0.665241,0.090031)$; $c=(0.154698,1.420512)$; softmax chạy trên ba vị trí nguồn.
 - L10-X04: trong mô tả ảnh, truy vấn là trạng thái giải mã trước; khóa và giá trị là đặc trưng theo vùng; softmax chạy trên vùng hợp lệ.
 
