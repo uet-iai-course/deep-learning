@@ -4,8 +4,8 @@
 
 - Giữ hành lang L13-02 trên bảng. L13-15 thêm reward; L13-19 thêm lợi tức; L13-26 thêm đích; L13-31 thêm cập nhật; L13-35 đóng gói đúng chuyển tiếp đó thành một hàng DQN.
 - Luôn đọc $R_{t+1}$ là phần thưởng sinh sau $A_t$. Quỹ đạo T bước dừng ở $S_T$.
-- L13-13 dùng hai câu quyết định: có hành động chuyên gia thì BC là điểm bắt đầu; có reward và quyền tương tác thì RL có tín hiệu học. Không gọi reward là nhãn hành động.
-- L13-16 cho sinh viên trả lời trước khi hiện sáu thành phần. L13-17 mới giới thiệu tuple MDP và giữ policy ở ngoài tuple.
+- L13-13 đặt hai trường hợp thành câu hỏi: có hành động chuyên gia thì BC là điểm bắt đầu; có phần thưởng và quyền tương tác thì RL có tín hiệu học. Không gọi phần thưởng là nhãn hành động.
+- L13-16 cho sinh viên trả lời trước khi hiện năm thành phần LLO26 và chính sách. L13-17 mới giới thiệu tuple MDP và giữ chính sách ở ngoài tuple.
 - L13-19, 23 và 26 chờ sinh viên tính rồi mới hiện fragment.
 - L13-24 chỉ phân biệt Monte Carlo với sai phân thời gian để chuẩn bị Bellman; không mở rộng sang n-step hoặc eligibility traces.
 - L13-27 nhắc giả thiết tập hành động hữu hạn. Hành động liên tục chỉ nằm ở X01.
@@ -14,6 +14,7 @@
 - X04 là bài kiểm tra tổng quát hợp đồng tensor DQN với $D_a=4$ tùy ý, không phải ví dụ hành lang; nói rõ điều này khi dạy.
 - Timing mạch 5 (8 phút) đã được đề xuất điều chỉnh nhưng không áp dụng vì tổng 100 phút và nhịp đã khóa; nếu lớp chậm, có thể linh hoạt trao đổi thời gian trong mạch 5–6 mà không đổi tổng.
 - Nói rõ DQN phi tuyến không có bảo đảm hội tụ tổng quát.
+- Khi kết luận L13-41, tách hai nguồn tín hiệu khỏi cơ chế: BC dùng hành động chuyên gia; Q-learning dùng phần thưởng và đích Bellman; DQN là xấp xỉ hàm cho Q-learning. BC thuần học trên $d_{\pi_E}$, DAgger bổ sung nhãn trên $d_{\pi_\theta}$, còn RL học từ phần thưởng khi tương tác.
 
 ## Điều hướng và cắt
 
@@ -34,7 +35,7 @@
 - L13-26: đích $.9$.
 - L13-31: chỉ ô $Q(s_1,phải)$ đổi trong cập nhật bảng.
 - L13-37–38: $Y=.9$; hạng tử bình phương hàng số $.25$; gradient chỉ qua dự đoán hiện tại.
-- L13-41: terminal triệt giá trị tương lai; gradient qua mạng hiện tại; chỉ có demonstration thì bắt đầu bằng BC.
+- L13-41: kết thúc thật triệt giá trị tương lai; gradient qua mạng hiện tại; chỉ có trình diễn thì bắt đầu bằng BC. DQN không phải nguồn tín hiệu thứ ba.
 - X01: trung bình hai mode có thể là hành động đi thẳng vào vật cản.
 - X02: đích là $Y=R_{t+1}$ vì $D^{term}=1$ triệt giá trị tương lai.
 - X03: học ngoài chính sách không thay điều kiện độ phủ.

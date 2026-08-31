@@ -77,6 +77,6 @@ Lô DQN: $S,S'\in\mathbb R^{B\times D_s}$; $A\in\{0,\ldots,D_a-1\}^{B}$; $R\in\m
 
 1. Xác định dữ liệu, chính sách và phân phối hành động trong BC — 10 phút.
 2. Phân tích lệch phân phối trên quỹ đạo hành lang — 10 phút.
-3. Nhận diện sáu thành phần theo LLO26 — 10 phút.
+3. Nhận diện năm thành phần theo LLO26 và chính sách thuộc tác tử — 10 phút.
 4. Tính lợi tức, đích Bellman và một cập nhật Q — 15 phút.
 5. Chỉ ra bộ nhớ phát lại, phép lấy theo hành động, ngắt gradient và mạng đích — 5 phút.
