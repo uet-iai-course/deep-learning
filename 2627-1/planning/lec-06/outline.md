@@ -50,7 +50,7 @@ Kiến trúc xuyên suốt là $784\to256\to d\to256\to784$. Quy ước MSE là 
 | cùng tệp | 9–13 | Phân loại biến thể, mã thưa, top-$k$, đa tạp và mạng sâu: L06-21–27, L06-X03–X04 |
 | cùng tệp | 14 | Không dùng; LSTM autoencoder nằm ngoài mạch và không cần cho LLO |
 | `cmu-11785-s2021-representation-learning.pdf` | 1–6 | Biểu diễn và độ khó phép toán: L06-02–05, L06-X01 |
-| cùng tệp | 7–13 | Ứng dụng và mong muốn về biểu diễn: L06-03, L06-X05 |
+| cùng tệp | 7–13 | Ứng dụng và mong muốn về biểu diễn: L06-X05 |
 | cùng tệp | 14–17 | Tính hữu ích phụ thuộc tác vụ, sai lệch và đánh giá: L06-05, L06-18–20, L06-32, L06-X05 |
 | `cmu-11785-s2021-autoencoders.pdf` | 2–3 | Kiến trúc, tái tạo và cảnh báo mất mát đơn thuần: L06-06, L06-11, L06-16 |
 | cùng tệp | 4–7 | Thiếu đầy đủ, thưa, khử nhiễu: L06-17, L06-21–27 |
@@ -73,7 +73,7 @@ Kiến trúc xuyên suốt là $784\to256\to d\to256\to784$. Quy ước MSE là 
 | L06-T06 | cốt lõi | Tái sử dụng encoder: đóng băng, tinh chỉnh, gradient, chế độ mô-đun và giao thức dữ liệu; Stanford 67, `lec09` 44–46, `lec11` 3–10 | L06-28–33 |
 | L06-T07 | cốt lõi | Mã do encoder tạo so với mã tùy ý và giới hạn lấy mẫu; Stanford 68–70 | L06-34–38 |
 | L06-T08 | tổng hợp | Quy trình kiểm shape, mất mát, ràng buộc, tác vụ đích và vùng mã; tổng hợp nguồn đã duyệt | L06-37–38 |
-| L06-T09 | bổ sung | Độ khó phép toán, quan hệ tuyến tính với PCA, đa tạp phi tuyến và đánh giá biểu diễn; CMU representation 1–17, Illinois 6–13 | L06-X01–X05 |
+| L06-T09 | bổ sung | Độ khó phép toán, quan hệ tuyến tính với PCA, đa tạp phi tuyến và đánh giá biểu diễn; CMU representation 1–17, Illinois 7 cho PCA và 10–13 cho mã thưa/đa tạp | L06-X01–X05 |
 | L06-T10 | đọc thêm | VAE, masked autoencoder, ViT, diffusion, LSTM autoencoder và contractive autoencoder nằm ngoài phạm vi; chỉ ghi ranh giới, không triển khai | Không đưa lên slide |
 
 Quyết định hợp nhất: giữ T01–T08 theo mạch Stanford và LLO; dùng Illinois/CMU để sửa thiếu sót về nghiệm đồng nhất, ràng buộc và đánh giá; T09 là phần có thể cắt; T10 chỉ khóa ranh giới. Không tự suy ra phân phối thuận tiện cho mã tiềm ẩn và không biến giới hạn lấy mẫu thành phần giới thiệu VAE.

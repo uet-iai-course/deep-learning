@@ -13,7 +13,7 @@
 | Lấy mẫu | L06-34 | L06-35 | L06-34–35 (gộp: vùng mã là ví dụ hình học) | L06-36 | L06-37 | L06-38 | Mã do bộ mã hóa tạo → giới hạn của mã tùy ý | $z^{(n)}=f_\theta(x^{(n)})$ so với $z$ tùy ý | “Mã tùy ý ngoài vùng được ràng buộc không có bảo đảm tái tạo.” |
 | Mở rộng | L06-X01 | L06-X01 | L06-X01, X03–X04 | L06-X02 | L06-X05 | L06-X01 | Chuỗi lõi → chi phí thao tác, PCA, vùng hoạt động và phi tuyến | $210/6=35=\mathrm{XXXV}$; $d,k,\Omega$; $K$ | X01 kiểm tra mở rộng; X05 ứng dụng, tổng kết giao thức và nối xuống L06-38. |
 
-Không có bước “không áp dụng”: mỗi cụm lõi thực hiện đủ sáu bước. Một số bước được gộp vì cùng một sơ đồ vừa cung cấp dữ kiện vừa tạo trực giác; việc tách riêng sẽ lặp nội dung. Cụm Ba biến thể gộp hình thức với triển khai vì công thức khử nhiễu và bảng so sánh đồng thời khóa cơ chế áp dụng.
+Không có bước “không áp dụng”: mỗi cụm lõi thực hiện đủ sáu bước. Một số bước được gộp vì cùng một sơ đồ vừa cung cấp dữ kiện vừa tạo trực giác; việc tách riêng sẽ lặp nội dung. Cụm Ba biến thể gộp hình thức với triển khai vì công thức khử nhiễu và bảng so sánh đồng thời khóa cơ chế áp dụng. Cụm Mở rộng là tuyến ôn và đào sâu: X01 vừa khôi phục trực giác vừa kiểm tra phép tính, X02–X04 bổ sung hình thức, còn X05 kiểm tra cách đánh giá; cụm này không thay thế chu trình của tuyến lõi.
 
 ## Thời lượng và điều hướng
 

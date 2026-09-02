@@ -41,7 +41,7 @@
 - Khi nói chuyển giao, không trộn “đóng băng gradient” với `eval`; đây là hai thao tác độc lập.
 - Không dùng tập kiểm tra để chọn $d$, $\lambda$, mức nhiễu, số epoch hoặc chính sách tinh chỉnh.
 - Không dùng ảnh kiểm định hoặc kiểm tra trong tiền huấn luyện ở giao thức đã khóa trên L06-32.
-- Các câu nối, điểm chờ và đáp án chỉ nằm trong tệp này; không đọc chúng như nội dung ghi chú diễn giả.
+- Đáp án chi tiết và kịch bản chờ nằm trong tệp này; storyboard chỉ giữ tóm tắt vai trò, thời lượng và điều hướng.
 
 ## Kiểm kê hình
 

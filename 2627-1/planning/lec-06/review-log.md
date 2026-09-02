@@ -138,3 +138,28 @@ Tái kiểm cuối phát hiện lỗi V1: mã slide nội bộ xuất hiện tro
 - Máy chủ: `python3 -m reloadserver 8765` không khả dụng trong môi trường. Đã phục vụ cục bộ từ thư mục `2627-1/` bằng cổng 8766; HTML và mọi tài nguyên cốt lõi trả HTTP 200. Một yêu cầu tự động tới `favicon.ico` trả 404, không phải tài nguyên của deck. SHA-256 của HTML phục vụ khớp tệp trong kho: `a8864b3bec76fc07fcd3efa6c72de682c93d222b6583829848cf4a5ccb37b1bb`.
 - Rà trực quan: đã dựng 88 ảnh chụp, gồm 44 trang ở 1280×720 và 44 trang ở 960×720. Bộ đo biên viewport ghi nhận 0 tràn, 0 phần tử văn bản dưới 18 px, 0 lỗi trang và 0 yêu cầu tài nguyên cốt lõi thất bại. Đã rà hai contact sheet toàn deck; không thấy chữ bị cắt, chồng lấn, công thức hoặc hình vỡ.
 - Điều hướng bàn phím đã kiểm trực tiếp: End tại L06-37 tới L06-38; tuyến Xuống đi qua L06-X01, fragment của X01, X02, X03, X04, X05 rồi L06-38.
+
+## Đợt kiểm định deck cuối ngày 2026-09-03
+
+### Phạm vi DeepSeek được khóa cho các đợt sau
+
+- Ba task deck tuần tự, mỗi task đúng năm `data-slide-id`, chạy trong staging mới với `MCP_WRITE_POLICY=create-once` và `MCP_MAX_WRITE_CHARS=2500`. Mỗi task chỉ được tạo một `writer-delta.md`; không được đọc hoặc sửa dự án, không được phát lại toàn HTML và không được thêm hướng dẫn diễn giả. Đây là trần mặc định cho các buổi sau, không tự tăng theo một lượt thành công.
+- Cả ba lượt được chấp nhận về runtime đều xác nhận `requested_model=observed_model=deepseek/deepseek-v4-flash-0731`, provider OpenRouter; độ dài đầu ra lần lượt 1.105, 715 và 877 ký tự. Ba lượt sandbox trước đó thất bại do DNS và không được tính là kết quả mô hình.
+- Cả ba đầu ra bị bác về chất lượng vì chỉ diễn giải lại đặc tả, không cung cấp chuỗi thay thế có thể kiểm tra. Điều phối viên dùng chính đặc tả đã duyệt để sửa cục bộ bằng `apply_patch`; không nới trần, không giao lại toàn deck và không ghép nội dung chưa kiểm chứng.
+- Quy tắc bền vững đã nằm trong `prompt_lecture_note_deck.md` và `openrouter-mcp/README.md`: task dài hỏng Unicode/KaTeX chỉ được thử lại toàn bản một lần; sau đó phải chia thành mảnh một hoặc hai mục, mặc định không quá 2.500 ký tự. Đầu ra có Unicode hỏng, KaTeX sai, đường dẫn sai, sai danh sách tệp hoặc chỉ lặp yêu cầu phải bị loại toàn bộ.
+
+### Hợp nhất năm báo cáo độc lập
+
+- Năm báo cáo hợp lệ đều xác nhận `requested_model=observed_model=z-ai/glm-5.3-flash`, provider OpenRouter. Hai lượt đầu của vai sinh viên và toán học vượt giới hạn gọi công cụ nên không được chấp nhận; hai vai được chạy lại trên danh sách tệp hẹp và hoàn tất đúng model/provider.
+- Không báo cáo hợp lệ nào còn lỗi `chặn bàn giao` hoặc `nghiêm trọng`. Đã áp dụng các sửa có bằng chứng: thống nhất $0{,}18$ và $0{,}045$; viết mẫu số thưa thành $N\cdot d$ và giải thích $D$ khác $d$; đổi nhãn L06-36 thành “Đã có/Còn thiếu”; thêm cầu nối nội dung ở L06-28 và L06-34; sửa hai ánh xạ trang nguồn trong `outline.md`; làm rõ vai trò cụm Mở rộng và phân nơi lưu kịch bản chờ.
+- Không áp dụng đề xuất đưa X01–X05 ra sau L06-38 hoặc thêm một trang kết mới. Cấu trúc hiện tại cố ý giữ L06-38 là trang cuối trong DOM: tuyến lõi dùng End từ L06-37, tuyến đầy đủ đi qua X01–X05 rồi cùng kết ở L06-38. Đổi cấu trúc sẽ phá điểm hội tụ này.
+- Không áp dụng đề xuất thêm notebook/code hay triển khai VAE. Nguồn đã duyệt không yêu cầu code demo; VAE chỉ được gọi tên để khóa ranh giới, đúng phạm vi, không dạy phân phối tiên nghiệm hay cơ chế huấn luyện. Không đổi $\lVert Z\rVert_1/(N\cdot d)$ thành mẫu số $ND$ vì $Z$ có $N\cdot d$ phần tử.
+- Hai lượt tái kiểm toán và mạch sau sửa đều hoàn tất đúng GLM/OpenRouter. Toán học xác nhận không có lỗi mới; mạch xác nhận đúng bảy section ngoài với kích thước [6, 5, 5, 5, 7, 6, 10], các cầu nối và L06-38 là kết luận cuối của cả hai tuyến.
+
+### Biên tập và kiểm định phát hành
+
+- Lượt cuối theo `no-ai-slop/eval.md` đã bỏ lời dẫn sân khấu, chỉ dẫn điều hướng, tự biện hộ về nguồn, metadata tuyến và các cụm “trang kế/phần kế tiếp”. Ghi chú diễn giả chỉ còn nội dung học thuật, giả thiết, lỗi dễ mắc, đáp án và nguồn. Nguyên tắc Quill được dùng để rà chuỗi biểu diễn → kiến trúc → mất mát → ràng buộc → tái sử dụng → giới hạn lấy mẫu; không tạo `quill.json`.
+- Rà tiêu đề `h1`, `h2`, `h3` xác nhận không còn tiêu đề pha tiếng Anh ngoài tên/viết tắt/ký hiệu được phép như MLP, MNIST, ReLU, PCA, LLO và top-$k$. Tên công khai dùng “mạng tự mã hóa”; thuật ngữ `autoencoder` chỉ được giới thiệu trong nội dung/nguồn khi cần.
+- Kiểm tra tĩnh: 44 trang, 44 `data-slide-id` duy nhất, 44 ghi chú, 7 section ngoài, 142 biểu thức KaTeX dựng với `throwOnError: true` và strict mode, 16 tham chiếu tới 15 SVG, không thiếu tài nguyên, không có raster hoặc phụ thuộc mạng cốt lõi. `git diff --check` đạt. SHA-256 của HTML: `0fb5189baf68c9b836cf0d08092e6186e670639ae4ff24800e8398fc244f9e84`.
+- Chromium headless duyệt đủ 44 trang ở 1280×720 và 800×600: không lỗi console/request, không tràn khung. Bàn phím đạt cho L06-00 → L06-01 bằng mũi tên xuống, quay lại bằng mũi tên lên và L06-00 → L06-06 bằng mũi tên phải. Hai contact sheet cuối đã được rà trực quan; công thức, bảng, SVG và chữ trên các trang sửa đều hiển thị đúng.
+- Codex Slides không có bề mặt trình duyệt/plugin khả dụng trong môi trường này; kiểm định trực quan dùng Chromium cục bộ. `python3 -m reloadserver 8765` vẫn không khả dụng; máy chủ cục bộ trên cổng 8766 được dùng cho lần kiểm định này. Không tuyên bố đã dùng Codex Slides hoặc reloadserver.
