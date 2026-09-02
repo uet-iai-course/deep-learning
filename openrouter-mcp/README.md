@@ -63,6 +63,25 @@ uv run openrouter-mcp-writer \
   "Chỉ tạo worker-check.txt với nội dung được yêu cầu."
 ```
 
+Với lượt soạn phải tạo toàn tệp đúng một lần, đặt thêm
+`MCP_WRITE_POLICY=create-once`. Chính sách này từ chối ghi đè một đường dẫn đã
+tồn tại, vô hiệu hóa `replace_text_file` và kết thúc worker ngay sau lần ghi
+thành công đầu tiên:
+
+```bash
+MCP_WRITE_POLICY=create-once uv run openrouter-mcp-writer \
+  --repo-root /tmp/deep-learning-writer-stage \
+  --json \
+  "Chỉ tạo lecture-note.md đúng một lần."
+```
+
+Mỗi task `create-once` phải dùng staging mới, trong đó tệp đích chưa tồn tại.
+Nếu mô hình làm hỏng Unicode hoặc công thức ở đầu ra dài, chuyển sang các task
+mảnh tuần tự trong staging mới. Mỗi mảnh chỉ chứa một hoặc hai mục đã khóa,
+mặc định không quá 2.500 ký tự, vẫn dùng `create-once`; đầu ra có ký tự thay
+thế, ký tự Cyrillic lẫn vào tiếng Việt, KaTeX hỏng hoặc đường dẫn sai phải bị
+loại toàn bộ trước khi hợp nhất.
+
 Kết quả `--json` gồm `role`, `requested_model`, `observed_model`, `provider`
 và `output`. Ba trường model/provider là metadata do cầu nối thu tại runtime,
 không phải lời tự khai của mô hình.

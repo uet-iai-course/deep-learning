@@ -132,3 +132,43 @@ Năm vai rà soát độc lập đã chạy trên bản bảy mạch. Phát hi�
 - **ĐẠT** rà trực quan: chụp đủ 44 trang ở 1280×720 và 44 trang ở 960×720. Hai lỗi phát hiện được sửa cục bộ: L04-24 đổi từ bốn cột sang hai thẻ theo kênh để bỏ tràn ngang; L04-37 rút câu và giảm hình để hộp cuối không bị cắt. Hai trang đã được chụp lại ở cả hai kích thước và không còn tràn, chồng lấn hoặc chữ bị cắt.
 - **ĐẠT** tiêu đề: đã xuất và rà thủ công toàn bộ `h1`, `h2`, `h3`; chỉ giữ các ký hiệu hoặc tên chuẩn cần thiết như MLP, NCHW, MAC và LeNet.
 - `2627-1/index.html` đã có liên kết đúng tới deck Bài 04; không cần sửa.
+
+## Bổ sung lecture note và giới hạn DeepSeek (2026-09-03)
+
+### Dossier và tác tử
+
+- Tài liệu nhị phân được trích cục bộ thành UTF-8 theo đúng allowlist: đề cương III.2 → Buổi 4; `lec08_cnn.pdf` PDF 3–29, 38–42, 44–50, 52–53; `hocsau_draft.pdf` PDF 110–135. Không gửi `.env`, bí mật hoặc trang ngoài dải lên OpenRouter.
+- Vai lập kế hoạch và ba vai phân tích nguồn chạy bằng `z-ai/glm-5.3-flash`; runtime xác nhận `requested_model = observed_model = z-ai/glm-5.3-flash`, provider `OpenRouter`.
+- DeepSeek writer chạy bằng `deepseek/deepseek-v4-flash-0731`; runtime xác nhận model yêu cầu và model thực tế trùng nhau, provider `OpenRouter`.
+
+### Sự cố và checkpoint
+
+- Lượt soạn toàn tệp đầu tiên ghi đúng một lần nhưng làm hỏng Unicode tiếng Việt, KaTeX và hai đường dẫn SVG ở nửa sau tệp. Toàn bộ đầu ra bị loại; checkpoint khôi phục là đặc tả duyệt và mẫu note.
+- Lượt thử lại trong staging mới gọi ghi toàn tệp hai lần. Toàn bộ đầu ra bị loại dù lần cuối đọc được; không vá nối tiếp trên sản phẩm vi phạm phạm vi.
+- Cầu nối OpenRouter được bổ sung chính sách `MCP_WRITE_POLICY=create-once`: không ghi đè tệp đã tồn tại, vô hiệu hóa `replace_text_file` và kết thúc worker ngay sau lần ghi thành công đầu tiên. Bộ 15 kiểm thử của `openrouter-mcp` đạt.
+- Một bản dài 14,8 KB dùng `create-once` vẫn trộn ký tự Cyrillic vào tiếng Việt ở nửa sau và bị loại toàn bộ. Fallback được khóa cho các buổi sau: không thử lại toàn bản quá một lần; chuyển sang các mảnh tuần tự trong staging mới, mỗi mảnh mặc định không quá 2.500 ký tự và vẫn dùng `create-once`.
+- Mảnh Cụm 1–2 và các mảnh Cụm 3, 4, 5, 6, 7, phần triển khai–tự kiểm–nguồn được kiểm riêng về UTF-8, ký tự thay thế, ký tự Cyrillic, KaTeX và đường dẫn trước khi hợp nhất. Một mảnh Cụm 3–4 dài bị hỏng đã bị loại toàn bộ.
+
+### Năm vai rà soát lecture note
+
+- Năm vai bắt buộc chạy độc lập bằng `z-ai/glm-5.3-flash`: góc nhìn sinh viên, chuyên gia Học sâu, chính xác toán–tensor–triển khai, phản biện học thuật–giảng dạy và kết nối–mạch viết. Cả năm runtime đều xác nhận đúng model và provider OpenRouter.
+- Các sửa đã áp dụng: nêu rõ $C_{in}=1$ trong ví dụ đầu; thêm kích thước đầy đủ cho ví dụ hai kênh; nêu miền $i,j$; giải nghĩa logit; bổ sung câu nối giữa các cụm; thêm câu hỏi trực tiếp về NCHW/OIHW; thu hồi vấn đề làm phẳng ở kết luận; bỏ bình luận về quy trình chọn nguồn khỏi note công khai.
+- Báo cáo mạch gắn mức `nghiêm trọng` cho timing nhưng phép cộng của báo cáo sai. Mạch 3 đúng là $2+2+2+3+4+2+1+6\cdot3=34$ phút; lõi vẫn $20+20+34+11+12+3=100$ phút. Đề xuất đổi timing bị bác và lý do được ghi tại đây.
+- Nhãn chu trình trường tiếp nhận trong storyboard được sửa thành `hình thức/kiểm tra L04-36 → triển khai L04-37`, loại cách ghi quay ngược L04-36 sau L04-37.
+
+### Biên tập bản cuối
+
+- `$no-ai-slop`: bỏ nhãn quy trình thừa trong note, câu tuyệt đối, bình luận về nguồn, lời nhắc thao tác và chỉ dẫn diễn giả trong deck; giữ câu ngắn, thuật ngữ Việt nhất quán và các nguồn bắt buộc.
+- `$quill`: bảy cụm giữ một xương sống tích lũy từ hạn chế của MLP đến phép tính một kênh, hình học, nhiều kênh, gộp, trường tiếp nhận và mạng hoàn chỉnh; các câu nối đã được bổ sung tại ranh giới cụm.
+- Deck được rà lại riêng: các câu `dừng`, `hiện đáp án`, `cho người học`, `nhắc cấu hình` đã được thay bằng nội dung giải thích hoặc dữ kiện; chỉ dẫn điều hướng và đáp án chi tiết tiếp tục chỉ nằm trong `note-for-author.md`.
+
+### Kiểm định lecture note và vòng rà deck hiện hành
+
+- Lecture note có một tiêu đề cấp một, 30 cặp vùng mở rộng, 158 biểu thức KaTeX và 14 hình. Toàn bộ biểu thức dựng được với `throwOnError: true`, `strict: "error"`; mọi SVG tồn tại và có `role="img"`, `title`, `desc`.
+- Material viewer hiển thị đúng tiêu đề, mục lục, liên kết deck, 14 vùng mở rộng và 14 hình ở khung rộng lẫn hẹp. Các hình dùng tải lười nên phép thử buộc tải trước khi kết luận; sau khi tải, không có ảnh hỏng, lỗi console, lỗi trang hoặc lỗi yêu cầu. Trang từ chối đường dẫn vượt thư mục và trường hợp note/deck khác buổi.
+- Ở khung hẹp, tài liệu không cuộn ngang ở cấp trang. Hình kỹ thuật rộng và công thức khối được phép cuộn trong phần tử chứa riêng; phép thử thay đổi `window.scrollX` xác nhận viewport không dịch ngang.
+- Deck hiện hành có 7 mạch ngoài, 44 mã trang duy nhất, 44 ghi chú, 147 biểu thức KaTeX và 14 SVG. Kiểm tra tĩnh không phát hiện raster, phụ thuộc mạng cốt lõi, đường dẫn thiếu hoặc dấu vết quy trình trong nội dung công khai.
+- Chromium duyệt đủ 44 trang ở 1280×720 và 800×600: không tràn, không chồng lấn, không lỗi tải/chạy; phím xuống, lên và phải lần lượt đi đúng stack RevealJS.
+- Lệnh `python3 -m reloadserver 8765` vẫn không dùng được vì môi trường thiếu mô-đun. Vòng này dùng máy chủ cục bộ sẵn có tại cổng 8766 và xác nhận HTTP 200.
+- Bề mặt Codex Slides không được cung cấp trong phiên làm việc. Kiểm định trực quan dùng Chromium cục bộ; đây là giới hạn công cụ, không được ghi thành đã kiểm bằng Codex Slides.
+- Rà cuối theo `no-ai-slop/eval.md` đã bỏ trạng thái nội bộ như “đã tính lại”, câu nhắc thao tác và đối lập khuôn mẫu khỏi ghi chú diễn giả. Rà mạch theo Quill giữ bảy cụm và thuật ngữ NCHW/OIHW nhất quán; không tạo `quill.json`.

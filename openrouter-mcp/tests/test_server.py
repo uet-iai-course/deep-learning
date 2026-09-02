@@ -34,6 +34,7 @@ class ReadOnlyServerTest(unittest.TestCase):
 
     def tearDown(self) -> None:
         os.environ.pop("MCP_ALLOW_WRITE", None)
+        os.environ.pop("MCP_WRITE_POLICY", None)
         os.environ.pop("OPENROUTER_ENV_FILE", None)
         self.tempdir.cleanup()
         self.outside_tempdir.cleanup()
@@ -119,6 +120,30 @@ class ReadOnlyServerTest(unittest.TestCase):
 
     def test_all_project_roles_are_defined(self) -> None:
         self.assertEqual(set(ROLE_SYSTEM_PROMPTS), {"reader", "reviewer", "writer"})
+
+    def test_create_once_policy_rejects_overwrite_and_replace(self) -> None:
+        async def scenario() -> None:
+            os.environ["MCP_ALLOW_WRITE"] = "1"
+            os.environ["MCP_WRITE_POLICY"] = "create-once"
+            async with Client(mcp) as client:
+                first = await client.call_tool(
+                    "write_text_file", {"path": "draft.md", "content": "first\n"}
+                )
+                self.assertFalse(first.is_error)
+                second = await client.call_tool(
+                    "write_text_file", {"path": "draft.md", "content": "second\n"}
+                )
+                self.assertTrue(second.is_error)
+                replaced = await client.call_tool(
+                    "replace_text_file",
+                    {"path": "draft.md", "old": "first", "new": "changed"},
+                )
+                self.assertTrue(replaced.is_error)
+                self.assertEqual(
+                    (self.root / "draft.md").read_text(encoding="utf-8"), "first\n"
+                )
+
+        asyncio.run(scenario())
 
     def test_task_profiles_fit_worker_jobs(self) -> None:
         self.assertGreater(TASK_PROFILES["source"].max_rounds, TASK_PROFILES["plan"].max_rounds)

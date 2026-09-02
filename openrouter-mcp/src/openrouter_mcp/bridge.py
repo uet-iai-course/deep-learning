@@ -265,6 +265,7 @@ async def run_agent(
     api_error: OpenRouterAPIError | None = None
     limit_reached = False
     empty_answer_failed = False
+    create_once_completed = False
     observed_model = model
 
     def report(event: str, **fields: Any) -> None:
@@ -463,6 +464,13 @@ async def run_agent(
                             result_chars=len(tool_text),
                             **context,
                         )
+                        if (
+                            role == "writer"
+                            and os.environ.get("MCP_WRITE_POLICY") == "create-once"
+                            and function["name"] == "write_text_file"
+                            and not result.is_error
+                        ):
+                            create_once_completed = True
                     messages.append(
                         {
                             "role": "tool",
@@ -470,6 +478,15 @@ async def run_agent(
                             "content": tool_text,
                         }
                     )
+                if create_once_completed:
+                    answer = "create-once write completed"
+                    report(
+                        "create_once_completed",
+                        role=role,
+                        round=round_index,
+                        observed_model=observed_model,
+                    )
+                    break
             else:
                 limit_reached = True
 

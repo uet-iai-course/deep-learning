@@ -65,6 +65,13 @@ def _write_enabled() -> bool:
     return os.environ.get("MCP_ALLOW_WRITE") == "1"
 
 
+def _write_policy() -> str:
+    policy = os.environ.get("MCP_WRITE_POLICY", "update")
+    if policy not in {"update", "create-once"}:
+        raise ToolError(f"unsupported write policy: {policy}")
+    return policy
+
+
 @mcp.tool()
 async def list_files(
     path: str = ".", pattern: str = "**/*", max_results: int = 200
@@ -180,6 +187,10 @@ async def write_text_file(path: str, content: str) -> dict[str, Any]:
     target = _resolve_repo_path(path)
     if _is_hidden_internal(target):
         raise ToolError("writing internal .git, .venv, or .env paths is not allowed")
+    if _write_policy() == "create-once" and target.exists():
+        raise ToolError(
+            "create-once policy forbids overwriting a path written earlier in this task"
+        )
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_bytes(encoded)
     return {
@@ -199,6 +210,8 @@ async def replace_text_file(
     """Replace exact UTF-8 text in one existing file when writer mode is enabled."""
     if not _write_enabled():
         raise ToolError("replace_text_file is disabled for this worker role")
+    if _write_policy() == "create-once":
+        raise ToolError("replace_text_file is disabled by the create-once policy")
     if not old:
         raise ToolError("old text must not be empty")
     if expected_replacements < 1:
