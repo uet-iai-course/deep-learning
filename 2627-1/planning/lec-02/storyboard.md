@@ -101,3 +101,21 @@ Có thể bỏ toàn bộ phần này: từ L02-38 đi thẳng sang L02-39. Đi�
 - L02-27–35: log-softmax, Jacobian softmax và quy tắc chuỗi đứng trước $G_Z$; phần số được tách để mỗi trang giữ một phép tính trung tâm.
 - L02-35–38: đủ gradient → cập nhật → trạng thái vòng lặp → kiểm tra; không trộn chế độ mô hình với ghi gradient.
 - L02-38 → L02-39: tuyến lõi bỏ qua mở rộng; L02-39 thu hồi chuỗi và nối sang Bài 03 mà không mở bộ tối ưu.
+
+## Hợp đồng ngữ nghĩa với ghi chú bài giảng
+
+Ghi chú tự học giữ cùng ký hiệu $X,A,H,Z,P,Y,J$, cùng quy ước lô theo hàng, cùng ví dụ vô hướng và cùng MLP 2–2–3 với deck. Mỗi chủ đề công khai có một tiêu đề theo nghĩa; mã T02-N chỉ nằm trong planning.
+
+| Chủ đề ghi chú | Kết nối vào | Sản phẩm đọc | Ánh xạ deck | Delta có chủ ý |
+|---|---|---|---|---|
+| T02-N01 | MLP từ Buổi 01 | Phân biệt lượt xuôi, lượt ngược và cập nhật | L02-02–05 | Ghi chú bổ sung định nghĩa DAG và thứ tự tô-pô |
+| T02-N02 | Biểu thức đã tách thành cổng | Tự tính gradient vô hướng và cộng nhiều nhánh | L02-06–14 | Lời giải gập mặc định; không lộ đáp án trên hình |
+| T02-N03 | Quy tắc chuỗi vô hướng | Đọc VJP mà không dựng Jacobian dày đặc | L02-15–18 | Giải thích dài hơn slide để tự học |
+| T02-N04 | Quy ước tensor | Suy đúng ba gradient tầng afin và kích thước | L02-19–24 | Giữ phép suy theo chỉ số trong văn bản |
+| T02-N05 | Điểm số phân loại | Suy $G_Z=(P-Y)/B$ và nêu ổn định số | L02-25–32 | Mở đầy đủ bước quy tắc chuỗi đã rút gọn trên slide |
+| T02-N06 | Công thức từng tầng | Theo dõi một bộ dữ kiện từ $X,Y$ đến cập nhật | L02-25–36 | Giữ số trung gian để người học tự đối chiếu |
+| T02-N07 | Đủ gradient tham số | Nhận biết bốn lỗi thứ tự và trạng thái | L02-37–38 | Lời giải chi tiết chỉ ở khối gập |
+| T02-N08 | Gradient giải tích | Kiểm gradient bằng sai phân trung tâm | L02-X04–X05 | Chỉ là phần đi sâu; không mở sang bộ tối ưu |
+| T02-N09 | Kết bài | Biết phạm vi đọc trước | Không áp dụng | Không dùng để mở rộng deck Bài 02 |
+
+Ghi chú không thay đổi sáu mạch ngoài, thời lượng hay thứ tự deck. Mọi chiều sâu bổ sung phục vụ tự học; deck chỉ nhận sửa cục bộ nếu vòng delta xác định có chênh lệch kỹ thuật thực sự.

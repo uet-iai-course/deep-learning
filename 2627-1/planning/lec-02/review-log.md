@@ -202,3 +202,43 @@ Vòng rà lại xác nhận các công thức VJP/Jacobian, suy tầng afin theo
 - Đã rà trực tiếp theo `no-ai-slop/eval.md`: không thêm số liệu hoặc nhận định ngoài nguồn, không có câu hỏi tu từ, khẩu hiệu, nhịp máy móc, lời dẫn về quá trình viết hoặc từ cấm trong nội dung hiển thị và ghi chú.
 - Đã rà theo Quill về thứ tự khái niệm, ký hiệu, tensor truyền và chuyển ý; không có và không tạo `quill.json`.
 - `index.html` đã có liên kết đúng đến deck Bài 02; không cần sửa mục chỉ mục trong vòng này.
+
+## Quy trình và kiểm định lecture note
+
+### Dossier và worker
+
+- Codex trích cục bộ đúng các dải nguồn đã duyệt thành UTF-8: `lec06` tr. 3–16, 18–35; `lec07` tr. 8–31; `lec05` tr. 28–34; `lec04` tr. 12–19; giáo trình PDF tr. 31–32, 68–73, 90–96; mục DOCX `III.2 → Buổi 2`. Không gửi PDF, DOCX, `.env` hoặc bí mật lên OpenRouter.
+- Reader lập kế hoạch và reader bản đồ chủ đề dùng `z-ai/glm-5.3-flash` qua OpenRouter, metadata quan sát khớp model yêu cầu. Lượt reader nguồn đầu tiên vượt giới hạn 10 tool-call nên toàn bộ đầu ra bị loại; chạy lại cùng model bằng hai dossier nửa phạm vi và hợp nhất tại checkpoint.
+- Writer dùng `deepseek/deepseek-v4-flash-0731` qua OpenRouter. Lượt soạn chỉ nhận `approved-spec.md` và mẫu lecture note, chỉ tạo `lecture-note.md`. Lượt tự kiểm dùng staging mới, chỉ nhận bản nháp và checklist, rồi chỉ ghi một bản sửa. Cả hai lượt có `requested_model` và `observed_model` trùng nhau, provider là OpenRouter.
+- Điều phối viên phát hiện đặc tả tạm từng ghi sai đáp án của bài kiểm tra độc lập. Bài và đáp án được khóa lại theo cùng hàm $f=2(xy+\max(z,w))$: tại $x=4,y=-6,z=-1,w=2.5$, gradient theo $x,y,z,w$ là $-12,8,0,2$.
+
+### Năm phản biện và vòng sửa
+
+| Vai | Kết quả | Quyết định |
+|---|---|---|
+| Góc nhìn sinh viên | Đạt; hai câu diễn đạt nhẹ chưa tự nhiên | Đã sửa câu về gradient độ chệch và nhận xét sigmoid cục bộ |
+| Chuyên gia Học sâu | Toán của note đúng; báo sai khác với đặc tả tạm và cho rằng SVG thiếu trong staging | Sửa đặc tả tạm; bác nhận định SVG vì bốn tài sản thật trong kho đã được kiểm tra |
+| Toán–thuật toán–triển khai | Đạt; reviewer dùng một quy ước sai số tương đối khác | Giữ định nghĩa đã công bố và tính trực tiếp từ số đầy đủ |
+| Phản biện học thuật–giảng dạy | Mạch đạt; phép tính lại sai độ lớn hiệu hai gradient | Bác bằng hiệu trực tiếp $5.68\times10^{-11}$ |
+| Kết nối và mạch viết | Lượt đầu vượt tool-call nên bị loại; lượt lại với một tệp đầu vào đạt | Sửa chuỗi tensor thành $X\to A\to H\to Z\to P\to J$ và rút gọn số thập phân |
+
+Hai tái kiểm định cuối đều dùng `z-ai/glm-5.3-flash` qua OpenRouter với metadata khớp. Vai toán xác nhận toàn bộ ví dụ vô hướng, gradient trung bình theo lô, ReLU tại 0 và kiểm gradient; vai mạch xác nhận tuyến vô hướng → tensor → MLP, kết luận và không có chỉ dẫn nội bộ. Không còn lỗi `chặn bàn giao` hoặc `nghiêm trọng`.
+
+### Giới hạn phạm vi ổn định cho DeepSeek
+
+- Một task dùng một staging vật lý, danh sách đầu vào đóng và đúng một đầu ra.
+- Bản nháp lecture note dùng mẫu hai đầu vào/một đầu ra; tự kiểm dùng staging mới và cũng chỉ một đầu ra.
+- Writer không đọc lại nguồn thô sau checkpoint; mọi mốc nguồn, phép tính và ranh giới phải nằm trong đặc tả đã duyệt.
+- Planning, index, SVG và báo cáo tách khỏi task soạn note. Mảnh bổ sung dài tối đa 1.500 từ hoặc 6.000 ký tự; ghi chú diễn giả tối đa năm khối mỗi task.
+- Mọi `length`, timeout, tool-limit, JSON không hợp lệ hoặc thiếu tệp đều bị loại; không đổi model/provider và không tăng ngân sách trước khi chia nhỏ phạm vi.
+- Các quy tắc này đã được ghi vào `prompt_lecture_note_deck.md` để áp dụng cho các buổi sau.
+
+### Biên tập và QA lecture note
+
+- Lượt `$no-ai-slop` loại câu máy móc, số thập phân gây nhiễu và siêu bình luận; tự kiểm theo `no-ai-slop/eval.md` không thấy dấu vết AI, nhãn quy trình, mã nội bộ hay chỉ dẫn dành cho người viết/diễn giả trong tài liệu công khai.
+- Lượt `$quill` xác nhận thứ tự nhu cầu gradient → đồ thị → cổng vô hướng → tensor/VJP → tầng afin → softmax/entropy chéo → MLP → trạng thái → kiểm gradient; ký hiệu và dữ kiện không đổi giữa các phần. Không tạo `quill.json`.
+- Note có đúng một H1 và 14 dòng directive tạo bảy khối cân bằng, không lồng nhau; các loại `exercise`, `solution`, `derivation` đều thuộc allowlist của viewer. Hai khối lời giải dùng `<details>` và gập mặc định theo `material-viewer.js`.
+- Đã dựng 125 biểu thức bằng KaTeX cục bộ với `throwOnError: true`, `strict: "error"`; không có lỗi.
+- Note dùng bốn SVG hiện có, đều có `role="img"`, `title`, `desc`; mọi đường dẫn tồn tại và không có raster.
+- `index.html` trỏ đúng `material-viewer.html?doc=materials/lec-02/lecture-note.md&deck=lecture-02-lan-truyen-va-do-thi-tinh-toan.html`. HTTP cục bộ tại cổng 8766 trả 200 cho index, viewer, Markdown và deck.
+- Lệnh bắt buộc `python3 -m reloadserver 8765` không chạy vì môi trường thiếu mô-đun `reloadserver`. Phiên này không có Browser/Codex Slides nên không tuyên bố đã kiểm trực quan bằng công cụ đó; QA tĩnh, KaTeX và HTTP đã hoàn tất.

@@ -115,5 +115,13 @@ Cho bốn phát biểu:
 - Nguồn kiểm chứng: `hocsau_draft.pdf`, PDF tr. 31–32, 68–73, 90–96.
 - Ví dụ vô hướng và MLP đã tính lại; chi tiết và sai khác nằm trong `review-log.md`.
 - Không có mã trình diễn, ảnh raster hoặc phụ thuộc mạng cốt lõi.
-- Đã hoàn tất kiểm định storyboard, bốn phản biện độc lập và vòng chỉnh sửa. Cần điều phối viên chạy kiểm định hiển thị cuối trước khi cập nhật chỉ mục.
-- Sau vòng sửa mới: tuyến lõi 40 trang gồm L02-39; hai tuyến điều hướng đều kết thúc ở L02-39; L02-31 và L02-33 giảm còn 4 phút mỗi trang để giữ đúng 100+20 phút.
+- Deck đã hoàn tất kiểm định storyboard và năm phản biện độc lập. Lecture note đã qua năm phản biện riêng, hai tái kiểm định toán và mạch viết, cùng lượt `$no-ai-slop` và `$quill`; chỉ cập nhật chỉ mục sau khi QA Markdown/viewer đạt.
+- Sau vòng sửa mới: tuyến lõi 40 trang gồm L02-39; hai tuyến điều hướng đều kết thúc ở L02-39; L02-31 là 5 phút và L02-33 là 4 phút để giữ đúng 100+20 phút.
+
+## Quyết định riêng cho lecture note
+
+- Khối lời giải là nội dung tự học và phải gập mặc định trong viewer; không chuyển đáp án chi tiết lên mặt slide.
+- Ví dụ kiểm tra dùng đúng $f=2(xy+\max(z,w))$ tại $x=4,y=-6,z=-1,w=2.5$; đáp án theo thứ tự $x,y,z,w$ là $-12,8,0,2$.
+- Sai số tương đối của phép kiểm gradient dùng mẫu số $\max(\tau,|g_j^{\mathrm{num}}|+|g_j|)$. Với số đầy đủ đã lưu ở nhật ký, hiệu tuyệt đối là khoảng $5.68\times10^{-11}$ và sai số tương đối khoảng $7.24\times10^{-10}$.
+- Ghi chú chỉ dùng bốn SVG hiện có: đồ thị cổng vô hướng, cộng gradient nhiều nhánh, tầng afin lượt ngược và MLP 2–2–3. Không có ngoại lệ raster.
+- Mọi mã T02-N, trạng thái worker, chỉ dẫn cắt tuyến và quyết định biên tập chỉ thuộc planning; không đưa vào tài liệu công khai hoặc ghi chú diễn giả.

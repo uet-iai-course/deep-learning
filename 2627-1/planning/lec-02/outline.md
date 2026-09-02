@@ -72,3 +72,19 @@ Không dùng hình ResNet/ResNeXt ở `lec06_backprop.pdf` tr. 14, nội dung c�
 4. Tìm và sửa lỗi đạo hàm, 10 phút.
 
 Đề bài, cách tổ chức và đáp án chi tiết nằm trong `note-for-author.md`.
+
+## Bản đồ chủ đề của ghi chú bài giảng
+
+| Mã nội bộ | Nhãn | Chủ đề | Phần ghi chú | Trang chiếu liên quan |
+|---|---|---|---|---|
+| T02-N01 | cốt lõi | Nhu cầu gradient và đồ thị phụ thuộc | Từ MLP đến nhu cầu gradient | L02-02–05 |
+| T02-N02 | cốt lõi | Cổng vô hướng, quy tắc chuỗi và cộng gradient | Ví dụ vô hướng; thuật toán lan truyền ngược | L02-06–14 |
+| T02-N03 | cầu nối | Từ đạo hàm vô hướng sang tích vector–Jacobian | Từ số vô hướng sang tensor | L02-15–18 |
+| T02-N04 | cốt lõi | Lan truyền ngược qua tầng afin theo lô | Tầng afin theo lô | L02-19–24 |
+| T02-N05 | cốt lõi | Softmax, log-sum-exp và entropy chéo | Softmax, log-softmax và entropy chéo | L02-25–32 |
+| T02-N06 | cốt lõi | MLP 2–2–3 xuyên suốt | Ví dụ MLP 2–2–3 xuyên suốt | L02-25–36 |
+| T02-N07 | bổ sung | Trạng thái của một bước huấn luyện | Một bước huấn luyện và trạng thái | L02-37–38 |
+| T02-N08 | bổ sung | Bộ nhớ và kiểm tra gradient số | Đi sâu thêm | L02-X04–X05 |
+| T02-N09 | đọc thêm | Tài liệu đọc trước cho Buổi 03 | Tài liệu tham khảo | Không đưa lên deck Bài 02 |
+
+Các mã trên chỉ dùng để truy nguyên trong planning. Tài liệu công khai dùng tiêu đề theo nghĩa, không hiển thị mã nội bộ. Bốn SVG được dùng lại từ deck vì chúng khớp trực tiếp các chủ đề T02-N02, T02-N04 và T02-N06; ghi chú không tạo ảnh raster hay tài sản mới.
