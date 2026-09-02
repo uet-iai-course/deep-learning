@@ -19,11 +19,11 @@
 |---|---|---|---|---|---|---|
 | Học từ dữ liệu | L01-02 | L01-03–05 | L01-02–03 | L01-06 | L01-07–09 | L01-07–08 |
 | Giới hạn của biến đổi afin | L01-10 | L01-11–12 | L01-13 | L01-14–15 | Không áp dụng: bài chưa chuyển sang lượt lan truyền xuôi của MLP | L01-13 |
-| MLP và kích hoạt | L01-16 | L01-17 | L01-18, L01-20–22 | L01-18, L01-20–22 | L01-18 và L01-22 nối công thức với lượt lan truyền xuôi, tầng ra | L01-18, L01-20, L01-23 |
+| MLP và kích hoạt | L01-16 | L01-17 | L01-18, L01-20–22 | L01-18, L01-20–22 | L01-18 và L01-22 nối công thức với lượt lan truyền xuôi, tầng ra | L01-18, L01-20, L01-23; L01-X01 củng cố kích thước khi có ba tầng tham số |
 | ReLU và XOR | L01-24–25 | L01-26–28 | L01-29–30 | L01-29–31 | Lượt lan truyền xuôi cho toàn bộ lô ở L01-30 | L01-30–31, L01-33 |
-| Sức biểu diễn và giới hạn | L01-X01 | L01-X02–X03 | L01-X01 và minh họa định tính L01-X03 | L01-X04 | Không áp dụng: nguồn bàn sức biểu diễn, không có triển khai | L01-X06 |
+| Sức biểu diễn và giới hạn | L01-X02 | L01-X02–X03 | Minh họa định tính L01-X03 | L01-X04 | Không áp dụng: nguồn bàn sức biểu diễn, không có triển khai | L01-X06 |
 
-L01-16 là vấn đề của cụm MLP và kích hoạt: nó đặt yêu cầu hàm phi tuyến mà cụm sau cụ thể hóa bằng ReLU, sigmoid và softmax. L01-02 và L01-13 giữ vai trò kép có chủ ý: vừa là trực giác/ví dụ của cụm học từ dữ liệu và giới hạn afin, vừa là điểm neo mà các trang sau quay lại.
+L01-16 là vấn đề của cụm MLP và kích hoạt: nó đặt yêu cầu hàm phi tuyến mà cụm sau cụ thể hóa bằng ReLU, sigmoid và softmax. L01-02, L01-03 và L01-13 giữ vai trò kép có chủ ý: L01-02–03 vừa cung cấp trực giác vừa cho ví dụ về học từ dữ liệu; L01-13 vừa là ví dụ vừa là phép kiểm tra giới hạn afin.
 
 Các cụm học từ dữ liệu, MLP–kích hoạt và ReLU–XOR dùng chu trình đầy đủ hoặc gần đầy đủ. Cụm giới hạn của biến đổi afin dùng chu trình rút gọn vì chưa có triển khai MLP. Cụm mở rộng cũng rút gọn: L01-X05 minh họa biểu diễn phân tán, không được gán là bước triển khai.
 
@@ -44,7 +44,7 @@ Kiến thức đầu vào là phép nhân ma trận và phân loại nhị phân
 | L01-08 | 1 | Phân biệt dữ liệu, tham số, dự đoán | $x,\theta,\hat y$ → vai trò đúng | Khóa bài toán cụ thể |
 | L01-09 | 1 | Thu hẹp sang phân loại nhị phân có giám sát | $x_i\in\mathbb R^d,y_i\in\{0,1\}$ → phạm vi tiếp theo | Xét biên quyết định |
 | L01-10 | 4 | Biên của biến đổi afin là một siêu phẳng khi $\mathbf w\ne\mathbf 0$ | $\mathbf x,\mathbf w,b$ → $z=0$ | Một đơn vị tính biên này như thế nào |
-| L01-11 | 3 | Perceptron là tổng trọng số, độ lệch và ngưỡng | $\mathbf x$ → $z$ → $\hat y$ | Kiểm tra các hàm Boolean đơn giản |
+| L01-11 | 3 | Perceptron là tổng trọng số, độ chệch và ngưỡng | $\mathbf x$ → $z$ → $\hat y$ | Kiểm tra các hàm Boolean đơn giản |
 | L01-12 | 3 | AND và OR tách tuyến tính, chưa lộ XOR | Bốn đỉnh Boolean → một đường tách | Chuyển sang cấu hình xen kẽ |
 | L01-13 | 5 | XOR không có một đường tách | Bảng XOR, bao lồi → giới hạn perceptron | Thử tăng số đơn vị |
 | L01-14 | 3 | Nhiều đơn vị tạo một tầng ma trận | Hàng $x_i^\top$, $X,W,b$ → $Y$ và kích thước tensor | Thử xếp hai tầng |
@@ -66,7 +66,7 @@ Kiến thức đầu vào là phép nhân ma trận và phân loại nhị phân
 | L01-30 | 6 | Bốn đầu vào đi qua cùng một lượt lan truyền xuôi | $X:4\times2$ → $H$, logit, $p$, $\hat y$ | Kiểm tra kích thước tensor và độ lớn mô hình |
 | L01-31 | 3 | Kích thước tensor và số tham số của mạng XOR | Kích thước tensor → 9 tham số | Mở sang mạng sâu hơn |
 | L01-32 | 2 | Mạng sâu hơn hợp thành nhiều biểu diễn qua công thức truy hồi | $H_{\ell-1}$ → $H_\ell$; khái quát hóa công thức hai tầng, không lặp trực giác L01-05 | Chốt tuyến lõi |
-| L01-33 | 3 | Kiểm cả lý do XOR cần phi tuyến và kích thước tensor | XOR, $32\times10$, $h=20$, $k=3$ → lời giải thích và phép tính | Kết thúc tuyến 100 phút |
+| L01-33 | 3 | Kiểm lý do XOR cần phi tuyến, kích thước tensor và thu hồi vấn đề mở đầu bằng MLP học biểu diễn từ dữ liệu | XOR, $32\times10$, $h=20$, $k=3$ → lời giải thích và phép tính | Kết thúc tuyến 100 phút; mạch mở đầu–kết luận đã khép |
 
 ## Trang mở rộng, tổng 20 phút
 
@@ -101,10 +101,10 @@ Các trang này nằm trong một phần riêng sau tuyến lõi. Có thể bỏ
 | NT03-bien-doi-afin | cốt lõi | NT02 | NT04 (XOR) | định nghĩa perceptron, biên quyết định; phân biệt tuyến tính/afin | công thức $z=w^\top x+b$; biên $Wx+b=0$ | $w,b,z$, phép afin | L01-10–12 |
 | NT04-xor | cốt lõi | NT03 | NT05 (hợp thành, phi tuyến) | đối chiếu AND/OR; chứng minh bằng bao lồi | chứng minh XOR không tách afin; cần >1 afin | bao lồi, $X,x_i^\top$ | L01-13, L01-25 |
 | NT05-hop-thanh-va-phi-tuyen | cốt lõi | NT04 | NT06 (cấu trúc MLP) | rút gọn hai afin; vai trò hàm kích hoạt phi tuyến | hợp thành afin vẫn afin; ReLU phá tính afin | $W_2W_1x+(W_2b_1+b_2)$, ReLU | L01-14–16 |
-| NT06-cau-truc-mlp | cốt lõi | NT05 | NT07 (kích hoạt, tầng ra) | tầng vào/ẩn/ra, batch-first, kích thước tensor, broadcasting, số tham số | chuỗi kích thước và số tham số (283) | $X:32\times10$, $H:32\times20$, $Z:32\times3$, $W_1,W_2,b_1,b_2$ | L01-17–18, L01-31–32, L01-X01 |
+| NT06-cau-truc-mlp | cốt lõi | NT05 | NT07 (kích hoạt, tầng ra) | tầng vào/ẩn/ra, dữ liệu theo hàng, kích thước tensor, quảng bá kích thước, số tham số; L01-X01 là luyện tập mở rộng | chuỗi kích thước và số tham số (283); phần cốt lõi hoàn tất ở L01-32 | $X:32\times10$, $H:32\times20$, $Z:32\times3$, $W_1,W_2,b_1,b_2$ | L01-17–18, L01-31–32, L01-X01 |
 | NT07-ham-kich-hoat-va-dau-ra | cốt lõi | NT06 | NT08 (mạng ReLU giải XOR) | so sánh ReLU, sigmoid, tanh; chọn tầng ra; softmax là phần nối | công thức ReLU/sigmoid/tanh; logit≠xác suất | $u,p,\sigma$, logit, softmax | L01-19–23 |
-| NT08-mlp-relu-giai-xor | cốt lõi | NT07 | NT09 (sức biểu diễn, giới hạn) | tính tay $A,H,z,p,\hat y$ cho bốn mẫu 2–2–1; kiểm tra 9 tham số, biên tuyến tính từng đoạn | XOR đúng $(0,1,1,0)^\top$; xác suất $\approx(0.378,0.622,0.622,0.378)^\top$; 9 tham số | $A= XW_1+b_1$, $H=\operatorname{ReLU}(A)$, $z=HW_2+b_2$, $p=\sigma(z)$, $\hat y=\mathbf 1[p\ge0.5]$ | L01-24–30 |
-| NT09-suc-bieu-dien-va-gioi-han | bổ sung | NT08 | Buổi 02 | sâu/rộng, xấp xỉ phổ dụng ở mức khái quát, biểu diễn phân tán, giới hạn kết luận | phân biệt biểu diễn được/dễ huấn luyện/khái quát; nối sang lan truyền ngược | độ sâu, độ rộng, biểu diễn phân tán | L01-33, L01-X02–X06 |
+| NT08-mlp-relu-giai-xor | cốt lõi | NT07 | Kết thúc tuyến lõi hoặc NT09 | tính tay $A,H,z,p,\hat y$ cho bốn mẫu 2–2–1; kiểm tra 9 tham số, biên tuyến tính từng đoạn | XOR đúng $(0,1,1,0)^\top$; xác suất $\approx(0.378,0.622,0.622,0.378)^\top$; 9 tham số; kiểm tra kết thúc tuyến lõi | $A= XW_1+b_1$, $H=\operatorname{ReLU}(A)$, $z=HW_2+b_2$, $p=\sigma(z)$, $\hat y=\mathbf 1[p\ge0.5]$ | L01-24–30, L01-33 |
+| NT09-suc-bieu-dien-va-gioi-han | bổ sung | NT08 và luyện tập L01-X01 | Buổi 02 | sâu/rộng, xấp xỉ phổ dụng ở mức khái quát, biểu diễn phân tán, giới hạn kết luận | phân biệt biểu diễn được/dễ huấn luyện/khái quát; nối sang lan truyền ngược | độ sâu, độ rộng, biểu diễn phân tán | L01-X02–X06 |
 
 ## SVG tham chiếu
 

@@ -274,3 +274,53 @@ Các kiểm tra đã đạt:
 - `index.html` phân tích được và liên kết Bài 01 dùng đúng `doc=materials/lec-01/lecture-note.md` cùng deck Bài 01.
 - Không có trình duyệt headless hay công cụ Codex Slides khả dụng trong phiên này, nên không tuyên bố đã hoàn tất rà trực quan. Kiểm tra HTTP và tĩnh đã đạt; giới hạn trực quan được giữ công khai trong nhật ký.
 - Cầu nối OpenRouter qua `python -m unittest discover -s tests -v`: 14/14 kiểm thử đạt, gồm chặn `.env`, chặn vượt gốc, phân quyền writer và metadata tiến trình.
+
+## Đồng bộ deck với lecture note — 2026-09-02
+
+### Phạm vi thay đổi được duyệt
+
+- Giữ nguyên 40 trang, sáu mạch, thứ tự, thời lượng và toàn bộ SVG. Lecture note không tạo chủ đề mới buộc phải thêm trang.
+- Sửa ký hiệu ở L01-31 từ $Z:4\times1$ thành $z:4\times1$ để khớp đầu ra nhị phân của ví dụ XOR.
+- Viết lại toàn bộ 40 khối ghi chú diễn giả thành mạch nói tự nhiên; giữ nội dung kỹ thuật và nguồn, bỏ nhãn đáp án, siêu bình luận, đối chiếu nội bộ với slide nguồn, mã trang và chỉ dẫn thao tác cho diễn giả/người viết.
+- Khóa thuật ngữ “độ chệch”, “quảng bá kích thước”, “chiều lô”, “lan truyền xuôi”, “hàm mất mát” và “logit” giữa deck, lecture note và planning.
+- Sau phản biện, sửa câu gán nhầm $A=XW_1+b_1$ trong lecture note: đại lượng $(a+b,a+b)$ là $XW_1$ trước khi cộng $b_1$.
+- Làm rõ ánh xạ: NT06 hoàn tất phần cốt lõi ở L01-32, L01-X01 chỉ củng cố; L01-33 thuộc NT08 và khép tuyến lõi; NT09 chỉ gồm L01-X02–X06.
+
+### DeepSeek writer và giới hạn phạm vi đã khóa
+
+- Mọi đầu ra được chấp nhận dùng `deepseek/deepseek-v4-flash-0731` qua OpenRouter; `requested_model`, `observed_model` và `provider` khớp metadata runtime.
+- Các lô L01-00–09, L01-10–19 và L01-20–29, mỗi lô 10 khối ghi chú, hoàn tất. Lô 10 khối cuối dở dang và bị loại; chia lại thành L01-30–33 + L01-X01 và L01-X02–X06, mỗi lô 5 khối, đã hoàn tất.
+- Một lượt dùng sai staging root không thấy đầu vào đã bị loại, không nhập kết quả.
+- Trần mặc định cho các buổi sau đã ghi vào `prompt_lecture_note_deck.md`: tối đa 5 khối `<aside class="notes">` mỗi task; chỉ gửi khối cần sửa cùng `data-slide-id`; không phát lại toàn HTML; không tự tăng trần vì một lô 10 từng thành công.
+- Các giới hạn khác tiếp tục có hiệu lực: một task một staging vật lý và một đầu ra; writer không đọc lại nguồn thô sau checkpoint; planning/HTML dài dùng mảnh dưới 1.500 từ hoặc 6.000 ký tự; lỗi `length`, `tool_call_limit`, `invalid_json`, timeout hoặc thiếu tệp đều không được nhập và không được xử lý bằng đổi model/provider.
+
+### Năm báo cáo GLM độc lập
+
+Năm vai dùng `z-ai/glm-5.3-flash` qua OpenRouter; các báo cáo được chấp nhận đều có `requested_model = observed_model = z-ai/glm-5.3-flash`, `provider = OpenRouter`.
+
+| Vai | Phát hiện chính | Quyết định |
+|---|---|---|
+| Góc nhìn sinh viên | PASS; bốn góp ý nhẹ ở L01-16, L01-19, L01-30 và phân biệt $p/\hat y$ | Sửa L01-16 và L01-19; giữ fragment L01-30 vì đáp án đã ẩn đến lần bấm; giữ ký hiệu vì L01-29 đã đặt $p$ và $\hat y$ cạnh nhau |
+| Chuyên gia Học sâu | Không có lỗi chặn/trung bình; lệch cách đếm ba/bốn thành phần, thuật ngữ độ chệch, phát biểu L01-19 và phạm vi trang 35 | Đồng bộ ba thành phần, độ chệch, sửa L01-19; ghi rõ trang 35 chỉ làm bằng chứng cho độ sâu ở L01-X02 |
+| Toán–thuật toán–triển khai | PASS với một lỗi trình bày nhẹ: gán tên $A$ trước khi cộng $b_1$ | Đã sửa lecture note; các phép tính XOR, 9/197/283/563 tham số và softmax ổn định số đều được xác nhận |
+| Phản biện học thuật–giảng dạy | Không có lỗi chặn/nghiêm trọng; góp ý về ánh xạ NT09 và nối bao lồi ở L01-25 | Chuyển L01-33 về NT08; thêm lập luận ảnh afin bảo toàn điểm giao của hai bao lồi |
+| Kết nối và mạch viết | Ban đầu có hai lỗi trung bình: X01 còn nằm trong cụm NT09 và tuyến lõi chưa thu hồi vấn đề mở đầu | Đã sửa storyboard và L01-33; lượt rà lại GLM xác nhận PASS, không còn lỗi chặn/nghiêm trọng/trung bình |
+
+Reviewer sinh viên đầu tiên timeout sau 300 giây; lượt chạy lại trên đúng một tệp deck đã hoàn tất. Hai lượt rà lại đồng thời sinh viên/mạch timeout sau 180 giây; không đầu ra dở dang nào được chấp nhận. Rà lại tuần tự với dossier nhỏ hơn, cùng model và provider, đã hoàn tất. Kinh nghiệm cho các buổi sau: lượt recheck chỉ nhận tệp và vùng bị ảnh hưởng, chạy tuần tự khi nhà cung cấp có dấu hiệu chậm; không đổi model.
+
+### Biên tập cuối theo `$no-ai-slop` và `$quill`
+
+- Đã đọc toàn bộ nội dung hiển thị, 40 ghi chú diễn giả và lecture note; tự kiểm theo `no-ai-slop/eval.md`.
+- Không còn câu hỏi tu từ, khẩu hiệu, nhịp câu máy móc, kết luận lặp, dấu vết AI, nhãn quy trình, mã chủ đề, thời lượng, trạng thái kiểm chứng hoặc hướng dẫn người viết/diễn giả trong nội dung công khai. Các câu có nhãn “Câu hỏi:” đều là hoạt động kiểm tra có đáp án kỹ thuật.
+- Nguồn trong `<p class="note-source">` được giữ vì là dấu vết học thuật, không phải chỉ dẫn diễn giả.
+- Rà `$quill` xác nhận mạch: tác vụ khó viết quy tắc → học từ dữ liệu → giới hạn afin/XOR → phi tuyến → MLP → lượt lan truyền xuôi có thể tính → kết luận lõi; tuyến mở rộng nối từ công thức nhiều tầng sang độ sâu/độ rộng, sức biểu diễn và giới hạn. Không tạo `quill.json`.
+
+### QA cuối deck và lecture note
+
+- HTML có 6 `<section>` ngoài, 40 trang trong, 40 `data-slide-id` duy nhất và 40/40 khối ghi chú.
+- Cấu hình Reveal giữ `1280 × 720`, `controlsLayout: "edges"`, `slideNumber: true`, `hashOneBasedIndex: true`, `hash: true`; dùng RevealJS, KaTeX, Notes và Highlight cục bộ.
+- 158 biểu thức trong HTML và 137 biểu thức trong lecture note dựng thành công bằng KaTeX 0.16.22 với `throwOnError: true`, `strict: "error"`.
+- 19/19 SVG phân tích được dưới dạng XML, có `role="img"`, `title`, `desc`; mọi đường dẫn hình trong HTML tồn tại. Không có raster hoặc URL mạng trong deck.
+- Đã rà thủ công toàn bộ tiêu đề `h1`, `h2`, `h3`; không có tiêu đề pha tiếng Anh ngoài MLP, ReLU, XOR, sigmoid, tanh và softmax là tên/ký hiệu được phép.
+- HTTP tại máy chủ đúng worktree, cổng thay thế 8766: deck, viewer, lecture note, `xor-points.svg` và `xor-mlp.svg` đều trả 200. `python3 -m reloadserver 8765` vẫn lỗi `No module named reloadserver`; cổng 8765 thuộc tiến trình ngoài phạm vi nên không bị dừng.
+- Không có trình duyệt headless hoặc công cụ Codex Slides trong phiên này. Không tuyên bố đã rà trực quan bằng các công cụ đó; giới hạn về tràn/chồng lấn ở màn hình thật vẫn được giữ công khai.

@@ -52,12 +52,12 @@ Không dùng các dải nguồn bị loại trong `source.md`. Không dùng ngu�
 | Thuật ngữ hoặc ký hiệu | Nghĩa và quy ước |
 |---|---|
 | MLP | Mạng perceptron đa lớp, mạng truyền thẳng kết nối đầy đủ; số tầng đếm tầng có tham số, không đếm tầng đầu vào |
-| $B$ | Kích thước batch; trục đầu tiên của mọi tensor theo batch |
+| $B$ | Kích thước lô; trục đầu tiên của mọi tensor theo lô |
 | $d,h,k$ | Số đặc trưng đầu vào, số đơn vị ẩn, số đầu ra; dùng $h$ cho kích thước tầng ẩn trên toàn bài |
-| $X\in\mathbb R^{B\times d}$ | Ma trận đầu vào, batch-first; hàng thứ $i$ là $x_i^\top$ |
+| $X\in\mathbb R^{B\times d}$ | Ma trận đầu vào theo hàng; hàng thứ $i$ là $x_i^\top$ |
 | $\mathbf x\in\mathbb R^d$ | Vector đơn mẫu, chữ đậm; tensor lô $X$ xếp các vector đơn mẫu theo hàng |
 | $W_1\in\mathbb R^{d\times h}$, $b_1\in\mathbb R^h$ | Tham số tầng ẩn |
-| $H=g(XW_1+b_1)\in\mathbb R^{B\times h}$ | Biểu diễn ẩn; độ lệch broadcasting theo batch |
+| $H=g(XW_1+b_1)\in\mathbb R^{B\times h}$ | Biểu diễn ẩn; độ chệch được quảng bá theo chiều lô |
 | $W_2\in\mathbb R^{h\times k}$, $b_2\in\mathbb R^k$ | Tham số tầng ra |
 | $Z=HW_2+b_2\in\mathbb R^{B\times k}$ | Điểm số hoặc logit, chưa mặc nhiên là xác suất |
 | $g$ | Hàm kích hoạt theo phần tử, thường là ReLU trong bài này |
@@ -83,7 +83,7 @@ Tài liệu tự học tiếng Việt đọc độc lập, bám LLO1–LLO2, kh�
 - giải thích vì sao một số tác vụ khó viết quy tắc và cần học từ dữ liệu;
 - phân biệt biến đổi tuyến tính $Wx$ với afin $Wx+b$, và logit với xác suất;
 - chứng minh trực quan XOR không tách được bằng biên afin qua bao lồi;
-- mô tả cấu trúc MLP, quy ước batch-first, kích thước tensor, broadcasting và số tham số;
+- mô tả cấu trúc MLP, quy ước dữ liệu theo hàng, kích thước tensor, quảng bá kích thước và số tham số;
 - tính lan truyền xuôi cho mạng ReLU 2–2–1 giải XOR và kiểm chứng bằng tay;
 - giải thích khái quát sức biểu diễn của mạng nhiều lớp cùng giới hạn giữa biểu diễn được và dễ huấn luyện.
 
@@ -98,16 +98,16 @@ Các mục tiêu này giữ đúng mạch slide và phép tính đã khóa tại
 | NT03-bien-doi-afin | cốt lõi | Perceptron/biên quyết định; phân biệt tuyến tính và afin | L01-10–12 |
 | NT04-xor | cốt lõi | AND/OR đối chiếu; XOR không tách tuyến tính bằng bao lồi | L01-13, L01-25 |
 | NT05-hop-thanh-va-phi-tuyen | cốt lõi | Rút gọn hai tầng afin; vai trò hàm kích hoạt phi tuyến | L01-14–16 |
-| NT06-cau-truc-mlp | cốt lõi | Tầng vào/ẩn/ra, công thức batch-first, tensor, broadcasting, số tham số | L01-17–18, L01-31–32, L01-X01 |
+| NT06-cau-truc-mlp | cốt lõi | Tầng vào/ẩn/ra, dữ liệu theo hàng, tensor, quảng bá kích thước, số tham số; L01-X01 chỉ luyện tập mở rộng, phần cốt lõi hoàn tất ở L01-32 | L01-17–18, L01-31–32, L01-X01 |
 | NT07-ham-kich-hoat-va-dau-ra | cốt lõi | ReLU, sigmoid, tanh; chọn tầng ra; softmax chỉ là phần nối | L01-19–23 |
-| NT08-mlp-relu-giai-xor | cốt lõi | Tính $A,H,z,p,\hat y$ cho bốn mẫu bằng mạng 2–2–1; 9 tham số; biên từng đoạn | L01-24–30 |
-| NT09-suc-bieu-dien-va-gioi-han | bổ sung | Sâu/rộng, xấp xỉ phổ dụng (khái quát), biểu diễn phân tán, giới hạn, nối Buổi 02 | L01-33, L01-X02–X06 |
+| NT08-mlp-relu-giai-xor | cốt lõi | Tính $A,H,z,p,\hat y$ cho bốn mẫu bằng mạng 2–2–1; 9 tham số; biên từng đoạn; kiểm tra kết thúc tuyến lõi | L01-24–30, L01-33 |
+| NT09-suc-bieu-dien-va-gioi-han | bổ sung | Sâu/rộng, xấp xỉ phổ dụng (khái quát), biểu diễn phân tán và giới hạn kết luận | L01-X02–X06 |
 
 Không có chủ đề `đọc thêm` trong thân bài; lecture note không nhắc lại timing, mã trang, trạng thái kiểm chứng hay hướng dẫn cho người viết/diễn giả.
 
 ## Nguồn của lecture note
 
-- Slide: `lec01_intro.pdf` 3–15, 13–15; `lec02_linear_part1.pdf` 15–19; `lec05_multilayer.pdf` 4–12, 13–29, 28, 35, 29–35.
+- Slide: `lec01_intro.pdf` 3–15 và 17–24; `lec02_linear_part1.pdf` 15–21; `lec05_multilayer.pdf` 2–35.
 - Giáo trình PDF: tr. 29–35, 41–42, 55–56, 66–73, 83–90.
 - DOCX Buổi 1 và hoạt động XOR; ví dụ tự tính được ghi trong `review-log.md`.
 - Phép tính khóa: tham số dựng tay, bốn hàng XOR `(0,0),(0,1),(1,0),(1,1)`; ví dụ cuối $B=32,d=10,h=20,k=3$.
@@ -117,8 +117,8 @@ Không có chủ đề `đọc thêm` trong thân bài; lecture note không nh�
 
 | Ký hiệu | Nghĩa và quy ước |
 |---|---|
-| Batch-first | Mỗi hàng của $X\in\mathbb R^{B\times d}$ là một mẫu $x_i^\top$; $B$ trục đầu |
-| $A=XW_1+b_1$ | Phép afin tầng ẩn theo chiều lô; $b_1$ broadcasting theo lô |
+| Dữ liệu theo hàng | Mỗi hàng của $X\in\mathbb R^{B\times d}$ là một mẫu $x_i^\top$; $B$ là trục đầu |
+| $A=XW_1+b_1$ | Phép afin tầng ẩn theo chiều lô; $b_1$ được quảng bá theo lô |
 | $H=\operatorname{ReLU}(A)$ | Biểu diễn ẩn |
 | $z=HW_2+b_2$ | Logit; chữ thường $z$ khi một đầu ra, hoa $Z=HW_2+b_2$ khi nhiều lớp |
 | $p=\sigma(z)$ | Xác suất qua sigmoid |

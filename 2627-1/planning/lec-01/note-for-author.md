@@ -20,13 +20,13 @@ Không dùng phần mở rộng để vá khái niệm lõi. Dành đúng 16 ph�
 - Quy ước nhãn và ngưỡng: deck dùng nhãn $\{0,1\}$ với hàm chỉ thị, khác slide nguồn dùng $\{-1,1\}$ với sgn; perceptron gán nhãn 1 khi $z=0$; dự đoán cứng lấy bằng ngưỡng $0.5$ trên xác suất.
 - Tham số XOR $W_1,b_1$ xuất hiện lần đầu ở L01-24, trước khi mạng đầy đủ hiện ở L01-29; nhấn rằng chuỗi L01-25–28 dùng đúng bộ này.
 - Không gọi logit là xác suất trước khi áp dụng sigmoid hoặc softmax.
-- Tách tham số khỏi siêu tham số; batch size không làm tăng số tham số.
-- Khóa quy ước batch-first: mỗi hàng của $X$ là $x_i^\top$, ma trận trọng số nhân bên phải.
+- Tách tham số khỏi siêu tham số; kích thước lô không làm tăng số tham số.
+- Khóa quy ước dữ liệu theo hàng: mỗi hàng của $X$ là $x_i^\top$, ma trận trọng số nhân bên phải.
 - Tách huấn luyện khỏi suy luận; chỉ pha huấn luyện cập nhật $\theta$.
 - ReLU áp dụng theo phần tử và không đổi kích thước tensor.
 - ReLU không khả vi tại 0; phát biểu đúng là khả vi gần như mọi nơi.
 - Perceptron ngưỡng cứng dùng để giải thích lịch sử và hình học. MLP hiện đại trong bài dùng ReLU ở đơn vị ẩn, tạo logit rồi mới đổi thành dự đoán.
-- Hàm tầng ra phụ thuộc bài toán. Softmax chuẩn hóa theo trục lớp trong từng hàng $Z\in\mathbb R^{B\times k}$; loss ổn định số thường nhận logits.
+- Hàm tầng ra phụ thuộc bài toán. Softmax chuẩn hóa theo trục lớp trong từng hàng $Z\in\mathbb R^{B\times k}$; hàm mất mát ổn định số thường nhận logit.
 - Khi cần tính softmax tường minh, trừ $m_i=\max_r Z_{ir}$ khỏi mọi logit trong hàng $i$ trước khi lấy mũ.
 - Nguồn chỉ nêu xấp xỉ phổ dụng ở mức khái quát. Không thêm điều kiện chi tiết ngoài nguồn; chỉ chốt rằng mệnh đề không bảo đảm tìm tham số, dữ liệu cần có hay khả năng khái quát.
 - Biểu diễn ẩn có thể phân tán; không buộc mỗi đơn vị mang một khái niệm riêng.
@@ -117,7 +117,7 @@ Khi có ReLU, không tồn tại một ma trận cố định có thể thay $\o
 
 ## Nguồn và trạng thái kiểm chứng
 
-- Nguồn chính: `lec05_multilayer.pdf`, tr. 2–35; trang 35 chỉ dùng cho mạng sâu hơn hai tầng, không dùng làm bằng chứng về độ rộng.
+- Nguồn chính: `lec05_multilayer.pdf`, tr. 2–35; ở L01-X02, trang 35 chỉ làm bằng chứng cho độ sâu, còn trang 29 làm bằng chứng cho độ rộng.
 - Nguồn phụ: `lec01_intro.pdf`, tr. 3–15, 17–24; `lec02_linear_part1.pdf`, tr. 15–21.
 - Nguồn kiểm chứng: `hocsau_draft.pdf`, PDF tr. 25–45, 55–56, 66–73, 83–90.
 - Ví dụ XOR đã tự tính lại theo cả bốn hàng; chi tiết nằm trong `review-log.md`.
@@ -129,7 +129,7 @@ Khi có ReLU, không tồn tại một ma trận cố định có thể thay $\o
 
 ### Bản đồ ngữ nghĩa NT01–NT09
 
-Ánh xạ `data-slide-id` theo đặc tả: NT01 L01-00–05; NT02 L01-06–09; NT03 L01-10–12; NT04 L01-13,L01-25; NT05 L01-14–16; NT06 L01-17–18,L01-31–32,L01-X01; NT07 L01-19–23; NT08 L01-24–30; NT09 L01-33,L01-X02–X06. Deck giữ nguyên ở pha note; NT09 chỉ chi tiết hơn trong note, chưa đưa thêm lên deck khi chưa có thay đổi ngữ nghĩa được duyệt. Mọi thay đổi deck phải đi qua quy trình duyệt riêng.
+Ánh xạ `data-slide-id` theo đặc tả: NT01 L01-00–05; NT02 L01-06–09; NT03 L01-10–12; NT04 L01-13,L01-25; NT05 L01-14–16; NT06 L01-17–18,L01-31–32 và bài luyện mở rộng L01-X01; NT07 L01-19–23; NT08 L01-24–30,L01-33; NT09 L01-X02–X06. NT06 hoàn tất nội dung cốt lõi ở L01-32; L01-X01 chỉ củng cố. L01-33 là kiểm tra kết thúc tuyến lõi, không thuộc chủ đề bổ sung NT09.
 
 ### Đáp án nội bộ
 

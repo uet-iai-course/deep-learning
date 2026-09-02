@@ -29,7 +29,7 @@ Kiến thức tiên quyết: đại số ma trận cơ bản (nhân ma trận, c
 
 ### Vấn đề và bối cảnh: tác vụ khó viết quy tắc
 
-Nhiều tác vụ nhận dạng khó diễn đạt bằng một danh sách quy tắc đủ để bao quát mọi trường hợp, chẳng hạn phân biệt ảnh mèo và ảnh chó. Thay vì viết quy tắc, ta để mô hình **học từ dữ liệu**: cho trước các cặp (đầu vào, nhãn), mô hình tự điều chỉnh tham số để khớp dữ liệu. Khung này gồm bốn thành phần: dữ liệu, mô hình, tham số và tiêu chí khớp.
+Nhiều tác vụ nhận dạng khó diễn đạt bằng một danh sách quy tắc đủ để bao quát mọi trường hợp, chẳng hạn phân biệt ảnh mèo và ảnh chó. Thay vì viết quy tắc, ta để mô hình **học từ dữ liệu**: cho trước các cặp (đầu vào, nhãn), mô hình tự điều chỉnh tham số để khớp dữ liệu. Khung này gồm ba thành phần: dữ liệu, mô hình và tiêu chí khớp; tham số là đại lượng được điều chỉnh bên trong mô hình.
 
 ::: example Ví dụ tính được
 Cho bốn mẫu nhị phân $(0,0),(0,1),(1,0),(1,1)$ với nhãn XOR $(0,1,1,0)$. Đây là dữ liệu; mô hình là một hàm có tham số; tham số được chọn để khớp nhãn; tiêu chí khớp đo độ sai lệch giữa dự đoán và nhãn. Trong buổi này ta dùng chính bốn mẫu này xuyên suốt.
@@ -123,7 +123,7 @@ $$
 ![Mạng MLP 2–2–1 với hai nơ-ron ReLU ẩn và một đầu ra sigmoid dùng để giải XOR.](img/lec-01/xor-mlp.svg)
 
 ::: derivation Suy diễn chi tiết
-Tính $A = XW_1+b_1$ cho từng hàng $(a,b)$: mỗi hàng cho $(a+b,\ a+b)$. Cộng $b_1=(0,-1)$ — một **vector hàng được quảng bá theo chiều lô**, tức cùng giá trị này được cộng vào mỗi hàng — rồi áp ReLU:
+Tính $XW_1$ cho từng hàng $(a,b)$: mỗi hàng cho $(a+b,\ a+b)$. Cộng $b_1=(0,-1)$ — một **vector hàng được quảng bá theo chiều lô**, tức cùng giá trị này được cộng vào mỗi hàng — ta được $A=XW_1+b_1$, rồi áp ReLU:
 
 - $(0,0)$: $(0,-1)\to(0,0)$.
 - $(0,1)$: $(1,0)\to(1,0)$.
@@ -186,9 +186,9 @@ Lan truyền xuôi của MLP là chuỗi phép afin và kích hoạt: $A=XW_1+b_
 
 ## Tài liệu tham khảo
 
-- `lec01_intro.pdf`, trang chiếu 3–15 (vấn đề và bối cảnh), 13–15 (học từ dữ liệu).
-- `lec02_linear_part1.pdf`, trang chiếu 15–19 (biến đổi afin, biên quyết định), 19 (XOR và bao lồi).
-- `lec05_multilayer.pdf`, trang chiếu 4–10 (XOR), 7–12 (hợp thành và phi tuyến), 11–12 (hàm kích hoạt và tầng ra), 13–29 (MLP ReLU giải XOR), 28, 35 (cấu trúc MLP, kích thước tensor), 29–35 (sức biểu diễn và giới hạn).
+- `lec01_intro.pdf`, trang chiếu 3–15 (vấn đề, bối cảnh và học từ dữ liệu).
+- `lec02_linear_part1.pdf`, trang chiếu 15–21 (biến đổi afin, biên quyết định và XOR).
+- `lec05_multilayer.pdf`, trang chiếu 2–35 (MLP, hợp thành, hàm kích hoạt, XOR, cấu trúc và sức biểu diễn).
 - GT PDF, trang 29–35, 41–42, 55–56, 66–73, 83–90.
 - DOCX Buổi 1 và hoạt động XOR.
 
