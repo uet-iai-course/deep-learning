@@ -242,3 +242,32 @@ Hai tái kiểm định cuối đều dùng `z-ai/glm-5.3-flash` qua OpenRouter 
 - Note dùng bốn SVG hiện có, đều có `role="img"`, `title`, `desc`; mọi đường dẫn tồn tại và không có raster.
 - `index.html` trỏ đúng `material-viewer.html?doc=materials/lec-02/lecture-note.md&deck=lecture-02-lan-truyen-va-do-thi-tinh-toan.html`. HTTP cục bộ tại cổng 8766 trả 200 cho index, viewer, Markdown và deck.
 - Lệnh bắt buộc `python3 -m reloadserver 8765` không chạy vì môi trường thiếu mô-đun `reloadserver`. Phiên này không có Browser/Codex Slides nên không tuyên bố đã kiểm trực quan bằng công cụ đó; QA tĩnh, KaTeX và HTTP đã hoàn tất.
+
+## Đồng bộ deck sau lecture note
+
+### Fan-out delta và writer
+
+- Ba lượt chỉ đọc dùng `z-ai/glm-5.3-flash` qua OpenRouter; metadata model/provider đều khớp. Vai độ phủ xác nhận deck bao phủ toàn bộ tuyến lõi và mở rộng của note; vai toán xác nhận mọi công thức, shape và số; vai storyboard xác nhận 6 mạch ngoài cùng timing 100+20 phút.
+- Delta duy nhất được duyệt là bổ sung vào ghi chú L02-31: nếu mất mát lấy tổng theo lô thì công thức không có hệ số $1/B$. Mặt slide không đổi nên không tăng tải hay gây tràn.
+- DeepSeek writer dùng `deepseek/deepseek-v4-flash-0731` qua OpenRouter với đúng hai đầu vào và một đầu ra: `approved-delta.md`, một section L02-31, và `replacement.html`. `requested_model` khớp `observed_model`; provider là OpenRouter. Codex kiểm rồi áp dụng đúng một thay thế.
+- Đề xuất đổi thao tác từ hai lần thành năm lần bị bác. Trong RevealJS, `<section>` ngoài nằm trên trục ngang, bốn trang mở rộng là `<section>` trong trên trục dọc. Từ L02-38, lần nhấn phải thứ nhất sang đầu stack mở rộng; lần thứ hai sang section kết luận. Hướng dẫn này được giữ trong storyboard và `note-for-author.md`, đồng thời xóa khỏi ghi chú diễn giả.
+
+### Năm phản biện độc lập sau delta
+
+| Vai | Kết quả | Quyết định |
+|---|---|---|
+| Góc nhìn sinh viên | PASS; báo nhẹ xác suất $0.075753$ và thao tác điều hướng | Bác: tính trực tiếp cho $0.0757529296$; hai lần nhấn đúng với stack RevealJS. Nhận góp ý alt text. |
+| Chuyên gia Học sâu | Lượt đầu timeout nên bị loại; lượt lại dossier hẹp PASS | Không đổi model hay tăng ngân sách; ghi nhận deck đủ độ phủ và chiều sâu. |
+| Toán–thuật toán–triển khai | PASS | Xác nhận $1/B$, chuỗi MLP, cập nhật và gradient check. |
+| Phản biện học thuật–giảng dạy | Lượt đầu báo sai $G_{W_1}$ vì dùng $G_{A,21}=0.0346$ | Bác bằng mặt nạ ReLU: $A_{21}=-1$ nên $G_{A,21}=0$. Tái kiểm phạm vi hẹp xác nhận L02-34–36 và L02-X05 đúng, kết luận PASS. |
+| Kết nối và mạch viết | Nhận hai góp ý thật: alt L02-13 chứa chú giải biên tập; dòng trạng thái trong storyboard chồng L02-33–36. Tái kiểm toàn tệp timeout. | Đã sửa alt theo nghĩa, gán vấn đề trạng thái cho L02-37 và bỏ chỉ dẫn khỏi notes. Chạy lại trên dossier ba section + hai đoạn storyboard, PASS. |
+
+Không còn lỗi `chặn bàn giao` hoặc `nghiêm trọng`. Mã X03 vẫn để trống có chủ ý nhằm giữ ổn định `data-slide-id` và đã được giải thích trong planning.
+
+### `$no-ai-slop`, `$quill` và QA cuối
+
+- Lượt `$no-ai-slop` đọc toàn bộ nội dung hiển thị và 44 ghi chú: bỏ chú giải biên tập trong alt L02-13; bỏ chỉ dẫn điều hướng khỏi L02-38/L02-39; đổi các câu chỉ dẫn ở L02-15, L02-28, L02-37, L02-X01, L02-X02, L02-X04, L02-39 thành giải thích kỹ thuật trực tiếp. Không còn dấu vết AI, nhãn quy trình hay hướng dẫn cho diễn giả/người viết trong HTML.
+- Lượt `$quill` xác nhận xương sống vô hướng → tensor → MLP → trạng thái → kết luận, ranh giới các mạch và ký hiệu không đổi. Không tạo `quill.json`.
+- QA tĩnh: 6 section ngoài, 44 `data-slide-id` duy nhất, 44 ghi chú, 140 biểu thức KaTeX ở `throwOnError: true`, `strict: "error"`, 11 SVG có `role="img"`, `title`, `desc`; cấu hình RevealJS bắt buộc và toàn bộ đường dẫn đều đạt.
+- Rà thủ công toàn bộ `h1`, `h2`, `h3`: chỉ giữ MLP, ReLU, softmax, sigmoid và Jacobian theo nhóm thuật ngữ chuẩn được phép. Delta không thay đổi nội dung nhìn thấy hay bố cục; kiểm định hình ảnh 88 ảnh ở 1280×720 và 960×720 của bản deck trước delta vẫn áp dụng.
+- HTTP cục bộ tại cổng 8766 trả 200. `python3 -m reloadserver 8765` vẫn lỗi vì thiếu mô-đun; Browser/Codex Slides không khả dụng trong phiên này, nên không tuyên bố đã dùng chúng.

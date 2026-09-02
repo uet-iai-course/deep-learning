@@ -14,7 +14,7 @@ Tuyến lõi đi theo một đường duy nhất:
 8. Kết thúc bằng việc tách chế độ mô hình, ghi gradient, đặt gradient về 0 và cập nhật.
 9. Trang kết L02-39 thu hồi chuỗi $X\to H\to Z\to J\to$ gradient $\to$ cập nhật cùng ba tiêu chí kiểm được, rồi nối sang Bài 03.
 
-Nếu chỉ có 100 phút, đi L02-00–38 rồi bỏ qua mạch mở rộng để sang L02-39. Nếu còn 20 phút, đi L02-X01, L02-X02, L02-X04, L02-X05 rồi L02-39; cả hai tuyến đều kết thúc ở L02-39. Không nhảy vào riêng L02-X02 vì phần bão hòa sigmoid cần công thức ở L02-X01; không dùng L02-X04 để mở sang kỹ thuật lưu điểm kiểm tra ngoài nguồn.
+Nếu chỉ có 100 phút, đi L02-00–38 rồi nhấn mũi tên phải hai lần để bỏ qua mạch mở rộng và sang L02-39. Các mạch ngoài nằm trên trục ngang nên thao tác này bỏ qua chồng trang dọc của phần mở rộng. Nếu còn 20 phút, đi L02-X01, L02-X02, L02-X04, L02-X05 rồi L02-39; cả hai tuyến đều kết thúc ở L02-39. Không nhảy vào riêng L02-X02 vì phần bão hòa sigmoid cần công thức ở L02-X01; không dùng L02-X04 để mở sang kỹ thuật lưu điểm kiểm tra ngoài nguồn.
 
 ## Điểm cần nhấn và lỗi dễ mắc
 

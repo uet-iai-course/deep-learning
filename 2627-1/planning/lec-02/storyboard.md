@@ -7,7 +7,7 @@
 | Đồ thị và quy tắc chuỗi | L02-02–05 | L02-04–06 | L02-05–06, L02-09–13 | L02-07–08, L02-14 | L02-14 | L02-07, L02-13 |
 | Tensor và tầng afin | L02-15–16 | L02-17–20 | L02-18, L02-20 | L02-16–23 | L02-21–23 | L02-24 |
 | Softmax và entropy chéo | L02-25–27 | L02-28–29 | L02-25–29 | L02-30–32 | L02-33–36 | L02-32, L02-38 |
-| Trạng thái huấn luyện | L02-33–36 | L02-37 | Ví dụ MLP L02-25–36 | L02-37 | L02-37 | L02-38 |
+| Trạng thái huấn luyện | L02-37 | L02-37 | Ví dụ MLP L02-25–36 | L02-37 | L02-37 | L02-38 |
 | Mở rộng | L02-X01, L02-X04 | L02-X02, L02-X04 | L02-X05 | L02-X01, L02-X05 | L02-X04–X05 | L02-X05 |
 
 Đầu vào chung: đạo hàm một biến, phép nhân ma trận, MLP, ReLU (tiên quyết từ Bài 01), softmax và logarit ở mức nhập môn. Sản phẩm cuối: giải thích và kiểm tra một bước huấn luyện từ $X,Y$ đến $J$, gradient và cập nhật. Ví dụ vô hướng chính giữ $x=3,y=-4,z=2,w=-1$ từ L02-05 đến L02-12. L02-13 dùng đồ thị và dữ kiện độc lập. Ví dụ MLP giữ nguyên $X,Y,W_1,b_1,W_2,b_2$ từ L02-25 đến L02-36.
@@ -59,7 +59,7 @@
 
 Tổng lõi: 100 phút. L02-31 giữ 5 phút vì có ba bước công thức; L02-33 giữ 4 phút; L02-38 giảm từ 3 xuống 2 phút để bù cho L02-39.
 
-Thao tác tuyến lõi: từ L02-38 nhấn mũi tên phải hai lần để đi qua mạch mở rộng và đến L02-39. Tuyến đầy đủ vào L02-X01 rồi đi dọc qua L02-X02, L02-X04, L02-X05; sau L02-X05 nhấn mũi tên phải để đến L02-39. Mã trang X03 được giữ trống (không dùng) để không đổi mã các trang còn lại; đây là lý do giữ khoảng mã ổn định.
+Thao tác tuyến lõi: từ L02-38 nhấn mũi tên phải hai lần để bỏ qua mạch mở rộng và đến L02-39. Mỗi mạch là một `<section>` ngoài trên trục ngang; các trang trong mạch mở rộng nằm trên trục dọc, nên lần nhấn thứ hai chuyển sang mạch kết luận thay vì duyệt từng trang dọc. Tuyến đầy đủ vào L02-X01 rồi đi dọc qua L02-X02, L02-X04, L02-X05; sau L02-X05 nhấn mũi tên phải để đến L02-39. Mã trang X03 được giữ trống (không dùng) để không đổi mã các trang còn lại; đây là lý do giữ khoảng mã ổn định.
 
 Các bước không áp dụng: L02-00–01 chỉ định hướng nên không cần ví dụ số; L02-15–17 là cầu nối hình thức nên triển khai được gộp vào L02-18–24; L02-37 không tạo công thức mới nên hình thức được gộp với ví dụ vòng lặp.
 
