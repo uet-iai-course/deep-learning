@@ -91,3 +91,22 @@ Các trang này nằm trong một phần riêng sau tuyến lõi. Có thể bỏ
 | Quiz | 5 | Bốn câu ngắn về thuật ngữ, hàm kích hoạt và số tham số |
 
 Đáp án và cách điều phối nằm trong `note-for-author.md`, không đưa vào trang chiếu.
+
+## Bản đồ lecture note Buổi 01
+
+| note-topic-id | vai trò | kết nối vào | kết nối ra | bước học | sản phẩm | ký hiệu truyền | data-slide-id |
+|---|---|---|---|---|---|---|---|
+| NT01-van-de-va-boi-canh | cốt lõi | mở đầu, tác vụ khó viết quy tắc | dẫn sang học từ dữ liệu | đặt vấn đề → khung học từ dữ liệu | khung dữ liệu/mô hình/tham số/tiêu chí | $X$, nhãn | L01-00–05 |
+| NT02-hoc-tu-du-lieu | cầu nối | NT01 | NT03 (biến đổi afin) | phân biệt dữ liệu, mô hình, tham số, tiêu chí, huấn luyện, suy luận; khóa phạm vi phân loại nhị phân | định nghĩa sáu thành phần; tự kiểm tra XOR | dữ liệu, nhãn, tham số | L01-06–09 |
+| NT03-bien-doi-afin | cốt lõi | NT02 | NT04 (XOR) | định nghĩa perceptron, biên quyết định; phân biệt tuyến tính/afin | công thức $z=w^\top x+b$; biên $Wx+b=0$ | $w,b,z$, phép afin | L01-10–12 |
+| NT04-xor | cốt lõi | NT03 | NT05 (hợp thành, phi tuyến) | đối chiếu AND/OR; chứng minh bằng bao lồi | chứng minh XOR không tách afin; cần >1 afin | bao lồi, $X,x_i^\top$ | L01-13, L01-25 |
+| NT05-hop-thanh-va-phi-tuyen | cốt lõi | NT04 | NT06 (cấu trúc MLP) | rút gọn hai afin; vai trò hàm kích hoạt phi tuyến | hợp thành afin vẫn afin; ReLU phá tính afin | $W_2W_1x+(W_2b_1+b_2)$, ReLU | L01-14–16 |
+| NT06-cau-truc-mlp | cốt lõi | NT05 | NT07 (kích hoạt, tầng ra) | tầng vào/ẩn/ra, batch-first, kích thước tensor, broadcasting, số tham số | chuỗi kích thước và số tham số (283) | $X:32\times10$, $H:32\times20$, $Z:32\times3$, $W_1,W_2,b_1,b_2$ | L01-17–18, L01-31–32, L01-X01 |
+| NT07-ham-kich-hoat-va-dau-ra | cốt lõi | NT06 | NT08 (mạng ReLU giải XOR) | so sánh ReLU, sigmoid, tanh; chọn tầng ra; softmax là phần nối | công thức ReLU/sigmoid/tanh; logit≠xác suất | $u,p,\sigma$, logit, softmax | L01-19–23 |
+| NT08-mlp-relu-giai-xor | cốt lõi | NT07 | NT09 (sức biểu diễn, giới hạn) | tính tay $A,H,z,p,\hat y$ cho bốn mẫu 2–2–1; kiểm tra 9 tham số, biên tuyến tính từng đoạn | XOR đúng $(0,1,1,0)^\top$; xác suất $\approx(0.378,0.622,0.622,0.378)^\top$; 9 tham số | $A= XW_1+b_1$, $H=\operatorname{ReLU}(A)$, $z=HW_2+b_2$, $p=\sigma(z)$, $\hat y=\mathbf 1[p\ge0.5]$ | L01-24–30 |
+| NT09-suc-bieu-dien-va-gioi-han | bổ sung | NT08 | Buổi 02 | sâu/rộng, xấp xỉ phổ dụng ở mức khái quát, biểu diễn phân tán, giới hạn kết luận | phân biệt biểu diễn được/dễ huấn luyện/khái quát; nối sang lan truyền ngược | độ sâu, độ rộng, biểu diễn phân tán | L01-33, L01-X02–X06 |
+
+## SVG tham chiếu
+
+- `img/lec-01/xor-mlp.svg` — mạng MLP 2–2–1 với hai nơ-ron ReLU ẩn và đầu ra sigmoid dùng để giải XOR.
+- `img/lec-01/xor-points.svg` — bốn điểm XOR và hai bao lồi giao nhau tại tâm hình vuông.

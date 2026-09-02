@@ -1,0 +1,24 @@
+[project]
+name = "deep-learning-openrouter-mcp"
+version = "0.1.0"
+description = "Role-scoped MCP tools bridged to OpenRouter tool calling"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "httpx>=0.28,<1",
+  "mcp[cli]>=2,<3",
+]
+
+[project.scripts]
+openrouter-mcp-worker = "openrouter_mcp.bridge:main"
+openrouter-mcp-reader = "openrouter_mcp.bridge:main_reader"
+openrouter-mcp-reviewer = "openrouter_mcp.bridge:main_reviewer"
+openrouter-mcp-writer = "openrouter_mcp.bridge:main_writer"
+openrouter-mcp-server = "openrouter_mcp.server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/openrouter_mcp"]

@@ -1,0 +1,3 @@
+# Worker OpenRouter được gọi qua các lệnh trong openrouter-mcp, không qua
+# collaboration.spawn_agent. Khóa API lấy từ biến môi trường hoặc .env phía
+# điều phối viên; .env không được đưa vào công cụ hay nội dung worker.

@@ -71,3 +71,68 @@ Không dùng các dải nguồn bị loại trong `source.md`. Không dùng ngu�
 4. Quiz kiểm tra thuật ngữ và số tham số, 5 phút.
 
 Đề bài, cách tổ chức và đáp án chi tiết nằm trong `note-for-author.md`.
+
+# Đầu ra lecture note — Buổi 01
+
+Mục này giữ nguyên bằng chứng deck ở trên và bổ sung hợp đồng với tài liệu tự học.
+
+## Mục tiêu lecture note
+
+Tài liệu tự học tiếng Việt đọc độc lập, bám LLO1–LLO2, không mở rộng sang lan truyền ngược hay tối ưu. Sau khi đọc, sinh viên có thể:
+
+- giải thích vì sao một số tác vụ khó viết quy tắc và cần học từ dữ liệu;
+- phân biệt biến đổi tuyến tính $Wx$ với afin $Wx+b$, và logit với xác suất;
+- chứng minh trực quan XOR không tách được bằng biên afin qua bao lồi;
+- mô tả cấu trúc MLP, quy ước batch-first, kích thước tensor, broadcasting và số tham số;
+- tính lan truyền xuôi cho mạng ReLU 2–2–1 giải XOR và kiểm chứng bằng tay;
+- giải thích khái quát sức biểu diễn của mạng nhiều lớp cùng giới hạn giữa biểu diễn được và dễ huấn luyện.
+
+Các mục tiêu này giữ đúng mạch slide và phép tính đã khóa tại checkpoint A1; softmax chỉ là cầu nối tầng ra, xấp xỉ phổ dụng chỉ trình bày ở mức nguồn.
+
+## Bản đồ 9 chủ đề — hợp đồng note-topic-id ↔ data-slide-id
+
+| note-topic-id | Nhãn | Vai trò trong lecture note | data-slide-id |
+|---|---|---|---|
+| NT01-van-de-va-boi-canh | cốt lõi | Tác vụ khó viết quy tắc; học từ dữ liệu | L01-00–05 |
+| NT02-hoc-tu-du-lieu | cầu nối | Dữ liệu, mô hình, tham số, tiêu chí, huấn luyện, suy luận; khóa phân loại nhị phân | L01-06–09 |
+| NT03-bien-doi-afin | cốt lõi | Perceptron/biên quyết định; phân biệt tuyến tính và afin | L01-10–12 |
+| NT04-xor | cốt lõi | AND/OR đối chiếu; XOR không tách tuyến tính bằng bao lồi | L01-13, L01-25 |
+| NT05-hop-thanh-va-phi-tuyen | cốt lõi | Rút gọn hai tầng afin; vai trò hàm kích hoạt phi tuyến | L01-14–16 |
+| NT06-cau-truc-mlp | cốt lõi | Tầng vào/ẩn/ra, công thức batch-first, tensor, broadcasting, số tham số | L01-17–18, L01-31–32, L01-X01 |
+| NT07-ham-kich-hoat-va-dau-ra | cốt lõi | ReLU, sigmoid, tanh; chọn tầng ra; softmax chỉ là phần nối | L01-19–23 |
+| NT08-mlp-relu-giai-xor | cốt lõi | Tính $A,H,z,p,\hat y$ cho bốn mẫu bằng mạng 2–2–1; 9 tham số; biên từng đoạn | L01-24–30 |
+| NT09-suc-bieu-dien-va-gioi-han | bổ sung | Sâu/rộng, xấp xỉ phổ dụng (khái quát), biểu diễn phân tán, giới hạn, nối Buổi 02 | L01-33, L01-X02–X06 |
+
+Không có chủ đề `đọc thêm` trong thân bài; lecture note không nhắc lại timing, mã trang, trạng thái kiểm chứng hay hướng dẫn cho người viết/diễn giả.
+
+## Nguồn của lecture note
+
+- Slide: `lec01_intro.pdf` 3–15, 13–15; `lec02_linear_part1.pdf` 15–19; `lec05_multilayer.pdf` 4–12, 13–29, 28, 35, 29–35.
+- Giáo trình PDF: tr. 29–35, 41–42, 55–56, 66–73, 83–90.
+- DOCX Buổi 1 và hoạt động XOR; ví dụ tự tính được ghi trong `review-log.md`.
+- Phép tính khóa: tham số dựng tay, bốn hàng XOR `(0,0),(0,1),(1,0),(1,1)`; ví dụ cuối $B=32,d=10,h=20,k=3$.
+- Không dùng dải nguồn bị loại, nguồn web, code demo hay ảnh raster.
+
+## Ký hiệu và quy ước dùng chung
+
+| Ký hiệu | Nghĩa và quy ước |
+|---|---|
+| Batch-first | Mỗi hàng của $X\in\mathbb R^{B\times d}$ là một mẫu $x_i^\top$; $B$ trục đầu |
+| $A=XW_1+b_1$ | Phép afin tầng ẩn theo chiều lô; $b_1$ broadcasting theo lô |
+| $H=\operatorname{ReLU}(A)$ | Biểu diễn ẩn |
+| $z=HW_2+b_2$ | Logit; chữ thường $z$ khi một đầu ra, hoa $Z=HW_2+b_2$ khi nhiều lớp |
+| $p=\sigma(z)$ | Xác suất qua sigmoid |
+| $\hat y=\mathbf 1[p\ge0.5]$ | Dự đoán theo ngưỡng 0.5 |
+
+Mọi phép tính trong buổi là suy luận trên dữ liệu cho trước, không phải huấn luyện. Ký hiệu này thống nhất với deck và bảng thuật ngữ ở phần trên.
+
+## SVG tái sử dụng trong lecture note
+
+Hai SVG có sẵn được tham chiếu bằng đường dẫn viewer `img/lec-01/`, giúp lập luận trong bài và không tạo raster:
+
+| Tệp | Vị trí dùng | Vai trò |
+|---|---|---|
+| `xor-points.svg` | Mục XOR không tách tuyến tính | Bốn điểm XOR với hai đoạn nối các điểm cùng lớp giao nhau tại tâm hình vuông; minh họa bao lồi giao nhau |
+| `xor-mlp.svg` | Mục MLP ReLU 2–2–1 giải XOR | Sơ đồ mạng 2–2–1 với hai nơ-ron ReLU ẩn và một đầu ra sigmoid; minh họa lan truyền xuôi |
+
+Các SVG khác trong danh sách ưu tiên tại checkpoint A1 không được dùng trong bài; nếu cần SVG mới, phải ghi đặc tả và kiểm tra khả năng tiếp cận trước khi đưa vào kho.

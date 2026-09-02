@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+project_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+
+if [[ -f "$project_root/.env" ]]; then
+  export OPENROUTER_ENV_FILE="$project_root/.env"
+fi
+
+exec codex \
+  --cd "$project_root" \
+  "$@"

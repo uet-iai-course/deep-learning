@@ -205,3 +205,72 @@ Reviewer toán xác nhận toàn bộ sửa đúng, không có lỗi chặn, ngh
 - 141 biểu thức KaTeX dựng thành công với `throwOnError: true` và `strict: "error"`.
 - Đã chụp và rà 40 slide ở 1280x720 cùng 40 slide ở 960x720; phát hiện và sửa lỗi tràn tiêu đề L01-25. Đã chụp lại L01-25 ở 960x720; tiêu đề nằm trọn khung.
 - `python3 -m reloadserver 8765` không chạy được vì thiếu mô-đun `reloadserver`; máy chủ HTTP thay thế cũng không dùng được ở cổng 8765 vì cổng đang bị chiếm. Đây là ngoại lệ môi trường, không tuyên bố reloadserver đạt.
+
+## Kiểm định lecture note và ngân sách writer
+
+### Phạm vi và đối tượng kiểm định
+Đối tượng là lecture note Buổi 01 với bản đồ 9 chủ đề NT01–NT09 và chuỗi ký hiệu thống nhất. Phạm vi kiểm định gồm các vòng đọc GLM, sửa tuần tự, rà lại độ chính xác, rà lại mạch, `$no-ai-slop` và `$quill`.
+
+### Metadata model/provider
+- Ba reader checkpoint A1 và năm vai reviewer dùng `z-ai/glm-5.3-flash` qua OpenRouter; `requested_model`, `observed_model` và `provider` đều khớp.
+- Các lượt writer được chấp nhận dùng `deepseek/deepseek-v4-flash-0731` qua OpenRouter; `requested_model`, `observed_model` và `provider` đều khớp. Mọi lượt lỗi hoặc dở dang đều bị loại.
+
+### Bằng chứng kiểm định nội dung
+- Bản đồ chủ đề: NT01–NT09 đầy đủ (sau khi bổ sung NT09 ở mức nguồn và giới hạn).
+- Chuỗi ký hiệu và kích thước: $A,H,z,p,\hat y$ được dùng nhất quán.
+- Trực giác hình học không gian ẩn: bổ sung qua hai SVG `xor-points.svg` và `xor-mlp.svg`.
+- Câu tự kiểm theo cụm: có chức năng học tập, được giữ nguyên (không phải câu hỏi tu từ).
+- Bài tính mẫu (0,1) có trong note.
+- Đã xóa mã nội bộ khỏi note.
+
+### Kết quả review
+- Năm vai review GLM: sinh viên, chuyên gia Học sâu, chính xác toán/thuật toán/triển khai, phản biện học thuật/giảng dạy, kết nối/nguồn/mạch. Lỗi hội tụ ban đầu: thiếu NT09; thiếu A, H, z, p, y-hat; thiếu trực giác hình học không gian ẩn; cần tự kiểm; nên dùng SVG. Đã xử lý toàn bộ.
+- Codex phát hiện lỗi writer tự tạo: `A=ReLU^{-1}(H)` sai vì ReLU không khả nghịch; phát biểu xấp xỉ phổ dụng quá rộng; từ ngữ nội bộ ("chuỗi ký hiệu khóa", "dossier"); câu hỏi tu từ; lặp câu chuyển Buổi 02. Đã sửa.
+- Rà lại GLM chính xác: PASS toàn bộ XOR, sigmoid, 9/283 tham số, shape, ReLU, xấp xỉ phổ dụng.
+- Rà lại GLM mạch: PASS, không còn lỗi chặn/nghiêm trọng; hai góp ý nhẹ đã xử lý.
+- `$no-ai-slop` cuối: rà toàn văn, xóa câu hỏi tu từ, siêu bình luận, nhãn nội bộ, hướng dẫn người viết/diễn giả và tiếng Anh không cần thiết; giữ câu tự kiểm có chức năng học tập.
+- `$quill`: xác nhận mạch XOR → phi tuyến → MLP → sức biểu diễn → Buổi 02 và ký hiệu xuyên suốt.
+
+### Quyết định sửa được chấp nhận
+1. Thêm NT09 ở mức nguồn và giới hạn.
+2. Thêm chuỗi ký hiệu/shape và SVG xor-points.svg, xor-mlp.svg.
+3. Câu tự kiểm theo cụm; bài tính mẫu (0,1).
+4. Đọc trước Goodfellow Ch.6, D2L Ch.5.
+5. Xóa mã nội bộ; sửa lỗi ReLU khả nghịch; siết lại phát biểu xấp xỉ phổ dụng; bỏ từ ngữ nội bộ, câu hỏi tu từ, lặp câu chuyển Buổi 02.
+
+### Ngân sách writer
+- Mẫu thành công ghi ở vòng 2, kết thúc vòng 3; đúng hai đầu vào (approved-spec + template), một đầu ra lecture-note; staging riêng. Lượt report tách riêng, hai đầu vào + một report, thành công.
+- Quy tắc rút ra: mỗi task một staging vật lý chỉ chứa tệp cho phép; task sửa chỉ một tệp, ghi lại toàn tệp; task report tách riêng; planning dài dùng fragment dưới 1500 từ/6000 ký tự có điểm neo; đầu ra dưới 1400 từ (fragment này tuân thủ).
+
+### Bảng sự cố DeepSeek
+| Sự cố | Phạm vi | Cách khắc phục | Trạng thái |
+|---|---|---|---|
+| DeepSeek lần 1: đồng thời soạn note, bốn planning, report; thất bại `tool_call_limit=16` | Nhiều đầu ra chồng lấn | Tách task một đầu ra/lượt | Không nhập; đã khắc phục |
+| DeepSeek lần 2: đọc 5 tệp + tự kiểm rộng; chạm `finish_reason=length` ở 12000 token rồi treo | Tự kiểm quá rộng | Thu phạm vi tự kiểm | Đã dừng; không nhập |
+| DeepSeek lần 3: gói nguồn thô 177220 byte; đọc theo đoạn; `tool_call_limit=5` | Đầu vào thô quá lớn | Chỉ cấp đặc tả đã duyệt; trích đoạn ngắn khi thật sự thiếu | Không nhập |
+| Lượt tự kiểm + sửa nhiều thay thế + report thất bại `tool_call_limit` | Sửa nhiều tệp trong một task | Sửa 1 tệp, ghi toàn tệp; report riêng | Không nhập; đã quyết định |
+| Viết lại storyboard thất bại `invalid_json` (tool-call dài) | Tool-call quá dài | Fragment dưới 1500 từ/6000 ký tự có điểm neo | Không nhập |
+| Fragment staging tái sử dụng thất bại do worker đọc tệp ngoài phạm vi | Worker đọc ngoài vùng | Staging vật lý riêng chỉ có tệp cho phép | Không nhập; đã quyết định |
+| Fragment `note-for-author.md` đầu tiên vượt giới hạn vì tự dò tệp và tạo JSON dài | Hai đầu vào dài, đầu ra rộng | Dùng một brief ngắn trong staging riêng, một fragment dưới 800 từ | Không nhập; lượt thu hẹp đã thành công |
+
+### Trạng thái
+Toàn bộ lỗi nội dung mức chặn bàn giao và nghiêm trọng đã xử lý; GLM chính xác và mạch PASS. Lecture note chuyển sang QA kỹ thuật trước khi cập nhật index và xuất bản.
+
+### QA kỹ thuật lecture note — 2026-09-02
+
+- **Mức độ:** nhẹ
+- **Vị trí:** môi trường chạy cục bộ, cổng 8765
+- **Vấn đề:** `python3 -m reloadserver 8765` không chạy vì môi trường thiếu mô-đun `reloadserver`. Cổng 8765 đồng thời bị một máy chủ cũ ở thư mục khác chiếm; máy chủ đó trả bản Markdown 32.266 byte và báo 404 cho SVG nên không được dùng làm bằng chứng PASS.
+- **Bằng chứng:** tệp hiện tại có 14.030 byte; máy chủ đúng worktree ở cổng tạm 8766 trả HTTP 200 cho viewer, lecture note 14.030 byte, `xor-points.svg` và `xor-mlp.svg`.
+- **Đề xuất sửa:** giữ ngoại lệ môi trường; không dừng tiến trình ngoài phạm vi. Khi `reloadserver` có sẵn và cổng 8765 được giải phóng, chạy lại kiểm tra trực quan tại đúng cổng.
+
+Các kiểm tra đã đạt:
+
+- Markdown có đúng một H1; mọi directive thuộc allowlist, cân bằng và không lồng.
+- 136 biểu thức dựng thành công bằng KaTeX với `throwOnError: true` và `strict: "error"`.
+- Hai đường dẫn hình đúng `img/lec-01/*.svg`; cả hai tệp tồn tại, có `role="img"`, `title`, `desc` và văn bản thay thế cụ thể.
+- `material-viewer.js`, Marked và DOMPurify qua kiểm tra cú pháp JavaScript; viewer giới hạn đường dẫn note/deck, làm sạch HTML và chỉ nhận SVG đúng số bài.
+- `$no-ai-slop` cuối không còn mẫu AI, mã NT, nhãn quy trình, thời lượng, hướng dẫn người viết/diễn giả, “dossier”, câu hỏi tu từ hoặc siêu bình luận trong lecture note. `$quill` xác nhận chuỗi khái niệm và ký hiệu liên tục.
+- `index.html` phân tích được và liên kết Bài 01 dùng đúng `doc=materials/lec-01/lecture-note.md` cùng deck Bài 01.
+- Không có trình duyệt headless hay công cụ Codex Slides khả dụng trong phiên này, nên không tuyên bố đã hoàn tất rà trực quan. Kiểm tra HTTP và tĩnh đã đạt; giới hạn trực quan được giữ công khai trong nhật ký.
+- Cầu nối OpenRouter qua `python -m unittest discover -s tests -v`: 14/14 kiểm thử đạt, gồm chặn `.env`, chặn vượt gốc, phân quyền writer và metadata tiến trình.

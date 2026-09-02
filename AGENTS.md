@@ -135,6 +135,7 @@ Mỗi bài dùng cấu trúc sau:
 - Giữ `lang="vi"`, khung `1280 × 720`, `controlsLayout: "edges"`, `slideNumber: true`, `hashOneBasedIndex: true` và `hash: true`.
 - Dùng các thư viện cục bộ trong `2627-1/`: RevealJS, `RevealMath.KaTeX`, `RevealNotes` và `RevealHighlight`.
 - Dùng `<section>` ngoài cho từng phần và `<section>` trong cho từng trang chiếu.
+- Toàn bộ bài dùng từ 5 đến 7 mạch trình bày lớn, mỗi mạch tương ứng với một `<section>` ngoài; số này gồm mạch mở đầu và mạch kết luận. Chỉ dùng ngoài khoảng 5–7 khi nguồn hoặc yêu cầu cụ thể của người dùng đòi hỏi, và phải ghi lý do cùng ảnh hưởng đến mạch bài trong `storyboard.md` và `review-log.md`.
 - Mỗi trang có `data-slide-id` duy nhất. Mã chỉ xuất hiện trong HTML và các tệp planning; không hiển thị trên mặt trang hoặc trong ghi chú diễn giả.
 - Đặt chân trang ở cuối `.slides` và cập nhật đúng tên học phần, học kỳ và số bài.
 - Không phụ thuộc mạng cho các thành phần cốt lõi.
@@ -171,6 +172,7 @@ Không bắt buộc sáu bước là sáu trang riêng. Có thể gộp khi mỗ
 
 Storyboard phải chỉ ra cho từng cụm:
 
+- mạch trình bày chứa cụm, chức năng của mạch, kết nối vào từ mạch trước và đầu ra cho mạch sau;
 - mã trang thực hiện từng bước;
 - kiến thức đầu vào và sản phẩm học tập;
 - tensor, dữ kiện hoặc ký hiệu được truyền từ ví dụ sang công thức và code;
@@ -277,26 +279,30 @@ Giao một tác tử chỉ đọc rà từng trang và từng cụm khái niệm
 
 Sau thay đổi số lượng hoặc thứ tự, phải rà lại trang bị ảnh hưởng và hai trang lân cận mỗi phía.
 
-### 5. Bốn tác tử rà soát độc lập
+### 5. Năm tác tử rà soát độc lập
 
-Sau bản nháp đầu, chạy song song bốn tác tử chỉ đọc. Mỗi báo cáo dùng các trường `mức độ`, `trang chiếu`, `vấn đề`, `bằng chứng`, `đề xuất sửa`.
+Sau bản nháp đầu, chạy song song năm tác tử chỉ đọc. Mỗi báo cáo dùng các trường `mức độ`, `trang chiếu`, `vấn đề`, `bằng chứng`, `đề xuất sửa`.
 
 - **Góc nhìn sinh viên:** kiểm tra tiên quyết, tải nhận thức, nhịp giảng, khả năng đọc, ví dụ, chuyển ý, câu hỏi kiểm tra và khả năng tự học.
 - **Chuyên gia Học sâu:** kiểm tra độ bao phủ, chiều sâu, thuật ngữ, mạch học thuật, liên hệ với học máy và sự phù hợp với 120 phút.
 - **Độ chính xác toán học, thuật toán và triển khai:** kiểm tra định nghĩa, giả thiết, shape, broadcasting, gradient, loss, numerical stability, giả mã, kết quả số, độ phức tạp, model mode và training loop.
 - **Phản biện học thuật và giảng dạy Học sâu:** đóng vai chuyên gia nghiên cứu và giảng dạy để phản biện công thức, thuật toán và trình tự kiến thức; nêu rõ khi một công thức đúng riêng lẻ nhưng đặt sai thứ tự, thiếu trực giác, thiếu ví dụ, thiếu tiên quyết hoặc không nối được sang triển khai.
+- **Kết nối và mạch viết:** kiểm tra xương sống lập luận của toàn bài, điểm xuất phát, đích đến và sự tích lũy ý nghĩa qua từng phần; xác nhận bài có từ 5 đến 7 mạch trình bày lớn tương ứng với các `<section>` ngoài, gồm mạch mở đầu và mạch kết luận, trừ ngoại lệ đã được ghi rõ. Với mỗi phần, xác định chức năng, kết nối vào từ phần trước, đầu ra cho phần sau và đóng góp vào mục tiêu bài học; với mỗi trang, kiểm tra vai trò trong mạch cùng câu nối với trang liền trước và liền sau. Phát hiện bước nhảy lập luận, chuyển phần đột ngột, trang đứng riêng lẻ, phần lặp chức năng, tuyến không tiến triển, kết luận không thu hồi vấn đề mở đầu hoặc nhiều trang tranh cùng một luận điểm trung tâm. Vai này không thay thế kiểm định storyboard, rà độ chính xác hay rà tải nhận thức. Trong `bằng chứng` và `đề xuất sửa`, phải nêu rõ `vai trò trong mạch`, `kết nối vào` và `kết nối ra` của trang hoặc cụm trang bị ảnh hưởng.
 
 Mức độ gồm `chặn bàn giao`, `nghiêm trọng`, `trung bình`, `nhẹ`. Mọi lỗi `chặn bàn giao` và `nghiêm trọng` phải được xử lý.
 
+Đối với vai kết nối và mạch viết, dùng mức `chặn bàn giao` khi thiếu mạch mở đầu hoặc mạch kết luận, số mạch ngoài khoảng 5–7 mà không có ngoại lệ hợp lệ, không xác định được tuyến chính hoặc kết luận mâu thuẫn với vấn đề đã thiết lập; `nghiêm trọng` khi một phần trọng tâm bị đứt khỏi tuyến chính, lặp chức năng hoặc không tạo bước tiến; `trung bình` khi điểm vào, đầu ra hay câu chuyển giữa hai phần còn mờ; `nhẹ` khi mạch đúng nhưng tín hiệu chuyển ý hoặc thứ bậc nhấn chưa rõ. Sau khi thêm, bỏ, gộp, tách, đổi thứ tự trang hoặc sửa câu chuyển làm thay đổi mạch bài, phải giao lại vai này rà các trang bị ảnh hưởng, hai trang lân cận mỗi phía và mọi ranh giới phần liên quan. Nếu thay đổi mở bài, kết bài hoặc luận điểm trung tâm, phải rà lại toàn bộ bộ trang chiếu.
+
 ### 6. Chỉnh sửa
 
-Giao một tác tử chỉnh sửa riêng sau khi bốn báo cáo hoàn tất:
+Giao một tác tử chỉnh sửa riêng sau khi năm báo cáo hoàn tất:
 
 - hợp nhất vấn đề trùng lặp và ưu tiên tính đúng, khả năng học, khả năng đọc;
 - sửa tuần tự HTML, SVG và các tệp planning;
 - ghi quyết định đối với đề xuất không áp dụng;
 - không thay đổi mạch nguồn nếu lỗi có thể sửa cục bộ;
 - yêu cầu rà lại độ chính xác cho mọi phần toán, shape, gradient, thuật toán hoặc code đã đổi đáng kể.
+- yêu cầu tác tử kết nối và mạch viết rà lại theo phạm vi ở mục 5 sau mọi thay đổi cấu trúc, thứ tự, câu chuyển hoặc luận điểm trung tâm.
 
 Các tác tử sửa tệp không được chạy song song.
 
@@ -306,6 +312,7 @@ Các tác tử sửa tệp không được chạy song song.
 
 - đối chiếu số trang nguồn, bảng ánh xạ, `data-slide-id` và storyboard;
 - kiểm tra HTML, cấu trúc `<section>`, KaTeX, plugin, ghi chú, đường dẫn, SVG và liên kết;
+- kiểm tra bài có từ 5 đến 7 `<section>` ngoài, gồm mạch mở đầu và mạch kết luận, hoặc có ngoại lệ hợp lệ đã được ghi trong storyboard và nhật ký;
 - dựng toàn bộ công thức bằng KaTeX với `throwOnError: true`; dùng strict mode khi có thể;
 - tìm tham chiếu raster; chỉ chấp nhận ngoại lệ đã được người dùng duyệt và ghi trong nhật ký;
 - kiểm tra không có tài nguyên hỏng hoặc phụ thuộc mạng cốt lõi;
@@ -315,6 +322,7 @@ Các tác tử sửa tệp không được chạy song song.
 - kiểm tra tràn chữ, chữ nhỏ, chồng lấn, công thức, code, hình, tương phản và bàn phím ở khung 16:9 và một màn hình hẹp;
 - xuất danh sách toàn bộ tiêu đề `h1`, `h2`, `h3` và kiểm tra thủ công từng tiêu đề không pha tiếng Anh, trừ tên gọi, ký hiệu chuẩn hoặc viết tắt thông dụng đã được phép;
 - dùng Codex Slides để rà trực quan sau cùng và xác minh Design Files khớp bản trong kho;
+- kiểm tra đủ năm báo cáo độc lập; mọi vấn đề về vai trò trong mạch, kết nối vào–ra và tuyến lập luận phải có quyết định cùng bằng chứng rà lại;
 - chạy lại kiểm định sau mỗi sửa lỗi chặn bàn giao hoặc nghiêm trọng.
 
 Nếu Codex Slides hoặc trình duyệt không khả dụng, phải báo rõ giới hạn, tiếp tục đầy đủ kiểm tra RevealJS cục bộ và không tuyên bố đã rà bằng công cụ không dùng được.
@@ -335,10 +343,23 @@ Chỉ bàn giao khi:
 - nội dung chính bằng tiếng Việt, ngắn, trực tiếp và đã qua `$no-ai-slop`;
 - bốn tệp planning nằm đúng `planning/lec-NN/`;
 - mọi hình đã được vẽ lại thành SVG hoặc có ngoại lệ raster được duyệt;
-- bốn báo cáo độc lập đã có và mọi lỗi bắt buộc đã được xử lý;
+- năm báo cáo độc lập đã có và mọi lỗi bắt buộc đã được xử lý;
 - công thức, shape, gradient, ví dụ số, giả mã, code và giả thiết đã được kiểm tra;
 - bộ trang chiếu chạy tại cổng `8765`, không có lỗi tài nguyên hoặc hiển thị nghiêm trọng;
 - `index.html` chỉ liên kết tới HTML của bài hoàn thành;
 - nội dung trong kho khớp bản đã rà trong Codex Slides, hoặc giới hạn công cụ đã được ghi rõ.
 
 Khi bàn giao, nêu ngắn gọn: tệp trang chiếu, URL cục bộ, tệp nguồn, hình đã vẽ lại, kiểm tra đã chạy, sai khác có chủ ý, ngoại lệ và giới hạn còn lại.
+
+## Điều phối mô hình trong dự án
+
+- Codex chính giữ vai trò điều phối viên và thực hiện kiểm định cuối.
+- Người dùng cho phép các worker OpenRouter đọc và gửi nội dung các tệp trong workspace tới OpenRouter để thực hiện nhiệm vụ được giao, ngoại trừ mọi tệp `.env`. Không được đọc, đưa vào prompt, ghi log hoặc gửi nội dung `.env` và các giá trị bí mật chứa trong đó tới OpenRouter.
+- Chạy worker qua các lệnh `openrouter-mcp-reader`, `openrouter-mcp-reviewer` và `openrouter-mcp-writer` trong `openrouter-mcp/`. Không dùng `collaboration.spawn_agent` cho ba vai trò này và không chuyển ngầm sang worker mặc định khi OpenRouter lỗi.
+- Dùng vai trò `openrouter_reader` qua `openrouter-mcp-reader` cho kiểm kê, lập kế hoạch và phân tích nguồn chỉ đọc.
+- Dùng vai trò `openrouter_reviewer` qua `openrouter-mcp-reviewer` cho các lượt rà soát độc lập chỉ đọc, gồm vai kết nối và mạch viết.
+- Dùng vai trò `openrouter_writer` qua `openrouter-mcp-writer` cho một phần việc ghi đã được giới hạn bằng `--repo-root`, tệp và đầu ra cụ thể.
+- Luôn truyền `--json`; dùng `requested_model`, `observed_model` và `provider` trong kết quả cầu nối làm bằng chứng runtime, không dùng lời tự khai trong nội dung worker.
+- Khi cần chạy song song, khởi chạy mỗi reviewer trong một tiến trình `openrouter-mcp-reviewer` riêng và chờ tất cả hoàn tất.
+- Không cho hai tác tử có quyền ghi sửa các tệp trùng nhau cùng lúc.
+- Điều phối viên phải chờ các tác tử liên quan, hợp nhất kết quả và tự xác minh trước khi bàn giao.

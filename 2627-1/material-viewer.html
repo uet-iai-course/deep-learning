@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'"/>
+  <title>Tài liệu học tập · Học sâu</title>
+  <link rel="stylesheet" href="../index-pages.css"/>
+  <link rel="stylesheet" href="vendor/katex/dist/katex.min.css" integrity="sha256-GQlRJzV+1tKf4KY6awAMkTqJ9/GWO3Zd03Fel8mFLnU="/>
+  <link rel="stylesheet" href="material-viewer.css"/>
+</head>
+<body>
+  <a class="skip-link" href="#material-content">Bỏ qua phần điều hướng</a>
+  <main class="material-shell">
+    <header class="material-header">
+      <div>
+        <p class="eyebrow" id="material-kind">Ghi chú bài giảng</p>
+        <h1 id="material-title">Đang tải tài liệu</h1>
+        <p class="material-subtitle">Học sâu · Học kỳ 1, 2026–2027</p>
+      </div>
+      <nav class="material-actions" aria-label="Điều hướng tài liệu">
+        <a class="secondary-link" href="index.html">Danh mục học phần</a>
+        <a class="secondary-link" id="deck-link" href="index.html">Bộ trang chiếu</a>
+        <a class="secondary-link" id="source-link" href="index.html">Markdown gốc</a>
+      </nav>
+    </header>
+
+    <div id="material-status" class="material-status" role="status" aria-live="polite">
+      Đang tải và kiểm tra tài liệu…
+    </div>
+
+    <div class="material-layout" id="material-layout" hidden>
+      <aside class="material-toc" aria-labelledby="toc-title">
+        <h2 id="toc-title">Mục lục</h2>
+        <nav id="toc-list" aria-label="Mục lục trong tài liệu"></nav>
+      </aside>
+      <article class="markdown-body" id="material-content" tabindex="-1"></article>
+    </div>
+  </main>
+
+  <script defer src="vendor/marked/18.0.7/marked.umd.js" integrity="sha256-eh+MXnImt1/xZkS9ssATDSrnNx5+oxBsLW2sd6sP97Y="></script>
+  <script defer src="vendor/dompurify/3.4.7/purify.min.js" integrity="sha256-+E5SKHamz63suJwXM1ZAms7Dn1gMaQGFWcmlDpYpmww="></script>
+  <script defer src="vendor/katex/dist/katex.min.js" integrity="sha256-6NiFUFlJ86X0q91d0NU2lr0Tca0m/79PMQ3Nd8jNrok="></script>
+  <script defer src="vendor/katex/dist/contrib/auto-render.min.js" integrity="sha256-u1PrlTOUUxquNv3VNwZcQkTrhUKQGjzpFGAdkyZ1uKw="></script>
+  <script defer src="material-viewer.js"></script>
+</body>
+</html>

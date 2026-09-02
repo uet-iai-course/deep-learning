@@ -124,3 +124,29 @@ Khi có ReLU, không tồn tại một ma trận cố định có thể thay $\o
 - Không có code demo, raster hoặc kết quả thực nghiệm.
 - Điều hướng: dừng ở L01-33 cho tuyến 100 phút; đi tiếp L01-X01–X06 cho tuyến 120 phút; không quay lại trang mở rộng cũ đã bỏ.
 - Bản chỉnh sửa đã xử lý báo cáo phản biện; vẫn cần điều phối viên hoàn tất kiểm định trực quan và kiểm tra chạy cục bộ trước bàn giao.
+
+## Ghi chú nội bộ cho lecture note
+
+### Bản đồ ngữ nghĩa NT01–NT09
+
+Ánh xạ `data-slide-id` theo đặc tả: NT01 L01-00–05; NT02 L01-06–09; NT03 L01-10–12; NT04 L01-13,L01-25; NT05 L01-14–16; NT06 L01-17–18,L01-31–32,L01-X01; NT07 L01-19–23; NT08 L01-24–30; NT09 L01-33,L01-X02–X06. Deck giữ nguyên ở pha note; NT09 chỉ chi tiết hơn trong note, chưa đưa thêm lên deck khi chưa có thay đổi ngữ nghĩa được duyệt. Mọi thay đổi deck phải đi qua quy trình duyệt riêng.
+
+### Đáp án nội bộ
+
+Biên $w=(1,-1)$, $b=-0.5$ tương đương $x_2=x_1-0.5$; kiểm tra dấu theo $z$. Khi tăng $h$ từ $20$ lên $40$, giữ nguyên $Z:32\times3$; tổng tham số thành $10\cdot40+40+40\cdot3+3=563$. Với mẫu XOR $(0,1)$: $A=(1,0)$, $H=(1,0)$, $z=0.5$, $p\approx0.622$, $\hat y=1$. Mạng XOR có $9$ tham số; ví dụ cấu hình $B=32,d=10,h=20,k=3$ có $283$ tham số. Các phép tính này phục vụ kiểm chứng số, không xuất hiện dưới dạng mã trong nội dung công khai.
+
+### Nguồn cần giữ
+
+lec01_intro slide 3–15, 17–24; lec02_linear_part1 slide 15–21; lec05_multilayer slide 2–35; GT PDF trang 25–45, 55–56, 66–73, 83–90; DOCX Buổi 1. Việc tra cứu ngược theo mục lục các nguồn này là cần thiết khi hiệu đính từng phần, ngoài luồng tự kiểm định nghĩa đã được phê duyệt.
+
+### Kiểm tra hai SVG
+
+Lecture note dùng hai SVG: `xor-points.svg` và `xor-mlp.svg`. Kiểm tra `role`, `title`, `desc`, văn bản thay thế và đường dẫn hợp lệ trong thư mục tài nguyên. Nếu thiếu hoặc lệch đường dẫn, phải ghi nhận trước khi chốt phiên bản công khai.
+
+### `$no-ai-slop` và nội dung công khai
+
+Trong nội dung công khai không có mã NT, thời lượng, trạng thái kiểm chứng, chỉ dẫn người viết/diễn giả, từ “dossier”, dấu vết AI hoặc câu hỏi tu từ. Câu tự kiểm được giữ vì có mục đích học tập rõ ràng.
+
+### Mạch khái niệm theo `$quill`
+
+Mạch tường thuật: XOR → giới hạn afin → phi tuyến → MLP → sức biểu diễn → Buổi 02. Các ký hiệu $A,H,z,p,\hat y$ được dùng xuyên suốt để thống nhất giữa slide và bài tập kiểm chứng.
