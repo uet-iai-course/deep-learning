@@ -110,6 +110,8 @@ $b_q$ được phát từ một hàng thành $N$ hàng. Phát tự động là p
 
 ### Cụm 3: Một bước LSTM bằng số
 
+Trong cụm này, chữ thường chỉ một thành phần vô hướng với $N=D_h=1$; chữ hoa ở phần trước chỉ toàn bộ tensor của lô.
+
 Xét ví dụ vô hướng với $c_{t-1}=0{,}3$ và các tiền kích hoạt
 
 $$
@@ -196,7 +198,7 @@ GRU không truyền một trạng thái ô riêng. Cổng đặt lại $R_t$ đi
 
 ![Hai cổng và đường trộn trạng thái trong GRU](img/lec-08/gru-cell.svg)
 
-Theo quy ước của slide nguồn:
+Theo quy ước của bài:
 
 $$
 R_t=\sigma\!\left(X_tW_{xr}+H_{t-1}W_{hr}+b_r\right),
@@ -315,6 +317,8 @@ $$
 S_0=Q,\qquad
 S_{t'}=\operatorname{GRU}_{dec}\!\left(E(y_{t'-1}),S_{t'-1}\right),
 $$
+
+Mô hình cơ sở dùng cùng chiều ẩn $D_h$ cho bộ mã hóa và bộ giải mã để $Q$ khởi tạo trực tiếp $S_0$.
 
 $$
 A_{t'}=S_{t'}W_y+b_y,\qquad
