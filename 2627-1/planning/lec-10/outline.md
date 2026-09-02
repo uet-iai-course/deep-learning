@@ -71,6 +71,7 @@ L10-32 là trang cuối chung và vẫn thuộc tuyến lõi 1 phút. Tại L10-
 | $s_{n,0}$ | Trạng thái giải mã đầu, $s_{n,0}=\phi(h^{enc}_{n,L_n})\in\mathbb R^{D_s}$; không lấy vị trí đệm |
 | $R_q,R_h$ | Biểu diễn truy vấn và trạng thái nguồn sau phép chiếu, $N\times D_a$ và $N\times T_s\times D_a$ |
 | $E,A$ | Điểm và trọng số ở một bước đích, $N\times T_s$ |
+| $\mathcal A$ | Ma trận căn chỉnh của một mẫu, $T'\times T_s$ |
 | $C$ | Ngữ cảnh ở một bước đích, $N\times D_h$ |
 | $E_y,D_e$ | Ma trận nhúng token đích, $V_{tgt}\times D_e$; chiều vector nhúng |
 | $g$ | Ô truy hồi của bộ giải mã, như RNN hoặc GRU |
