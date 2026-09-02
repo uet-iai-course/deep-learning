@@ -61,6 +61,23 @@ Kiến trúc xuyên suốt là $784\to256\to d\to256\to784$. Quy ước MSE là 
 | cùng tệp | 105–107 | Đối chiếu MLP/hàm kích hoạt: L06-09 |
 | cùng tệp | 168–171 | Học tự giám sát và tiền huấn luyện: L06-04, L06-14 |
 
+## Bản đồ chủ đề lecture note
+
+| Note-topic-id | Nhãn | Vai trò và nguồn | Ánh xạ deck |
+|---|---|---|---|
+| L06-T01 | cốt lõi | Biểu diễn, dữ liệu chưa nhãn và mục tiêu tự giám sát; Stanford 63–64, CMU representation 1–6 | L06-00–05 |
+| L06-T02 | cốt lõi | Bộ mã hóa–mã tiềm ẩn–bộ giải mã và hợp đồng MNIST $784\to256\to d\to256\to784$; Stanford 64–66, GT 38–40 | L06-06–10 |
+| L06-T03 | cốt lõi | SSE, MSE, quy ước $1/(ND)$ và ví dụ $0{,}18/0{,}045$; Stanford 65–66 | L06-11–15 |
+| L06-T04 | cốt lõi | Nghiệm đồng nhất, mã thấp chiều, năng lực và chọn $d$ bằng kiểm định; Illinois 4–8, CMU autoencoders 2–3 | L06-16–20 |
+| L06-T05 | cốt lõi | Mã thấp chiều, mã thưa phạt mềm/top-$k$ cứng và khử nhiễu với đích sạch; Illinois 9–13, CMU autoencoders 4–7 | L06-21–27 |
+| L06-T06 | cốt lõi | Tái sử dụng encoder: đóng băng, tinh chỉnh, gradient, chế độ mô-đun và giao thức dữ liệu; Stanford 67, `lec09` 44–46, `lec11` 3–10 | L06-28–33 |
+| L06-T07 | cốt lõi | Mã do encoder tạo so với mã tùy ý và giới hạn lấy mẫu; Stanford 68–70 | L06-34–38 |
+| L06-T08 | tổng hợp | Quy trình kiểm shape, mất mát, ràng buộc, tác vụ đích và vùng mã; tổng hợp nguồn đã duyệt | L06-37–38 |
+| L06-T09 | bổ sung | Độ khó phép toán, quan hệ tuyến tính với PCA, đa tạp phi tuyến và đánh giá biểu diễn; CMU representation 1–17, Illinois 6–13 | L06-X01–X05 |
+| L06-T10 | đọc thêm | VAE, masked autoencoder, ViT, diffusion, LSTM autoencoder và contractive autoencoder nằm ngoài phạm vi; chỉ ghi ranh giới, không triển khai | Không đưa lên slide |
+
+Quyết định hợp nhất: giữ T01–T08 theo mạch Stanford và LLO; dùng Illinois/CMU để sửa thiếu sót về nghiệm đồng nhất, ràng buộc và đánh giá; T09 là phần có thể cắt; T10 chỉ khóa ranh giới. Không tự suy ra phân phối thuận tiện cho mã tiềm ẩn và không biến giới hạn lấy mẫu thành phần giới thiệu VAE.
+
 ## Cấu trúc mạch và tuyến
 
 - Bảy mạch trình bày, mỗi mạch một `<section>` ngoài:

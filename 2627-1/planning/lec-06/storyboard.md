@@ -6,14 +6,14 @@
 |---|---|---|---|---|---|---|---|---|---|
 | Biểu diễn | L06-02 | L06-03 | L06-02–03 (gộp: ví dụ chữ số trực tiếp tạo trực giác) | L06-04 | L06-04 | L06-05 | Điểm ảnh và dữ liệu chưa nhãn → phân biệt mục tiêu thay thế với tác vụ đích | $x\to z$, chưa dùng nhãn lớp | “Muốn đánh giá mã, trước hết phải mô tả máy tạo mã.” |
 | Kiến trúc | L06-06 | L06-06 | L06-07–08 | L06-09 | L06-09 | L06-10 | Ảnh MNIST → hợp đồng tensor và bốn lớp tuyến tính | $X_{\mathrm{img}}\to X\to H_e\to Z\to H_d\to\hat X$ | “Kích thước đúng cho phép so từng phần tử tái tạo.” |
-| Mất mát | L06-11 | L06-11 | L06-12 | L06-13 | L06-14 | L06-15 | Một mẫu $D=4$ → SSE/MSE → lô MNIST $D=784$ | 0.18, 0.045, $N,D$ | “Giảm lỗi tái tạo chưa ngăn được đường tắt sao chép.” |
+| Mất mát | L06-11 | L06-11 | L06-12 | L06-13 | L06-14 | L06-15 | Một mẫu $D=4$ → SSE/MSE → lô MNIST $D=784$ | $0{,}18$, $0{,}045$, $N,D$ | “Giảm lỗi tái tạo chưa ngăn được đường tắt sao chép.” |
 | Nút thắt | L06-16 | L06-17 | L06-16–17 (gộp: hai sơ đồ đối chứng) | L06-18–19 | L06-19 | L06-20 | Nghiệm đồng nhất → vai trò và giới hạn của $d$ | $d<784$, lỗi kiểm định, tác vụ đích | “Ta có thể ràng buộc kiến trúc, mã hoặc dữ liệu.” |
 | Ba biến thể | L06-21–22 | L06-22 | L06-23–24 | L06-25–26 | L06-25–26 | L06-27 | Nút thắt → mã thấp chiều, phạt mềm/top-$k$, khử nhiễu | $d,k,\lambda,X,\widetilde X$; top-$k$ theo mẫu; đầu vào nhiễu–đích sạch | “Giá trị của mã được kiểm tra bằng tác vụ có nhãn.” |
 | Tái sử dụng | L06-28 | L06-28 | L06-29–30 | L06-31 | L06-32 | L06-33 | Bộ mã hóa đã tiền huấn luyện → chính sách đóng băng/tinh chỉnh | $\theta^\star$; MNIST $N=32$, $C=10$; $Z:32\times d$, $S:32\times10$; chỉ $\psi$ thuộc bộ tối ưu khi đóng băng | “Mã hữu ích vẫn chưa biến bộ giải mã thành mô hình sinh.” |
-| Lấy mẫu | L06-34 | L06-35 | L06-34–35 (gộp: vùng mã là ví dụ hình học) | L06-36 | L06-37 | L06-38 | Mã do bộ mã hóa tạo → giới hạn của mã tùy ý | $z^{(n)}=f_\theta(x^{(n)})$ so với $z$ tùy ý | L06-37 chuyển vào mở rộng hoặc kết thúc bằng L06-38; kết luận đặt sau phần mở rộng. |
+| Lấy mẫu | L06-34 | L06-35 | L06-34–35 (gộp: vùng mã là ví dụ hình học) | L06-36 | L06-37 | L06-38 | Mã do bộ mã hóa tạo → giới hạn của mã tùy ý | $z^{(n)}=f_\theta(x^{(n)})$ so với $z$ tùy ý | “Mã tùy ý ngoài vùng được ràng buộc không có bảo đảm tái tạo.” |
 | Mở rộng | L06-X01 | L06-X01 | L06-X01, X03–X04 | L06-X02 | L06-X05 | L06-X01 | Chuỗi lõi → chi phí thao tác, PCA, vùng hoạt động và phi tuyến | $210/6=35=\mathrm{XXXV}$; $d,k,\Omega$; $K$ | X01 kiểm tra mở rộng; X05 ứng dụng, tổng kết giao thức và nối xuống L06-38. |
 
-Không có bước “không áp dụng”: mỗi cụm lõi thực hiện đủ sáu bước. Một số bước được gộp vì cùng một sơ đồ vừa cung cấp dữ kiện vừa tạo trực giác; việc tách riêng sẽ lặp nội dung.
+Không có bước “không áp dụng”: mỗi cụm lõi thực hiện đủ sáu bước. Một số bước được gộp vì cùng một sơ đồ vừa cung cấp dữ kiện vừa tạo trực giác; việc tách riêng sẽ lặp nội dung. Cụm Ba biến thể gộp hình thức với triển khai vì công thức khử nhiễu và bảng so sánh đồng thời khóa cơ chế áp dụng.
 
 ## Thời lượng và điều hướng
 
@@ -31,7 +31,7 @@ Không có bước “không áp dụng”: mỗi cụm lõi thực hiện đủ
 | L06-09 | 3 | Lõi | Ma trận, độ lệch, kích hoạt | Xuống |
 | L06-10 | 2 | Lõi | Kiểm tra kích thước | Phải; chờ 60 giây |
 | L06-11 | 2 | Lõi | Phân biệt SSE và MSE | Xuống |
-| L06-12 | 3 | Lõi | Ví dụ 0.18 và 0.045 | Xuống |
+| L06-12 | 3 | Lõi | Ví dụ $0{,}18$ và $0{,}045$ | Xuống |
 | L06-13 | 3 | Lõi | MSE lô theo Frobenius | Xuống |
 | L06-14 | 3 | Lõi | Bước huấn luyện và kiểm định | Xuống |
 | L06-15 | 2 | Lõi | Kiểm tra phép lấy trung bình | Phải; chờ 45 giây |

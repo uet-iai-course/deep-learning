@@ -1,5 +1,18 @@
 # Nhật ký rà soát Bài 06
 
+## Pipeline lecture note (2026-09-03)
+
+- Dossier chỉ chứa mục chi tiết DOCX Buổi 6 và các dải đã duyệt trong `source.md`; mọi PDF/DOCX được trích cục bộ thành UTF-8. Không có `.env`, bí mật, symlink hoặc tệp nhị phân trong dossier gửi OpenRouter.
+- Vai lập kế hoạch chạy riêng trước phân tích chi tiết bằng `z-ai/glm-5.3-flash`, provider OpenRouter; model yêu cầu và thực tế trùng nhau. Điều phối viên giữ đề xuất song song cho các vai đọc, nhưng không tạo lại 15 SVG đã có và không cho DeepSeek ghi song song.
+- Ba vai nguồn chạy song song trên Stanford, Illinois/CMU và hợp đồng toán/tensor. Cả ba xác nhận đúng model/provider. Giữ mạch Stanford; dùng nguồn bổ sung để khóa nghiệm đồng nhất, mã thấp chiều, thưa, khử nhiễu, PCA/đa tạp và đánh giá; không đưa câu dẫn VAE ở Stanford 70 vào nội dung.
+- Tái lập $419.120$ tham số cho $d=32$ có độ lệch: $200.960+8.224+8.448+201.488$. Khóa MSE $\|X-\hat X\|_F^2/(ND)$, ví dụ SSE $0{,}18$, MSE $0{,}045$; đóng băng gradient độc lập với chế độ mô-đun. Hai bản đồ nguồn được hợp nhất thành L06-T01–T10 trong `outline.md`.
+- DeepSeek writer chạy tuần tự 10 mảnh trong 10 staging root mới, `create-once`, trần cứng 2.500 ký tự; độ dài từ 1.270 đến 2.417 ký tự. Mọi lượt xác nhận `requested_model=observed_model=deepseek/deepseek-v4-flash-0731`, provider OpenRouter.
+- Loại toàn bộ mảnh mất mát do Unicode tiếng Việt hỏng. Bác các mệnh đề sai/quá mạnh từ các mảnh còn lại: mã không tự được chứng minh chứa cấu trúc nhận dạng; $F=0$ không kéo theo mất mát bằng 0; đóng băng không biến $d$ thành tham số đầu tác vụ; tổ hợp mã PCA không tự bảo đảm hợp lệ; khoảng cách Euclid không tự bằng khoảng cách trên đa tạp. Codex chỉ lấy dữ kiện phù hợp semantic contract và viết lại bằng `apply_patch`.
+- Năm vai phản biện lecture note chạy song song đúng `z-ai/glm-5.3-flash`/OpenRouter. Sửa lỗi `\qquad`, bổ sung tiên quyết chế độ mô-đun, ví dụ cụ thể cho $\Omega$, kiểm tra ở Cụm 2/6/7, câu nối nội dung và phần bổ sung X01–X05. Chỉ gọi tên VAE để khóa ranh giới; không triển khai cơ chế VAE.
+- Hai lượt tái kiểm toán/mạch và lượt mạch cuối đều xác nhận đúng model/provider. KaTeX, shape, tổng 419.120 tham số, SSE/MSE, mã thưa, khử nhiễu, stop-gradient và ranh giới AE/VAE đều đạt; bảy cụm đều có câu kiểm tra, phần bổ sung phủ đủ vai trò X01–X05. Không còn lỗi nghiêm trọng hoặc chặn bàn giao.
+- Kiểm bản cuối theo `no-ai-slop/eval.md`: bỏ câu hỏi tu từ, lời dẫn sân khấu, giọng quảng bá, dấu vết AI/quy trình và chỉ dẫn cho người viết/diễn giả. Rà theo nguyên tắc Quill xác nhận chuỗi $X_{img}\to X\to Z\to\hat X$, ký hiệu $d,k,\Omega$ và các câu nối tích lũy liên tục; không tạo `quill.json`.
+- Trình xem lecture note đạt ở 1280×720 và 390×844: 99 công thức KaTeX không lỗi, 15/15 SVG tải được, bảy lời giải đóng mặc định và mở bằng bàn phím, không tràn ngang, lỗi console hoặc request. Chế độ in mở lời giải và ẩn điều hướng; traversal và ghép sai số bài đều bị từ chối. Rà trực quan toàn trang xác nhận bảng, công thức và hình đọc được ở cả hai khung.
+
 ## Quyết định nội dung
 
 | Quyết định | Lý do và truy nguyên |
