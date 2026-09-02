@@ -6,7 +6,7 @@ Mạch 1 (L04-00–07, 20 phút) → mạch 2 (L04-08–15, 20 phút) → mạch
 
 | Mạch | Vai trò trong mạch | Kết nối vào | Kết nối ra |
 |---|---|---|---|
-| 1 | Mở vấn đề làm phẳng và thiết lập cục bộ, chia sẻ | Đầu bài | Hai giả định trở thành phép tính nào? |
+| 1 | Mở vấn đề làm phẳng và thiết lập cục bộ, chia sẻ | Đầu bài | Hai giả định dẫn tới phép tính trên một cửa sổ. |
 | 2 | Xây phép tương quan chéo một kênh từ ví dụ kiểm chứng được | Từ L04-07 | Khóa trục và hình học cho cả lô |
 | 3 | Mở rộng sang kích thước, nhiều kênh, tham số và MAC | Từ L04-15 | Sang phép tóm tắt không có tham số |
 | 4 | Xây phép gộp và giới hạn phát biểu về bất biến | Từ L04-28 | Đo vùng phụ thuộc của đơn vị sâu |
@@ -87,7 +87,7 @@ Tổng mở rộng: **20 phút**.
 
 | Cụm | Sáu bước và mã trang | Đầu vào → sản phẩm | Dữ kiện truyền | Bước gộp hoặc không áp dụng | Câu nối | Thời lượng và điều hướng |
 |---|---|---|---|---|---|---|
-| Cục bộ và chia sẻ | Vấn đề L04-02–03 → trực giác L04-04 → ví dụ L04-05 → hình thức L04-05 → triển khai L04-06 → kiểm tra L04-07 | Ảnh và tầng đầy đủ → phân biệt hai giả định kiến trúc | $C_{in},H_{in},W_{in},K_h,K_w,W$ | Ví dụ và hình thức chia sẻ gộp ở L04-05 vì cùng sơ đồ một $W$ dùng ở nhiều vị trí | “Hai giả định này trở thành phép tính nào trên một cửa sổ?” | 16 phút; đi ngang L04-02→07 |
+| Cục bộ và chia sẻ | Vấn đề L04-02–03 → trực giác L04-04 → ví dụ L04-05 → hình thức L04-05 → triển khai L04-06 → kiểm tra L04-07 | Ảnh và tầng đầy đủ → phân biệt hai giả định kiến trúc | $C_{in},H_{in},W_{in},K_h,K_w,W$ | Ví dụ và hình thức chia sẻ gộp ở L04-05 vì cùng sơ đồ một $W$ dùng ở nhiều vị trí | Hai giả định dẫn tới phép tính trên một cửa sổ. | 16 phút; đi ngang L04-02→07 |
 | Tương quan chéo một kênh | Vấn đề L04-08 → trực giác L04-09 → ví dụ L04-10–12 → hình thức L04-13 → triển khai L04-14 → kiểm tra L04-15 | Cửa sổ cục bộ → công thức và ma trận đầu ra kiểm chứng được | $X,K,b=0$, không đệm, $S=1$, kết quả 19→$Y$ | Tính toán gộp với ví dụ ở L04-11–12; triển khai cơ chế trượt dùng hiệu ứng xuất hiện ở L04-14 | “Khóa thêm trục và hình học để áp dụng phép tính cho cả lô.” | 20 phút; hiệu ứng hiện đáp án ở L04-14 |
 | Kích thước tensor | Vấn đề/quy ước L04-16 → trực giác L04-17–18 → hình thức L04-19 → ví dụ/tính toán L04-20 → hình thức L04-21 → kiểm tra L04-22 | NCHW/OIHW và hình học → $Y:2×4×3×4$ | $P_t=P_b=P_l=P_r=1$, $S_h=S_w=2$, $K=3$ | L04-16 gộp vấn đề với quy ước trục cần có trước trực giác; không có mã vì nguồn không có | “Một kênh ra còn phải gom thông tin qua trục kênh vào.” | 16 phút; hiệu ứng hiện đáp án ở L04-22 |
 | Nhiều kênh và chi phí | Vấn đề L04-23 → trực giác L04-23 → ví dụ L04-24 → kiểm tra ví dụ L04-25 → hình thức L04-26 → tính toán/ứng dụng chi phí L04-27–28 | Hai kênh vào → một kênh ra, rồi $C_{out}$ kênh và chi phí | $X_{0,0,:,:},X_{0,1,:,:},W_{0,0,:,:},W_{0,1,:,:},b_0=0$, 56→$Y_{0,0,:,:}$; kích thước từ L04-20 | Định nghĩa tensor đệm phải gộp ở L04-23 để công thức không dùng chỉ số ngoài miền; kiểm tra ví dụ L04-25 đứng trước khái quát $C_{out}$ ở L04-26 vì bám ngay dữ kiện vừa tính | “Sau tầng có tham số, xét phép tóm tắt cửa sổ không có tham số.” | 18 phút; hiệu ứng hiện kết quả ở L04-25 |

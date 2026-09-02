@@ -172,3 +172,13 @@ Năm vai rà soát độc lập đã chạy trên bản bảy mạch. Phát hi�
 - Lệnh `python3 -m reloadserver 8765` vẫn không dùng được vì môi trường thiếu mô-đun. Vòng này dùng máy chủ cục bộ sẵn có tại cổng 8766 và xác nhận HTTP 200.
 - Bề mặt Codex Slides không được cung cấp trong phiên làm việc. Kiểm định trực quan dùng Chromium cục bộ; đây là giới hạn công cụ, không được ghi thành đã kiểm bằng Codex Slides.
 - Rà cuối theo `no-ai-slop/eval.md` đã bỏ trạng thái nội bộ như “đã tính lại”, câu nhắc thao tác và đối lập khuôn mẫu khỏi ghi chú diễn giả. Rà mạch theo Quill giữ bảy cụm và thuật ngữ NCHW/OIHW nhất quán; không tạo `quill.json`.
+
+## Đồng bộ deck từ lecture note đã commit
+
+- Pha B chỉ bắt đầu sau khi commit lecture note `29b0d9d` xuất hiện trên `origin/main`. Baseline hẹp gồm note đã commit, deck và bốn tệp planning; không có `.env`, bí mật hoặc symlink.
+- Ba vai đọc đầu pha dùng `z-ai/glm-5.3-flash`. Các lượt được nhận đều có `requested_model = observed_model = z-ai/glm-5.3-flash`, `provider = OpenRouter`. Kết luận: mọi `note-topic-id` cốt lõi và mở rộng đã có `data-slide-id`; checklist API và tự kiểm sâu tiếp tục ở note, không đưa thêm lên slide.
+- Một báo cáo toán đọc sai NCHW của $X:8×16×32×35$, dùng 16 làm chiều cao và đề xuất $H_{out}=8$. Đề xuất bị bác: NCHW cho $N=8$, $C=16$, $H=32$, $W=35$, nên $H_{out}=16$ và đáp án hiện có đúng. Lượt kiểm toán độc lập sau đó xác nhận lại kết quả này.
+- DeepSeek writer nhận đúng một `approved-spec.md`, dùng `MCP_WRITE_POLICY=create-once` và chỉ tạo `deck-delta.md`. Runtime xác nhận `requested_model = observed_model = deepseek/deepseek-v4-flash-0731`, `provider = OpenRouter`. Writer trả nguồn dưới dạng danh sách Markdown; Codex không chèn nguyên văn vào HTML mà chuẩn hóa thành dòng nguồn cục bộ hợp lệ ở L04-31.
+- Năm vai review deck đã chạy bằng GLM. Lượt góc nhìn sinh viên đầu vượt giới hạn sáu tool-call nên bị loại toàn bộ; task thay thế chỉ đọc deck và storyboard, hoàn tất đúng model/provider. Bốn vai còn lại hoàn tất ngay lượt đầu. Không còn lỗi `chặn bàn giao` hoặc `nghiêm trọng`.
+- Sửa cục bộ đã áp dụng: nguồn L04-31 nêu riêng slide PDF 39–41 và giáo trình PDF 129–130; OIHW dùng “chiều cao nhân–chiều rộng nhân”; ghi chú L04-X05 và L04-38 bỏ nhãn tiến trình; storyboard đổi câu nối mạch 1 thành phát biểu khớp ghi chú diễn giả.
+- Các đề xuất mở rộng bằng ví dụ gộp trong truy hồi trường tiếp nhận, loss/log-sum-exp, công thức gộp có đệm hoặc trang đáp án API không áp dụng vì ngoài delta deck đã duyệt, hoặc đã có câu trả lời trong ghi chú diễn giả/tài liệu tự học. Cỡ chữ L04-38 giữ nguyên vì kiểm định trình duyệt ở cả hai khung không phát hiện tràn và cỡ hiệu dụng vẫn đạt ngưỡng đã khóa.
