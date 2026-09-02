@@ -75,7 +75,7 @@ Ranh giới L11-24→25 cố ý hoàn tất mặt nạ và nguồn Q/K/V trướ
 - Tự chú ý: VĐ/TG L03–05 → VD/HT L04–13 → KT L14.
 - Nhân quả và mặt nạ: VĐ L15 → TG/VD/HT L16–23 → KT L18,24.
 - Nhiều đầu: VĐ/TG L25 → VD/HT L26–28 → UD/KT L29.
-- Khối Transformer: VĐ/TG/HT L30 → VD/UD/KT L31 → HT/UD L32–35 → KT L40.
+- Khối Transformer: VĐ/TG/VD/HT L30 → UD/KT L31 → HT/UD L32–35 → KT L40.
 - Encoder–decoder: VĐ/TG/VD/HT L36–37 → HT/UD L38–39 → KT L40.
 - Tổng lõi: 100 phút. Phụ lục: 20 phút. Bài tập: 50 phút, gồm ba bài tính toán 40 phút và BT11-04 phòng máy 10 phút.
 

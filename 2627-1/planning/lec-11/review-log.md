@@ -6,6 +6,26 @@
 - Bài tập: đủ 50 phút, gồm 40 phút tính toán và 10 phút phòng máy có nguồn PyTorch 2.13 được duyệt.
 - Lỗi chặn về nguồn phòng máy đã được xử lý. Vòng chỉnh sửa này giữ nguyên 45 ID, 7 mạch ngoài, thời lượng 100+20 phút và bài tập 50 phút; trạng thái runtime không được tuyên bố lại trong lượt này.
 
+## Phạm vi worker OpenRouter cho ghi chú — 03-09-2026
+
+- Hồ sơ chỉ đọc đặt tại `/tmp/deep-learning-lec11-dossier.ZAYLJ6`; chỉ gồm tệp UTF-8 đã chọn của dự án. Không chép `.env`, khóa, `.git`, tệp tạm hoặc tài liệu ngoài phạm vi Buổi 11 vào hồ sơ.
+- Planner, ba tác tử phân tích nguồn và sáu lượt rà được cấp công cụ chỉ đọc. Mọi kết quả được chấp nhận đều có `requested_model = observed_model = z-ai/glm-5.3-flash`, `provider = OpenRouter`.
+- Tác tử soạn dùng `deepseek/deepseek-v4-flash-0731` qua OpenRouter. Công việc được chia thành 10 staging độc lập, mỗi staging chỉ được tạo một `fragment.md`; khóa cứng `MCP_WRITE_POLICY=create-once` và `MCP_MAX_WRITE_CHARS=2500`.
+- Phân đoạn 1 thử ghi 3.688 byte và bị từ chối toàn bộ trước khi tạo tệp vì vượt giới hạn; lần sau ghi 2.333 ký tự, 2.700 byte và được chấp nhận. Phân đoạn 4 nhận một phản hồi rỗng, được cầu nối thử lại theo cấu hình rồi ghi 2.448 ký tự. Chín phân đoạn còn lại có 1.664–2.499 ký tự. Không có ghi dở hoặc ghi đè.
+- Phạm vi DeepSeek chỉ là các mục đã khóa: mở đầu/ký hiệu; cầu nối QKV; vết tính đầu 1; mặt nạ; ba loại chú ý; nhiều đầu; vị trí; khối; ngăn xếp/đầu ra; bài tập. DeepSeek không được sửa tệp dự án, planning, deck, CSS, SVG, index hoặc chọn thêm nguồn.
+- Ba phần đầu ra bị loại khi hợp nhất: mô tả tần số sin–cos bị đảo; đáp án chuẩn hóa tầng bị hỏng; nhãn nội bộ và chỉ dẫn quy trình lọt vào bản nháp. Bản công khai do điều phối viên ghép và kiểm lại từ nguồn, không sao chép mù đầu ra worker.
+- Điều chỉnh này là quy tắc bền vững cho các buổi sau: nếu một mảnh chạm giới hạn, mở task mới với phạm vi hẹp hơn; không tăng trần, không cấp quyền cập nhật và không chuyển cả kho cho writer.
+
+## Rà ghi chú bài giảng — 03-09-2026
+
+- Tạo `materials/lec-11/lecture-note.md`, dùng đủ 12 SVG hiện có và thêm liên kết trong `index.html`.
+- Rà toán học phát hiện hàng thứ hai của vết tính nhân quả bị sai trong cả bản nháp ghi chú và deck: hai điểm hợp lệ là $(.707,.707)$ nên softmax bằng $(.5,.5)$, không phải $(.330,.670)$. Ghi chú đã sửa thành $A_{causal}[2,:]=(.5,.5,0)$ và $O_{causal}[2,:]=(.5,.5)$; deck được để lại cho pha căn chỉnh riêng để giữ mốc commit độc lập.
+- Hai báo cáo khác lặp lại $(.330,.670)$ do đọc nhầm cặp điểm thành $(0,.707)$. Quyết định dùng phép tính trực tiếp từ ma trận $S^{(1)}$ và mặt nạ $j\le i$; báo cáo đồng thuận không thay thế phép kiểm số.
+- Chuẩn hóa mặt nạ công khai thành $B\times1\times T_q\times T_k$ phát qua trục đầu; thêm lý do chọn ma trận ví dụ, định nghĩa BOS/EOS, `teacher forcing`, ổn định số của chéo entropy, vai trò dropout và câu nối $H_0\to\operatorname{MHA}(H_0)$.
+- Tách ranh giới đọc trong cụm ba loại chú ý/nhiều đầu; thêm so sánh định lượng RNN–tích chập–tự chú ý từ đúng dải giáo trình; kết luận thu hồi vấn đề đường truyền tuần tự.
+- `lec15_attention.pdf` PDF 41 bị bỏ vì chỉ là hình minh họa/liên kết ngoài, không thêm nội dung cho LLO21–22; nội dung kiến trúc cần thiết đã được giữ và vẽ lại từ các trang 42, 45 và 46.
+- Một lượt phản biện học thuật ban đầu hết hạn phản hồi 240 giây và không tạo báo cáo hợp lệ; không dùng kết quả dở. Lượt rà lại phạm vi ngắn được chạy sau chỉnh sửa.
+
 ## Quyết định học thuật và sửa lỗi nguồn
 
 | Vùng | Vấn đề nguồn | Quyết định |
@@ -129,3 +149,13 @@
 - Góc nhìn sinh viên: thêm cặp chuỗi cụ thể ở L11-38, chuyển khai triển LSE vào notes và biến `batch_first=False` thành điểm thưởng.
 - Học thuật/giảng dạy: giữ mạch chuẩn hóa sau của Transformer gốc, bổ sung nhãn lặp tầng và Bỏ ngẫu nhiên trong hai SVG thay vì thêm trang.
 - QA của vòng trước được giữ làm lịch sử; lượt chỉnh sửa hiện tại không tuyên bố trạng thái Codex Browser hoặc KaTeX runtime.
+
+## Kiểm định cuối ghi chú — 03-09-2026
+
+- Lượt phản biện học thuật thứ hai tiếp tục hết hạn ở 120 giây và không tạo báo cáo hợp lệ. Lượt thứ ba dùng cùng model, chỉ đọc duy nhất `lecture-note.md`, tối đa bốn vòng và thời hạn 300 giây; kết quả hợp lệ xác nhận `requested_model = observed_model = z-ai/glm-5.3-flash`, `provider = OpenRouter`, không còn lỗi chặn bàn giao hoặc nghiêm trọng.
+- Lượt rà toán học sau sửa xác nhận hàng thứ hai của ghi chú là $(.5,.5,0)$ và mọi công thức, kích thước, tham số, mã hóa vị trí, hàm mất mát và bài lab còn lại đều đúng. Báo cáo giữ lỗi cùng vị trí trong deck để xử lý ở pha căn chỉnh.
+- Bộ kiểm tĩnh đọc đúng một H1, 28 chỉ thị mở/đóng, dựng 175 biểu thức bằng KaTeX với `throwOnError: true`, `strict: "error"`; dùng đủ 12 SVG và không có lỗi.
+- Chromium duyệt trình xem tại 1280×720 và 390×844: 175 biểu thức, 12 ảnh, 7 khối lời giải, không ảnh hỏng, lỗi runtime hoặc cuộn ngang ngoài ý muốn; bàn phím, liên kết bỏ qua điều hướng, bản in, chặn đường dẫn vượt thư mục và chặn ghép sai buổi đều đạt.
+- Rà trực tiếp theo `no-ai-slop/eval.md`: giữ giọng học thuật ngắn, bỏ nhãn nội bộ và bốn dấu gạch ngang trang trí trong tên bài tập; không có từ cấm, mở bài vòng vo, kết luận giả sâu, lời quảng bá, chỉ dẫn người viết hay dấu vết worker. Không thêm mệnh đề ngoài nguồn.
+- Rà mạch theo nguyên tắc Quill: ký hiệu $X,Q,K,V,S,A,O,H_0,H^{enc},H^{dec},Z$ tích lũy theo đúng thứ tự; mỗi cụm nối đầu ra sang cụm kế; kết luận thu hồi vấn đề xử lý tuần tự và nối rõ sang Buổi 12. Không tạo `quill.json`.
+- Codex Slides trong Browser không có trong môi trường hiện tại; kiểm định trực quan dùng Chromium cục bộ trên đúng URL được máy chủ phục vụ và ghi rõ giới hạn này thay vì tuyên bố đã dùng Codex Slides.

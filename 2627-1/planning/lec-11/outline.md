@@ -21,6 +21,7 @@
 4. Đầu 2, ghép đầu, chiếu ra và số tham số.
 5. Mã hóa vị trí, FFN, đường dư, dropout, LN và khối chuẩn hóa sau.
 6. Truy hồi từng tầng của bộ mã hóa/bộ giải mã, đầu ra sau $L_{enc}/L_{dec}$ tầng, dịch chuỗi đích, điểm từ vựng, sai số và huấn luyện–suy luận.
+7. Bốn phép kiểm mở rộng về đối xứng hoán vị, chi phí theo $T^2$, số tham số và cấu trúc vị trí tương đối; toàn bộ mạch có thể cắt.
 
 ## Ánh xạ nguồn
 
