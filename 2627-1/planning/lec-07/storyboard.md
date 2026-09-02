@@ -9,7 +9,7 @@
 | Dạng ánh xạ | L07-14 | L07-14 | L07-15–16 | L07-15–16 | L07-14–16 | L07-17 | Đồ thị vào/ra → vị trí đặt mất mát và kiểu đích | $O_T$ hoặc $O_{1:T}$; chỉ số lớp so với đích liên tục; softmax theo $D_y$ | “Dùng bộ số đã mở để tính toàn bộ lan truyền xuôi.” |
 | Lan truyền xuôi | L07-07–08 | L07-07–08 | L07-07–08 | L07-18 | L07-19–20 | L07-21 | Ví dụ đã mở → thuật toán → triển khai bằng số → kiểm tra đường ảnh hưởng | $0.4621,0.3537,-0.2137,-0.2564,0.2154$ | “Đường ảnh hưởng xuôi trở thành đường gradient ngược.” |
 | BPTT | L07-22 | L07-22 | L07-23–24, L07-27–28 | L07-25–26, L07-28 | L07-25–28 | L07-29 | Đồ thị vô hướng → vòng $T\to1$ → gradient trạng thái và tham số | $\bar o_3\to\delta_3\to\delta_2\to\delta_1$; $\delta_t=G_t$; ba gradient tham số | “Chuỗi dài biến các đường này thành tích Jacobian.” |
-| Ổn định gradient | L07-30 | L07-30 | L07-31–32 | L07-30–32 | L07-33 | L07-34 | BPTT ba bước → hành vi khi số bước tăng | $J_t$, $0.3362$, $0.8^{20}$ | “Giới hạn độ dài lan truyền ngược đổi chi phí và tín dụng.” |
+| Ổn định gradient | L07-30 | L07-30 | L07-31–32 | L07-30–32 | L07-33 | L07-34 | BPTT ba bước → hành vi khi số bước tăng | $J_t$, $0.3362$, $0.8^{20}$ | “Ngoài đường gradient dài, chuỗi dài còn làm tăng chi phí tính toán và bộ nhớ.” |
 | BPTT cắt ngắn | L07-35 | L07-36 | L07-36 | L07-37 | L07-35–37 | L07-38 | Chuỗi dài → hai chính sách BPTT | $T,K$, trạng thái xuôi, ranh giới gradient | “Khó khăn đường trạng thái dẫn sang kiến trúc có cổng.” |
 | Cầu nối | L07-39 | L07-39 | không áp dụng: chỉ đặt câu hỏi thiết kế cho bài sau | không áp dụng: không dạy công thức cổng | L07-39 | không áp dụng: kiểm tra đã hoàn tất ở L07-38 | Giới hạn RNN cơ bản → câu hỏi cho Bài 08 | tích Jacobian dài | Kết thúc toàn deck; slide cuối. |
 | Ứng dụng và đối chiếu lõi (rút gọn) | L07-X01 | L07-X02 | L07-X01–X02 | L07-X01 | L07-X01–X02 | không áp dụng: chỉ nối hai ứng dụng với cơ chế lõi, không thêm thuật toán | RNN cơ bản → từng nhân tử $p_\theta(x_t\mid x_{<t})$; dạng căn chỉnh → không căn chỉnh | Xác suất chuỗi, softmax đầu ra và quan hệ vị trí giám sát | “Từ ứng dụng chuyển sang hai lựa chọn thiết kế kiến trúc.” |
@@ -63,7 +63,7 @@ Cụm lan truyền xuôi tái dùng bộ số của cụm ô RNN: $x=(1,0,-1)$, 
 | L07-37 | 3 | Lõi | So sánh $T$ và $K$ | Xuống |
 | L07-38 | 2 | Lõi | Kiểm tra trạng thái/gradient | End tới L07-39 (lõi) hoặc Phải vào L07-X01 (đầy đủ); chờ 60 giây |
 | L07-X01 | 5 | Mở rộng | Phân rã xác suất chuỗi | Xuống |
-| L07-X02 | 5 | Mở rộng | Căn chỉnh và không căn chỉnh | Xuống |
+| L07-X02 | 5 | Mở rộng | Trục đầu ra trùng hoặc khác trục đầu vào | Xuống |
 | L07-X03 | 5 | Mở rộng | RNN nhiều tầng và kích thước từng tầng | Xuống |
 | L07-X04 | 5 | Mở rộng | Kiểm tra hai chiều, trục tầng và nhân quả | Xuống tới L07-39 |
 | L07-39 | 2 | Lõi | Cầu nối kiến trúc có cổng; slide cuối toàn deck | Kết thúc deck |
