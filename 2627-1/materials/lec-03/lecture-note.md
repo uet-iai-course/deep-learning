@@ -223,7 +223,7 @@ $$
 h^{tr}=\frac{m\odot h}{1-p},\qquad m_j\sim\operatorname{Bernoulli}(1-p),\qquad h^{eval}=h.
 $$
 
-Ta có $\mathbb E[m]=1-p$ nên $\mathbb E[h^{tr}]=h$; mặt nạ cùng kích thước với kích hoạt; mỗi bước huấn luyện dùng một mặt nạ mới; khi suy luận dùng ánh xạ đồng nhất. Ví dụ $h=(2,-1,4)$, $p=0.5$, $m=(1,0,1)$ cho $h^{tr}=(2/0.5,\,0,\,4/0.5)=(4,0,8)$.
+Ta có $\mathbb E[m_j]=1-p$ với mọi $j$ nên $\mathbb E[h^{tr}]=h$; mặt nạ cùng kích thước với kích hoạt; mỗi bước huấn luyện dùng một mặt nạ mới; khi suy luận dùng ánh xạ đồng nhất. Ví dụ $h=(2,-1,4)$, $p=0.5$, $m=(1,0,1)$ cho $h^{tr}=(2/0.5,\,0,\,4/0.5)=(4,0,8)$.
 
 ![Dropout bỏ ngẫu nhiên đơn vị khi huấn luyện và dùng đủ đơn vị khi suy luận.](img/lec-03/dropout-network.svg)
 

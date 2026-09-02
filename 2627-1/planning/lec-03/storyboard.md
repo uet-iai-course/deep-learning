@@ -24,7 +24,7 @@ Ví dụ xuyên suốt truyền các đại lượng sau: $w_t,g_t,\eta_t$ từ 
 | L03-11 | 3 | Hình thức | Chuỗi Jacobian → gradient triệt tiêu/bùng nổ | GT:96–100 |
 | L03-12 | 3 | Ví dụ | Đường vào và đường ra cùng đối xứng → kích hoạt và tín hiệu ngược bằng nhau | lec10:23; GT:100 |
 | L03-13 | 3 | Triển khai | $n_{in},n_{out}$ và kích hoạt → Xavier/Kaiming | lec10:24; GT:98–100 |
-| L03-14 | 1 | Kiểm tra | Tầng $256\to128$ → tính phương sai khởi tạo | lec10:24 |
+| L03-14 | 1 | Kiểm tra | Tầng ReLU $512\to512$ → chọn Kaiming và tính phương sai $1/256$ | lec10:24 |
 | L03-15 | 2 | Vấn đề | Độ cong khác nhau → SGD dao động ở hướng dốc | lec10:11–12 |
 | L03-16 | 2 | Ví dụ | Gradient tức thời → đường đi răng cưa | lec10:12 |
 | L03-17 | 3 | Hình thức | $g_t,u_{t-1}$ → vận tốc Mômen | lec10:13 |
@@ -33,8 +33,8 @@ Ví dụ xuyên suốt truyền các đại lượng sau: $w_t,g_t,\eta_t$ từ 
 | L03-20 | 2 | Tính toán | $s_0=0,w_0,g_1$ → $s_1$ và bước RMSprop đầy đủ | lec10:14; tính lại |
 | L03-21 | 3 | Hình thức | Mômen bậc một và hai → cập nhật Adam | lec10:15 |
 | L03-22 | 2 | Tính toán | $t=1,m_0=v_0=0$ → $m_1,v_1,\hat m_1,\hat v_1,w_1$ | lec10:15; tính lại |
-| L03-23 | 1 | So sánh + kiểm tra | Trạng thái $0/P/P/2P$, cơ chế và điểm cần thử → không xếp hạng phổ quát | lec10:11–17 |
-| L03-24 | 2 | Vấn đề | Mất mát huấn luyện giảm, xác thực tăng → quá khớp | lec10:35–36 |
+| L03-23 | 1 | So sánh + kiểm tra | Trạng thái $0/P/P/2P$ và bộ đếm $t$ của Adam, cơ chế và điểm cần thử → không xếp hạng phổ quát | lec10:11–17 |
+| L03-24 | 2 | Vấn đề | Mất mát huấn luyện giảm, xác thực tăng → quá khớp | lec10:7,35–36 |
 | L03-25 | 1 | Trực giác + hình thức | Trọng số lớn trả thêm chi phí → $\mathcal W$ chịu L2; dropout là nhiễu | lec10:35–41; GT:64–66,103–105 |
 | L03-26 | 2 | Tính toán | L2 + SGD → hệ số co khi $0\le\eta\lambda\le1$ và bước theo gradient dữ liệu | lec10:37; GT:64–66 |
 | L03-27 | 1 | Ví dụ | $w,g,\eta,\lambda$ → cập nhật số | lec10:37; tính lại |
@@ -83,7 +83,7 @@ Tổng tuyến mở rộng: **20 phút** (X01–X04 mỗi trang 5 phút). Điề
 | SGD và tốc độ học | 06 | 06–07 | 06,08 | 08 | Gộp trực giác hướng nhiễu vào 06; câu hỏi 08 nối lịch với cấu hình rồi sang bất ổn ở 09 |
 | Ổn định và khởi tạo | 09 | 10,12 | 10–11,13 | 13 | 10,14; L03-10 gộp ví dụ logit với công thức và câu kiểm tra để tránh hình thức đứng trước ví dụ |
 | Bộ tối ưu | 15 | 16,18 | 17–22 | 23 | 20,23; 14→15 nối khởi tạo với đường đi cập nhật, 23→24 nối tối ưu với tổng quát hóa |
-| Điều chuẩn | 24 | 25,27,29–31; L03-29–30 đặt ví dụ trước công thức ngay trên mặt trang | 25–30,32–33 | 28,34 | 27,29–30,34 |
+| Điều chuẩn | 24 | 25,27,29–31; L03-29–30 đặt ví dụ trước công thức ngay trên mặt trang | 25–30,32–33 | 28 | 27,29–30,34 |
 | Chuẩn hóa theo lô | 35 | 35,37 | 36–39 | 37–39 | 40 dùng lại tensor L03-37; 34→35 nối nhiễu dropout với thống kê kích hoạt |
 | Siêu tham số | 41 | 41 | 41 | 41–42, X03 | 42; L03-41 gộp vấn đề + trực giác + hình thức + triển khai, 40→41 nối vòng huấn luyện đúng với vòng ngoài chọn cấu hình |
 | Kết luận (X05) | — | — | — | — | X05 chốt ba bước chẩn đoán → chọn cơ chế → so sánh bằng xác thực và khóa tập kiểm tra; nối từ 42 hoặc từ X04 |

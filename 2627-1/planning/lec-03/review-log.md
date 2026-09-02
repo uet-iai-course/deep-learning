@@ -250,5 +250,40 @@ Không còn lỗi `chặn bàn giao` hoặc `nghiêm trọng`. Các cảnh báo 
 - `$no-ai-slop`: đã đọc toàn văn và loại trạng thái kiểm chứng, chỉ dẫn người viết, siêu bình luận, cụm kết luận máy móc và thuật ngữ Anh–Việt không cần thiết. Không có mục tự kể “đã thay đổi gì” trong sản phẩm công khai.
 - `$quill`: đã rà tuyến chẩn đoán → bước cập nhật/ổn định → khởi tạo → bộ tối ưu → điều chuẩn → chuẩn hóa → chọn siêu tham số → mở rộng → kết luận; ký hiệu và dữ kiện được truyền nhất quán. Không tạo `quill.json`.
 - Hậu kiểm mạch cuối sau khi chuyển Kết luận xuống sau phần triển khai và tự kiểm: GLM đọc đủ ba tệp, metadata đúng, xác nhận kết nối vào từ mục 7 hoặc 8 và kết nối ra Buổi 04; kết quả PASS.
-- Kiểm định tĩnh hiện hành: một H1; 42 chỉ thị mở/đóng hợp lệ; 183 biểu thức KaTeX dựng với `throwOnError: true`, `strict: "error"`; 12 SVG được tham chiếu và đều có `role="img"`, `title`, `desc`; không có nhãn OpenRouter/DeepSeek/GLM/checkpoint/mã trang/chỉ dẫn người soạn trong tài liệu công khai.
+- Kiểm định tĩnh hiện hành: một H1; 42 chỉ thị mở/đóng hợp lệ; 184 biểu thức KaTeX dựng với `throwOnError: true`, `strict: "error"`; 12 SVG được tham chiếu và đều có `role="img"`, `title`, `desc`; không có nhãn OpenRouter/DeepSeek/GLM/checkpoint/mã trang/chỉ dẫn người soạn trong tài liệu công khai.
 - Liên kết index chỉ được cập nhật sau khi các kiểm tra trên đạt. `python3 -m reloadserver 8765` chưa dùng được vì môi trường thiếu mô-đun; dùng máy chủ HTTP cục bộ làm phương án kiểm tra đường dẫn. Phiên hiện tại không có Browser/Codex Slides để xác nhận trực quan viewer ở hai khung màn hình; giới hạn này phải được giữ trong báo cáo bàn giao.
+
+## Pha B — đồng bộ deck theo ghi chú
+
+### Fan-out đọc delta và checkpoint B1
+
+- Ba vai chỉ đọc chạy song song với model `z-ai/glm-5.3-flash`, provider OpenRouter: độ phủ nguồn/ghi chú; toán–kích thước–triển khai; storyboard/mạch. Cả ba đọc cùng baseline đã commit.
+- Delta được duyệt: L03-01 thống nhất ba nhóm chẩn đoán; L03-14 dùng cùng ví dụ ReLU $512\to512$ và phương sai Kaiming $1/256$; L03-23 thêm bộ đếm bước $t$ của Adam; L03-35 thêm giới hạn “dịch chuyển hiệp biến nội bộ” chỉ là trực giác lịch sử.
+- Cảnh báo thiếu SVG và sai điều hướng bị bác bằng kho thật: đủ 13 SVG; X01–X04 là bốn slide con trong cùng một section ngoài nên tuyến `phải → xuống qua X02–X04 → phải` là đúng RevealJS.
+
+### DeepSeek writer trong phạm vi hẹp
+
+- Hai task tuần tự, mỗi task chỉ đọc một `approved-delta.md`, chỉ ghi một `output/replacements.md` đúng một lần và trả hai khối `<section>` có điểm neo. Model yêu cầu/quan sát đều là `deepseek/deepseek-v4-flash-0731`, provider OpenRouter.
+- Không task nào mở toàn deck, tạo tệp phụ, tự kiểm bằng cách viết lại hoặc vượt ba thay thế. Điều phối viên đọc từng khối, biên tập câu nói theo `$no-ai-slop`, rồi áp dụng cục bộ bằng `apply_patch`.
+
+### Năm vai rà độc lập và hậu kiểm
+
+| Vai | Kết quả | Quyết định |
+|---|---|---|
+| Sinh viên | Các ví dụ, tải nhận thức, SVG và điều hướng đạt; báo thiếu RevealJS/KaTeX do staging chỉ chứa dossier | Bác bằng kiểm định đường dẫn trên kho thật và render HTTP/Chromium |
+| Chuyên gia Học sâu | PASS; nêu “dừng sớm” và AdamW chưa nằm trong hợp đồng nguồn | Đã bỏ hai cụm; không thêm gradient clipping vì nguồn duyệt không có |
+| Toán học, thuật toán và triển khai | PASS; mọi ví dụ tính lại đúng | Đã làm rõ thứ tự cập nhật $s_t$ của RMSprop và đổi $\mathbb E[m]$ thành $\mathbb E[m_j]$ |
+| Phản biện học thuật và giảng dạy | Lượt rộng timeout 240 giây trước khi trả báo cáo | Ghi nhận task lỗi; chạy lại cùng model với bảy khối bị ảnh hưởng và câu chuyển lân cận; lượt hẹp PASS |
+| Kết nối và mạch viết | PASS; xác nhận đúng 7 section ngoài và timing 100+20 | Bổ sung nguồn L03-24 vào storyboard, bỏ L03-34 khỏi cột triển khai, sửa alt text “Momentum” thành “Mômen” |
+
+Không còn lỗi `chặn bàn giao` hoặc `nghiêm trọng`. Mọi thay đổi toán ở L03-14, L03-19, L03-23 và dropout đã được vai toán tính lại; các sửa không đổi số trang, thứ tự hoặc ranh giới section.
+
+### Biên tập cuối và Reveal QA
+
+- `$no-ai-slop`: đã rà toàn bộ mặt trang và 48 khối ghi chú; bỏ nhãn “Chuyển ý”, chỉ dẫn “trang kế/mạch sau”, trạng thái “đã tính lại/nhãn đã sửa”, và các khái niệm ngoài hợp đồng. Ghi chú chỉ còn mạch nói, giả thiết, lỗi dễ mắc, đáp án kỹ thuật và nguồn.
+- `$quill`: mạch 7 section không đổi; L03-14 nối khởi tạo sang bộ tối ưu, L03-23 nối tối ưu sang tổng quát hóa, L03-34 nối dropout sang chuẩn hóa và L03-42/X04 nối vào kết luận. Không tạo `quill.json`.
+- Kiểm định tĩnh: 7 section ngoài; 48 `data-slide-id` duy nhất; 48 khối notes; 154 biểu thức KaTeX dựng với `throwOnError: true`, `strict: "error"`; 13 tham chiếu SVG, mọi tệp đều có `role="img"`, `title`, `desc`; không có raster, tài nguyên cục bộ thiếu hoặc phụ thuộc mạng cốt lõi.
+- Đã xuất và rà thủ công toàn bộ tiêu đề `h1`, `h2`, `h3`; các từ tiếng Anh còn lại chỉ là tên/viết tắt kỹ thuật được phép như SGD, MLP, ReLU, Xavier/Glorot, Kaiming, RMSprop, Adam, dropout, BN, LN và log-sum-exp.
+- `python3 -m reloadserver 8765` thất bại vì thiếu mô-đun. Máy chủ HTTP dự phòng ở cổng 8766 trả 200 cho index, viewer, ghi chú và deck.
+- Chromium headless duyệt đủ 48 trang ở 1280×720 và 800×600: không lỗi console/request, không tràn hoặc chồng lấn; bàn phím lên/xuống/phải hoạt động. Đã xem trực tiếp bốn trang đổi L03-01, L03-14, L03-23, L03-35 và trang L03-23 ở khung hẹp.
+- Phiên hiện tại không có bề mặt Codex Slides/Browser của plugin, nên không tuyên bố đã kiểm bằng Codex Slides; kiểm định RevealJS cục bộ và Chromium đã hoàn tất.
