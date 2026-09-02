@@ -49,7 +49,7 @@ Tình huống: mất mát huấn luyện thấp, mất mát xác thực cao, t�
 - L03-29: với $w=(2,-.5,0)$ và $\lambda=.1$, đóng góp đạo hàm dưới của hạng phạt là $(.1,-.1,.1s)$, $s\in[-1,1]$; tại tọa độ 0, khoảng đáp án là $[-.1,.1]$.
 - L03-30: giả thiết bắt buộc là xấp xỉ bậc hai cục bộ quanh $w^*$, Hessian chéo và $H_{ii}>0$. $H_{ii}=\partial^2L_{data}/\partial w_i^2$ là độ cong theo tọa độ; Hessian chéo làm xấp xỉ tách theo từng tọa độ. Tọa độ về 0 khi $|w_i^*|\le\lambda/H_{ii}$. Với $\lambda=.2,H_{ii}=.5$, ngưỡng $.4$ cho $.3\mapsto0$ và $-.9\mapsto-.5$.
 - Nguồn dùng $\alpha$; deck dùng $\lambda$ để thống nhất với cụm L2. Không đổi ý nghĩa hệ số khi chuyển ký hiệu.
-- Nguồn phân tích hồi quy tuyến tính không bias; deck thay tên mục tiêu dữ liệu bằng $L_{data}$ để minh họa cục bộ. Không trình bày công thức ngưỡng mềm như nghiệm tổng quát của mạng sâu. Không mở API, code, Bayes/Laplace hoặc thuật toán proximal.
+- Nguồn phân tích hồi quy tuyến tính không bias; deck và ghi chú dùng $L_{data}$ cho mục tiêu dữ liệu trong minh họa cục bộ. Không trình bày công thức ngưỡng mềm như nghiệm tổng quát của mạng sâu. Không mở API, code, Bayes/Laplace hoặc thuật toán proximal.
 
 ## Đáp án và chỉ dẫn nội bộ cho L03-X05
 
@@ -61,3 +61,10 @@ Tình huống: mất mát huấn luyện thấp, mất mát xác thực cao, t�
 - Mọi thay đổi công thức Mômen, RMSprop, Adam, L2, L1, dropout hoặc BN phải được tác tử độ chính xác rà lại.
 - Nếu thay số slide hoặc thứ tự, rà lại trang bị ảnh hưởng và hai trang lân cận mỗi phía.
 - Không đưa nội dung của tệp này lên mặt slide hoặc ghi chú diễn giả.
+
+## Quyết định nội bộ cho lecture note
+
+- Ghi chú công khai bao phủ cả tuyến lõi và bốn chủ đề mở rộng, nhưng không hiển thị nhãn lõi/mở rộng, thời lượng, mã chủ đề hoặc thao tác điều hướng.
+- DOCX đề cương được giữ làm bằng chứng phạm vi trong planning; không liệt kê đường dẫn nội bộ DOCX trong tài liệu công khai.
+- Lượt biên tập cuối đã chuyển các cụm “Đã kiểm”, “bắt buộc nêu” và “nguồn không khóa” khỏi văn bản công khai. Trạng thái kiểm chứng chỉ được giữ trong `review-log.md`.
+- Nếu cần rút bản đọc, giữ nguyên các mục 1–7 và phần Kết luận; mục 8 tương ứng tuyến mở rộng 20 phút. Không xóa phần Kết luận.

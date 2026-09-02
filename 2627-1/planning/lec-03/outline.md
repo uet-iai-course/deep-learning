@@ -75,3 +75,25 @@ Tuyến lõi gồm mạch 1–5 (98 phút) và mạch 7 (2 phút). Tuyến đầ
 - Diễn giải $(1-\eta\lambda)w$ là co trọng số chỉ khi $0\le\eta\lambda\le1$; bước SGD đầy đủ còn có $-\eta g_{data}$.
 - Không mở API, code, diễn giải Bayes/Laplace hoặc thuật toán proximal trong cụm L1.
 - Các chỉ dẫn cắt, đáp án chi tiết và trạng thái kiểm chứng chỉ nằm trong `note-for-author.md`.
+
+## Bản đồ chủ đề của ghi chú bài giảng
+
+Mã dưới đây chỉ dùng để truy nguyên giữa ghi chú và deck, không hiển thị trong tài liệu công khai.
+
+| Mã chủ đề | Nội dung trong ghi chú | Trang chiếu tương ứng | Vai trò |
+|---|---|---|---|
+| note-l03-t01 | Mục tiêu, tiên quyết, ký hiệu và quy ước | L03-00–01 | Khóa đầu vào và ký hiệu |
+| note-l03-t02 | Chẩn đoán đường cong học | L03-02–05 | Tạo giả thuyết kiểm chứng được |
+| note-l03-t03 | SGD và lịch tốc độ học | L03-06–08 | Nối tín hiệu chẩn đoán với bước cập nhật |
+| note-l03-t04 | Ổn định số và log-sum-exp | L03-09–10 | Tách lỗi số học khỏi lỗi tối ưu |
+| note-l03-t05 | Chuỗi Jacobian | L03-11 | Giải thích điều kiện triệt tiêu hoặc bùng nổ gradient |
+| note-l03-t06 | Khởi tạo đối xứng, Xavier và Kaiming | L03-12–14 | Kiểm soát thang tín hiệu ban đầu |
+| note-l03-t07 | Cảnh quan tối ưu, SGD và Mômen | L03-15–18 | Đưa trạng thái vào đường đi cập nhật |
+| note-l03-t08 | RMSprop | L03-19–20 | Điều chỉnh bước theo từng tọa độ |
+| note-l03-t09 | Adam và so sánh trạng thái | L03-21–23 | Hợp nhất mômen, bình phương gradient và giao thức so sánh |
+| note-l03-t10 | Tổng quát hóa và L2 | L03-24–28 | Chuyển từ tối ưu sang điều chuẩn |
+| note-l03-t11 | L1 và ngưỡng mềm có điều kiện | L03-29–30 | Làm rõ đạo hàm dưới và giới hạn xấp xỉ |
+| note-l03-t12 | Dropout đảo tỷ lệ | L03-31–34 | Phân biệt nhiễu huấn luyện với suy luận |
+| note-l03-t13 | Chuẩn hóa theo lô | L03-35–40 | Khóa trục, kích thước và chế độ mô hình |
+| note-l03-t14 | Chọn siêu tham số | L03-41–42 | Hai vòng chọn cấu hình và khóa tập kiểm tra |
+| note-l03-t15 | Mở rộng triển khai và kết luận | L03-X01–X05 | Bổ sung điều kiện tái lập và thu hồi ba bước chính |

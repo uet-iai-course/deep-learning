@@ -2,7 +2,7 @@
 
 ## Bản đồ hành trình
 
-Đường cong học → chẩn đoán → SGD/tốc độ học → ổn định số và gradient → khởi tạo → bộ tối ưu → tổng quát hóa → L2/L1/dropout → chuẩn hóa theo lô → chọn siêu tham số.
+Đường cong học → chẩn đoán → SGD/tốc độ học → ổn định số và gradient → khởi tạo → bộ tối ưu → tổng quát hóa → L2/L1/dropout → chuẩn hóa theo lô → chọn siêu tham số → kết luận và khóa tập kiểm tra.
 
 Ví dụ xuyên suốt truyền các đại lượng sau: $w_t,g_t,\eta_t$ từ SGD sang Mômen/RMSprop/Adam; $X\in\mathbb R^{B\times D}$ từ kích hoạt sang chuẩn hóa theo lô; mất mát huấn luyện và xác thực từ chẩn đoán sang chọn siêu tham số. Chu trình học tập của mỗi cụm được ghi trong bảng dưới.
 
@@ -40,10 +40,10 @@ Ví dụ xuyên suốt truyền các đại lượng sau: $w_t,g_t,\eta_t$ từ 
 | L03-27 | 1 | Ví dụ | $w,g,\eta,\lambda$ → cập nhật số | lec10:37; tính lại |
 | L03-28 | 1 | Triển khai | SGD-L2 và suy giảm trọng số tách rời → không đồng nhất với mọi bộ tối ưu | lec10:37 |
 | L03-29 | 3 | Ví dụ + trực giác → hình thức + kiểm tra | $w=(2,-.5,0)$ và lực theo dấu → mục tiêu L1, đạo hàm dưới; tại 0 nhận một khoảng | Goodfellow et al. §7.1.2: (7.18)–(7.20) |
-| L03-30 | 3 | Ví dụ + vấn đề → hình thức + kiểm tra | Hai tọa độ và ngưỡng $.4$ → độ cong $H_{ii}$, xấp xỉ tách và điều kiện về 0 | Goodfellow et al. §7.1.2: (7.21)–(7.23); tính lại |
+| L03-30 | 3 | Ví dụ + vấn đề → hình thức + kiểm tra | Hai tọa độ và ngưỡng $0.4$ → độ cong $H_{ii}$, xấp xỉ tách và điều kiện về 0 | Goodfellow et al. §7.1.2: (7.21)–(7.23); tính lại |
 | L03-31 | 1 | Trực giác | Phụ thuộc đồng thích nghi → che ngẫu nhiên đơn vị | lec10:39–40; GT:103–105 |
 | L03-32 | 3 | Hình thức | $0\le p<1$; kỳ vọng ở huấn luyện và ánh xạ đồng nhất khi suy luận | GT:103–105 |
-| L03-33 | 2 | Tính toán | $h=(2,-1,4)$, $p=.5$ → $(4,0,8)$ | GT:103–105; tính lại |
+| L03-33 | 2 | Tính toán | $h=(2,-1,4)$, $p=0.5$ → $(4,0,8)$ | GT:103–105; tính lại |
 | L03-34 | 1 | Kiểm tra | Chế độ mô hình → xác định hành vi dropout | lec10:39–41; GT:105 |
 | L03-35 | 2 | Vấn đề | Kích hoạt trôi thang → chuẩn hóa trong từng lô | lec10:25–26; GT:153–154 |
 | L03-36 | 3 | Hình thức | $X:B\times D$ → $\mu,\sigma^2,\hat X,Y$ đúng kích thước | GT:153–155 |
@@ -98,3 +98,11 @@ Các bước được gộp đều có lý do: L03-06 đặt tình huống trư�
 4. Chọn điều chuẩn cho một tình huống: 10 phút.
 
 Đề bài, đáp án và cách tổ chức nằm trong `note-for-author.md`, không xuất hiện trong timing 120 phút của deck.
+
+## Hợp đồng ngữ nghĩa ghi chú ↔ deck
+
+- Ghi chú là bản tự học đầy đủ; deck là tuyến trình chiếu 100 phút lõi cộng 20 phút mở rộng. Hai sản phẩm dùng cùng ký hiệu, ví dụ số, kết luận và nguồn.
+- Mỗi chủ đề `note-l03-t01`–`note-l03-t15` trong `outline.md` ánh xạ tới một dải `data-slide-id`; không buộc mỗi đề mục ghi chú tương ứng một trang.
+- Các phép tính Mômen, RMSprop, Adam, L2, L1, dropout và chuẩn hóa theo lô phải giữ nguyên dữ kiện và kết quả giữa hai sản phẩm.
+- Ghi chú có thể diễn giải dài hơn, nhưng không được thêm kết luận, nguồn hoặc chủ đề vượt phạm vi deck đã khóa. Nội dung mở rộng của ghi chú tương ứng đúng L03-X01–X04.
+- Mọi hướng dẫn cắt tuyến, điều hướng, đáp án chi tiết và quyết định kiểm chứng chỉ ở `note-for-author.md`; chúng không xuất hiện trong ghi chú công khai hoặc ghi chú diễn giả.

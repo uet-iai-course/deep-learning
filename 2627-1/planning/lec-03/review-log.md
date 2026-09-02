@@ -213,3 +213,42 @@ Bảng dưới là báo cáo của năm vai rà soát độc lập chạy trên 
 - Storyboard giữ mã ổn định L03-X05 nhưng đặt trang này trong mục kết luận lõi riêng; bảng mở rộng chỉ còn X01–X04, tránh cộng nhầm thành 22 phút.
 - Kết quả kiểm định cuối: **ĐẠT**.
 - Các báo cáo "Bốn báo cáo rà soát độc lập" và "Hậu kiểm vòng hai" phía trên là báo cáo lịch sử của các vòng rà trước, không phải kết quả trên bản hiện hành.
+
+## Pha A — ghi chú bài giảng, đợt hiện hành
+
+### Dossier và tác tử đọc nguồn
+
+- Dossier chỉ đọc được tạo từ đúng các dải trong `source.md`: `lec10_training.pdf` 3–9, 11–17, 19–33, 35–41; `lec05_multilayer.pdf` 37–47; `lec02_linear_part1.pdf` 55–68; `lec03_linear_part2.pdf` 2–15; `lec04_multiclass.pdf` 19; giáo trình 58–66, 96–105, 153–158; DOCX III.2 → Buổi 3; Goodfellow §7.1.2 đã duyệt.
+- Ba tác tử đọc nguồn GLM chạy song song trên các dossier tách biệt. Cả ba đều báo đúng model `z-ai/glm-5.3-flash`, provider OpenRouter và không mở tệp ngoài allowlist.
+- Tác tử lập bản đồ chủ đề đề xuất 15 chủ đề. Điều phối viên hợp nhất thành `note-l03-t01`–`note-l03-t15` trong `outline.md`; mã chỉ dùng nội bộ.
+
+### Giới hạn DeepSeek và checkpoint
+
+| Công đoạn | Phạm vi cấp cho writer | Kết quả | Quyết định |
+|---|---|---|---|
+| Soạn bản nháp | Chỉ `approved-spec.md`, mẫu ghi chú và một đầu ra `lecture-note.md` | Đúng model `deepseek/deepseek-v4-flash-0731`, provider OpenRouter; nội dung tốt nhưng writer ghi lại toàn tệp ba lần | Giữ bản hợp lệ cuối; từ các buổi sau chỉ cho phép đúng một thao tác ghi toàn tệp rồi dừng |
+| Tự kiểm | Chỉ bản nháp và checklist trong staging mới | Đúng metadata nhưng bản sửa làm hỏng Unicode, KaTeX và đổi đuôi đường dẫn `.svg` | Loại toàn bộ đầu ra; quay về checkpoint bản nháp tốt, không vá trên bản hỏng |
+
+Quy tắc bền vững đã ghi vào `prompt_lecture_note_deck.md`: lượt soạn chỉ ghi toàn tệp đúng một lần; lượt tự kiểm mặc định chỉ tạo báo cáo; task sửa chỉ được trả tối đa ba thay thế ngắn có điểm neo; mọi đầu ra hỏng công thức, Unicode, đường dẫn hoặc sai danh sách tệp phải bị loại và quay về checkpoint hợp lệ gần nhất.
+
+### Năm vai rà độc lập cho lecture note
+
+Năm vai dùng cùng checkpoint đóng băng, chỉ đọc `lecture-note.md`, `outline.md`, `storyboard.md`; model yêu cầu và quan sát đều là `z-ai/glm-5.3-flash`, provider OpenRouter.
+
+| Vai | Phát hiện chính | Xử lý |
+|---|---|---|
+| Sinh viên | Lượt đầu báo thiếu planning do glob ngoặc nhọn không được công cụ hỗ trợ; lượt tái kiểm đọc đúng ba tệp. Đề nghị thêm gợi ý cho bài log-sum-exp | Báo thiếu tệp bị bác bằng kiểm kê staging; đã thêm gợi ý cho log-sum-exp, Jacobian, dropout và BN |
+| Chuyên gia Học sâu | Thiếu phân biệt L2 với suy giảm trọng số tách rời; thiếu nội dung X01–X03; thiếu $P,\varepsilon$ | Đã bổ sung có giới hạn, khôi phục đủ bốn chủ đề mở rộng, khai báo ký hiệu |
+| Toán học, thuật toán và triển khai | Các phép tính đều đúng; đề nghị làm rõ $\varepsilon$ chỉ bị bỏ trong tính nhẩm và sửa diễn giải chuẩn tích Jacobian | Đã sửa; hậu kiểm tính lại toàn bộ và PASS |
+| Phản biện học thuật và giảng dạy | Chỉ số bước L2 lệch quy ước; mục nối triển khai mỏng; câu về thống kê chạy mang giọng biên soạn | Đã thống nhất $w_{t-1}\to w_t$, bổ sung trạng thái triển khai và viết lại câu kỹ thuật |
+| Kết nối và mạch viết | Ký hiệu $L_{data}$ xuất hiện đột ngột; thiếu nối dropout→BN; kết luận nằm trong mục mở rộng; còn cụm “Đã kiểm”, “bắt buộc nêu”, “nguồn không khóa” | Đã khai báo ký hiệu, thêm câu nối, tách mục kết luận và xóa dấu vết biên soạn; hậu kiểm mạch PASS |
+
+Không còn lỗi `chặn bàn giao` hoặc `nghiêm trọng`. Các cảnh báo thiếu SVG ở lượt sinh viên là hệ quả của staging reviewer không chứa tài sản; kiểm định cục bộ trên kho thật xác nhận mọi SVG được tham chiếu đều tồn tại.
+
+### Biên tập và kiểm định ghi chú
+
+- `$no-ai-slop`: đã đọc toàn văn và loại trạng thái kiểm chứng, chỉ dẫn người viết, siêu bình luận, cụm kết luận máy móc và thuật ngữ Anh–Việt không cần thiết. Không có mục tự kể “đã thay đổi gì” trong sản phẩm công khai.
+- `$quill`: đã rà tuyến chẩn đoán → bước cập nhật/ổn định → khởi tạo → bộ tối ưu → điều chuẩn → chuẩn hóa → chọn siêu tham số → mở rộng → kết luận; ký hiệu và dữ kiện được truyền nhất quán. Không tạo `quill.json`.
+- Hậu kiểm mạch cuối sau khi chuyển Kết luận xuống sau phần triển khai và tự kiểm: GLM đọc đủ ba tệp, metadata đúng, xác nhận kết nối vào từ mục 7 hoặc 8 và kết nối ra Buổi 04; kết quả PASS.
+- Kiểm định tĩnh hiện hành: một H1; 42 chỉ thị mở/đóng hợp lệ; 183 biểu thức KaTeX dựng với `throwOnError: true`, `strict: "error"`; 12 SVG được tham chiếu và đều có `role="img"`, `title`, `desc`; không có nhãn OpenRouter/DeepSeek/GLM/checkpoint/mã trang/chỉ dẫn người soạn trong tài liệu công khai.
+- Liên kết index chỉ được cập nhật sau khi các kiểm tra trên đạt. `python3 -m reloadserver 8765` chưa dùng được vì môi trường thiếu mô-đun; dùng máy chủ HTTP cục bộ làm phương án kiểm tra đường dẫn. Phiên hiện tại không có Browser/Codex Slides để xác nhận trực quan viewer ở hai khung màn hình; giới hạn này phải được giữ trong báo cáo bàn giao.
