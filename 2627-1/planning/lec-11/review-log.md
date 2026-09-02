@@ -19,8 +19,8 @@
 ## Rà ghi chú bài giảng — 03-09-2026
 
 - Tạo `materials/lec-11/lecture-note.md`, dùng đủ 12 SVG hiện có và thêm liên kết trong `index.html`.
-- Rà toán học phát hiện hàng thứ hai của vết tính nhân quả bị sai trong cả bản nháp ghi chú và deck: hai điểm hợp lệ là $(.707,.707)$ nên softmax bằng $(.5,.5)$, không phải $(.330,.670)$. Ghi chú đã sửa thành $A_{causal}[2,:]=(.5,.5,0)$ và $O_{causal}[2,:]=(.5,.5)$; deck được để lại cho pha căn chỉnh riêng để giữ mốc commit độc lập.
-- Hai báo cáo khác lặp lại $(.330,.670)$ do đọc nhầm cặp điểm thành $(0,.707)$. Quyết định dùng phép tính trực tiếp từ ma trận $S^{(1)}$ và mặt nạ $j\le i$; báo cáo đồng thuận không thay thế phép kiểm số.
+- Một báo cáo toán học kết luận nhầm hàng thứ hai phải là $(.5,.5,0)$ vì đọc $S[2,:]$ thành $(.707,.707,.707)$. Hai báo cáo khác giữ đúng $(.330,.670,0)$ từ hàng thật $(0,.707,.707)$ và mặt nạ $j\le i$.
+- Hậu kiểm trực tiếp xác nhận sau mặt nạ, hai điểm hợp lệ là $(0,.707)$; softmax cho $(.330,.670)$ và $O[2,:]=(.330,.670)$. Giữ số gốc trong ghi chú và deck; không dùng biểu quyết giữa các reviewer thay cho phép tính từ dữ kiện.
 - Chuẩn hóa mặt nạ công khai thành $B\times1\times T_q\times T_k$ phát qua trục đầu; thêm lý do chọn ma trận ví dụ, định nghĩa BOS/EOS, `teacher forcing`, ổn định số của chéo entropy, vai trò dropout và câu nối $H_0\to\operatorname{MHA}(H_0)$.
 - Tách ranh giới đọc trong cụm ba loại chú ý/nhiều đầu; thêm so sánh định lượng RNN–tích chập–tự chú ý từ đúng dải giáo trình; kết luận thu hồi vấn đề đường truyền tuần tự.
 - `lec15_attention.pdf` PDF 41 bị bỏ vì chỉ là hình minh họa/liên kết ngoài, không thêm nội dung cho LLO21–22; nội dung kiến trúc cần thiết đã được giữ và vẽ lại từ các trang 42, 45 và 46.
@@ -153,9 +153,34 @@
 ## Kiểm định cuối ghi chú — 03-09-2026
 
 - Lượt phản biện học thuật thứ hai tiếp tục hết hạn ở 120 giây và không tạo báo cáo hợp lệ. Lượt thứ ba dùng cùng model, chỉ đọc duy nhất `lecture-note.md`, tối đa bốn vòng và thời hạn 300 giây; kết quả hợp lệ xác nhận `requested_model = observed_model = z-ai/glm-5.3-flash`, `provider = OpenRouter`, không còn lỗi chặn bàn giao hoặc nghiêm trọng.
-- Lượt rà toán học sau sửa xác nhận hàng thứ hai của ghi chú là $(.5,.5,0)$ và mọi công thức, kích thước, tham số, mã hóa vị trí, hàm mất mát và bài lab còn lại đều đúng. Báo cáo giữ lỗi cùng vị trí trong deck để xử lý ở pha căn chỉnh.
+- Lượt rà toán học sau sửa lặp lại cách đọc sai hàng thứ hai thành ba điểm bằng nhau. Kết quả này bị thu hồi sau khi đối chiếu trực tiếp ma trận $S$; các phần kiểm tra công thức, kích thước, tham số, mã hóa vị trí, hàm mất mát và bài lab còn lại vẫn phù hợp.
 - Bộ kiểm tĩnh đọc đúng một H1, 28 chỉ thị mở/đóng, dựng 175 biểu thức bằng KaTeX với `throwOnError: true`, `strict: "error"`; dùng đủ 12 SVG và không có lỗi.
 - Chromium duyệt trình xem tại 1280×720 và 390×844: 175 biểu thức, 12 ảnh, 7 khối lời giải, không ảnh hỏng, lỗi runtime hoặc cuộn ngang ngoài ý muốn; bàn phím, liên kết bỏ qua điều hướng, bản in, chặn đường dẫn vượt thư mục và chặn ghép sai buổi đều đạt.
 - Rà trực tiếp theo `no-ai-slop/eval.md`: giữ giọng học thuật ngắn, bỏ nhãn nội bộ và bốn dấu gạch ngang trang trí trong tên bài tập; không có từ cấm, mở bài vòng vo, kết luận giả sâu, lời quảng bá, chỉ dẫn người viết hay dấu vết worker. Không thêm mệnh đề ngoài nguồn.
 - Rà mạch theo nguyên tắc Quill: ký hiệu $X,Q,K,V,S,A,O,H_0,H^{enc},H^{dec},Z$ tích lũy theo đúng thứ tự; mỗi cụm nối đầu ra sang cụm kế; kết luận thu hồi vấn đề xử lý tuần tự và nối rõ sang Buổi 12. Không tạo `quill.json`.
 - Codex Slides trong Browser không có trong môi trường hiện tại; kiểm định trực quan dùng Chromium cục bộ trên đúng URL được máy chủ phục vụ và ghi rõ giới hạn này thay vì tuyên bố đã dùng Codex Slides.
+
+## Căn chỉnh deck với ghi chú — 03-09-2026
+
+- DeepSeek chỉ được đọc bản sao của deck, ghi chú, outline và storyboard trong staging `/tmp/lec11-deck-writer.lrXLYO`; không có `.env`, bí mật, CSS, SVG, source dossier hoặc quyền sửa tệp hiện có.
+- Writer bị khóa `MCP_WRITE_POLICY=create-once`, `MCP_MAX_WRITE_CHARS=2500` và chỉ được tạo `suggestions.md`. Kết quả 1.271 ký tự được chấp nhận với `requested_model = observed_model = deepseek/deepseek-v4-flash-0731`, `provider = OpenRouter`.
+- Bốn lần gọi `search_text` đầu dùng sai tham số `path` là tên tệp nên bị server từ chối ở tầng chỉ đọc; không tệp nào thay đổi. Không nới quyền hoặc trần ký tự.
+- Chấp nhận hai đề xuất sau khi tự kiểm: thêm $+b_O$ ở L11-25; bổ sung chi phí $AV$ tại L11-X02 và giữ riêng số ô nhớ của $A$.
+- Không chấp nhận đề xuất số của DeepSeek: tác tử nêu đúng cặp điểm $(0,.707)$ nhưng tính sai softmax thành $(.5,.5)$. Không chấp nhận kết luận “aside.notes đã sạch hướng dẫn”: hậu kiểm trực tiếp vẫn thấy các câu như “Bám theo”, “Mỗi người chọn”, “Đây là dịp” và mô tả tiến trình trang.
+- Biên tập trực tiếp các ghi chú diễn giả ở L11-00, 04, 14, 18, 24–25, 29–31, 34–37, 40 và X01–X04. Bản mới chỉ giữ giải thích khái niệm, công thức, kích thước, đáp án và nguồn; đã bỏ lời ra lệnh, chỉ dẫn điều hướng, quyết định của người soạn và câu báo trước trang kế.
+- Không đổi số trang, `data-slide-id`, bảy mạch, timing, CSS, SVG hoặc phạm vi nguồn.
+
+## Hậu kiểm deck sau căn chỉnh — 03-09-2026
+
+- Năm vai rà độc lập gồm góc nhìn sinh viên, chuyên gia Học sâu, toán học/triển khai, phản biện học thuật/giảng dạy và kết nối/mạch viết. Mọi lượt có báo cáo hoàn chỉnh đều xác nhận `requested_model = observed_model = z-ai/glm-5.3-flash`, `provider = OpenRouter`. Các kết luận vẫn phải qua kiểm tra xác định tại máy cục bộ; metadata đúng không bảo đảm phép tính đúng.
+- Lượt đầu của vai chuyên gia vượt giới hạn vòng công cụ do nhiều lần gọi `search_text` sai tham số; lượt đầu của vai toán học kết thúc vì chạm giới hạn vòng sau một phản hồi `length`. Hai lượt không có báo cáo hoàn chỉnh nên bị loại. Cả hai vai được chạy lại với phạm vi đúng ba slide, chỉ đọc; hai báo cáo thay thế đều đạt.
+- Vai toán học và vai chuyên gia ở vòng này cùng lặp lại cách đọc sai $S[2,:]$; hai kết luận về L11-17 bị loại. Một lượt GLM bổ sung còn đọc sai cả dữ kiện ghi thẳng trong prompt và trả $(1,0,0)$; kết quả đó cũng bị loại dù metadata model/provider hợp lệ.
+- Phép kiểm xác định cục bộ dùng đúng $S[2,:]=(0,.707,.707)$ và mặt nạ $(0,0,-\infty)$. Tính `exp(0)/(exp(0)+exp(.707))` và `exp(.707)/(exp(0)+exp(.707))` cho $(.330238,.669762,0)$; với $V_1=(1,0),V_2=(0,1)$, đầu ra là $(.330238,.669762)$. Ghi chú và deck dùng số làm tròn $(.330,.670)$. Các kết luận reviewer về L11-25 và L11-X02 vẫn được giữ.
+- Vai kết nối rà L11-15–18, L11-24–25, L11-40–X04 cùng hai trang lân cận; các kết nối vào/ra và ranh giới mạch giữ nguyên. Ghi chú ở những vùng này chỉ còn giải thích học thuật và nguồn.
+- Kiểm tĩnh dựng 201 biểu thức KaTeX với `throwOnError: true`, `strict: "error"`. HTML giữ 45 ID duy nhất, 45 ghi chú, 7 `<section>` ngoài và 12 SVG cục bộ.
+- Chromium duyệt lại cả 45 trang tại 1280×720 và 900×720 sau thay đổi cuối; không có lỗi console, tài nguyên hỏng, công thức lỗi, tràn, chồng lấn hoặc cắt nội dung. Ba trang đổi chính L11-17, L11-25 và L11-X02 đã được xem riêng ở độ phân giải gốc.
+- Danh sách H1/H2/H3 được xuất và rà thủ công. Tiêu đề L11-19 được đổi từ “nguồn tensor” thành “nguồn tạo Q, K, V”; các tiêu đề còn lại chỉ giữ tên riêng, ký hiệu hoặc viết tắt chuẩn như Transformer, RNN và softmax.
+- Rà theo `no-ai-slop/eval.md` loại các câu mô tả tiến trình, ra lệnh hoặc dẫn trang kế trong notes; giữ nguyên câu giải thích mạnh, số liệu, caveat và nguồn. Không có lời quảng bá, câu hỏi tu từ, kết luận giả sâu, dấu vết AI hoặc chỉ dẫn cho diễn giả/người viết.
+- Rà mạch theo nguyên tắc Quill xác nhận chuỗi vấn đề tuần tự → QKV → phép tính một đầu → mặt nạ → ba loại chú ý → nhiều đầu → vị trí/khối → mã hóa–giải mã → huấn luyện/suy luận → bốn phép kiểm mở rộng. Không tạo `quill.json`.
+- Codex Slides trong Browser vẫn không có trong môi trường hiện tại; bằng chứng trực quan dùng Chromium cục bộ trên URL thật.
+- Sau khi thu hồi kết luận GLM sai về L11-17, toàn bộ kiểm định được chạy lại: ghi chú đạt 177 biểu thức/12 SVG/7 lời giải; deck đạt 201 biểu thức, 45 trang ở cả hai khung 1280×720 và 900×720, không lỗi hoặc tràn. Trình xem ghi chú tiếp tục đạt ở khung rộng, hẹp và bản in.

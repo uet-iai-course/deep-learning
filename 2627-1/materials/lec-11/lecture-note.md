@@ -170,11 +170,13 @@ $$
 
 $$
 A^{(1)}_{causal}\approx
-\begin{bmatrix}1&0&0\\.500&.500&0\\.248&.248&.503\end{bmatrix},
+\begin{bmatrix}1&0&0\\.330&.670&0\\.248&.248&.503\end{bmatrix},
 \quad
 O^{(1)}_{causal}\approx
-\begin{bmatrix}1&0\\.500&.500\\.248&.248\end{bmatrix}.
+\begin{bmatrix}1&0\\.330&.670\\.248&.248\end{bmatrix}.
 $$
+
+Ở hàng thứ hai, mặt nạ giữ hai điểm $(0,.707)$ nên softmax cho $(.330,.670)$. Hàng thứ ba không đổi vì cả ba khóa đều hợp lệ.
 
 Mặt nạ đệm chặn khóa đệm trước softmax. Mặt nạ hàm mất mát loại token đệm khỏi tổng và mẫu số của chéo entropy. Hai mặt nạ phục vụ hai phép tính khác nhau.
 
