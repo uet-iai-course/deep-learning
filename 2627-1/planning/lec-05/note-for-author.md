@@ -22,7 +22,7 @@
 - AlexNet dùng duy nhất bảng sửa đổi 227×227, tích chập 1 có 64 kênh; không ghép số từ bản gốc hai GPU.
 - GoogLeNet có ba tích chập trong phần gốc và chín khối Inception chia 2–5–2; L05-21 phải giữ dấu vết toàn mạng.
 - ResNet-18 đếm một tích chập đầu, 16 tích chập trong tám khối cơ bản và một tầng đầy đủ cuối. Không đếm BN, ReLU, gộp hoặc phép cộng; phép chiếu được ghi riêng theo quy ước kiến trúc.
-- L05-X04 mới giới thiệu hậu kích hoạt và tiền kích hoạt. L05-X05 chỉ nối giao diện vectơ sang Bài 07, không dạy mô hình chuỗi.
+- L05-X04 mới giới thiệu hậu kích hoạt và tiền kích hoạt. L05-X05 chỉ nối giao diện véc-tơ sang Bài 07, không dạy mô hình chuỗi.
 - Với học chuyển giao, luôn tách hai câu hỏi: tham số nào có gradient và mô-đun nào ở chế độ huấn luyện/suy luận. Khi tinh chỉnh, chính sách BN phải được ghi rõ.
 
 ## Bài tập 50 phút

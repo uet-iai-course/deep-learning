@@ -36,7 +36,7 @@
 - BN CNN giảm theo N,H,W cho từng C; ví dụ $8×64×28×28$ dùng 6272 giá trị mỗi kênh; $\gamma,\beta$ phát rộng thành $1×64×1×1$.
 - Một ánh xạ trực tiếp 256→256 bằng nhân 3×3 có 589.824 trọng số; toàn nhánh cổ chai 256→64→64→256 có 69.632, giảm 8,47 lần. Đây không phải tỷ lệ giữa hai khối hoàn chỉnh.
 - Phép cộng thặng dư chỉ hợp lệ khi hai nhánh cùng N,C,H,W; phép chiếu 1×1 xử lý đổi kênh và giảm mẫu.
-- Sau khi vectơ hóa, $J_F,J_P\in\mathbb R^{d_{out}\times d_{in}}$ và có thể là ma trận chữ nhật khi kích thước đổi. Ma trận đạo hàm: nhánh đồng nhất $I+J_F$; nhánh chiếu $J_P+J_F$; hậu kích hoạt nhân trái bởi $D_{\mathrm{ReLU}}(s)$. Với gradient cột, tích Jacobian chuyển vị–vectơ là $\bar x=J_s^\top\bar s$.
+- Sau khi véc-tơ hóa, $J_F,J_P\in\mathbb R^{d_{out}\times d_{in}}$ và có thể là ma trận chữ nhật khi kích thước đổi. Ma trận đạo hàm: nhánh đồng nhất $I+J_F$; nhánh chiếu $J_P+J_F$; hậu kích hoạt nhân trái bởi $D_{\mathrm{ReLU}}(s)$. Với gradient cột, tích Jacobian chuyển vị–véc-tơ là $\bar x=J_s^\top\bar s$.
 - ResNet-18: phần gốc $64×56^2$; bốn giai đoạn có 2–2–2–2 khối và đầu ra $64×56^2$, $128×28^2$, $256×14^2$, $512×7^2$; sau đó gộp toàn cục và tầng đầy đủ.
 
 ## Quyết định sau phản biện
@@ -55,7 +55,7 @@
 
 - Không thêm bảng kết quả hoặc tuyên bố hội tụ: nguồn không khóa giao thức đủ để suy ra quan hệ nhân quả hay bảo đảm tối ưu.
 - Không mở rộng sang NiN, DenseNet, ResNeXt hoặc trang nguồn 36–43: ngoài phạm vi đã duyệt.
-- Không biến L05-X05 thành bài mô tả ảnh: chỉ giữ giao diện vectơ; mô hình chuỗi thuộc Bài 07.
+- Không biến L05-X05 thành bài mô tả ảnh: chỉ giữ giao diện véc-tơ; mô hình chuỗi thuộc Bài 07.
 - Không khóa một công thức cập nhật thống kê BN theo tên thuật toán cụ thể: nguồn chỉ đủ để khẳng định thống kê cố định được ước lượng khi huấn luyện.
 - Không dùng bảng FLOP giữa các họ mạng: quy ước phép đếm và triển khai chưa đồng nhất.
 
@@ -77,7 +77,7 @@
 ### Vòng 2
 
 - Sửa L05-X05 sang Bài 07; đồng bộ outline, storyboard và ghi chú nội bộ.
-- Vectơ hóa tensor ở L05-33, thêm kích thước Jacobian và tích Jacobian chuyển vị–vectơ cho gradient cột; đổi nhãn đầu ra khối thặng dư từ $y$ sang $s$.
+- Véc-tơ hóa tensor ở L05-33, thêm kích thước Jacobian và tích Jacobian chuyển vị–véc-tơ cho gradient cột; đổi nhãn đầu ra khối thặng dư từ $y$ sang $s$.
 - Đưa điều kiện $K$ lên mặt L05-13; khóa rõ tỷ lệ 8,47 không phải phép so hai khối hoàn chỉnh.
 - Sửa chu trình VGG, BN và ResNet theo đúng thứ tự; sửa điều hướng xuống trong cụm và phải ở cuối cụm; khóa AlexNet 20 phút, ResNet 22 phút và L05-37 là 3 phút mà tổng lõi vẫn 100 phút.
 - Chuyển toàn bộ chỉ dẫn thời gian chờ và tuyến trình chiếu khỏi ghi chú diễn giả sang `note-for-author.md` và storyboard.
@@ -143,3 +143,15 @@ Năm quyết định không áp dụng:
 - Hai lượt tái kiểm sau sửa chạy song song trên hai staging tối thiểu. Cả hai xác nhận `requested_model=observed_model=z-ai/glm-5.3-flash`, provider OpenRouter. Vai toán học tái lập độc lập toàn bộ tham số/MAC AlexNet, phép so VGG, Inception, BN và Jacobian ResNet; vai mạch xác nhận mở bài, bảy cụm, các câu nối, thứ tự ví dụ BN và phần tự kiểm. Không còn lỗi nghiêm trọng hoặc chặn bàn giao.
 - Kiểm bản cuối theo `no-ai-slop/eval.md`: câu trực tiếp, không khẩu hiệu, không cấu trúc đối xứng rỗng, không lời dẫn sân khấu, không dấu vết AI/quy trình hoặc chỉ dẫn người viết. Rà theo nguyên tắc Quill xác nhận bốn trục so sánh và ký hiệu NCHW/OIHW, MAC, $F/P/J$ được tích lũy liên tục; không tạo `quill.json`.
 - Trình xem lecture note được dựng ở 1280×720 và 390×844: tiêu đề và mục lục đúng, 106 công thức KaTeX không lỗi, 15/15 SVG tải được, bảy lời giải đóng mặc định và mở được bằng bàn phím, không lỗi console hoặc request. Chế độ in tự mở lời giải và ẩn mục lục/nút thao tác; kiểm tra traversal và ghép sai số bài đều bị từ chối. Bảng rộng trên màn hình 390 px cuộn trong khung riêng, trang không cuộn ngang.
+
+## Pipeline đồng bộ deck (2026-09-03)
+
+- Ba vai chỉ đọc chạy song song bằng `z-ai/glm-5.3-flash`/OpenRouter: đối chiếu note–deck, rà văn phong/ghi chú và rà toán–triển khai. Cả ba xác nhận model yêu cầu và thực tế trùng nhau; deck đã khớp toàn bộ số liệu lõi. Delta được khóa ở điều kiện MAC VGG, tiêu đề Inception, độ lệch của đầu GoogLeNet, phân biệt suy giảm/quá khớp, phép chiếu ResNet và việc bỏ lời dẫn sân khấu.
+- DeepSeek writer chạy tuần tự ba task, mỗi task đúng năm slide trong staging riêng, `MCP_WRITE_POLICY=create-once`, `MCP_MAX_WRITE_CHARS=2500`. Ba đầu ra dài 615, 1.301 và 703 ký tự; cả ba xác nhận `requested_model=observed_model=deepseek/deepseek-v4-flash-0731`, provider OpenRouter.
+- Chỉ nhận phần phù hợp đặc tả. Bác các câu DeepSeek sai hoặc đổi nghĩa: $F=0$ không kéo theo mất mát bằng 0; ghép kênh vẫn phải khớp cả $N,H,W$; MAC của bài tính theo một mẫu chứ không tự đổi sang “mỗi lô”; thống kê suy luận không phải “đã chụp”; bộ phân loại phụ không phải bước tiền xử lý. Các task sau tiếp tục giữ trần năm khối notes và 2.500 ký tự, không tự tăng theo một lượt thành công.
+- Năm phản biện độc lập được phát song song. Vai toán, phản biện giảng dạy và mạch hoàn tất ngay; hai vai sinh viên/chuyên gia trả câu trả lời rỗng sau retry nên bị loại toàn bộ và chạy lại với phạm vi hẹp. Năm báo cáo được chấp nhận cuối cùng đều đúng model/provider; không còn lỗi nghiêm trọng hoặc chặn bàn giao.
+- Sửa một lỗi planning do vai mạch phát hiện: cụm học chuyển giao là 3 phút, L05-38 là 2 phút kết luận riêng; bản cũ ghi 5 phút cho cụm nên cộng lặp L05-38. Tổng lõi vẫn đúng 100 phút và mở rộng đúng 20 phút. L05-26 được ghi rõ là trực giác hóa sau công thức.
+- Không áp dụng đề xuất đưa lại “câu nối”, “trang kế”, thao tác rẽ tuyến hoặc điểm dừng vào ghi chú diễn giả. Các cặp luận điểm cuối–đầu đã nối mạch; chỉ dẫn điều hướng giữ trong storyboard và `note-for-author.md`, đúng yêu cầu loại hướng dẫn nội bộ khỏi deck.
+- Kiểm bản cuối theo `no-ai-slop/eval.md`: bỏ lời dẫn sân khấu, giọng tự biện hộ và nhãn chỉ dẫn; giữ giới hạn học thuật cùng nguồn. Rà theo nguyên tắc Quill thống nhất “véc-tơ” trên note, deck, planning và SVG; không tạo `quill.json`.
+- Kiểm định cuối đạt: 7 section ngoài, 44 slide/ID/notes, 93 biểu thức KaTeX strict, 18/18 SVG có `role`, `title`, `desc`, không raster hoặc phụ thuộc mạng cốt lõi. Chromium dựng lại đủ 88 lượt ở 1280×720 và 800×600, không tràn, lỗi console hoặc request; điều hướng bàn phím đúng. Rà trực quan các slide thay đổi L05-13, L05-16, L05-22, L05-29, L05-36 và L05-X05 cho thấy chữ, công thức, fragment và hình đều đọc được.
+- Codex Slides không có bề mặt công cụ/Browser trong phiên này; kiểm định trực quan dùng Chromium headless cục bộ. `python3 -m reloadserver 8765` vẫn không khả dụng vì thiếu mô-đun; máy chủ dự phòng ở cổng 8766 được dùng, không thay đổi nội dung kho.

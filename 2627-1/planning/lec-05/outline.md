@@ -37,6 +37,8 @@ Tổng lõi 100 phút gồm 98 phút cho L05-00–L05-37 và 2 phút kết luậ
 | 6. ResNet + học chuyển giao | L05-29–37 | 25 |
 | 7. Mở rộng + kết luận | L05-X01–X05, L05-38 | 20 + 2 |
 
+Mạch 6 gồm hai cụm trong storyboard: ResNet 22 phút và học chuyển giao 3 phút. L05-38 thuộc mạch 7 và giữ 2 phút kết luận riêng, không cộng lặp vào cụm học chuyển giao.
+
 ## Ánh xạ nội dung
 
 | Cụm | Nguồn | Quyết định |
@@ -61,7 +63,7 @@ Tổng lõi 100 phút gồm 98 phút cho L05-00–L05-37 và 2 phút kết luậ
 | L05-T06 | cốt lõi | Chuẩn hóa theo lô trên N,H,W, phát rộng theo kênh và hai chế độ; `lec10` PDF 25–32, GT PDF 153–158 | L05-24–28 |
 | L05-T07 | cốt lõi | ResNet: suy giảm, nhánh đồng nhất/chiếu, Jacobian, khối cơ bản/cổ chai và ResNet-18; `lec09` PDF 26–34, GT PDF 158–163 | L05-29–36 |
 | L05-T08 | cầu nối | Học chuyển giao tách gradient, chế độ mô-đun và chính sách BN; nguồn phụ đã duyệt `lec09` PDF 44–46 | L05-37 |
-| L05-T09 | bổ sung | Kết quả lịch sử phụ thuộc giao thức, bộ phân loại phụ, diễn giải nhiều đường, hậu/tiền kích hoạt và giao diện vectơ; chỉ làm rõ giới hạn đã có nguồn | L05-X01–X05 |
+| L05-T09 | bổ sung | Kết quả lịch sử phụ thuộc giao thức, bộ phân loại phụ, diễn giải nhiều đường, hậu/tiền kích hoạt và giao diện véc-tơ; chỉ làm rõ giới hạn đã có nguồn | L05-X01–X05 |
 | L05-T10 | đọc thêm | NiN, DenseNet, ResNeXt và `lec09` PDF 36–43 nằm ngoài phạm vi; chỉ ghi ranh giới đọc, không soạn mệnh đề hay đưa lên slide | Không đưa lên slide |
 
 Quyết định hợp nhất hai bản đồ độc lập: giữ T01–T08 theo tuyến chính; gộp các chi tiết có thể cắt thành T09; chuyển các họ ngoài phạm vi sang T10 và không triển khai nội dung. Công thức BN từ GT và vấn đề suy giảm trước ResNet là phần bổ sung có nguồn đã duyệt, không đổi ranh giới LLO. Không thêm lịch sử dài, bảng xếp hạng hoặc số benchmark thiếu giao thức.
@@ -76,8 +78,8 @@ Quyết định hợp nhất hai bản đồ độc lập: giữ T01–T08 theo 
 | MAC | Một phép nhân rồi cộng tích lũy; nếu quy đổi theo quy ước đã nêu thì $1\ \mathrm{MAC}\approx2\ \mathrm{FLOP}$ |
 | $F(x;W)$ | Nhánh thặng dư; $s=x+F(x;W)$ khi hai nhánh cùng kích thước |
 | $P(x)$ | Phép chiếu trên nhánh tắt khi đổi kênh hoặc độ phân giải |
-| $J_F,J_P\in\mathbb R^{d_{out}\times d_{in}}$ | Ma trận đạo hàm của $F,P$ theo $x$ sau khi vectơ hóa; có thể là ma trận chữ nhật khi kích thước đổi |
-| $\bar x=J_s^\top\bar s$ | Tích Jacobian chuyển vị–vectơ trong lan truyền ngược với quy ước gradient cột |
+| $J_F,J_P\in\mathbb R^{d_{out}\times d_{in}}$ | Ma trận đạo hàm của $F,P$ theo $x$ sau khi véc-tơ hóa; có thể là ma trận chữ nhật khi kích thước đổi |
+| $\bar x=J_s^\top\bar s$ | Tích Jacobian chuyển vị–véc-tơ trong lan truyền ngược với quy ước gradient cột |
 | $\gamma,\beta\in\mathbb{R}^{C}$ | Tham số BN, phát rộng thành $1\times C\times1\times1$ |
 
 Không gọi MAC là FLOP. Không quy đổi nếu chưa nêu quy ước đếm.
@@ -89,4 +91,4 @@ Không gọi MAC là FLOP. Không quy đổi nếu chưa nêu quy ước đếm.
 - Không tạo mã nguồn, notebook hoặc trình diễn huấn luyện.
 - Không đưa chỉ dẫn người soạn, thời lượng, tuyến cắt hoặc đáp án chi tiết lên mặt trang hay ghi chú diễn giả.
 - Hậu kích hoạt và tiền kích hoạt chỉ xuất hiện trên mặt trang ở L05-X04; ghi chú L05-30/33 được phép nhắc ở mức điều kiện.
-- Ví dụ mô tả ảnh ở L05-X05 chỉ là giao diện vectơ trừu tượng; cơ chế chuỗi thuộc Bài 07.
+- Ví dụ mô tả ảnh ở L05-X05 chỉ là giao diện véc-tơ trừu tượng; cơ chế chuỗi thuộc Bài 07.
