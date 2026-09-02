@@ -30,6 +30,7 @@ Mỗi mẫu là một hàng. Chuỗi nguồn được đệm đến $T_s$ bướ
 | $M^{src}$ | $N\times T_s$ | Mặt nạ vị trí nguồn hợp lệ |
 | $M^{tgt}$ | $N\times T'$ | Mặt nạ token đích tham gia hàm mất mát |
 | $D_a$ | vô hướng nguyên | Chiều ẩn của mạng tính điểm cộng |
+| $R_q,R_h$ | $N\times D_a$ và $N\times T_s\times D_a$ | Truy vấn và trạng thái nguồn sau phép chiếu trong mạng điểm |
 | $E_y$ | $V_{tgt}\times D_e$ | Ma trận nhúng từ vựng đích |
 | $y_{n,t'}$ | token rời rạc | Token đích đúng của mẫu $n$ tại bước $t'$ |
 | $g$ | hàm | Ô truy hồi của bộ giải mã, như RNN hoặc GRU |
@@ -66,7 +67,7 @@ Một câu nguồn có độ dài thật 7, gồm EOS, rồi được đệm lê
 :::
 
 ::: solution
-Dùng trạng thái mã hóa ở vị trí hợp lệ cuối cùng, tức $h^{enc}_{7}$ của mẫu đó, không dùng trạng thái ở vị trí đệm thứ 10.
+Dùng trạng thái mã hóa ở vị trí hợp lệ cuối cùng, tức $h^{enc}_{n,L_n}$ với $L_n=7$, không dùng trạng thái ở vị trí đệm thứ 10.
 :::
 
 ### Cụm 2: Truy xuất nguồn theo từng bước đích
@@ -226,7 +227,7 @@ Logit và xác suất đầu ra theo quy ước vectơ hàng là
 $$
 O_{t'}=[s_{t'};c_{t'}]W_o+b_o,
 \qquad
-P_{t'}=\operatorname{softmax}_{V_{tgt}}(O_{t'}),
+P_{t'}=\operatorname{softmax}_{V_{tgt}}(O_{t'}).
 $$
 
 Đầu vào $[E_y(y_{t'-1});c_{t'}]$ của $g$ có chiều $D_e+D_h$; cấu hình ô truy hồi phải nhận đúng chiều này. Softmax chú ý chạy trên $T_s$ vị trí nguồn; softmax đầu ra chạy trên $V_{tgt}$ mục từ vựng. Hai phép chuẩn hóa không dùng chung trục.
@@ -248,6 +249,8 @@ M^{tgt}_{n,t'}\log P_{n,t',y_{n,t'}}
 $$
 
 Mặt nạ nguồn điều khiển vị trí được chú ý; mặt nạ đích điều khiển token tham gia mất mát. Đó là hai chức năng khác nhau.
+
+Trong triển khai, dùng chéo entropy hợp nhất từ logit hoặc log-softmax ổn định. Công thức qua $P$ ở trên chỉ làm rõ vị trí của mặt nạ đích.
 
 ::: exercise Câu hỏi kiểm tra
 Một tensor logit có kích thước $8\times12\times5000$. Nêu trục softmax đầu ra và đại lượng bị rút gọn khi tính chéo entropy trung bình có mặt nạ.
@@ -291,7 +294,7 @@ Một bước giải mã có chú ý gồm sáu việc:
 5. cập nhật trạng thái giải mã từ $y_{t'-1}$ và $c_{t'}$;
 6. tạo logit, xác suất và phần mất mát của token hợp lệ.
 
-Đạo hàm từ mất mát đến trạng thái nguồn đi theo hai nhánh: nhánh giá trị qua tổng có trọng số và nhánh khóa qua điểm rồi softmax. Đạo hàm còn đi về trạng thái giải mã trước qua nhánh truy vấn và tiếp tục qua các bước đích trước bằng lan truyền ngược theo thời gian.
+Có ba đường đạo hàm cần phân biệt: đường giá trị qua tổng có trọng số, đường khóa qua điểm rồi softmax và đường truy vấn về trạng thái giải mã trước. Đường truy vấn tiếp tục qua các bước đích trước bằng lan truyền ngược theo thời gian; hai đường đầu tiếp tục về bộ mã hóa.
 
 Nếu chiếu trạng thái nguồn một lần, chi phí của riêng khối chú ý là
 
