@@ -35,6 +35,7 @@ class ReadOnlyServerTest(unittest.TestCase):
     def tearDown(self) -> None:
         os.environ.pop("MCP_ALLOW_WRITE", None)
         os.environ.pop("MCP_WRITE_POLICY", None)
+        os.environ.pop("MCP_MAX_WRITE_CHARS", None)
         os.environ.pop("OPENROUTER_ENV_FILE", None)
         self.tempdir.cleanup()
         self.outside_tempdir.cleanup()
@@ -142,6 +143,23 @@ class ReadOnlyServerTest(unittest.TestCase):
                 self.assertEqual(
                     (self.root / "draft.md").read_text(encoding="utf-8"), "first\n"
                 )
+
+        asyncio.run(scenario())
+
+    def test_max_write_chars_rejects_oversized_output(self) -> None:
+        async def scenario() -> None:
+            os.environ["MCP_ALLOW_WRITE"] = "1"
+            os.environ["MCP_MAX_WRITE_CHARS"] = "5"
+            async with Client(mcp) as client:
+                accepted = await client.call_tool(
+                    "write_text_file", {"path": "short.md", "content": "12345"}
+                )
+                self.assertFalse(accepted.is_error)
+                rejected = await client.call_tool(
+                    "write_text_file", {"path": "long.md", "content": "123456"}
+                )
+                self.assertTrue(rejected.is_error)
+                self.assertFalse((self.root / "long.md").exists())
 
         asyncio.run(scenario())
 

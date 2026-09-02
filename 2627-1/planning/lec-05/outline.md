@@ -49,6 +49,23 @@ Tổng lõi 100 phút gồm 98 phút cho L05-00–L05-37 và 2 phút kết luậ
 | ResNet | `lec09`, PDF 26–34; GT PDF 158–163 | Tách suy giảm khỏi quá khớp; kiểm tra cộng/chiếu, ba ma trận đạo hàm, khối cơ bản/cổ chai và dấu vết ResNet-18 |
 | Học chuyển giao | `lec09`, PDF 44–46 | Dùng tình huống cụ thể; tách tham số có gradient khỏi chế độ mô-đun và chính sách BN |
 
+## Bản đồ chủ đề lecture note
+
+| Note-topic-id | Nhãn | Vai trò và nguồn | Ánh xạ deck |
+|---|---|---|---|
+| L05-T01 | cốt lõi | Khóa bốn trục so sánh: kích thước tensor, tham số, MAC và đường đạo hàm; đề cương Buổi 5, `source.md` | L05-00–01, L05-38 |
+| L05-T02 | cốt lõi | LeNet làm mốc khối và dấu vết kích thước; GT PDF 132–135 | L05-02–03 |
+| L05-T03 | cốt lõi | AlexNet sửa đổi 227×227/64 kênh, tham số và MAC; `lec09` PDF 5–9, GT PDF 136–143 | L05-04–10 |
+| L05-T04 | cốt lõi | VGG-16, khối 3×3 lặp và trường tiếp nhận 7×7; `lec09` PDF 11–14, GT PDF 143–146 | L05-11–15 |
+| L05-T05 | cốt lõi | Inception và GoogLeNet: phần gốc, bốn nhánh, ghép kênh, 2–5–2 và gộp toàn cục; `lec09` PDF 15–23, GT PDF 149–152 | L05-16–23 |
+| L05-T06 | cốt lõi | Chuẩn hóa theo lô trên N,H,W, phát rộng theo kênh và hai chế độ; `lec10` PDF 25–32, GT PDF 153–158 | L05-24–28 |
+| L05-T07 | cốt lõi | ResNet: suy giảm, nhánh đồng nhất/chiếu, Jacobian, khối cơ bản/cổ chai và ResNet-18; `lec09` PDF 26–34, GT PDF 158–163 | L05-29–36 |
+| L05-T08 | cầu nối | Học chuyển giao tách gradient, chế độ mô-đun và chính sách BN; nguồn phụ đã duyệt `lec09` PDF 44–46 | L05-37 |
+| L05-T09 | bổ sung | Kết quả lịch sử phụ thuộc giao thức, bộ phân loại phụ, diễn giải nhiều đường, hậu/tiền kích hoạt và giao diện vectơ; chỉ làm rõ giới hạn đã có nguồn | L05-X01–X05 |
+| L05-T10 | đọc thêm | NiN, DenseNet, ResNeXt và `lec09` PDF 36–43 nằm ngoài phạm vi; chỉ ghi ranh giới đọc, không soạn mệnh đề hay đưa lên slide | Không đưa lên slide |
+
+Quyết định hợp nhất hai bản đồ độc lập: giữ T01–T08 theo tuyến chính; gộp các chi tiết có thể cắt thành T09; chuyển các họ ngoài phạm vi sang T10 và không triển khai nội dung. Công thức BN từ GT và vấn đề suy giảm trước ResNet là phần bổ sung có nguồn đã duyệt, không đổi ranh giới LLO. Không thêm lịch sử dài, bảng xếp hạng hoặc số benchmark thiếu giao thức.
+
 ## Quy ước tensor và phép đếm
 
 | Ký hiệu | Nghĩa |

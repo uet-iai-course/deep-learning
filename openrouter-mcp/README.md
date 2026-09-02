@@ -76,6 +76,9 @@ MCP_WRITE_POLICY=create-once uv run openrouter-mcp-writer \
 ```
 
 Mỗi task `create-once` phải dùng staging mới, trong đó tệp đích chưa tồn tại.
+Để khóa cứng độ dài của mảnh, đặt thêm `MCP_MAX_WRITE_CHARS`, chẳng hạn
+`MCP_MAX_WRITE_CHARS=2500`. Server từ chối toàn bộ lần ghi vượt giới hạn;
+không tạo tệp đích một phần.
 Nếu mô hình làm hỏng Unicode hoặc công thức ở đầu ra dài, chuyển sang các task
 mảnh tuần tự trong staging mới. Mỗi mảnh chỉ chứa một hoặc hai mục đã khóa,
 mặc định không quá 2.500 ký tự, vẫn dùng `create-once`; đầu ra có ký tự thay

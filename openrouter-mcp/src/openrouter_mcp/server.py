@@ -72,6 +72,19 @@ def _write_policy() -> str:
     return policy
 
 
+def _max_write_chars() -> int | None:
+    raw = os.environ.get("MCP_MAX_WRITE_CHARS")
+    if raw is None or not raw.strip():
+        return None
+    try:
+        limit = int(raw)
+    except ValueError as exc:
+        raise ToolError("MCP_MAX_WRITE_CHARS must be a positive integer") from exc
+    if limit <= 0:
+        raise ToolError("MCP_MAX_WRITE_CHARS must be a positive integer")
+    return limit
+
+
 @mcp.tool()
 async def list_files(
     path: str = ".", pattern: str = "**/*", max_results: int = 200
@@ -183,6 +196,9 @@ async def write_text_file(path: str, content: str) -> dict[str, Any]:
     encoded = content.encode("utf-8")
     if len(encoded) > MAX_WRITE_BYTES:
         raise ToolError(f"content exceeds {MAX_WRITE_BYTES} bytes")
+    max_chars = _max_write_chars()
+    if max_chars is not None and len(content) > max_chars:
+        raise ToolError(f"content exceeds MCP_MAX_WRITE_CHARS={max_chars}")
 
     target = _resolve_repo_path(path)
     if _is_hidden_internal(target):
