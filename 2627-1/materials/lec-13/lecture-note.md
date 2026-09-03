@@ -11,8 +11,6 @@ Sau buổi này, người học có thể:
 
 Kiến thức tiên quyết: xác suất có điều kiện, kỳ vọng, đạo hàm, entropy chéo, hồi quy và tensor theo lô. Bài không giả định người học đã học học tăng cường.
 
-Tuyến lõi gồm 100 phút; phần mở rộng 20 phút xét hành động liên tục, kết thúc thật và độ phủ dữ liệu. Bài tập 50 phút được tách riêng.
-
 ## Ký hiệu và quy ước thời gian
 
 | Ký hiệu | Nghĩa |

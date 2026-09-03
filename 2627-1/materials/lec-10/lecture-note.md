@@ -13,8 +13,6 @@ Sau buổi này, người học có thể:
 
 Kiến thức tiên quyết: mạng nơ-ron truy hồi, bộ mã hóa–giải mã, softmax, chéo entropy, phép nhân ma trận theo lô, phát tự động và lan truyền ngược theo thời gian.
 
-Tuyến lõi gồm 100 phút về chú ý chéo Bahdanau trong dịch máy. Phần mở rộng 20 phút chuyển cùng khung truy vấn–khóa–giá trị sang vùng ảnh và cặp văn bản. Bài tập 50 phút được tách riêng.
-
 ## Ký hiệu và hợp đồng tensor
 
 Mỗi mẫu là một hàng. Chuỗi nguồn được đệm đến $T_s$ bước, chuỗi đích được đệm đến $T'$ bước và lô có $N$ mẫu.

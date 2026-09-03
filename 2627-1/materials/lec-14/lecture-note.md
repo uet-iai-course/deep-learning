@@ -9,7 +9,7 @@ Sau buổi này, người học có thể:
 - mô tả mạng Siamese và mạng nguyên mẫu theo biểu diễn, khoảng cách và hàm mất mát;
 - truy vết vòng trong, vòng ngoài của MAML và so sánh ba phương pháp trên cùng dữ liệu.
 
-Kiến thức tiên quyết: phân phối xác suất, đạo hàm, quy tắc chuỗi, sigmoid, entropy chéo nhị phân, softmax ổn định, kích thước tensor, phép phát tán và cách chia dữ liệu huấn luyện–kiểm định–kiểm tra. Nội dung bài giảng kéo dài 120 phút; bài tập 50 phút được trình bày riêng ở cuối tài liệu.
+Kiến thức tiên quyết: phân phối xác suất, đạo hàm, quy tắc chuỗi, sigmoid, entropy chéo nhị phân, softmax ổn định, kích thước tensor, phép phát tán và cách chia dữ liệu huấn luyện–kiểm định–kiểm tra.
 
 ## Từ ít mẫu đến phân phối tác vụ
 

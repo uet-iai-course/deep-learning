@@ -11,8 +11,6 @@ Sau buổi này, người học có thể:
 
 Kiến thức tiên quyết: cơ chế chú ý và kiến trúc Transformer của Buổi 10–11, phép nhân ma trận, softmax, chéo entropy và tensor theo quy ước NCHW.
 
-Tuyến lõi gồm 100 phút. Phần mở rộng 20 phút dành cho các phép tính và đối chiếu sâu hơn. Bài tập 50 phút được tách riêng.
-
 ## Ký hiệu
 
 | Ký hiệu | Nghĩa |

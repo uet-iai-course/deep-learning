@@ -13,8 +13,6 @@ Sau buổi này, người học có thể:
 
 Kiến thức tiên quyết: phép nhân ma trận, softmax, chuẩn hóa, đạo hàm, kiến trúc mã hóa–giải mã và cơ chế chú ý của Buổi 10.
 
-Tuyến lõi gồm 100 phút. Phần mở rộng 20 phút xét tính hoán vị, chi phí theo độ dài chuỗi và cấu trúc của mã hóa vị trí. Bài tập 50 phút được tách riêng.
-
 ## Ký hiệu và hợp đồng tensor
 
 | Ký hiệu | Kích thước | Nghĩa |

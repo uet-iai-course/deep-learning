@@ -15,8 +15,6 @@ Sau buổi này, người học có thể:
 
 Kiến thức tiên quyết: quy tắc chuỗi, Jacobian, tích véc-tơ–Jacobian, chuẩn véc-tơ–ma trận, lan truyền ngược, MLP, hàm tanh và phép nhân ma trận theo lô.
 
-Tuyến lõi gồm 100 phút về dữ liệu chuỗi, ô RNN, lan truyền xuôi, BPTT và ổn định gradient. Phần bổ sung 20 phút xét mô hình ngôn ngữ, RNN nhiều tầng và hai chiều. Bài tập 50 phút được tách riêng.
-
 ## Ký hiệu và hợp đồng tensor
 
 Tài liệu dùng quy ước mỗi mẫu là một hàng.

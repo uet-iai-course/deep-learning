@@ -12,8 +12,6 @@ Sau buổi này, người học có thể:
 
 Kiến thức tiên quyết: RNN cơ bản, lan truyền ngược theo thời gian (BPTT), tích Jacobian, sigmoid, tanh, tích Hadamard, phép nhân ma trận theo lô và phát tự động.
 
-Tuyến lõi gồm 100 phút về LSTM, GRU, mạng sâu, mạng hai chiều và bộ mã hóa–giải mã. Phần mở rộng 20 phút đối chiếu biểu diễn, số tham số, sinh tự hồi quy và lựa chọn kiến trúc. Bài tập 50 phút được tách riêng.
-
 ## Ký hiệu và hợp đồng tensor
 
 Mỗi mẫu là một hàng. Với lô $N$ chuỗi nguồn được đệm đến $T$ bước, chuỗi đích được đệm đến $T'$ bước và phép nhúng có chiều $D_e$:

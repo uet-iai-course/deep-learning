@@ -12,7 +12,7 @@ Sau buổi này, người học có thể:
 
 Kiến thức tiên quyết: MLP, lan truyền ngược, phép nhân ma trận, chia dữ liệu huấn luyện–kiểm định–kiểm tra, quy ước NCHW và chế độ huấn luyện–suy luận của mô-đun.
 
-Tuyến lõi đi từ ảnh → biểu diễn → tái tạo → ràng buộc biểu diễn → tái sử dụng. Phần bổ sung xét hình học của không gian biểu diễn. Chất lượng tái tạo và chất lượng biểu diễn là hai đại lượng liên quan nhưng không đồng nhất.
+Chất lượng tái tạo và chất lượng biểu diễn là hai đại lượng liên quan nhưng không đồng nhất.
 
 ## Ký hiệu và hợp đồng tensor
 
