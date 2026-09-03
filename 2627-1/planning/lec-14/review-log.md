@@ -43,6 +43,17 @@ Năm vai góc nhìn sinh viên, chuyên gia Học sâu, toán học–triển kh
 - `python3 -m reloadserver 8765` không khả dụng vì thiếu mô-đun; kiểm định dùng máy chủ tĩnh cục bộ trên cổng 8766. Codex Slides không có bề mặt gọi được trong phiên này, nên không tuyên bố đã dùng plugin.
 - Lượt tái kiểm đầu vượt giới hạn gọi công cụ nên không có báo cáo và bị loại. Lượt thu hẹp sau đó gán sai logit ban đầu thành $h-3$ thay vì $w(h-3)+b=0$ tại $w=b=0$, rồi kết luận nhầm gradient bằng 0. Lượt tái kiểm tranh chấp đã đặt đúng logit bằng 0 nhưng lại dùng $p-y=+0{,}5$ cho hai mẫu có $y=1$ thay vì $-0{,}5$. Cả hai kết luận bị loại. Bốn vai trước và phép tính xác định cục bộ đều cho $\nabla_w\mathcal L_S=(-1{,}5-0{,}5-0{,}5-1{,}5)/4=-1$, $\nabla_b\mathcal L_S=0$.
 
+## Hiệu chỉnh deck theo bản ghi chú cuối
+
+- Writer chạy trong staging mới `/tmp/lec14-deck-writer-ds-20260903`, chỉ nhận bản sao deck, ghi chú và đặc tả. Runtime xác nhận `requested_model=observed_model=deepseek/deepseek-v4-flash-0731`, `provider=OpenRouter`; `create-once` tạo đúng một tệp đề xuất 2.193 ký tự dưới trần 2.500.
+- Các đề xuất bỏ “cho sinh viên”, “trang sau”, “lõi”, “deck” được tiếp nhận. Các câu DeepSeek vẫn giữ cách nói “không tự chọn”, “phần chính” hoặc mô tả quy trình được viết lại thành giải thích học thuật, không hợp nhất nguyên văn.
+- Mặt trang L14-14 bỏ lời tự tham chiếu tới deck. Ghi chú tại L14-02, 05, 07, 10, 13–16, 19, 23, 25–26, 28–29, 35–41 và X01–X04 được sửa thành mạch nói về dữ liệu, công thức, giả thiết hoặc giới hạn nguồn; không còn lời nhắc diễn giả, điều hướng hay tuyến cắt.
+- Cỡ chữ nội dung tăng từ `.87em` lên `.9em`, `.small` từ `.85em` lên `.86em`, bảng từ `.82em` lên `.84em`. Hai tiêu đề dùng “prototype” được Việt hóa thành “đại diện nguyên mẫu”.
+- Tái kiểm toán và tái kiểm mạch viết dùng `z-ai/glm-5.3-flash`; cả hai có `requested_model=observed_model=z-ai/glm-5.3-flash`, `provider=OpenRouter` và trả PASS. Vai toán tính lại đúng ProtoNet G, MAML G và ví dụ I; vai mạch xác nhận 6 outer section, 46 slide và không còn dấu vết AI hoặc chỉ dẫn nội bộ trong mặt trang hay notes.
+- `no-ai-slop`: rà trực tiếp toàn bộ mặt trang và 46 notes theo `eval.md`; bỏ lời dẫn quy trình, câu tự chú giải và tiếng Anh không cần thiết trong tiêu đề. `quill`: giữ chuỗi G xuyên Siamese → ProtoNet → MAML → bảng so sánh, cùng các biên mạch L14-10→11, 15→16, 25→26, 31→32, 38→39 và 41→X01. Không tạo `quill.json`.
+- Kiểm tra tĩnh xác nhận 46 `data-slide-id` duy nhất, 46 notes, 6 outer section, không raster, không ký tự thay thế hoặc Cyrillic lẫn vào tiếng Việt. Bốn SVG phân tích XML thành công và có `title`, `desc`.
+- Chromium duyệt và chụp đủ 46 slide ở 1280×720 và 800×600 sau khi hiện mọi fragment: 138 cụm KaTeX, không `.katex-error`, lỗi console, lỗi trang, yêu cầu thất bại hoặc chữ dưới 18 px. Bộ dò hình học báo giả với hộp MathML/Katex và h1 trang bìa; ảnh toàn bộ deck xác nhận nội dung nằm trong viewport, không chồng lấn. Phiên mới xác nhận đi phải từ L14-10 tới L14-11 và đi xuống từ L14-41 tới X01 sau khi bỏ qua fragment.
+
 ## Quyết định sửa sau phản biện
 
 | Vấn đề | Quyết định và bằng chứng |
