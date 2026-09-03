@@ -25,6 +25,23 @@
 - `material-viewer.html` dựng đúng ghi chú từ liên kết trong `index.html`; Chromium xuất ảnh toàn trang và PDF 12 trang, không có công thức lỗi, tài nguyên thiếu hoặc văn bản quy trình trên bề mặt công khai.
 - Kiểm tra `$no-ai-slop`: bỏ tiếng Anh có cách diễn đạt Việt ổn định, câu giới hạn biên soạn và mọi lời hướng dẫn người viết; giữ tên riêng, ký hiệu và viết tắt cần thiết. Kiểm tra theo nguyên tắc `$quill`: chuỗi BC → lệch phân phối → MDP/lợi tức → giá trị/Bellman → Q-learning → DQN → tổng hợp giữ một ví dụ và một hệ ký hiệu xuyên suốt; không tạo `quill.json`.
 
+## Đồng bộ deck với ghi chú — 2026-09-03
+
+- Lượt writer đầu cho pha deck bị loại vì runtime cho thấy `requested_model=z-ai/glm-5.3-flash`, không đúng model DeepSeek bắt buộc. Lần ghi 3.735 byte bị `MCP_MAX_WRITE_CHARS=2500` từ chối nguyên khối trước khi tạo tệp; tiến trình được dừng và staging không được dùng lại.
+- Lượt thay thế chạy trong `/tmp/lec13-deck-writer-ds`, với `MCP_WRITE_POLICY=create-once`, `MCP_MAX_WRITE_CHARS=2500`. Hai lần ghi quá giới hạn tiếp tục bị từ chối nguyên khối; lần thứ ba tạo đúng một tệp 2.440 ký tự. Metadata được chấp nhận xác nhận `requested_model=observed_model=deepseek/deepseek-v4-flash-0731`, `provider=OpenRouter`.
+- Đã áp dụng các đề xuất đúng: nâng cỡ chữ hiệu dụng; giải nghĩa lợi tức ngay khi so sánh BC/RL; thêm hàng tương tác; viết điều kiện $\gamma=1$ trên mặt trang; thay $Q^+$ bằng $Q_{\text{mới}}(s_1,\rightarrow)$; bỏ nhắc API `gather`, Huber và các lời hướng dẫn diễn giả; làm điều kiện chọn BC trong kết luận chính xác hơn.
+- Không áp dụng đề xuất chuyển điều kiện $\gamma=1$ vào `note-for-author.md`, vì đây là điều kiện toán cần hiện trên mặt trang. Không chuyển epsilon-tham lam khỏi mặt trang vì đây là cơ chế thăm dò cốt lõi của Q-learning trong phạm vi đã khóa. Giữ phân bổ 24/8/18 phút cho các mạch BC/Q-learning/DQN; `note-for-author.md` đã quy định trao đổi linh hoạt thời gian giữa các mạch khi lớp cần giảng chậm.
+- Sửa `mdp-loop.svg`: mũi tên môi trường → tác tử chỉ còn $S(t+1),R(t+1)$, khớp mô tả tiếp cận và quy ước $A_t\mapsto(R_{t+1},S_{t+1})$.
+- Rà `$no-ai-slop` trên mặt trang và ghi chú diễn giả: bỏ câu ra lệnh, tham chiếu mã trang, chỉ dẫn hiển thị đáp án, ghi chú cho người viết và tiếng Anh có cách Việt hóa ổn định. Rà theo nguyên tắc `$quill`: không đổi số trang, thứ tự, bảy mạch hoặc chuỗi dữ kiện hành lang.
+
+### Kiểm định deck sau đồng bộ
+
+- Cấu trúc tĩnh: 46 trang, 46 `data-slide-id` duy nhất, 46 khối ghi chú, 7 section ngoài, không raster hoặc tài nguyên mạng cốt lõi. KaTeX strict dựng đủ 180 biểu thức với `throwOnError: true`, không lỗi. Ký hiệu tạm $Q_{\text{mới}}$ bị strict mode từ chối vì chữ Unicode trong `\text{}` và đã được thay bằng phép gán $Q(s_1,\rightarrow)\leftarrow0{,}5$.
+- Chromium duyệt và chụp đủ 46 trang ở 1280×720 và 800×600 sau khi hiện mọi fragment; không có lỗi console, lỗi trang, tài nguyên hỏng, `katex-error` hoặc tràn nội dung. Bộ dò hình học báo riêng `h1` trang bìa vượt hộp nội bộ của section ở cả hai khung; ảnh trực quan xác nhận tiêu đề vẫn nằm trọn trong viewport và không chồng lấn.
+- Điều hướng bàn phím thực tế: L13-25 → L13-27 → L13-26 → L13-28; L13-32 → L13-34 → L13-33; L13-41 → X01 sau khi hiện fragment. Các ranh giới khớp storyboard.
+- Đã xuất và rà thủ công toàn bộ tiêu đề `h1`, `h2`, `h3`; các từ còn lại ngoài tiếng Việt là tên riêng, viết tắt, ký hiệu hoặc tên phương pháp chuẩn như LLO, BC, DQN, Q-learning, Monte Carlo và Bellman.
+- Hai tác tử GLM tái kiểm độc lập trên bản cuối đều trả `PASS`; metadata của cả hai xác nhận `requested_model=observed_model=z-ai/glm-5.3-flash`, `provider=OpenRouter`. Vai toán xác nhận lại toàn bộ quỹ đạo, điều kiện $\gamma=1$, V/Q, Bellman, cờ kết thúc, cập nhật $0{,}4\to0{,}5$ và hợp đồng DQN. Vai kết nối xác nhận bảy mạch, các trang lân cận, mở–kết, chuỗi hành lang và ghi chú công khai không còn chỉ dẫn diễn giả hoặc dấu vết AI.
+
 ## Quyết định nguồn và ký hiệu
 
 | Quyết định | Lý do |
