@@ -1,5 +1,26 @@
 # Nhật ký rà soát — Bài 12
 
+## Phạm vi worker OpenRouter cho ghi chú bài giảng — 2026-09-03
+
+- Hồ sơ nguồn lọc: `/tmp/deep-learning-lec12-dossier.Xvp2nS`. PDF được trích xuất cục bộ thành UTF-8 theo đúng dải đã duyệt; không gửi PDF, `.env`, khóa hoặc tệp bí mật cho worker.
+- Tác tử lập kế hoạch và đọc nguồn yêu cầu `z-ai/glm-5.3-flash`; lượt lập kế hoạch được chấp nhận sau khi metadata runtime xác nhận `requested_model=observed_model=z-ai/glm-5.3-flash`, `provider=OpenRouter`.
+- Ba lượt phân tích nguồn/toán/sư phạm tiếp tục gọi công cụ nhưng không trả JSON kết quả hoàn chỉnh; không dùng các lượt này làm bằng chứng. Đây là lỗi đầu ra worker, không phải xác nhận nội dung.
+- Tác tử soạn yêu cầu `deepseek/deepseek-v4-flash-0731`. Mỗi mảnh dùng staging riêng `/tmp/lec12-writer-01b`, `/tmp/lec12-writer-02` đến `/tmp/lec12-writer-10`, `MCP_WRITE_POLICY=create-once` và `MCP_MAX_WRITE_CHARS=2500`. Tệp đích không tồn tại trước lần ghi; writer không có quyền ghi vào kho dự án.
+- Lượt 01 ban đầu tại `/tmp/lec12-writer-01` hai lần vượt 2.500 ký tự. Cầu nối từ chối toàn bộ trước khi tạo tệp; lượt này bị dừng và thay bằng nhiệm vụ hẹp hơn tại staging mới `01b`.
+- DeepSeek ở mảnh 01b ghi `fragment.md` ở gốc staging thay vì `output/fragment.md`. Nội dung vẫn nằm trong gốc được cấp và chỉ ghi một lần; đường dẫn sai được ghi nhận, không sao chép tự động vào kho.
+- Mọi mảnh được biên tập lại bằng tay trước khi hợp nhất. Ba lỗi nội dung bị loại: chia nhiệt độ hai lần và đảo dấu loss CLIP; ghi tỷ số tiệm cận của chi phí chú ý là 4 thay vì 16; mô tả nhầm hai vị trí là đệm trong ví dụ mặt nạ.
+- Giới hạn bền vững cho các đợt sau: không tăng `MCP_MAX_WRITE_CHARS`; khi vượt giới hạn phải tách hoặc thu hẹp nhiệm vụ trong staging mới. Không cho DeepSeek sửa trực tiếp HTML, Markdown hay SVG của dự án; chỉ nhận mảnh đề xuất. Không gửi `.env`, bí mật hoặc tệp nhị phân. Mọi công thức, shape, số liệu và phạm vi nguồn phải được kiểm lại cục bộ trước khi hợp nhất.
+
+## Rà soát ghi chú bài giảng — 2026-09-03
+
+- Năm vai reviewer độc lập chạy bằng `z-ai/glm-5.3-flash`; mọi lượt được dùng đều có metadata runtime `requested_model=observed_model=z-ai/glm-5.3-flash`, `provider=OpenRouter`.
+- Các lỗi đã sửa: ba macro `\qquad`; thiếu câu hỏi kiểm tra ở cụm mã hóa–giải mã và CLIP; dùng lại `objective-trace.svg` sai ngữ cảnh; ví dụ MLM không khớp vị trí 4/5; ký hiệu mặt nạ bộ mã hóa không thống nhất.
+- Cảnh báo thiếu RevealJS, plugin và KaTeX bị bác bỏ vì hồ sơ nguồn lọc không sao chép thư viện. Kiểm tra trên kho thật xác nhận `revealjs/dist/reveal.js`, `plugin/math/math.js` và `vendor/katex/` tồn tại.
+- Hậu kiểm GLM theo hồ sơ `recheck` xác nhận PASS cho năm vùng sửa và tính lại đúng $\ln(4/3)\approx0{,}287682$, $65^2/17^2\approx14{,}62$ và giới hạn tiệm cận 16.
+- Kiểm định trình xem: HTTP 200 trên cổng cục bộ 8766; Chromium kết xuất ảnh 1280×720 và PDF 14 trang. Văn bản trích từ PDF không có `qquad`, lỗi KaTeX, `undefined`, `NaN`, tên worker hoặc chỉ dẫn nội bộ.
+- Rà `$no-ai-slop`: không còn nhãn “mảnh”, lời dẫn chung chung, tự khen, câu hỏi tu từ, dấu vết worker, chú giải quy trình hay chỉ dẫn cho người viết/diễn giả. Các câu hỏi còn lại đều là hoạt động học tập có nhiệm vụ cụ thể.
+- Rà theo nguyên tắc `$quill`: thứ tự ba họ → huấn luyện trước/LLM → CLIP → ViT → giới hạn triển khai giữ được quan hệ tiên quyết; ký hiệu và bộ số được truyền liên tục từ ví dụ sang công thức và bài kiểm tra. Không tạo `quill.json`.
+
 ## Lượt phân tích nguồn mới và sửa cục bộ theo đặc tả
 
 | Mức độ | Vùng | Vấn đề | Quyết định |
