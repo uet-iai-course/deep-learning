@@ -1,5 +1,48 @@
 # Nhật ký rà soát Bài 14
 
+## Phạm vi DeepSeek bắt buộc cho các đợt sau
+
+- DeepSeek chỉ nhận một thư mục staging mới dưới `/tmp` cho từng tác vụ; không được cấp quyền ghi vào kho dự án.
+- Mỗi tác vụ chỉ được tạo đúng một tệp mảnh. Luôn đặt `MCP_WRITE_POLICY=create-once` và `MCP_MAX_WRITE_CHARS=2500`; không tăng trần theo một lần chạy thành công.
+- Tệp đích phải chưa tồn tại. Lần ghi vượt 2.500 ký tự bị từ chối nguyên khối trước khi tạo tệp; staging đã lỗi không được dùng lại.
+- Chỉ giao một hoặc hai mục đã khóa, kèm danh sách tệp đầu vào tối thiểu. Không giao toàn bộ ghi chú hoặc deck trong một lượt và không cho phép sửa nối tiếp trên mảnh đã tạo.
+- Chỉ nhận kết quả có metadata runtime `requested_model=observed_model=deepseek/deepseek-v4-flash-0731`, `provider=OpenRouter`. Lượt sai model, thiếu metadata, dở dang hoặc vượt giới hạn bị loại toàn bộ.
+- Trước khi hợp nhất, Codex kiểm UTF-8, ký tự thay thế, ký tự Cyrillic lẫn vào tiếng Việt, KaTeX, đường dẫn, phạm vi nguồn và dấu vết chỉ dẫn cho người viết hoặc diễn giả. Chỉ Codex dùng `apply_patch` để đưa phần đã duyệt vào kho.
+- Không đọc hoặc gửi `.env`, biến môi trường hay bí mật. Worker chỉ nhận hồ sơ nguồn UTF-8 đã lọc; PDF và DOCX được trích xuất cục bộ trước khi giao.
+
+## Hồ sơ đa tác tử cho bản ghi chú
+
+- Hồ sơ nguồn đã lọc nằm tại `/tmp/deep-learning-lec14-dossier.v8FBcu`; chỉ gồm văn bản UTF-8 và tệp dự án cần thiết, không có `.env`, PDF, DOCX hoặc bí mật.
+- Vai lập kế hoạch, ánh xạ nguồn và kiểm toán toán học dùng `z-ai/glm-5.3-flash`; các kết quả được nhận đều có `requested_model=observed_model=z-ai/glm-5.3-flash`, `provider=OpenRouter`.
+- DeepSeek chạy trong các staging mới `/tmp/lec14-writer-01` đến `/tmp/lec14-writer-09b` với chính sách trên. Các mảnh 01–06, 08 và 09b hợp lệ. Mảnh 07, 07b và 09 bị loại vì vượt trần hoặc hết giới hạn gọi công cụ; không có tệp một phần được dùng.
+- Mảnh 01 bịa một số định danh; mảnh 02 tuyệt đối hóa tính độc lập của tác vụ; mảnh 03 dùng cụm từ sai nghĩa; mảnh 08 khái quát sai về cập nhật tham số; mảnh 09b pha tiếng Anh quá mức. Các câu này bị loại hoặc viết lại từ đặc tả và nguồn, không được hợp nhất nguyên văn.
+
+## Hợp nhất năm báo cáo độc lập cho ghi chú
+
+Năm vai góc nhìn sinh viên, chuyên gia Học sâu, toán học–triển khai, phản biện giảng dạy và kết nối–mạch viết chạy song song bằng `z-ai/glm-5.3-flash`. Mọi báo cáo được dùng đều có `requested_model=observed_model=z-ai/glm-5.3-flash`, `provider=OpenRouter`.
+
+| Mức độ | Mục | Vấn đề và bằng chứng | Quyết định |
+|---|---|---|---|
+| trung bình | sau Ví dụ G | Ghi chú thiếu mục tiêu chung đo chất lượng sau thích nghi, trong khi outline và deck dùng nó làm điểm vào cho ba họ phương pháp. | Thêm mục tiêu kỳ vọng và nói rõ Siamese chỉ cho điểm cặp nếu chưa có quy tắc tổng hợp. |
+| trung bình | Phần mở rộng | Storyboard có vi-trace I cho exact/FO/HVP nhưng ghi chú chưa có. | Thêm ví dụ I với exact $-2$, FO $-4$ và giới hạn về tích Hessian–vector. |
+| trung bình | Bài tập 50 phút | Hai bài tính lặp nguyên ví dụ G đã giải. | Đổi truy vấn của bài ProtoNet và đổi $\alpha$ của bài MAML; giữ đúng phân bổ 10+15+15+10 phút. |
+| nhẹ | ProtoNet | $Y^Q$ khai báo $[B,N,R]$ nhưng công thức lấy nhãn theo chỉ số phẳng $q$. | Nêu phép làm phẳng nhãn thành $[B,NR]$ theo cùng thứ tự với truy vấn. |
+| nhẹ | tiên quyết và thuật ngữ | Thiếu sigmoid/BCE, shape/broadcast và ánh xạ thuật ngữ `episode`, `$N$-way $K$-shot`. | Bổ sung tại lần xuất hiện đầu; tiếng Việt vẫn là ngôn ngữ chính. |
+| nhẹ | FO-MAML | Câu “không bỏ toàn bộ Jacobian” chưa chỉ rõ phần được xấp xỉ. | Viết $\partial\phi/\partial\theta=I-\alpha H$, FO thay bằng $I$ nhưng vẫn giữ gradient truy vấn. |
+| nhẹ | mạch và ký hiệu | Thiếu câu nối vào bảng so sánh; $D_x\to D$ chưa được giải thích. | Thêm câu nối và định nghĩa $D$ là kích thước biểu diễn nhúng. |
+
+- Phát hiện “thiếu bốn SVG” bị loại: cả bốn tệp tồn tại, phân tích XML được và Chromium tải thành công; worker chỉ không liệt kê được chúng qua mẫu đường dẫn đã dùng.
+- Đề xuất đưa phân bổ phút theo cụm vào ghi chú bị loại: đây là hướng dẫn vận hành, đã nằm trong storyboard và `note-for-author.md`, không thuộc nội dung công khai.
+
+## Kiểm định ghi chú sau chỉnh sửa
+
+- `no-ai-slop`: đã rà trực tiếp theo `eval.md`; không còn câu quảng bá, diễn giải tự tán dương, dấu vết worker hay chỉ dẫn cho người viết/diễn giả. Nội dung giữ câu ngắn, số liệu cụ thể và thuật ngữ nhất quán.
+- `quill`: rà xương sống tình huống ít mẫu → phân phối tác vụ → hợp đồng hỗ trợ/truy vấn → ví dụ G → Siamese → ProtoNet → MAML → so sánh → mở rộng; các ký hiệu G, $N/K/R/B$, $S_i/Q_i$ và $\theta/\phi$ được truyền liên tục. Không tạo `quill.json`.
+- Kiểm tra tĩnh: tệp UTF-8, 4 khối câu hỏi và 4 lời giải, 4 SVG hợp lệ, không có ký tự thay thế hoặc Cyrillic lẫn vào tiếng Việt. Hai lỗi `$mathcal T$` trong bản đầu đã sửa thành `$\mathcal T$`.
+- Trình xem cục bộ tại cổng 8766 dựng 153 cụm KaTeX, không có `.katex-error`; cả bốn SVG tải đủ, có văn bản thay thế. Chromium chụp toàn trang và xuất PDF 10 trang, không ghi nhận lỗi console, lỗi trang hoặc yêu cầu thất bại.
+- `python3 -m reloadserver 8765` không khả dụng vì thiếu mô-đun; kiểm định dùng máy chủ tĩnh cục bộ trên cổng 8766. Codex Slides không có bề mặt gọi được trong phiên này, nên không tuyên bố đã dùng plugin.
+- Lượt tái kiểm đầu vượt giới hạn gọi công cụ nên không có báo cáo và bị loại. Lượt thu hẹp sau đó gán sai logit ban đầu thành $h-3$ thay vì $w(h-3)+b=0$ tại $w=b=0$, rồi kết luận nhầm gradient bằng 0. Lượt tái kiểm tranh chấp đã đặt đúng logit bằng 0 nhưng lại dùng $p-y=+0{,}5$ cho hai mẫu có $y=1$ thay vì $-0{,}5$. Cả hai kết luận bị loại. Bốn vai trước và phép tính xác định cục bộ đều cho $\nabla_w\mathcal L_S=(-1{,}5-0{,}5-0{,}5-1{,}5)/4=-1$, $\nabla_b\mathcal L_S=0$.
+
 ## Quyết định sửa sau phản biện
 
 | Vấn đề | Quyết định và bằng chứng |
