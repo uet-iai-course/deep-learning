@@ -21,6 +21,18 @@
 - Rà `$no-ai-slop`: không còn nhãn “mảnh”, lời dẫn chung chung, tự khen, câu hỏi tu từ, dấu vết worker, chú giải quy trình hay chỉ dẫn cho người viết/diễn giả. Các câu hỏi còn lại đều là hoạt động học tập có nhiệm vụ cụ thể.
 - Rà theo nguyên tắc `$quill`: thứ tự ba họ → huấn luyện trước/LLM → CLIP → ViT → giới hạn triển khai giữ được quan hệ tiên quyết; ký hiệu và bộ số được truyền liên tục từ ví dụ sang công thức và bài kiểm tra. Không tạo `quill.json`.
 
+## Đồng bộ bộ trang chiếu với ghi chú — 2026-09-03
+
+- DeepSeek chỉ được cấp staging `/tmp/lec12-deck-writer` gồm bản sao deck, ghi chú, storyboard và `AGENTS.md`; chính sách `create-once`, giới hạn 2.500 ký tự. Metadata xác nhận `requested_model=observed_model=deepseek/deepseek-v4-flash-0731`, `provider=OpenRouter`; đầu ra `output/suggestions.md` có 2.140 ký tự.
+- Worker gọi `search_text` sáu lần với đường dẫn tệp thay vì thư mục; server từ chối từng lần và không mở rộng quyền. Sau đó worker đọc lại trong `context/` và chỉ ghi một tệp đề xuất. Giới hạn này phải được giữ cho các đợt sau: `search_text.path` luôn là thư mục, tệp đích chọn bằng `file_pattern`.
+- Chấp nhận đề xuất đồng bộ $M^{valid}$, $E_{cls}$, chỉ số loss, tình huống tuyển sinh và cách gọi đầu ra ở bảng tổng hợp. Bác đề xuất thêm mã hóa–giải mã vào LLO23 và thêm CLIP vào LLO25 vì DOCX khóa CLIP ở LLO24 và không cho phép tự viết lại LLO.
+- Ghi chú diễn giả đã được viết lại để chỉ còn mạch nói chuyên môn và nguồn. Đã bỏ các chỉ dẫn như “trang sau”, “nhánh mở rộng”, “cho sinh viên”, “bài tiếp theo”, cùng chú giải nội bộ về số tự dựng; các quyết định này vẫn được lưu trong `note-for-author.md` và nhật ký.
+- Hậu kiểm GLM về toán/triển khai và kết nối/mạch viết đều PASS với metadata đúng model/provider. Không đổi số trang, thứ tự, luận điểm trung tâm hoặc ranh giới phần.
+- Kiểm định tĩnh sau đồng bộ: 42 `data-slide-id` duy nhất, 42 ghi chú, 7 `<section>` ngoài; 152 biểu thức KaTeX dựng thành công với `throwOnError: true`, `strict: "error"`; 7 SVG đọc được bằng XML và có `role="img"`, `title`, `desc`; mọi tài nguyên cục bộ tồn tại.
+- Rà trực quan các trang có nội dung hiển thị thay đổi ở 1280×720 và 900×720. Một lần đầu phát hiện chuỗi HTML `y_{n,<t}` làm công thức L12-11 bị cắt; đã đổi thành $y_{n,1:t-1}$ và kết xuất lại thành công. Các trang L12-03, 04, 06, 11, 28, 36, 37 và X03 không tràn hoặc chồng lấn.
+- Rà `$no-ai-slop` trên mặt trang và toàn bộ ghi chú: không còn dấu vết worker, nhận xét tự khen, lời dẫn rỗng, chỉ dẫn người viết/diễn giả hoặc nhãn quy trình. Rà `$quill` xác nhận câu nối và thuật ngữ vẫn đi theo tuyến ba họ → huấn luyện trước/LLM → CLIP → ViT → giới hạn triển khai.
+- Codex Slides không khả dụng trong runtime hiện tại; không tuyên bố đã rà bằng plugin. Kiểm định trực quan dùng Chromium cục bộ trên máy chủ cổng 8766.
+
 ## Lượt phân tích nguồn mới và sửa cục bộ theo đặc tả
 
 | Mức độ | Vùng | Vấn đề | Quyết định |
