@@ -1,5 +1,30 @@
 # Nhật ký rà soát Bài 13
 
+## Phạm vi worker OpenRouter cho ghi chú bài giảng — 2026-09-03
+
+- Hồ sơ nguồn lọc: `/tmp/deep-learning-lec13-dossier.RzO1O6`; mọi PDF được trích xuất cục bộ thành văn bản UTF-8 đúng dải. Không gửi PDF, `.env`, khóa hoặc bí mật cho worker.
+- Planner, tác tử ánh xạ nguồn và tác tử kiểm toán dùng `z-ai/glm-5.3-flash`; metadata runtime của các báo cáo được chấp nhận xác nhận `requested_model=observed_model=z-ai/glm-5.3-flash`, `provider=OpenRouter`.
+- Tác tử ánh xạ gọi `search_text` hai lần với đường dẫn tệp thay vì thư mục; server từ chối và worker tự sửa bằng `path=source`. Không có mở rộng quyền hay dữ liệu ngoài hồ sơ lọc.
+- Mười tác vụ DeepSeek dùng staging riêng `/tmp/lec13-writer-01` đến `/tmp/lec13-writer-10`, `MCP_WRITE_POLICY=create-once`, `MCP_MAX_WRITE_CHARS=2500`; metadata xác nhận đúng `deepseek/deepseek-v4-flash-0731` qua OpenRouter. Writer không có quyền ghi vào kho.
+- Nội dung được biên tập trước khi hợp nhất. Đã loại phép tính kỳ vọng sai $0{,}65$ do worker dùng nhầm cặp $0{,}5/0{,}8$ thay cho ví dụ đã khóa $0{,}2/0{,}8$; bỏ tuyên bố RL có thể vượt chuyên gia; làm yếu các khẳng định quá mức rằng DAgger “cắt” lỗi hoặc replay tạo dữ liệu i.i.d.; không khóa Adam vì nguồn chỉ yêu cầu bộ tối ưu.
+- Giới hạn bền vững: không tăng ngưỡng 2.500 ký tự; khi vượt phải dùng staging mới và nhiệm vụ hẹp hơn. DeepSeek chỉ tạo mảnh đề xuất, không sửa trực tiếp HTML/Markdown/SVG của dự án. Mọi số, chỉ số thời gian, terminal mask, gradient và phạm vi nguồn phải được kiểm lại cục bộ.
+
+## Năm phản biện độc lập cho ghi chú bài giảng — 2026-09-03
+
+- Năm vai góc nhìn sinh viên, chuyên gia Học sâu, chính xác toán–triển khai, phản biện giảng dạy và kết nối mạch viết đều chạy bằng `z-ai/glm-5.3-flash` qua OpenRouter. Mọi báo cáo được chấp nhận có `requested_model=observed_model=z-ai/glm-5.3-flash` và `provider=OpenRouter`.
+- Lượt chuyên gia đầu tiên vượt giới hạn tám lượt gọi công cụ và bị loại toàn bộ. Lượt thay thế dùng đúng năm tệp đã chỉ định, cấm tìm kiếm thêm và hoàn tất sau hai vòng; không tăng quyền hoặc mở rộng hồ sơ.
+- Không báo cáo nào phát hiện lỗi `chặn bàn giao` hay `nghiêm trọng`. Kiểm toán độc lập xác nhận $G=(0{,}81;0{,}9;1)$, $V^\pi=0{,}5$, cực đại $0{,}8$, đích $0{,}9$, cập nhật $0{,}4\to0{,}5$, sai số $0{,}25$, cờ kết thúc, học ngoài chính sách, kích thước tensor và hướng gradient.
+- Đã đồng bộ ví dụ BC của ghi chú với deck thành $(0{,}05;0{,}95)$; đổi quỹ đạo thành dạng đầy đủ có phần thưởng và nói rõ BC chỉ chiếu xuống cặp trạng thái–hành động; Việt hóa các từ `loss`, `pipeline`, `tuple`; bỏ dòng giới hạn biên soạn khỏi bề mặt ghi chú công khai.
+- Đã sửa bảng chu trình: L13-06 chỉ là bước kiểm tra; mạch giá trị bắt đầu vấn đề ở L13-21, dùng L13-24 làm cầu mục tiêu một bước và ghi `không áp dụng` cho triển khai vì phần đó bắt đầu ở Q-learning.
+- Các góp ý chỉ liên quan deck — cỡ chữ hiệu dụng, định nghĩa lợi tức trước L13-13, nhịp mạch 5/6, điều kiện $\gamma=1$, đáp án L13-41, ký hiệu $Q^+$, API `gather`, Huber và dòng tương tác trong bảng — được chuyển sang pha cập nhật deck, không sửa lẫn vào commit ghi chú.
+- Không thêm dòng số của hành lang vào kết luận ghi chú: bảng tổng hợp đã thu hồi đúng BC→DAgger→Q-learning→DQN; dữ kiện số vẫn được nối đầy đủ ở các cụm 4–6. Không đưa chỉ dẫn giảng viên vào ghi chú công khai; điều phối thời lượng vẫn ở `note-for-author.md`.
+
+### Tái kiểm và dựng bản ghi chú
+
+- Tác tử GLM tái kiểm đúng hai tệp đã sửa và trả `PASS`; metadata xác nhận đúng model/provider. Quỹ đạo $T$ bước, ví dụ BC, bảng chu trình, chỉ số thời gian, các số Q-learning/DQN và hướng gradient đều nhất quán.
+- `material-viewer.html` dựng đúng ghi chú từ liên kết trong `index.html`; Chromium xuất ảnh toàn trang và PDF 12 trang, không có công thức lỗi, tài nguyên thiếu hoặc văn bản quy trình trên bề mặt công khai.
+- Kiểm tra `$no-ai-slop`: bỏ tiếng Anh có cách diễn đạt Việt ổn định, câu giới hạn biên soạn và mọi lời hướng dẫn người viết; giữ tên riêng, ký hiệu và viết tắt cần thiết. Kiểm tra theo nguyên tắc `$quill`: chuỗi BC → lệch phân phối → MDP/lợi tức → giá trị/Bellman → Q-learning → DQN → tổng hợp giữ một ví dụ và một hệ ký hiệu xuyên suốt; không tạo `quill.json`.
+
 ## Quyết định nguồn và ký hiệu
 
 | Quyết định | Lý do |

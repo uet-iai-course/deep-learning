@@ -18,16 +18,16 @@ Mỗi cụm đi đủ: vấn đề → trực giác → ví dụ → hình thứ
 
 | Cụm | Vấn đề | Trực giác | Ví dụ | Hình thức/tính toán | Triển khai/ứng dụng | Kiểm tra |
 |---|---|---|---|---|---|---|
-| Mạch 1: BC | 00 | 02 | 03–04 | 05–06 | 07 | 06 |
+| Mạch 1: BC | 00 | 02 | 03–04 | 05 | 07 | 06 |
 | Mạch 2: lệch phân phối | 08 | 09 | 08 | 09–10 | 11 | 12 |
 | Mạch 3: RL và MDP | 13 | 14 | 15–16 | 17–19 | 20 | 16, 20 |
-| Mạch 4: giá trị và Bellman | 24 | 21–22 | 23, 26 | 21–22, 25, 27 | 21 (hình thức) | 23, 26 |
+| Mạch 4: giá trị và Bellman | 21, 24 | 22, 24 | 23, 26 | 21–22, 25, 27 | Không áp dụng — phần triển khai bắt đầu ở Q-learning, L13-28–30 | 23, 26 |
 | Mạch 5: Q-learning | 28 | 29–30 | 31 | 28 | 29–30 | 31 |
 | Mạch 6: DQN | 32 | 34 | 35–38 | 33, 36–38 | 39–40 | 38 |
 | Mạch 7: tổng kết | 41 | — | — | — | — | 41 |
 
 - L13-26 không thuộc mạch 5; nó là cầu vào mạch 5 (ví dụ đích một bước dẫn sang Q-learning), nằm trong stack mạch 4.
-- L13-21 giữ vai trò hình thức (định nghĩa $V^\pi$) cho mạch 4; không mang ví dụ.
+- L13-21 vừa mở vấn đề định lượng chất lượng một trạng thái vừa định nghĩa $V^\pi$; L13-24 thu hẹp vấn đề sang cách tạo mục tiêu một bước trước khi Bellman được dùng cho $V$ hoặc $Q$.
 
 - L13-16 gộp ví dụ và kiểm tra chẩn đoán: năm thành phần đầu kiểm LLO26; chính sách là nội dung bài nhưng nằm ngoài tuple MDP.
 - L13-20 gộp triển khai và kiểm tra vì quyết định triệt giá trị tương lai phụ thuộc trực tiếp cờ vừa định nghĩa.
