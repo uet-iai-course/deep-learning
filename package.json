@@ -1,0 +1,14 @@
+{
+  "name": "deep-learning-course-materials",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Automated validation for the RevealJS decks and lecture notes.",
+  "scripts": {
+    "test": "npm run test:static && npm run test:browser",
+    "test:static": "python3 scripts/validate_course.py",
+    "test:browser": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.0"
+  }
+}

@@ -10,6 +10,23 @@
 !favicon.png
 !prompt_lecture_note_deck.md
 !codex-orchestrator
+!package.json
+!package-lock.json
+!playwright.config.js
+
+!.github/
+.github/*
+!.github/workflows/
+.github/workflows/*
+!.github/workflows/course-materials-ci.yml
+
+!scripts/
+scripts/*
+!scripts/validate_course.py
+
+!tests/
+tests/*
+!tests/course-materials.spec.js
 
 !openrouter-mcp/
 !openrouter-mcp/**
