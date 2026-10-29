@@ -3,36 +3,13 @@
 
 !.gitignore
 !AGENTS.md
+!CLAUDE.md
 !README.md
 !index.html
 !index-pages.css
 !favicon.ico
 !favicon.png
 !prompt_lecture_note_deck.md
-!codex-orchestrator
-!package.json
-!package-lock.json
-!playwright.config.js
-
-!.github/
-.github/*
-!.github/workflows/
-.github/workflows/*
-!.github/workflows/course-materials-ci.yml
-
-!scripts/
-scripts/*
-!scripts/validate_course.py
-
-!tests/
-tests/*
-!tests/course-materials.spec.js
-
-!openrouter-mcp/
-!openrouter-mcp/**
-openrouter-mcp/.venv/
-openrouter-mcp/**/__pycache__/
-openrouter-mcp/tmp/
 
 !.codex/
 .codex/*
@@ -58,6 +35,9 @@ source-materials/*
 !2627-1/material-viewer.css
 !2627-1/material-viewer.js
 !2627-1/material-index.css
+!2627-1/lecture-course.css
+!2627-1/material-index-course.css
+!2627-1/material-viewer-course.css
 
 !2627-1/materials/
 2627-1/materials/*

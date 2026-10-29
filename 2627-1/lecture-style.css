@@ -1,3 +1,7 @@
+/* Common stylesheet, byte-identical in every course. Do not edit this copy: change
+   shared/css/lecture-style.css in the parent lectures workspace and run tools/css/sync_shared_css.py.
+   Course-specific rules go in lecture-course.css, which pages load right after this file. */
+
 .reveal .slides section {
     text-align: left;
 }

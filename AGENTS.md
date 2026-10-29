@@ -130,7 +130,7 @@ Mỗi bài dùng cấu trúc sau:
 ## Mẫu RevealJS bắt buộc
 
 - Dùng `2627-1/lecture-template.html` làm nền. Chỉ kế thừa cấu trúc, giao diện và cấu hình kỹ thuật; phải thay toàn bộ placeholder, nội dung và metadata.
-- Dùng `2627-1/lecture-style.css`, màu, phông chữ, khoảng cách, thẻ, lưới và chân trang hiện có. Không tạo hệ giao diện mới cho từng bài.
+- Dùng `2627-1/lecture-style.css` (chung mọi học phần, đồng bộ từ `../shared/css/`, không sửa tại chỗ; kiểu riêng của học phần đặt trong `lecture-course.css`), màu, phông chữ, khoảng cách, thẻ, lưới và chân trang hiện có. Không tạo hệ giao diện mới cho từng bài.
 - Tham khảo cách tổ chức bố cục trong kho `https://github.com/uet-iai-course/machine-learning`, ưu tiên `SLIDE_STYLE_GUIDE.md` và các tệp `2526-2/lecture-*.html`. Không sao chép nội dung, tài sản hoặc CSS từ kho tham khảo.
 - Giữ `lang="vi"`, khung `1280 × 720`, `controlsLayout: "edges"`, `slideNumber: true`, `hashOneBasedIndex: true` và `hash: true`.
 - Dùng các thư viện cục bộ trong `2627-1/`: RevealJS, `RevealMath.KaTeX`, `RevealNotes` và `RevealHighlight`.
@@ -140,7 +140,7 @@ Mỗi bài dùng cấu trúc sau:
 - Đặt chân trang ở cuối `.slides` và cập nhật đúng tên học phần, học kỳ và số bài.
 - Không phụ thuộc mạng cho các thành phần cốt lõi.
 - Không sửa RevealJS, plugin, KaTeX hoặc CSS dùng chung nếu có thể giải quyết trong tệp bài giảng.
-- Nếu cần sửa `lecture-style.css`, phải kiểm tra các bài hiện có không bị hỏng.
+- CSS chung chỉ sửa trong `../shared/css/` rồi đồng bộ. Sau mọi thay đổi CSS, phải kiểm tra các bài hiện có không bị hỏng.
 
 ## Chuyển và vẽ lại hình
 
@@ -317,7 +317,7 @@ Các tác tử sửa tệp không được chạy song song.
 - tìm tham chiếu raster; chỉ chấp nhận ngoại lệ đã được người dùng duyệt và ghi trong nhật ký;
 - kiểm tra không có tài nguyên hỏng hoặc phụ thuộc mạng cốt lõi;
 - tự tính lại shape, tham số, gradient, loss và ví dụ số quan trọng;
-- chạy `python3 -m reloadserver 8765` tại thư mục gốc; cổng là đối số vị trí, không dùng `--port`;
+- chạy `../.venv/bin/python -m reloadserver 8765` tại thư mục gốc; cổng là đối số vị trí, không dùng `--port`;
 - mở `http://localhost:8765/2627-1/lecture-NN-<ten-bai>.html` và duyệt mọi trang ngang, dọc;
 - kiểm tra tràn chữ, chữ nhỏ, chồng lấn, công thức, code, hình, tương phản và bàn phím ở khung 16:9 và một màn hình hẹp;
 - xuất danh sách toàn bộ tiêu đề `h1`, `h2`, `h3` và kiểm tra thủ công từng tiêu đề không pha tiếng Anh, trừ tên gọi, ký hiệu chuẩn hoặc viết tắt thông dụng đã được phép;
@@ -355,7 +355,7 @@ Khi bàn giao, nêu ngắn gọn: tệp trang chiếu, URL cục bộ, tệp ngu
 
 - Codex chính giữ vai trò điều phối viên và thực hiện kiểm định cuối.
 - Người dùng cho phép các worker OpenRouter đọc và gửi nội dung các tệp trong workspace tới OpenRouter để thực hiện nhiệm vụ được giao, ngoại trừ mọi tệp `.env`. Không được đọc, đưa vào prompt, ghi log hoặc gửi nội dung `.env` và các giá trị bí mật chứa trong đó tới OpenRouter.
-- Chạy worker qua các lệnh `openrouter-mcp-reader`, `openrouter-mcp-reviewer` và `openrouter-mcp-writer` trong `openrouter-mcp/`. Không dùng `collaboration.spawn_agent` cho ba vai trò này và không chuyển ngầm sang worker mặc định khi OpenRouter lỗi.
+- Chạy worker qua các lệnh `openrouter-mcp-reader`, `openrouter-mcp-reviewer` và `openrouter-mcp-writer` của gói dùng chung `../tools/openrouter-mcp/` (lệnh nằm trong `../.venv/bin/`, chạy từ gốc kho). Không dùng `collaboration.spawn_agent` cho ba vai trò này và không chuyển ngầm sang worker mặc định khi OpenRouter lỗi.
 - Dùng vai trò `openrouter_reader` qua `openrouter-mcp-reader` cho kiểm kê, lập kế hoạch và phân tích nguồn chỉ đọc.
 - Dùng vai trò `openrouter_reviewer` qua `openrouter-mcp-reviewer` cho các lượt rà soát độc lập chỉ đọc, gồm vai kết nối và mạch viết.
 - Dùng vai trò `openrouter_writer` qua `openrouter-mcp-writer` cho một phần việc ghi đã được giới hạn bằng `--repo-root`, tệp và đầu ra cụ thể.

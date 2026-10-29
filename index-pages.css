@@ -1,3 +1,7 @@
+/* Common stylesheet, byte-identical in every course. Do not edit this copy: change
+   shared/css/index-pages.css in the parent lectures workspace and run tools/css/sync_shared_css.py.
+   Course-specific rules go in index-course.css, which pages load right after this file. */
+
 :root {
     --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, sans-serif;
     --bg: #f6eee6;

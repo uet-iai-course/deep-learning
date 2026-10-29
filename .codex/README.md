@@ -1,8 +1,9 @@
 # Codex điều phối worker qua OpenRouter MCP
 
-Khởi chạy Codex bằng `./codex-orchestrator`. Codex chính vẫn dùng nhà cung cấp
+Khởi chạy Codex bằng launcher dùng chung `../tools/codex-orchestrator` (chạy từ gốc kho). Codex chính vẫn dùng nhà cung cấp
 đang cấu hình cho người dùng. Ba worker dự án được gọi bằng các tiến trình CLI
-trong `openrouter-mcp/`, không qua `collaboration.spawn_agent`:
+của gói dùng chung `../tools/openrouter-mcp/` (lệnh nằm trong `../.venv/bin/`;
+launcher đưa thư mục này lên đầu `PATH`), không qua `collaboration.spawn_agent`:
 
 - `openrouter_reader` → `openrouter-mcp-reader`;
 - `openrouter_reviewer` → `openrouter-mcp-reviewer`;
@@ -10,24 +11,24 @@ trong `openrouter-mcp/`, không qua `collaboration.spawn_agent`:
 
 ## Khởi chạy
 
-Đặt khóa trong `.env` ở gốc kho. Launcher đặt `OPENROUTER_ENV_FILE` cho các
-tiến trình con; cầu nối chỉ nạp `OPENROUTER_API_KEY` ở phía điều phối viên và
+Đặt khóa trong `.env` ở gốc kho (hoặc ở gốc workspace `..`). Launcher đặt
+`OPENROUTER_ENV_FILE` theo thứ tự đó cho các tiến trình con; cầu nối chỉ nạp `OPENROUTER_API_KEY` ở phía điều phối viên và
 không đưa tệp hoặc giá trị khóa cho worker, kể cả khi writer chỉ được cấp một
 thư mục `/tmp`:
 
 ```bash
 OPENROUTER_API_KEY="..."
-./codex-orchestrator
+../tools/codex-orchestrator
 ```
 
 Có thể truyền thẳng câu lệnh hoặc tùy chọn Codex:
 
 ```bash
-./codex-orchestrator "Dùng các tác tử theo quy trình trong AGENTS.md."
+../tools/codex-orchestrator "Dùng các tác tử theo quy trình trong AGENTS.md."
 ```
 
 Có thể dùng biến môi trường đã export thay cho `.env`. Cài môi trường cầu nối
-một lần bằng `cd openrouter-mcp && uv sync`. Mỗi lệnh worker phải dùng `--json`
+một lần cho cả workspace bằng `cd .. && ~/.local/bin/uv sync`. Mỗi lệnh worker phải dùng `--json`
 để trả metadata model/provider cùng nội dung.
 
 ## Mô hình worker và trách nhiệm điều phối

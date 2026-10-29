@@ -1,0 +1,7 @@
+/* deep-learning: course-specific rules, loaded after the shared material-viewer.css. */
+
+.markdown-body {
+  overflow-x: clip;
+}
+.markdown-body p:has(> img[src^="img/lec-"]) { width: 100%; max-width: 100%; overflow-x: auto; padding-bottom: 8px; }
+.markdown-body img[src^="img/lec-"] { width: 100%; min-width: 900px; max-width: none; }

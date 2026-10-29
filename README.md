@@ -33,7 +33,7 @@ Sau đó chỉ định rõ tệp hoặc nhóm tệp cần dùng cho một bài. 
 Chạy máy chủ tại thư mục gốc:
 
 ```bash
-python3 -m reloadserver 8765
+../.venv/bin/python -m reloadserver 8765
 ```
 
 Mở:
@@ -44,25 +44,18 @@ Mở:
 
 `lecture-template.html` chỉ là nền kỹ thuật. Khi tạo bài mới, phải thay toàn bộ placeholder, mã trang, ghi chú, nguồn và chân trang.
 
-## Kiểm định tự động
+## Kiểm định
 
-GitHub Actions chạy kiểm định khi học liệu hoặc mã kiểm thử thay đổi. Workflow gồm hai cổng tuần tự:
+Kiểm định chạy cục bộ bằng công cụ dùng chung của workspace (`../tools/courses/deep-learning/`, không nằm trong kho này) và môi trường `../.venv`. Có hai cổng tuần tự:
 
 1. kiểm định tĩnh cấu trúc 13 buổi, index, planning, RevealJS, SVG, liên kết và dấu vết quy trình trong nội dung công khai;
-2. dựng toàn bộ deck và lecture note bằng Chromium ở khung rộng/hẹp, kiểm tra KaTeX, ảnh, tràn khung, bản in và biên an toàn của viewer.
+2. dựng toàn bộ deck và lecture note bằng Chromium (Playwright cho Python) ở khung rộng/hẹp, kiểm tra KaTeX, ảnh, tràn khung, bản in và biên an toàn của viewer.
 
-Chạy cổng tĩnh tại máy cục bộ:
-
-```bash
-npm run test:static
-```
-
-Chạy đầy đủ với Node.js 20 trở lên:
+Chạy từ thư mục gốc của kho:
 
 ```bash
-npm ci
-npx playwright install --with-deps chromium
-npm test
+../.venv/bin/python ../tools/courses/deep-learning/scripts/validate_course.py
+../.venv/bin/python -m pytest ../tools/courses/deep-learning/tests
 ```
 
-Playwright tự mở máy chủ chỉ trên `127.0.0.1:8765`. Khi kiểm định trình duyệt thất bại trên GitHub Actions, báo cáo, ảnh chụp và trace được lưu trong artifact `playwright-report` trong 14 ngày.
+Kiểm định trình duyệt tự mở máy chủ tĩnh trên một cổng trống của `127.0.0.1`.

@@ -11,7 +11,8 @@ thử điều phối; không chuyển bài giảng và không sửa bất kỳ t
    - `openrouter_reviewer`;
    - `openrouter_writer`.
 
-   Gọi ba vai trò bằng các lệnh tương ứng trong `openrouter-mcp/`, luôn truyền
+   Gọi ba vai trò bằng các lệnh `openrouter-mcp-*` tương ứng trong `../.venv/bin/`
+   (gói dùng chung `../tools/openrouter-mcp/`), chạy từ gốc kho, luôn truyền
    `--json` và `--model` tường minh: reader/reviewer dùng
    `z-ai/glm-5.3-flash`, writer dùng `deepseek/deepseek-v4-flash-0731`. Không
    dùng `collaboration.spawn_agent` cho kiểm thử này.

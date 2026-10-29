@@ -1,0 +1,13 @@
+/* deep-learning: course-specific rules, loaded after the shared material-index.css. */
+
+@media (width > 900px) {
+  .term-card {
+    grid-template-columns: minmax(0, 1fr) minmax(310px, 0.72fr);
+  }
+}
+
+@media (width > 620px) {
+  .resource-actions {
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+  }
+}

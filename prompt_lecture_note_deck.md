@@ -23,20 +23,20 @@ Codex chính là điều phối viên: duyệt đầu ra ở từng điểm hợ
 - Reader và reviewer: `z-ai/glm-5.3-flash`.
 - Writer: `deepseek/deepseek-v4-flash-0731`.
 - Mọi lệnh worker phải truyền rõ `--model ... --json`, cùng `--repo-root`, `--task-profile`, mục tiêu, tệp được phép đọc/ghi, sản phẩm bàn giao và điều kiện dừng.
-- Dùng `uv run openrouter-mcp-reader`, `uv run openrouter-mcp-reviewer`, `uv run openrouter-mcp-writer` từ `openrouter-mcp/`. Không cấp gốc kho thật cho worker. Codex chính phải trích đúng dải PDF/DOCX thành UTF-8, giữ mốc tệp–trang/slide/mục, rồi tạo một thư mục dossier tạm theo allowlist cho từng stage. Reader và reviewer chỉ đọc dossier; writer chỉ ghi trong một staging root hẹp chứa dossier và bản sao các tệp đích đã khóa.
-- Không dùng các ví dụ cũ có `--repo-root ..` hoặc `MCP_REPO_ROOT=..` trong `openrouter-mcp/README.md` cho quy trình này. Chúng không đáp ứng biên bí mật của goal; các lệnh dưới đây thay thế chúng.
+- Dùng `../.venv/bin/openrouter-mcp-reader`, `../.venv/bin/openrouter-mcp-reviewer`, `../.venv/bin/openrouter-mcp-writer`, chạy từ gốc kho. Không cấp gốc kho thật cho worker. Codex chính phải trích đúng dải PDF/DOCX thành UTF-8, giữ mốc tệp–trang/slide/mục, rồi tạo một thư mục dossier tạm theo allowlist cho từng stage. Reader và reviewer chỉ đọc dossier; writer chỉ ghi trong một staging root hẹp chứa dossier và bản sao các tệp đích đã khóa.
+- Không dùng các ví dụ cũ có `--repo-root ..` hoặc `MCP_REPO_ROOT=..` trong `../tools/openrouter-mcp/README.md` cho quy trình này. Chúng không đáp ứng biên bí mật của goal; các lệnh dưới đây thay thế chúng.
 - Sau **mỗi** lệnh, kiểm tra metadata máy trả về: `requested_model`, `observed_model`, `provider`. Chỉ nhận nếu hai model đều đúng model đã yêu cầu và `provider` là OpenRouter. Nếu lệch model, thiếu metadata, lỗi, timeout hoặc đầu ra dở dang, dừng giai đoạn phụ thuộc, giữ kho ở trạng thái an toàn và báo nguyên văn lỗi; không dùng kết quả lỗi và không tự đổi model/provider.
 
 Mẫu tối thiểu của các lệnh là:
 
 ```bash
-uv run openrouter-mcp-reader --repo-root "$DOSSIER_ROOT" --model z-ai/glm-5.3-flash --json --task-profile plan "<nhiệm vụ chỉ đọc>"
-uv run openrouter-mcp-reviewer --repo-root "$REVIEW_ROOT" --model z-ai/glm-5.3-flash --json --task-profile review "<nhiệm vụ rà soát>"
-uv run openrouter-mcp-writer --repo-root "$WRITER_ROOT" --model deepseek/deepseek-v4-flash-0731 --json --task-profile write "<nhiệm vụ ghi có phạm vi hẹp>"
+../.venv/bin/openrouter-mcp-reader --repo-root "$DOSSIER_ROOT" --model z-ai/glm-5.3-flash --json --task-profile plan "<nhiệm vụ chỉ đọc>"
+../.venv/bin/openrouter-mcp-reviewer --repo-root "$REVIEW_ROOT" --model z-ai/glm-5.3-flash --json --task-profile review "<nhiệm vụ rà soát>"
+../.venv/bin/openrouter-mcp-writer --repo-root "$WRITER_ROOT" --model deepseek/deepseek-v4-flash-0731 --json --task-profile write "<nhiệm vụ ghi có phạm vi hẹp>"
 ```
 
 Với lượt soạn toàn tệp, bắt buộc thêm `MCP_WRITE_POLICY=create-once` trước
-`uv run`. Hàng rào này từ chối lần ghi thứ hai vào cùng đường dẫn và vô hiệu
+lệnh worker. Hàng rào này từ chối lần ghi thứ hai vào cùng đường dẫn và vô hiệu
 hóa `replace_text_file`; cầu nối kết thúc worker ngay sau lần ghi thành công
 đầu tiên. Luôn dùng staging mới, nơi tệp đích chưa tồn tại.
 
@@ -57,7 +57,7 @@ Không giao cho một lượt writer đồng thời đọc toàn bộ dossier, s
 11. Nếu writer lặp thao tác ghi toàn bộ tệp, tự kiểm làm hỏng công thức/Unicode/đường dẫn, hoặc đầu ra sai danh sách tệp, loại bỏ toàn bộ đầu ra của task đó và quay về checkpoint hợp lệ gần nhất. Không vá nối tiếp trên bản hỏng. Ghi sự cố, dấu hiệu phát hiện, checkpoint khôi phục và phạm vi task thay thế vào `review-log.md` để các buổi sau không lặp lại.
 12. Nếu một bản tiếng Việt dài vẫn hỏng Unicode/KaTeX dù đã dùng `create-once`, không thử lại toàn bản quá một lần. Chuyển sang các task mảnh tuần tự trong staging mới, mỗi mảnh chỉ bao phủ một hoặc hai mục đã khóa và mặc định không quá 2.500 ký tự; mỗi task phải đặt cả `MCP_WRITE_POLICY=create-once` và `MCP_MAX_WRITE_CHARS=2500`. Server từ chối toàn bộ lần ghi vượt trần và không tạo tệp đích một phần. Codex kiểm UTF-8, ký tự thay thế, ký tự Cyrillic lẫn vào tiếng Việt, KaTeX và đường dẫn trước khi hợp nhất bằng `apply_patch`. Bác toàn bộ mảnh có lỗi; không sửa nối tiếp trên mảnh hỏng.
 
-Khóa phải được điều phối viên nạp qua môi trường hoặc launcher `codex-orchestrator`; CLI hiện tại không có tùy chọn `--api-key-root`. Trước mỗi lệnh, liệt kê toàn bộ dossier theo allowlist, từ chối symlink và quét cả tên lẫn nội dung để loại `.env*`, khóa, token, mật khẩu, cookie, khóa riêng, thông tin xác thực và chuỗi bí mật. Không chép tệp nhị phân nguồn, đường dẫn khóa hay nội dung bí mật vào dossier, task, log hoặc kết quả worker. Nếu không chứng minh được dossier đã lọc, dừng trước khi gọi OpenRouter.
+Khóa phải được điều phối viên nạp qua môi trường hoặc launcher `../tools/codex-orchestrator` (`OPENROUTER_ENV_FILE`), hoặc qua tùy chọn `--api-key-root`. Trước mỗi lệnh, liệt kê toàn bộ dossier theo allowlist, từ chối symlink và quét cả tên lẫn nội dung để loại `.env*`, khóa, token, mật khẩu, cookie, khóa riêng, thông tin xác thực và chuỗi bí mật. Không chép tệp nhị phân nguồn, đường dẫn khóa hay nội dung bí mật vào dossier, task, log hoặc kết quả worker. Nếu không chứng minh được dossier đã lọc, dừng trước khi gọi OpenRouter.
 
 ## Tiền kiểm hạ tầng ghi chú
 
@@ -138,7 +138,7 @@ Chỉ bắt đầu sau khi commit ghi chú xuất hiện trên `origin/main`.
 6. **Checkpoint B2 — Biên tập cuối và Reveal QA.** Đọc toàn bộ nội dung hiển thị và mọi `<aside class="notes">`, chạy lượt `$no-ai-slop` cuối rồi tự kiểm theo `no-ai-slop/eval.md`. Xóa dấu vết soạn bằng AI, lời dẫn rỗng, câu hỏi tu từ, khẩu hiệu, kết luận lặp, nhịp câu máy móc, siêu bình luận và nhãn quy trình. Ghi chú diễn giả chỉ giữ mạch nói, giả thiết, lỗi dễ mắc, chuyển ý tự nhiên, đáp án hoặc nguồn cần cho giảng dạy; bỏ các chỉ dẫn kiểu “câu nối”, “trang này hình thức hóa”, “người soạn cần”, “mục này phục vụ” và chuyển hướng dẫn triển khai còn cần sang `note-for-author.md`. Không xóa nội dung kỹ thuật hoặc nguồn chỉ để làm văn bản ngắn hơn. Sau lượt này, xác nhận mỗi `data-slide-id` duy nhất, 5–7 `<section>` ngoài gồm mở đầu/kết luận trừ ngoại lệ đã ghi, cấu hình Reveal bắt buộc, thư viện cục bộ, ghi chú diễn giả, chân trang, đường dẫn tương đối, SVG truy cập được và không có raster chưa duyệt. Chạy server từ gốc kho:
 
    ```bash
-   python3 -m reloadserver 8765
+   ../.venv/bin/python -m reloadserver 8765
    ```
 
    Kiểm deck và viewer tại cổng 8765 bằng bàn phím, màn hình rộng/hẹp và bản in; render mọi công thức bằng KaTeX với chế độ nghiêm ngặt phù hợp. Rà riêng toàn bộ `h1`, `h2`, `h3` để loại tiêu đề pha tiếng Anh trái quy ước. Dùng Codex Slides để rà trực quan và xác minh đúng phiên bản hiển thị; nếu công cụ không khả dụng, ghi rõ giới hạn, vẫn hoàn tất QA RevealJS cục bộ và không tuyên bố đã dùng Codex Slides.

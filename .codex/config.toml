@@ -1,3 +1,5 @@
-# Worker OpenRouter được gọi qua các lệnh trong openrouter-mcp, không qua
+# Worker OpenRouter được gọi qua các lệnh openrouter-mcp-* của gói dùng chung
+# ../tools/openrouter-mcp (cài trong ../.venv/bin), không qua
 # collaboration.spawn_agent. Khóa API lấy từ biến môi trường hoặc .env phía
-# điều phối viên; .env không được đưa vào công cụ hay nội dung worker.
+# điều phối viên (gốc kho, rồi gốc workspace); .env không được đưa vào công cụ
+# hay nội dung worker.
