@@ -31,6 +31,24 @@ Bốn tệp quy trình gồm:
 
 Điều phối viên phải dùng nhiều tác tử theo quy trình dưới đây. Không giao toàn bộ việc lập kế hoạch, phân tích nguồn, soạn, phản biện và chỉnh sửa cho một tác tử.
 
+## Tham số trang chiếu của học phần
+
+Bộ trang chiếu mới hoặc dựng lại của học phần theo các nguyên tắc NT1–NT28 trong `NGUYEN-TAC-TRANG-CHIEU.md` ở gốc repo. Tệp đó là bản chép giống hệt của `shared/docs/nguyen-tac-trang-chieu.md` trong workspace, không sửa trong repo; nó thắng các quy định về trang chiếu trong tệp này khi mâu thuẫn, trừ các tham số dưới đây. Bộ trang chiếu 01–08 và 10–14 đã có giữ quy định cũ cho tới đợt sửa có ghi nhật ký theo yêu cầu người dùng.
+
+| Mã | Tham số | Giá trị của học phần | Căn cứ |
+|---|---|---|---|
+| P1 | Nguồn nội dung | `deck nguồn + ghi chú`: deck nguồn là các slide và dải trang mà `source.md` ánh xạ cho buổi (buổi 06, 13, 14 thêm các PDF đã duyệt), giữ mạch chính của slide trong phạm vi DOCX đề cương; deck và `materials/lec-NN/lecture-note.md` dùng cùng thuật ngữ, ký hiệu, giả thiết, ví dụ và thứ tự khái niệm | mục "Ánh xạ nguồn theo buổi", "Thứ tự ưu tiên nguồn"; `prompt_lecture_note_deck.md` mục "Đầu ra bắt buộc của buổi", "Pha B" |
+| P2 | Thuật ngữ, chính tả | bảng thuật ngữ, ký hiệu trong `planning/lec-NN/outline.md` và ghi chú của bài; "Ký hiệu", "kỳ vọng", "phân phối" như ghi chú; tiếng Anh theo mục "Ngôn ngữ và biên tập"; dấu thập phân: mặc định | mục "Tổ chức tệp", "Ngôn ngữ và biên tập"; `lecture-note.md` các bài; `../tools/deck/courses.json` (`symbol_label`) |
+| P3 | Nhãn kết luận, nhãn bổ sung | "Kết luận:" (mặc định; ghi chú không dùng nhãn "Bảo đảm:"); nhãn bổ sung "Cách khác:", "Dạng khác:", "Đầu vào:", "Đầu ra:" | `../tools/deck/courses.json` (`extra_labels`); đầu vào, đầu ra của thuật toán: mục "Cấu trúc học tập", "Tiêu chuẩn nội dung Học sâu" |
+| P4 | Cột thứ ba bảng tổng kết | mặc định | học phần không quy định |
+| P5 | Trang bổ sung ở mạch mở đầu | mặc định (không có) | học phần không quy định |
+| P6 | Thời lượng, số trang | 120 phút trình chiếu trong buổi 150 phút; tiết bài tập 50 phút thiết kế riêng, không tính vào deck; storyboard chia tuyến lõi 100 phút và tuyến mở rộng 20 phút; số trang: mặc định | mục "Đối tượng và thời lượng" |
+| P7 | Khung kỹ thuật | nền `2627-1/lecture-template.html`; khung 1280 × 720, `controlsLayout: "edges"`, `slideNumber`, `hashOneBasedIndex`, `hash`, KaTeX `throwOnError: true`, plugin cục bộ `RevealMath.KaTeX`, `RevealNotes`, `RevealHighlight`; chân trang "Học sâu · Học kỳ 1, 2026–2027 · Bài NN" ở cuối `.slides`; `data-slide-id`: mặc định; `<style>`, `style=""`: mặc định (không dùng); CSS: `lecture-style.css` rồi `2627-1/lecture-course.css` (tạo khi cần, đã có trong `.gitignore`); chế độ đọc màn hẹp: học phần không quy định | mục "Mẫu RevealJS bắt buộc", "Kiểm định cuối"; `CLAUDE.md` mục "Course-specific rules" (CSS, RevealJS config) |
+| P8 | Nguồn ngoài | DOCX đề cương; slide và dải trang theo `source.md`; 13 PDF đã duyệt cho buổi 06, 13, 14; `source-materials/textbooks/hocsau_draft.pdf` (khôi phục tiên quyết, kiểm chứng công thức, kích thước tensor, giả thiết); paper, code do người dùng cung cấp. Không dùng nguồn web chưa được chọn; năm PDF `lec12_detection_intro.pdf`, `lec13_detection.pdf`, `lec18_diffusion.pdf`, `lec19_diffusion_editing.pdf`, `lec20_diffusion_systems.pdf` chỉ dùng khi được duyệt | mục "Ánh xạ nguồn theo buổi", "Thứ tự ưu tiên nguồn" |
+| P9 | Tác tử | phiên Claude Code: Opus 5.5, mọi vai mức `high`, theo các giai đoạn của mục "Quy trình đa tác tử"; phiên Codex: worker OpenRouter theo mục "Điều phối mô hình trong dự án" và `prompt_lecture_note_deck.md` | `CLAUDE.md` mục "Sub-agents (course settings)" |
+| P10 | Kiểm tra riêng | `../tools/courses/deep-learning/scripts/validate_course.py` (5–7 `<section>` ngoài, số ghi chú diễn giả bằng số trang, chân trang có số bài, cụm quy trình bị cấm trên deck, ảnh chỉ SVG, chỉ mục); `pytest ../tools/courses/deep-learning/tests` (trình duyệt, màn rộng, màn hẹp, bản in); `deck_lint.py --course deep-learning`; liệt kê và rà từng tiêu đề `h1`–`h3`; thẻ chỉ mục có "Bài giảng" và "Ghi chú bài giảng"; phiên Codex thêm Codex Slides | `CLAUDE.md` mục "Commands"; mục "Kiểm định cuối"; `prompt_lecture_note_deck.md` mục "Đầu ra bắt buộc của buổi" |
+| P11 | Nguyên tắc bổ sung | NT-DL-1: trước khi dùng tensor, trang nêu miền, kiểu dữ liệu, kích thước, thứ tự trục, chiều lô, quy ước quảng bá và thiết bị, và tách lan truyền xuôi, hàm mất mát, lan truyền ngược, bước tối ưu, chế độ huấn luyện và suy luận (mục "Tiêu chuẩn nội dung Học sâu"). NT-DL-2: bước ứng dụng của hành trình NT8 nối công thức với lan truyền xuôi, lan truyền ngược, vòng huấn luyện, suy luận hoặc một bài toán Học sâu, và storyboard ghi tensor hoặc dữ kiện truyền từ ví dụ sang công thức và code (mục "Cấu trúc học tập"). NT-DL-3: code trên trang theo mục "Tiêu chuẩn code và trình diễn" (ngắn, một cơ chế, giữ API của nguồn, nêu kích thước vào và ra, chế độ train/eval, thiết bị, nguồn ngẫu nhiên; không code demo ngoài nguồn). NT-DL-4: chữ thân bài từ `0.75em`; dưới `0.65em` chỉ cho chú thích ngắn đã được vai sinh viên xác nhận đọc được (mục "Tiêu chuẩn trang chiếu và ghi chú"). NT-DL-5: SVG nhỏ dùng một lần được đặt nội dòng khi giúp bố cục hoặc khả năng tiếp cận; đồ thị có tên trục, đơn vị, chú giải theo nguồn (mục "Chuyển và vẽ lại hình"). NT-DL-6: tuyến giảng, phương án cắt, chỉ dẫn triển khai, điểm cần kiểm chứng và lời giải chi tiết ghi trong `planning/lec-NN/note-for-author.md` (mục "Tổ chức tệp"). NT-DL-7: mọi sai khác so với slide nguồn, kể cả nội dung lấy từ giáo trình, có lý do trong `review-log.md` ngoài storyboard (mục "Ánh xạ nguồn theo buổi"). NT-DL-8: trang "Bài tập về nhà" chỉ liên kết "Ghi chú bài giảng" (`material-viewer.html?doc=materials/lec-NN/lecture-note.md&deck=<tệp deck>`), vì bài tập nằm trong ghi chú và trình xem chỉ nhận `lecture-note.md` (`prompt_lecture_note_deck.md` mục "Tiền kiểm hạ tầng ghi chú"). | các mục đã dẫn |
+
 ## Đối tượng và thời lượng
 
 - Đối tượng mặc định là sinh viên đại học đã học đại số tuyến tính, giải tích, xác suất, lập trình Python và học máy nhập môn.
@@ -69,7 +87,7 @@ Bốn tệp quy trình gồm:
 - Trong mọi tệp Markdown, chỉ dùng `$...$` cho công thức nội dòng và `$$...$$` cho công thức khối.
 - Dùng `$no-ai-slop` để biên tập nội dung hiển thị và ghi chú diễn giả. Tự kiểm bản cuối theo `no-ai-slop/eval.md`.
 - Dùng `$quill` để rà dàn ý, thứ tự khái niệm, thuật ngữ, ký hiệu và tính liên tục giữa các phần. Không khởi tạo `quill.json`.
-- Mọi chỉ dẫn dành cho người soạn, tuyến cắt, trạng thái kiểm chứng, quyết định nội bộ và đáp án chi tiết phải ghi trong `note-for-author.md`, không đưa lên mặt trang chiếu hoặc ghi chú diễn giả.
+- Mọi chỉ dẫn dành cho người soạn, tuyến cắt, trạng thái kiểm chứng, quyết định nội bộ và đáp án chi tiết phải ghi trong `note-for-author.md`, không đưa lên mặt trang chiếu hoặc ghi chú diễn giả. Bộ trang chiếu mới hoặc dựng lại đặt "Lời giải:" trên mặt trang và đáp án ngắn trong ghi chú diễn giả theo `NGUYEN-TAC-TRANG-CHIEU.md`, NT15, NT24.
 
 ## Thứ tự ưu tiên nguồn
 
@@ -317,8 +335,8 @@ Các tác tử sửa tệp không được chạy song song.
 - tìm tham chiếu raster; chỉ chấp nhận ngoại lệ đã được người dùng duyệt và ghi trong nhật ký;
 - kiểm tra không có tài nguyên hỏng hoặc phụ thuộc mạng cốt lõi;
 - tự tính lại shape, tham số, gradient, loss và ví dụ số quan trọng;
-- chạy `../.venv/bin/python -m reloadserver 8765` tại thư mục gốc; cổng là đối số vị trí, không dùng `--port`;
-- mở `http://localhost:8765/2627-1/lecture-NN-<ten-bai>.html` và duyệt mọi trang ngang, dọc;
+- chạy máy chủ tĩnh tạm tại thư mục gốc, mỗi tác tử một cổng, tắt sau khi xong: `../.venv/bin/python -m http.server <cổng> --bind 127.0.0.1` (xem `NGUYEN-TAC-TRANG-CHIEU.md`, NT28); `../.venv/bin/python -m reloadserver 8765` chỉ dùng để xem trước, cổng là đối số vị trí, không dùng `--port`;
+- mở `http://localhost:<cổng>/2627-1/lecture-NN-<ten-bai>.html` và duyệt mọi trang ngang, dọc;
 - kiểm tra tràn chữ, chữ nhỏ, chồng lấn, công thức, code, hình, tương phản và bàn phím ở khung 16:9 và một màn hình hẹp;
 - xuất danh sách toàn bộ tiêu đề `h1`, `h2`, `h3` và kiểm tra thủ công từng tiêu đề không pha tiếng Anh, trừ tên gọi, ký hiệu chuẩn hoặc viết tắt thông dụng đã được phép;
 - dùng Codex Slides để rà trực quan sau cùng và xác minh Design Files khớp bản trong kho;
@@ -345,7 +363,7 @@ Chỉ bàn giao khi:
 - mọi hình đã được vẽ lại thành SVG hoặc có ngoại lệ raster được duyệt;
 - năm báo cáo độc lập đã có và mọi lỗi bắt buộc đã được xử lý;
 - công thức, shape, gradient, ví dụ số, giả mã, code và giả thiết đã được kiểm tra;
-- bộ trang chiếu chạy tại cổng `8765`, không có lỗi tài nguyên hoặc hiển thị nghiêm trọng;
+- bộ trang chiếu chạy trên máy chủ cục bộ tại gốc kho (xem `NGUYEN-TAC-TRANG-CHIEU.md`, NT28), không có lỗi tài nguyên hoặc hiển thị nghiêm trọng;
 - `index.html` chỉ liên kết tới HTML của bài hoàn thành;
 - nội dung trong kho khớp bản đã rà trong Codex Slides, hoặc giới hạn công cụ đã được ghi rõ.
 

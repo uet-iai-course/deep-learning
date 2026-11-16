@@ -2,12 +2,13 @@
 
 This repo holds the RevealJS lecture decks, lecture notes and planning files for **Học sâu** (UET.AI3056), semester 1 of 2026–2027 (`2627-1/`).
 
-The workspace file `../CLAUDE.md` carries the rules shared by every course: environment, static-site rules, shared CSS, writing style, `no-ai-slop`/`quill`, the sub-agent policy, visual verification and git basics. This file holds only what is specific to this course. `AGENTS.md` is the full, authoritative specification, written in Vietnamese; `prompt_lecture_note_deck.md` is the `/goal` workflow (lecture note first, then deck). Precedence: the user's instructions first, then `AGENTS.md` (and `prompt_lecture_note_deck.md` when that workflow runs), then this file, then `../CLAUDE.md`. Read the relevant section of `AGENTS.md` before any deck or note work.
+The workspace file `../CLAUDE.md` carries the rules shared by every course: environment, static-site rules, shared CSS, writing style, `no-ai-slop`/`quill`, the sub-agent policy, visual verification and git basics. This file holds only what is specific to this course. `AGENTS.md` is the full, authoritative specification, written in Vietnamese; `prompt_lecture_note_deck.md` is the `/goal` workflow (lecture note first, then deck). Precedence: the user's instructions first, then `AGENTS.md` (and `prompt_lecture_note_deck.md` when that workflow runs), then this file, then `../CLAUDE.md`. For new or rebuilt decks, `NGUYEN-TAC-TRANG-CHIEU.md` (NT1–NT28) ranks above the slide rules in `AGENTS.md` and this file, except the parameters in `AGENTS.md` §"Tham số trang chiếu của học phần"; existing decks keep the old rules until a logged revision the user asks for. Read the relevant section of `AGENTS.md` before any deck or note work.
 
 ## Repo map
 
 | Path | Contents |
 |---|---|
+| `NGUYEN-TAC-TRANG-CHIEU.md` | Shared slide principles NT1–NT28; byte-identical copy of `../shared/docs/nguyen-tac-trang-chieu.md`, never edited here |
 | `source.md` | Session-by-session source map: files and page ranges for each of the 13 sessions. **Read the session's entry in full before planning.** |
 | `source-materials/{slides,textbooks,papers,resources}/` | Sources; the syllabus DOCX is in `resources/`, the course textbook draft is `textbooks/hocsau_draft.pdf` (binaries untracked) |
 | `2627-1/lecture-NN-<ten-bai>.html` | One RevealJS deck per session (01–08, 10–14) |
@@ -25,7 +26,7 @@ The workspace file `../CLAUDE.md` carries the rules shared by every course: envi
 ## Commands
 
 ```bash
-../.venv/bin/python -m reloadserver 8765          # from repo root
+../.venv/bin/python -m reloadserver 8765          # from repo root; preview only (final deck checks: temporary http.server, NT28)
 # deck: http://localhost:8765/2627-1/lecture-NN-<ten-bai>.html
 # note: http://localhost:8765/2627-1/material-viewer.html?doc=materials/lec-NN/lecture-note.md&deck=lecture-NN-<ten-bai>.html
 
@@ -42,7 +43,7 @@ Both gates must pass before a deck or note is handed over. There is no CI on Git
 - **Source priority** (`AGENTS.md` §"Thứ tự ưu tiên nguồn"): user instruction → syllabus DOCX (sessions, topics, LLO, scope, boundaries; trace by `III.2 → Buổi N → field`) → the slides and page ranges `source.md` maps to the session (content and order) → `hocsau_draft.pdf`, papers, code → template and CSS → `AGENTS.md` conventions. The first draft Vietnamises exactly the mapped pages and keeps the slides' flow; the textbook only restores prerequisites, checks formulas, shapes and assumptions. Log every deviation in `review-log.md`.
 - For a mapped session, the mapped files are the chosen source; don't ask again. Sessions 06, 13 and 14 have 13 user-approved extra PDFs (see `source.md`); stop and ask only if one is missing, unreadable, or content outside the approved ranges is needed. Never use `lec12_detection_intro.pdf`, `lec13_detection.pdf`, `lec18_diffusion.pdf`, `lec19_diffusion_editing.pdf` or `lec20_diffusion_systems.pdf` without explicit approval.
 - Keep the two syllabus inconsistencies as they are (session 07 repeats `LLO3`; mid-term placed in week 8 vs session 09). Don't reconcile them.
-- **Planning files:** four per lecture; `note-for-author.md` holds teaching routes, cut options, detailed answers, implementation hints and open checks — never on the slide face or in speaker notes.
+- **Planning files:** four per lecture; `note-for-author.md` holds teaching routes, cut options, detailed answers, implementation hints and open checks — never on the slide face or in speaker notes, except that new or rebuilt decks put "Lời giải:" on the slide face and short answers in speaker notes (NT15, NT24).
 - **Timing:** each session is two 50-minute lecture periods plus one 50-minute exercise period. The deck covers 120 minutes: a 100-minute core route and a 20-minute extension that can be cut. The exercise period is designed separately.
 - **CSS:** decks link `lecture-style.css` then `lecture-course.css` (if the course has one). Use the existing colours, fonts, spacing, cards, grids and footer; no per-lecture design systems. Layout reference (never copy content, assets or CSS): `https://github.com/uet-iai-course/machine-learning`, `SLIDE_STYLE_GUIDE.md` and its `2526-2/lecture-*.html`.
 - **RevealJS config:** `lang="vi"`, 1280×720, `controlsLayout: "edges"`, `slideNumber: true`, `hashOneBasedIndex: true`, `hash: true`; local `RevealMath.KaTeX`, `RevealNotes`, `RevealHighlight`; outer `<section>` per strand (5–7 strands incl. opening and conclusion), inner per slide; unique `data-slide-id`; footer at the end of `.slides`.
